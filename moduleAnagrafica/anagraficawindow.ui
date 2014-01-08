@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>anagraficaWindow</class>
+ <widget class="QMainWindow" name="anagraficaWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>708</width>
+    <height>519</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Anagrafica Clienti Fornitori</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Ricerca &amp;veloce:</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLineEdit" name="le_search"/>
+         </item>
+         <item>
+          <widget class="QToolButton" name="pb_clear">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>X</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="title">
+         <string>Clienti / Forni&amp;tori:</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QTableView" name="anagraficaView">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="tabKeyNavigation">
+            <bool>false</bool>
+           </property>
+           <property name="showDropIndicator" stdset="0">
+            <bool>true</bool>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>150</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>&amp;Documenti:</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QTableView" name="docView">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>150</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QCheckBox" name="clientiCheck">
+           <property name="text">
+            <string>Cli&amp;enti</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="fornitoriCheck">
+           <property name="text">
+            <string>&amp;Fornitori</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_2">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="pb_add">
+           <property name="text">
+            <string>&amp;Aggiungi</string>
+           </property>
+           <property name="autoDefault">
+            <bool>true</bool>
+           </property>
+           <property name="default">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_update">
+           <property name="text">
+            <string>&amp;Modifica</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_remove">
+           <property name="text">
+            <string>&amp;Rimuovi</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_refreshdb">
+           <property name="text">
+            <string>Aggiorna</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>165</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_close">
+           <property name="text">
+            <string>&amp;Chiudi</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>708</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOpzioni">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>&amp;Opzioni</string>
+    </property>
+    <widget class="QMenu" name="menuRicerca_Veloce">
+     <property name="tearOffEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>Ricerca Veloce</string>
+     </property>
+     <addaction name="actionRagione_Sociale"/>
+     <addaction name="actionCognome"/>
+     <addaction name="actionPartita_iva"/>
+     <addaction name="actionCodice_Fiscale"/>
+    </widget>
+    <addaction name="actionConfigura"/>
+    <addaction name="menuRicerca_Veloce"/>
+   </widget>
+   <addaction name="menuOpzioni"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionConfigura">
+   <property name="text">
+    <string>&amp;Configura...</string>
+   </property>
+  </action>
+  <action name="actionRagione_Sociale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ragione Sociale</string>
+   </property>
+   <property name="toolTip">
+    <string>ricerca per Ragione Sociale</string>
+   </property>
+  </action>
+  <action name="actionNome">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Nome</string>
+   </property>
+   <property name="toolTip">
+    <string>ricerca per Nome</string>
+   </property>
+  </action>
+  <action name="actionCognome">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cognome</string>
+   </property>
+   <property name="toolTip">
+    <string>ricerca per Cognome</string>
+   </property>
+  </action>
+  <action name="actionPartita_iva">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Partita IVA</string>
+   </property>
+   <property name="toolTip">
+    <string>ricerca per Partita IVA</string>
+   </property>
+  </action>
+  <action name="actionCodice_Fiscale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Codice Fiscale</string>
+   </property>
+   <property name="toolTip">
+    <string>ricerca per Codice Fiscale</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pb_add</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>addRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>651</x>
+     <y>123</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_update</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>updateRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>616</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>592</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_remove</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>removeRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>593</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_close</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>641</x>
+     <y>461</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>621</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clientiCheck</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>updateTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>615</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>595</x>
+     <y>38</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fornitoriCheck</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>updateTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>625</x>
+     <y>78</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>594</x>
+     <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_search</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>searchRecord(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>249</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>25</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupBox_3</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>docView</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>22</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>anagraficaView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>updateRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>122</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>595</x>
+     <y>235</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionConfigura</sender>
+   <signal>triggered()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>openConfigDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>le_search</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>567</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>509</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_refreshdb</sender>
+   <signal>clicked()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>updateTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>646</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>593</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRagione_Sociale</sender>
+   <signal>changed()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>modifyStringSearch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCognome</sender>
+   <signal>changed()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>modifyStringSearch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPartita_iva</sender>
+   <signal>changed()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>modifyStringSearch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCodice_Fiscale</sender>
+   <signal>changed()</signal>
+   <receiver>anagraficaWindow</receiver>
+   <slot>modifyStringSearch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addRecord()</slot>
+  <slot>removeRecord()</slot>
+  <slot>searchRecord(QString)</slot>
+  <slot>updateRecord()</slot>
+  <slot>updateTable()</slot>
+  <slot>openConfigDialog()</slot>
+  <slot>modifyStringSearch()</slot>
+ </slots>
+</ui>
