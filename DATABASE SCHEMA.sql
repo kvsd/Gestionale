@@ -284,7 +284,9 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         data_arrivo DATE DEFAULT current_date,
                         id_sede_magazzino INTEGER references sede_magazzino(id) DEFAULT 0,
                         note TEXT);
-INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, 50, '7.50', '2.15',
+INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, 50, '7.50', '2.15',
+                             '9.15', '9.20', '241', DEFAULT, 1, 'note');
+INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AAA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, 50, '7.50', '2.15',
                              '9.15', '9.20', '241', DEFAULT, 1, 'note');
 --######################################################################################
 CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", "Cod.Articolo", "Cod.Fornitore",
@@ -292,8 +294,8 @@ CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", 
                           "Imponibile", "Iva", "Prezzo Finito", "Prezzo Vendità", "Nr.Fattura", "Data Arrivo", "Sede Magazzino",
                           "Note") AS
 SELECT mgz.id, mgz.descr, anag.rag_sociale, marca.descr, mgz.modello, mgz.cod_articolo, mgz.cod_fornitore, mgz.cod_barre,
-       cat_merce.descr, cod_iva.descr, um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_acquisto, mgz.sconto_fornitore,
-       mgz.ricarico, mgz.imponibile, mgz.iva, mgz.prezzo_finito, mgz.prezzo_vendita, mgz.fattura, mgz.data_arrivo, sm.descr,
+       cat_merce.descr, cod_iva.descr, um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_acquisto::money, mgz.sconto_fornitore,
+       mgz.ricarico, mgz.imponibile::money, mgz.iva::money, mgz.prezzo_finito::money, mgz.prezzo_vendita::money, mgz.fattura, mgz.data_arrivo, sm.descr,
        mgz.note FROM magazzino AS mgz, anagrafica AS anag, marca, cat_merce, cod_iva, unita_misura AS um, sede_magazzino AS sm
 WHERE anag.id = mgz.id_fornitore AND
       marca.id = mgz.id_marca AND
@@ -311,5 +313,17 @@ CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino
                               prezzo_finito DECIMAL,
                               prezzo_vendita DECIMAL,
                               fattura TEXT);
+INSERT INTO listino_storico VALUES (1, '08/02/2012', 10, 8, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (1, '05/06/2012', 7, 8, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (1, '12/08/2012', 8, 8, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (1, '18/10/2012', 10, 8, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (2, '08/02/2012', 10, 5, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (2, '05/06/2012', 7, 2, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (2, '12/08/2012', 8, 8, 2, 10, 11, 45);
+INSERT INTO listino_storico VALUES (2, '18/10/2012', 10, 4, 2, 10, 11, 45);
+
 
 --########################################################################################
+CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Imponibile", "IVA", "Prezzo finito", "Vendità", "Nr. Fattura") AS
+SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.imponibile::money, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
+FROM listino_storico AS ls ORDER BY ls.id_articolo, ls.data_arrivo;
