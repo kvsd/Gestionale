@@ -24,6 +24,7 @@ private:
     Ui::MagazzinoWindow *ui;
     QSqlQueryModel *magazzinoModel;
     QSqlQueryModel *selectionModel;
+    QSqlQueryModel *storicoModel;
 
     QString id_fornitore;
     QMap <QString, QString> filterMap;
@@ -37,6 +38,7 @@ public slots:
     void updateTableMagazzino(void);
     void updateFilterValue(QString s);
     void addRecord();
+    void updateStoricoView(QModelIndex index);
 };
 
 #endif // MAGAZZINOWINDOW_H

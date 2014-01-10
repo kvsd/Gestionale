@@ -139,7 +139,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QTableView" name="listinoView">
+            <widget class="QTableView" name="storicoView">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -374,12 +374,28 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>474</x>
-     <y>303</y>
+     <x>526</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>539</x>
      <y>306</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>articoloView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateStoricoView(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>285</y>
     </hint>
    </hints>
   </connection>
@@ -388,5 +404,6 @@
   <slot>addRecord()</slot>
   <slot>updateFilterValue(QString)</slot>
   <slot>updateTableMagazzino()</slot>
+  <slot>updateStoricoView(QModelIndex)</slot>
  </slots>
 </ui>

@@ -9,6 +9,7 @@ const QString SELECT_ARTICOLI_MARCA = "SELECT * FROM vw_magazzino WHERE \"Marca\
 const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Cat.Merce\" = '%1'";
 const QString SELECT_FILTER = "SELECT id, descr FROM %1";
 const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";
+const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\"";
 
 enum columns {COL_ID=0,
               COL_ID_FORN, COL_RAG_SOC=1, COL_DESCR=1};
@@ -27,6 +28,9 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
 
     selectionModel = new QSqlQueryModel(this);
     ui->cb_filter_value->setModel(selectionModel);
+
+    storicoModel = new QSqlQueryModel(this);
+    ui->storicoView->setModel(storicoModel);
 
     filterMap["-----"] = "";
     filterMap["Fornitore"] = "";
@@ -93,4 +97,13 @@ void MagazzinoWindow::updateFilterValue(QString s)
         selectionModel->setQuery(SELECT_FILTER.arg(filterMap[s]));
     }
     ui->cb_filter_value->setModelColumn(COL_DESCR);
+}
+
+void MagazzinoWindow::updateStoricoView(QModelIndex index)
+{
+    QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
+    storicoModel->setQuery(SELECT_STORICO.arg(id));
+    ui->storicoView->hideColumn(COL_ID);
+    ui->storicoView->resizeColumnsToContents();
+    ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }
