@@ -7,9 +7,6 @@ const QString DELETEQUERY = "DELETE FROM agenti WHERE id=:id";
 const QString SELECT_QUERY = "SELECT * FROM agenti WHERE id>0 ORDER BY cognome";
 const QString STR_SEARCH = "SELECT * FROM agenti WHERE \"cognome\" ILIKE '\%%1\%' AND id>0 ORDER BY cognome";
 
-enum columns {COL_ID, COL_NOME, COL_COGNOME, COL_TEL, COL_CEL, COL_EMAIL};
-
-
 AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AgentiViewDialog)
@@ -17,14 +14,14 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     ui->setupUi(this);
     model = new QSqlQueryModel(this);
     model->setQuery(SELECT_QUERY);
-    model->setHeaderData(COL_NOME, Qt::Horizontal, "Nome");
-    model->setHeaderData(COL_COGNOME, Qt::Horizontal, "Cognome");
-    model->setHeaderData(COL_TEL, Qt::Horizontal, "Telefono");
-    model->setHeaderData(COL_CEL, Qt::Horizontal, "Cellulare");
-    model->setHeaderData(COL_EMAIL, Qt::Horizontal, "E-mail");
+    model->setHeaderData(agenti::COL_NOME, Qt::Horizontal, "Nome");
+    model->setHeaderData(agenti::COL_COGNOME, Qt::Horizontal, "Cognome");
+    model->setHeaderData(agenti::COL_TEL, Qt::Horizontal, "Telefono");
+    model->setHeaderData(agenti::COL_CEL, Qt::Horizontal, "Cellulare");
+    model->setHeaderData(agenti::COL_EMAIL, Qt::Horizontal, "E-mail");
 
     ui->agentiView->setModel(model);
-    ui->agentiView->hideColumn(COL_ID);
+    ui->agentiView->hideColumn(agenti::COL_ID);
     ui->agentiView->resizeColumnsToContents();
 
     this->setGeometry(settings.value("AgentiViewDlg.size", QRect(0, 0, 700, 500)).toRect());
@@ -62,7 +59,7 @@ void AgentiViewDialog::addRecord(void)
 void AgentiViewDialog::updateRecord(void)
 {
     QModelIndex index = ui->agentiView->currentIndex();
-    QString id = model->index(index.row(), COL_ID).data().toString();
+    QString id = model->index(index.row(), agenti::COL_ID).data().toString();
 
     if (id=="") {
         showDialogError(this, ERR010, MSG007); //NOTE codice errore 010
@@ -82,7 +79,7 @@ void AgentiViewDialog::updateRecord(void)
 void AgentiViewDialog::removeRecord(void)
 {
     QModelIndex index = ui->agentiView->currentIndex();
-    QString id = model->index(index.row(), COL_ID).data().toString();
+    QString id = model->index(index.row(), agenti::COL_ID).data().toString();
 
     if (id=="") {
         showDialogError(this, ERR013, MSG004); //NOTE codice errore 013

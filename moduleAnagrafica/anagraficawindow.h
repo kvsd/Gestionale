@@ -3,6 +3,7 @@
 
 #include "moduleAnagrafica/anagraficaadddialog.h"
 #include "moduleAnagrafica/optionsanagraficadialog.h"
+#include "utils/enum_const.h"
 
 #include <QMainWindow>
 #include <QDialog>

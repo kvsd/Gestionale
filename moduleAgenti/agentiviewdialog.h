@@ -3,6 +3,7 @@
 
 #include <moduleAgenti/agentiadddialog.h>
 #include "error.h"
+#include "utils/enum_const.h"
 
 #include <QDialog>
 #include <QSqlQueryModel>
@@ -38,7 +39,6 @@ public slots:
     void removeRecord(void);
     void searchRecord(QString s);
     void updateTable(void);
-
 
 };
 

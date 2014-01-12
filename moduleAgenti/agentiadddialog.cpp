@@ -5,8 +5,6 @@ const QString ADD_QUERY = "INSERT INTO agenti(nome, cognome, tel, cel, email) VA
 const QString UPDATE_QUERY = "UPDATE agenti SET nome=:nome, cognome=:cognome, tel=:tel, cel=:cel, email=:email WHERE id=:id";
 const QString SELECT_QUERY = "SELECT * FROM agenti WHERE id=:id";
 
-enum columns {COL_ID, COL_NOME, COL_COGNOME, COL_TEL, COL_CEL, COL_EMAIL};
-
 const QString CSS_WARNING_STYLE = "background-color: yellow";
 
 AgentiAddDialog::AgentiAddDialog(QWidget *parent) :
@@ -28,11 +26,11 @@ void AgentiAddDialog::setValue(QString id)
     query.bindValue(":id", id);
     query.exec();
     query.first();
-    ui->le_nome->setText(query.value(COL_NOME).toString());
-    ui->le_cognome->setText(query.value(COL_COGNOME).toString());
-    ui->le_tel->setText(query.value(COL_TEL).toString());
-    ui->le_cel->setText(query.value(COL_CEL).toString());
-    ui->le_email->setText(query.value(COL_EMAIL).toString());
+    ui->le_nome->setText(query.value(agenti::COL_NOME).toString());
+    ui->le_cognome->setText(query.value(agenti::COL_COGNOME).toString());
+    ui->le_tel->setText(query.value(agenti::COL_TEL).toString());
+    ui->le_cel->setText(query.value(agenti::COL_CEL).toString());
+    ui->le_email->setText(query.value(agenti::COL_EMAIL).toString());
     agente["id"] = id;
 }
 

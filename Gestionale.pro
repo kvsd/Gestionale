@@ -34,7 +34,8 @@ HEADERS += connectionsetupdialog.h \
            moduleMagazzino/articolodialog.h \
            moduleMagazzino/magazzinowindow.h \
            utils/controllodati.h \
-           utils/simpledialogs.h
+           utils/simpledialogs.h \
+    utils/enum_const.h
 FORMS += connectionsetupdialog.ui \
          logindialog.ui \
          mainwindow.ui \

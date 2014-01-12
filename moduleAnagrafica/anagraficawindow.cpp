@@ -1,16 +1,10 @@
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "ui_anagraficawindow.h"
 
-//const QString SELECT_ALL = "SELECT * FROM vw_anagrafica";
-//const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti";
-//const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori";
-//const QString DELETE_QUERY = "DELETE FROM anagrafica where id = :id";
 const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
 const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
 const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";
 const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
-
-const int COL_ID = 0;
 
 anagraficaWindow::anagraficaWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -76,7 +70,7 @@ void anagraficaWindow::updateRecord(void)
         showDialogError(this, ERR026, MSG007, ""); //NOTE codice errore 026
         return;
     }
-    QString id = anagraficaModel->index(index.row(), COL_ID).data().toString();
+    QString id = anagraficaModel->index(index.row(), anagrafica::COL_ID).data().toString();
     AnagraficaAddDialog dlg(this);
     dlg.setValue(id);
     bool ok = dlg.exec();
@@ -93,7 +87,7 @@ void anagraficaWindow::removeRecord(void)
         showDialogError(this, ERR027, MSG004, ""); //NOTE codice errore 027
         return;
     }
-    QString id = anagraficaModel->index(index.row(), COL_ID).data().toString();
+    QString id = anagraficaModel->index(index.row(), anagrafica::COL_ID).data().toString();
 
     QSqlQuery query;
     query.prepare(DELETE_QUERY);
@@ -121,9 +115,9 @@ void anagraficaWindow::updateTable(void)
         anagraficaModel->setQuery("");
     }
 
-    ui->anagraficaView->hideColumn(COL_ID); //FIXME se nelle impostazioni viene specificato di visualizzare l'id questo lo
-                                            //scavalca. Possibile soluzione è impostare al primo avvio un file di configurazione
-                                            //preimpostato. Poi sara' l'utente a decidere cosa visualizzare
+    ui->anagraficaView->hideColumn(anagrafica::COL_ID); //FIXME se nelle impostazioni viene specificato di visualizzare l'id questo lo
+                                                        //scavalca. Possibile soluzione è impostare al primo avvio un file di configurazione
+                                                        //preimpostato. Poi sara' l'utente a decidere cosa visualizzare
     ui->anagraficaView->resizeColumnsToContents();
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
 }

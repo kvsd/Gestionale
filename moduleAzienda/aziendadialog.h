@@ -4,6 +4,7 @@
 #include "../error.h"
 #include "utils/simpledialogs.h"
 #include "utils/controllodati.h"
+#include "utils/enum_const.h"
 
 #include <QDialog>
 #include <QSqlTableModel>

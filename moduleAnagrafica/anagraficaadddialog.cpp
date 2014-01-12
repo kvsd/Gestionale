@@ -1,43 +1,11 @@
 #include "moduleAnagrafica/anagraficaadddialog.h"
 #include "ui_anagraficaadddialog.h"
-#include "utils/simpledialogs.h"
 
 const QString INSERT_QUERY = "INSERT INTO anagrafica(fornitore, cliente, rag_sociale, id_tipo_ditta, nome, cognome, indirizzo, id_citta, id_provincia, id_cap, id_stato, cod_fisc, prt_iva, id_agente, tel, fax, cel, email, sito_web, banca, agenzia, conto, swift, iban, dest_merce, note) VALUES(:fornitore, :cliente, :rag_sociale, :id_tipo_ditta, :nome, :cognome, :indirizzo, :id_citta, :id_provincia, :id_cap, :id_stato, :cod_fisc, :prt_iva, :id_agente, :tel, :fax, :cel, :email, :sito_web, :banca, :agenzia, :conto, :swift, :iban, :dest_merce, :note)";
 const QString UPDATE_QUERY = "UPDATE anagrafica SET fornitore=:fornitore, cliente=:cliente, rag_sociale=:rag_sociale, id_tipo_ditta=:id_tipo_ditta, nome=:nome, cognome=:cognome, indirizzo=:indirizzo, id_citta=:id_citta, id_provincia=:id_provincia, id_cap=:id_cap, id_stato=:id_stato, cod_fisc=:cod_fisc, prt_iva=:prt_iva, id_agente=:id_agente, tel=:tel, fax=:fax, cel=:cel, email=:email, sito_web=:sito_web, banca=:banca, agenzia=:agenzia, conto=:conto, swift=:swift, iban=:iban, dest_merce=:dest_merce, note=:note WHERE id=:id";
 const QString SELECT_QUERY = "SELECT * FROM anagrafica WHERE id=:id";
 
 const QString CSS_WARNING_STYLE = "background-color:yellow";
-
-//const int COL_MODEL_DESCR = 1;
-//const int COL_MODEL_COGNOME = 2;
-
-enum anagraficacols{COL_ID,
-                    COL_FORNITORE, COL_MODEL_DESCR = 1,
-                    COL_CLIENTE, COL_MODEL_COGNOME = 2,
-                    COL_RAG_SOC,
-                    COL_TIPO_DITTA,
-                    COL_NOME,
-                    COL_COGNOME,
-                    COL_INDIRIZZO,
-                    COL_CITTA,
-                    COL_PROVINCIA,
-                    COL_CAP,
-                    COL_STATO,
-                    COL_COD_FISC,
-                    COL_PRT_IVA,
-                    COL_AGENTE,
-                    COL_TEL,
-                    COL_FAX,
-                    COL_CEL,
-                    COL_EMAIL,
-                    COL_WEB,
-                    COL_BANCA,
-                    COL_AGENZIA,
-                    COL_CONTO,
-                    COL_SWIFT,
-                    COL_IBAN,
-                    COL_MERCE,
-                    COL_NOTE};
 
 AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     QDialog(parent),
@@ -49,37 +17,37 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     model_tipo_ditta->setTable("tipo_ditta");
     model_tipo_ditta->select();
     ui->cb_tipo_ditta->setModel(model_tipo_ditta);
-    ui->cb_tipo_ditta->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
     model_citta = new QSqlTableModel(this);
     model_citta->setTable("citta");
     model_citta->select();
     ui->cb_citta->setModel(model_citta);
-    ui->cb_citta->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_citta->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
     model_provincia = new QSqlTableModel(this);
     model_provincia->setTable("provincia");
     model_provincia->select();
     ui->cb_provincia->setModel(model_provincia);
-    ui->cb_provincia->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_provincia->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
     model_cap = new QSqlTableModel(this);
     model_cap->setTable("cap");
     model_cap->select();
     ui->cb_cap->setModel(model_cap);
-    ui->cb_cap->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_cap->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
     model_stato = new QSqlTableModel(this);
     model_stato->setTable("stato");
     model_stato->select();
     ui->cb_stato->setModel(model_stato);
-    ui->cb_stato->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_stato->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
     model_agente = new QSqlTableModel(this);
     model_agente->setTable("agenti");
     model_agente->select();
     ui->cb_agente->setModel(model_agente);
-    ui->cb_agente->setModelColumn(COL_MODEL_COGNOME);
+    ui->cb_agente->setModelColumn(anagrafica::COL_MODEL_COGNOME);
 
     ui->cb_agente->setShown(false);
     ui->lb_agente->setShown(false);
@@ -99,65 +67,65 @@ void AnagraficaAddDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    ui->le_rag_sociale->setText(query.value(COL_RAG_SOC).toString());
-    ui->cliente_cb->setChecked(query.value(COL_CLIENTE).toBool());
-    ui->fornitore_cb->setChecked(query.value(COL_FORNITORE).toBool());
+    ui->le_rag_sociale->setText(query.value(anagrafica::COL_RAG_SOC).toString());
+    ui->cliente_cb->setChecked(query.value(anagrafica::COL_CLIENTE).toBool());
+    ui->fornitore_cb->setChecked(query.value(anagrafica::COL_FORNITORE).toBool());
     if (ui->fornitore_cb->isChecked()) {
         ui->lb_agente->show();
         ui->cb_agente->show();
     }
 
-    ui->cb_tipo_ditta->setModelColumn(COL_ID);
-    int index = ui->cb_tipo_ditta->findText(query.value(COL_TIPO_DITTA).toString());
-    ui->cb_tipo_ditta->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_ID);
+    int index = ui->cb_tipo_ditta->findText(query.value(anagrafica::COL_TIPO_DITTA).toString());
+    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_MODEL_DESCR);
     ui->cb_tipo_ditta->setCurrentIndex(index);
 
-    ui->le_nome->setText(query.value(COL_NOME).toString());
-    ui->le_cognome->setText(query.value(COL_COGNOME).toString());
-    ui->le_piva->setText(query.value(COL_PRT_IVA).toString());
-    ui->le_cod_fiscale->setText(query.value(COL_COD_FISC).toString());
+    ui->le_nome->setText(query.value(anagrafica::COL_NOME).toString());
+    ui->le_cognome->setText(query.value(anagrafica::COL_COGNOME).toString());
+    ui->le_piva->setText(query.value(anagrafica::COL_PRT_IVA).toString());
+    ui->le_cod_fiscale->setText(query.value(anagrafica::COL_COD_FISC).toString());
 
-    ui->cb_agente->setModelColumn(COL_ID);
-    index = ui->cb_agente->findText(query.value(COL_AGENTE).toString());
-    ui->cb_agente->setModelColumn(COL_MODEL_COGNOME);
+    ui->cb_agente->setModelColumn(anagrafica::COL_ID);
+    index = ui->cb_agente->findText(query.value(anagrafica::COL_AGENTE).toString());
+    ui->cb_agente->setModelColumn(anagrafica::COL_MODEL_COGNOME);
     ui->cb_agente->setCurrentIndex(index);
 
-    ui->le_indirizzo->setText(query.value(COL_INDIRIZZO).toString());
+    ui->le_indirizzo->setText(query.value(anagrafica::COL_INDIRIZZO).toString());
 
-    ui->cb_citta->setModelColumn(COL_ID);
-    index = ui->cb_citta->findText(query.value(COL_CITTA).toString());
-    ui->cb_citta->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_citta->setModelColumn(anagrafica::COL_ID);
+    index = ui->cb_citta->findText(query.value(anagrafica::COL_CITTA).toString());
+    ui->cb_citta->setModelColumn(anagrafica::COL_MODEL_DESCR);
     ui->cb_citta->setCurrentIndex(index);
 
-    ui->cb_provincia->setModelColumn(COL_ID);
-    index = ui->cb_provincia->findText(query.value(COL_PROVINCIA).toString());
-    ui->cb_provincia->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_provincia->setModelColumn(anagrafica::COL_ID);
+    index = ui->cb_provincia->findText(query.value(anagrafica::COL_PROVINCIA).toString());
+    ui->cb_provincia->setModelColumn(anagrafica::COL_MODEL_DESCR);
     ui->cb_provincia->setCurrentIndex(index);
 
-    ui->cb_cap->setModelColumn(COL_ID);
-    index = ui->cb_cap->findText(query.value(COL_CAP).toString());
-    ui->cb_cap->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_cap->setModelColumn(anagrafica::COL_ID);
+    index = ui->cb_cap->findText(query.value(anagrafica::COL_CAP).toString());
+    ui->cb_cap->setModelColumn(anagrafica::COL_MODEL_DESCR);
     ui->cb_cap->setCurrentIndex(index);
 
-    ui->cb_stato->setModelColumn(COL_ID);
-    index = ui->cb_stato->findText(query.value(COL_STATO).toString());
-    ui->cb_stato->setModelColumn(COL_MODEL_DESCR);
+    ui->cb_stato->setModelColumn(anagrafica::COL_ID);
+    index = ui->cb_stato->findText(query.value(anagrafica::COL_STATO).toString());
+    ui->cb_stato->setModelColumn(anagrafica::COL_MODEL_DESCR);
     ui->cb_stato->setCurrentIndex(index);
 
-    ui->le_tel->setText(query.value(COL_TEL).toString());
-    ui->le_cel->setText(query.value(COL_CEL).toString());
-    ui->le_fax->setText(query.value(COL_FAX).toString());
-    ui->le_email->setText(query.value(COL_EMAIL).toString());
-    ui->le_web->setText(query.value(COL_WEB).toString());
+    ui->le_tel->setText(query.value(anagrafica::COL_TEL).toString());
+    ui->le_cel->setText(query.value(anagrafica::COL_CEL).toString());
+    ui->le_fax->setText(query.value(anagrafica::COL_FAX).toString());
+    ui->le_email->setText(query.value(anagrafica::COL_EMAIL).toString());
+    ui->le_web->setText(query.value(anagrafica::COL_WEB).toString());
 
-    ui->le_banca->setText(query.value(COL_BANCA).toString());
-    ui->le_agenzia->setText(query.value(COL_AGENZIA).toString());
-    ui->le_conto->setText(query.value(COL_CONTO).toString());
-    ui->le_swift->setText(query.value(COL_SWIFT).toString());
-    ui->le_iban->setText(query.value(COL_IBAN).toString());
+    ui->le_banca->setText(query.value(anagrafica::COL_BANCA).toString());
+    ui->le_agenzia->setText(query.value(anagrafica::COL_AGENZIA).toString());
+    ui->le_conto->setText(query.value(anagrafica::COL_CONTO).toString());
+    ui->le_swift->setText(query.value(anagrafica::COL_SWIFT).toString());
+    ui->le_iban->setText(query.value(anagrafica::COL_IBAN).toString());
 
-    ui->te_destinazione_merce->setText(query.value(COL_MERCE).toString());
-    ui->te_note->setText(query.value(COL_NOTE).toString());
+    ui->te_destinazione_merce->setText(query.value(anagrafica::COL_MERCE).toString());
+    ui->te_note->setText(query.value(anagrafica::COL_NOTE).toString());
 
     persona["id"]=id;
 
@@ -166,19 +134,19 @@ void AnagraficaAddDialog::setValue(QString id)
 void AnagraficaAddDialog::prepareMap(void)
 {
     persona["rag_soc"] = ui->le_rag_sociale->text();
-    persona["tipo_ditta"] = model_tipo_ditta->index(ui->cb_tipo_ditta->currentIndex(), COL_ID).data().toString();
+    persona["tipo_ditta"] = model_tipo_ditta->index(ui->cb_tipo_ditta->currentIndex(), anagrafica::COL_ID).data().toString();
     persona["cliente"] = ui->cliente_cb->isChecked() ? "y" : "n";
     persona["fornitore"] = ui->fornitore_cb->isChecked() ? "y" : "n";
     persona["nome"] = ui->le_nome->text();
     persona["cognome"] = ui->le_cognome->text();
     persona["prt_iva"] = ui->le_piva->text();
     persona["cod_fiscale"] = ui->le_cod_fiscale->text();
-    persona["agente"] = model_agente->index(ui->cb_agente->currentIndex(), COL_ID).data().toString();
+    persona["agente"] = model_agente->index(ui->cb_agente->currentIndex(), anagrafica::COL_ID).data().toString();
     persona["indirizzo"] = ui->le_indirizzo->text();
-    persona["id_citta"] = model_citta->index(ui->cb_citta->currentIndex(), COL_ID).data().toString();
-    persona["id_provincia"] = model_provincia->index(ui->cb_provincia->currentIndex(), COL_ID).data().toString();
-    persona["id_cap"]= model_cap->index(ui->cb_cap->currentIndex(), COL_ID).data().toString();
-    persona["id_stato"]= model_stato->index(ui->cb_stato->currentIndex(), COL_ID).data().toString();
+    persona["id_citta"] = model_citta->index(ui->cb_citta->currentIndex(), anagrafica::COL_ID).data().toString();
+    persona["id_provincia"] = model_provincia->index(ui->cb_provincia->currentIndex(), anagrafica::COL_ID).data().toString();
+    persona["id_cap"]= model_cap->index(ui->cb_cap->currentIndex(), anagrafica::COL_ID).data().toString();
+    persona["id_stato"]= model_stato->index(ui->cb_stato->currentIndex(), anagrafica::COL_ID).data().toString();
     persona["tel"]= ui->le_tel->text();
     persona["cel"]= ui->le_cel->text();
     persona["fax"] = ui->le_fax->text();

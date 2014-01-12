@@ -3,6 +3,8 @@
 
 #include "error.h"
 #include "utils/controllodati.h"
+#include "utils/simpledialogs.h"
+#include "utils/enum_const.h"
 #include "moduleAgenti/agentiadddialog.h"
 
 #include <QDialog>

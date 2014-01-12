@@ -2,6 +2,7 @@
 #define AGENTIADDDIALOG_H
 
 #include "error.h"
+#include "utils/enum_const.h"
 
 #include <QDialog>
 #include <QMap>
