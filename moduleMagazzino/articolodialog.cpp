@@ -3,6 +3,7 @@
 
 const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
 const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, imponibile, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
 
 enum columns {COL_ID,
               COL_DESCR = 1};
@@ -103,7 +104,7 @@ void ArticoloDialog::prepareMap()
     articolo["note"] = ui->te_note->toPlainText();
 }
 
-QSqlQuery ArticoloDialog::prepareQuery(void)
+QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 {
     QSqlQuery query_articolo;
     query_articolo.prepare(INSERT_ARTICOLO);
@@ -135,14 +136,49 @@ QSqlQuery ArticoloDialog::prepareQuery(void)
     return query_articolo;
 }
 
+QSqlQuery ArticoloDialog::prepareQueryStorico(void)
+{
+    QSqlQuery query_storico;
+    query_storico.prepare(INSERT_STORICO);
+
+    query_storico.bindValue(":data_arrivo", articolo["data"]);
+    query_storico.bindValue(":quantita", articolo["quantita"]);
+    query_storico.bindValue(":prezzo_acquisto", articolo["prezzo_acquisto"]);
+    query_storico.bindValue(":iva", articolo["iva"]);
+    query_storico.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
+    query_storico.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
+    query_storico.bindValue(":fattura", articolo["nr_fattura"]);
+
+    return query_storico;
+}
+
 void ArticoloDialog::save(void)
 {
+    QSqlDatabase db = QSqlDatabase::database();
+    db.transaction();
     prepareMap();
-    QSqlQuery query_articolo = prepareQuery();
+    QSqlQuery query_articolo = prepareQueryArticolo();
     if (!query_articolo.exec()) {
         qDebug() << "errore: " << query_articolo.lastError();
+        db.rollback();
         return;
     }
+
+    QSqlQuery query_id;
+    query_id.prepare("SELECT * from lastval();");
+    query_id.exec();
+    query_id.first();
+    QString id = query_id.value(0).toString();
+
+    QSqlQuery query_storico = prepareQueryStorico();
+    query_storico.bindValue(":id_articolo", id);
+    if (!query_storico.exec()) {
+        qDebug() << "errore storico: " << id << query_storico.lastError();
+        db.rollback();
+        return;
+    }
+
+    db.commit();
     this->accept();
 }
 

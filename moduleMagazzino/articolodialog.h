@@ -35,7 +35,8 @@ private:
 
     void initModel(void);
     void prepareMap(void);
-    QSqlQuery prepareQuery(void);
+    QSqlQuery prepareQueryArticolo(void);
+    QSqlQuery prepareQueryStorico(void);
 
 public slots:
     void updatePrezzoAcquisto(void);
