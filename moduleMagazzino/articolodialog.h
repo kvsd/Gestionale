@@ -31,16 +31,18 @@ private:
     QSqlTableModel *modelSede;
     QSqlTableModel *modelUnita;
     QMap <QString,QString> articolo;
+    QMap <QString, double> articolo_d;
 
     void initModel(void);
     void prepareMap(void);
-    void prepareQuery(void);
+    QSqlQuery prepareQuery(void);
 
 public slots:
     void updatePrezzoAcquisto(void);
     void updateImponibile(void);
     void updateIva(void);
     void updatePrezzoFinito(void);
+    void save(void);
 };
 
 #endif // ARTICOLODIALOG_H

@@ -2,8 +2,7 @@
 #include "ui_articolodialog.h"
 
 const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
-const QString INSERT_ARTICOLO = "";
-const QString INSERT_LISTINO = "";
+const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
 
 enum columns {COL_ID,
               COL_DESCR = 1};
@@ -71,30 +70,43 @@ void ArticoloDialog::prepareMap()
     articolo["cod_barre"] = ui->le_cod_barre->text();
     articolo["catmerce"] = modelCatMerce->index(ui->cb_catmerce->currentIndex(), COL_ID).data().toString();
     articolo["unita"] = modelUnita->index(ui->cb_unitamisura->currentIndex(), COL_ID).data().toString();
-    articolo["codiva"] = modelCodIva->index(ui->cb_codiva->currentIndex(), COL_ID).data().toString();
-    articolo["scorta"] = ui->le_scorta->text();
+
+    //Per i tipi numeri devo usare il locale C. Maledetto postgresql
+    double scorta = ui->le_scorta->text().toDouble();
+    articolo["scorta"] = QString().setNum(scorta);
 
     articolo["id_fornitore"] = modelFornitore->index(ui->cb_fornitore->currentIndex(), COL_ID).data().toString();
     articolo["cod_fornitore"] = ui->le_cod_fornitore->text();
-    articolo["quantita"] = ui->le_quantita->text();
-    articolo["prezzo_acquisto"] = ui->le_prezzo_acquisto->text();
-    articolo["sconto"] = ui->le_sconto->text();
-    articolo["imponibile"] = ui->le_imponibile->text();
+
+    double quantita = ui->le_quantita->text().toDouble();
+    articolo["quantita"] = QString().setNum(quantita);
+
+    double prezzo_acq = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo["prezzo_acquisto"] = QString().setNum(prezzo_acq);
+
+    articolo["sconto"] =  ui->le_sconto->text();
     articolo["ricarico"] = ui->le_ricarico->text();
-    articolo["iva"] = ui->le_iva->text();
-    articolo["prezzo_vendita"] = ui->le_prezzo_vendita->text();
-    articolo["prezzo_finito"] = ui->le_prezzo_finito->text();
+
+    double imponibile = ui->le_imponibile->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo["imponibile"] = QString().setNum(imponibile);
+    articolo["codiva"] = modelCodIva->index(ui->cb_codiva->currentIndex(), COL_ID).data().toString();
+    double iva = ui->le_iva->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo["iva"] = QString().setNum(iva);
+    double prezzo_vend = ui->le_prezzo_vendita->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo["prezzo_vendita"] = QString().setNum(prezzo_vend);
+    double prezzo_fin = ui->le_prezzo_finito->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo["prezzo_finito"] = QString().setNum(prezzo_fin);
 
     articolo["sede_magazzino"] = modelSede->index(ui->cb_sede->currentIndex(), COL_ID).data().toString();
-    articolo["data"] = ui->le_data->date().toString();
+    articolo["data"] = ui->le_data->date().toString("dd/MM/yyyy");
+    articolo["nr_fattura"] = ui->le_fattura->text();
     articolo["note"] = ui->te_note->toPlainText();
 }
 
-void ArticoloDialog::prepareQuery(void)
+QSqlQuery ArticoloDialog::prepareQuery(void)
 {
-    prepareMap();
     QSqlQuery query_articolo;
-    query_articolo.bindValue(":id", articolo["id"]);
+    query_articolo.prepare(INSERT_ARTICOLO);
     query_articolo.bindValue(":descr", articolo["descr"]);
     query_articolo.bindValue(":id_marca", articolo["marca"]);
     query_articolo.bindValue(":modello", articolo["modello"]);
@@ -103,22 +115,35 @@ void ArticoloDialog::prepareQuery(void)
     query_articolo.bindValue(":id_merce", articolo["catmerce"]);
     query_articolo.bindValue(":id_unita_merce", articolo["unita"]);
     query_articolo.bindValue(":scorta_minima", articolo["scorta"]);
-    query_articolo.bindValue(":id_cod_iva", articolo["codiva"]);
-    query_articolo.bindValue(":id_sede_magazzino", articolo["sede_magazzino"]);
-    query_articolo.bindValue(":note", articolo["note"]);
-    query_articolo.bindValue(":id_articolo", articolo[""]);
+
     query_articolo.bindValue(":id_fornitore", articolo["id_fornitore"]);
     query_articolo.bindValue(":cod_fornitore", articolo["cod_fornitore"]);
-    query_articolo.bindValue(":data_arrivo", articolo["data"]);
     query_articolo.bindValue(":quantita", articolo["quantita"]);
     query_articolo.bindValue(":prezzo_acquisto", articolo["prezzo_acquisto"]);
     query_articolo.bindValue(":sconto_fornitore", articolo["sconto"]);
     query_articolo.bindValue(":imponibile", articolo["imponibile"]);
     query_articolo.bindValue(":ricarico", articolo["ricarico"]);
+    query_articolo.bindValue(":id_cod_iva", articolo["codiva"]);
     query_articolo.bindValue(":iva", articolo["iva"]);
-    query_articolo.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
     query_articolo.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
-    query_articolo.bindValue(":fattura", articolo[""]);
+    query_articolo.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
+
+    query_articolo.bindValue(":id_sede_magazzino", articolo["sede_magazzino"]);
+    query_articolo.bindValue(":data_arrivo", articolo["data"]);
+    query_articolo.bindValue(":fattura", articolo["nr_fattura"]);
+    query_articolo.bindValue(":note", articolo["note"]);
+    return query_articolo;
+}
+
+void ArticoloDialog::save(void)
+{
+    prepareMap();
+    QSqlQuery query_articolo = prepareQuery();
+    if (!query_articolo.exec()) {
+        qDebug() << "errore: " << query_articolo.lastError();
+        return;
+    }
+    this->accept();
 }
 
 void ArticoloDialog::updatePrezzoAcquisto(void)
@@ -128,6 +153,7 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
     if (!prezzo_str.contains(locale().currencySymbol())) {
             ui->le_prezzo_acquisto->setText(locale().toCurrencyString(prezzo_str.toDouble()));
     }
+
     updateImponibile();
 }
 
