@@ -166,7 +166,11 @@ void ArticoloDialog::save(void)
 
     QSqlQuery query_id;
     query_id.prepare("SELECT * from lastval();");
-    query_id.exec();
+    if (!query_id.exec()) {
+        qDebug() << "errore: " << query_id.lastError();
+        db.rollback();
+        return;
+    }
     query_id.first();
     QString id = query_id.value(0).toString();
 
