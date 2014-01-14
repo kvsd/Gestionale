@@ -21,6 +21,7 @@ class ArticoloDialog : public QDialog
 public:
     explicit ArticoloDialog(QWidget *parent = 0);
     ~ArticoloDialog();
+    void setValue(QString id);
 
 private:
     Ui::ArticoloDialog *ui;
@@ -31,7 +32,6 @@ private:
     QSqlTableModel *modelSede;
     QSqlTableModel *modelUnita;
     QMap <QString,QString> articolo;
-    QMap <QString, double> articolo_d;
 
     void initModel(void);
     void prepareMap(void);

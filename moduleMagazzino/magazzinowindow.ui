@@ -415,6 +415,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pb_update</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>146</x>
+     <y>536</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>557</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -422,5 +438,6 @@
   <slot>updateTableMagazzino()</slot>
   <slot>updateStoricoView(QModelIndex)</slot>
   <slot>removeRecord()</slot>
+  <slot>updateRecord()</slot>
  </slots>
 </ui>

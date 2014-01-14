@@ -38,6 +38,7 @@ public slots:
     void updateTableMagazzino(void);
     void updateFilterValue(QString s);
     void addRecord();
+    void updateRecord();
     void removeRecord();
     void updateStoricoView(QModelIndex index);
 };

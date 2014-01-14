@@ -87,6 +87,25 @@ void MagazzinoWindow::addRecord()
     updateTableMagazzino();
 }
 
+void MagazzinoWindow::updateRecord(void)
+{
+    QModelIndex index = ui->articoloView->currentIndex();
+    if (!index.isValid()) {
+        qDebug() << "Errore: " << "selezionare prima di aggiornare";
+        return;
+    }
+
+    QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
+    ArticoloDialog dlg(this);
+    dlg.setValue(id);
+    bool ok = dlg.exec();
+    if (!ok) {
+        return;
+    }
+    updateTableMagazzino();
+
+}
+
 void MagazzinoWindow::removeRecord(void)
 {
     QModelIndex index = ui->articoloView->currentIndex();
@@ -95,7 +114,6 @@ void MagazzinoWindow::removeRecord(void)
         return;
     }
     QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
-    qDebug() << id;
     QSqlQuery query;
     query.prepare(DELETE_ARTICOLO);
     query.bindValue(":id", id);
