@@ -1,7 +1,5 @@
 #include "magazzinowindow.h"
 #include "ui_magazzinowindow.h"
-#include <QStyledItemDelegate>
-#include <QItemEditorFactory>
 
 const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
 const QString SELECT_ARTICOLI_FORNITORE = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
@@ -10,6 +8,7 @@ const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Ca
 const QString SELECT_FILTER = "SELECT id, descr FROM %1";
 const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";
 const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\"";
+const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
 
 enum columns {COL_ID=0,
               COL_ID_FORN, COL_RAG_SOC=1, COL_DESCR=1};
@@ -37,7 +36,6 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     filterMap["Marca"] = "marca";
     filterMap["Categoria"] = "cat_merce" ;
     ui->cb_filter_selection->insertItems(0, filterMap.keys());
-
 }
 
 MagazzinoWindow::~MagazzinoWindow()
@@ -82,7 +80,29 @@ void MagazzinoWindow::updateTableMagazzino(void)
 void MagazzinoWindow::addRecord()
 {
     ArticoloDialog dlg(this);
-    dlg.exec();
+    bool ok = dlg.exec();
+    if (!ok) {
+        return;
+    }
+    updateTableMagazzino();
+}
+
+void MagazzinoWindow::removeRecord(void)
+{
+    QModelIndex index = ui->articoloView->currentIndex();
+    if (!index.isValid()) {
+        qDebug() << "Errore: " << "selezionare prima di cancellare";
+        return;
+    }
+    QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
+    qDebug() << id;
+    QSqlQuery query;
+    query.prepare(DELETE_ARTICOLO);
+    query.bindValue(":id", id);
+    if (!query.exec()) {
+        qDebug() << "Errore query: " << query.lastError().text();
+    }
+    updateTableMagazzino();
 }
 
 void MagazzinoWindow::updateFilterValue(QString s)

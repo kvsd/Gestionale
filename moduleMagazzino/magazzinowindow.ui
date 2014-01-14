@@ -399,11 +399,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pb_delete</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>removeRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>218</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>218</x>
+     <y>557</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
   <slot>updateFilterValue(QString)</slot>
   <slot>updateTableMagazzino()</slot>
   <slot>updateStoricoView(QModelIndex)</slot>
+  <slot>removeRecord()</slot>
  </slots>
 </ui>
