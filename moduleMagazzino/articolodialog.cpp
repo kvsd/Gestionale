@@ -5,6 +5,7 @@ const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_ana
 const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
 const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, imponibile, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
 const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
+const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, id_cod_iva=:id_cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_acquisto=:prezzo_acquisto, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, imponibile=:imponibile, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
 
 enum columns {COL_ID,
               COL_DESCR = 1,
@@ -95,6 +96,7 @@ void ArticoloDialog::setValue(QString id)
     }
 
     query.first();
+    articolo["id"] = id;
     ui->le_descrizione->setText(query.value(COL_DESCR).toString());
 
     ui->cb_fornitore->setModelColumn(COL_ID);
@@ -146,7 +148,6 @@ void ArticoloDialog::setValue(QString id)
     ui->cb_sede->setCurrentIndex(index);
 
     ui->te_note->setText(query.value(COL_NOTE).toString());
-
 }
 
 void ArticoloDialog::prepareMap()
@@ -194,7 +195,14 @@ void ArticoloDialog::prepareMap()
 QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 {
     QSqlQuery query_articolo;
-    query_articolo.prepare(INSERT_ARTICOLO);
+    if (articolo.contains("id")) {
+        query_articolo.prepare(UPDATE_ARTICOLO);
+        query_articolo.bindValue(":id", articolo["id"]);
+    }
+    else {
+        query_articolo.prepare(INSERT_ARTICOLO);
+    }
+
     query_articolo.bindValue(":descr", articolo["descr"]);
     query_articolo.bindValue(":id_marca", articolo["marca"]);
     query_articolo.bindValue(":modello", articolo["modello"]);
@@ -232,8 +240,8 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
     query_storico.bindValue(":quantita", articolo["quantita"]);
     query_storico.bindValue(":prezzo_acquisto", articolo["prezzo_acquisto"]);
     query_storico.bindValue(":iva", articolo["iva"]);
-    query_storico.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
     query_storico.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
+    query_storico.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
     query_storico.bindValue(":fattura", articolo["nr_fattura"]);
 
     return query_storico;
@@ -250,21 +258,22 @@ void ArticoloDialog::save(void)
         db.rollback();
         return;
     }
-
-    QSqlQuery query_id;
-    query_id.prepare("SELECT * from lastval();");
-    if (!query_id.exec()) {
-        qDebug() << "errore: " << query_id.lastError();
-        db.rollback();
-        return;
+    if (!articolo.contains("id")) {
+        QSqlQuery query_id;
+        query_id.prepare("SELECT * from lastval();");
+        if (!query_id.exec()) {
+            qDebug() << "errore: " << query_id.lastError();
+            db.rollback();
+            return;
+        }
+        query_id.first();
+        articolo["id"] = query_id.value(0).toString();
     }
-    query_id.first();
-    QString id = query_id.value(0).toString();
 
     QSqlQuery query_storico = prepareQueryStorico();
-    query_storico.bindValue(":id_articolo", id);
+    query_storico.bindValue(":id_articolo", articolo["id"]);
     if (!query_storico.exec()) {
-        qDebug() << "errore storico: " << id << query_storico.lastError();
+        qDebug() << "errore storico: " << articolo["id"] << query_storico.lastError();
         db.rollback();
         return;
     }

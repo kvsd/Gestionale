@@ -103,7 +103,7 @@ void MagazzinoWindow::updateRecord(void)
         return;
     }
     updateTableMagazzino();
-
+    updateStoricoView(index);
 }
 
 void MagazzinoWindow::removeRecord(void)
