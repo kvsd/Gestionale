@@ -24,8 +24,8 @@ enum columns {COL_ID,
               COL_RICARICO,
               COL_IMPONIBILE,
               COL_IVA,
-              COL_PREZZO_VEN,
               COL_PREZZO_FIN,
+              COL_PREZZO_VEN,
               COL_FATTURA,
               COL_DATA,
               COL_ID_SEDE,
@@ -129,12 +129,14 @@ void ArticoloDialog::setValue(QString id)
 
     ui->le_scorta->setText(query.value(COL_SCORTA).toString());
     ui->le_quantita->setText(query.value(COL_QUANTITA).toString());
-    ui->le_prezzo_acquisto->setText(query.value(COL_PREZZO_ACQ).toString());
+    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(COL_PREZZO_ACQ).toDouble()));
     ui->le_sconto->setText(query.value(COL_SCONTO).toString());
     ui->le_ricarico->setText(query.value(COL_RICARICO).toString());
-    ui->le_imponibile->setText(query.value(COL_IMPONIBILE).toString());
-    ui->le_iva->setText(query.value(COL_IVA).toString());
-    ui->le_prezzo_vendita->setText(query.value(COL_PREZZO_VEN).toString());
+    ui->le_imponibile->setText(locale().toCurrencyString(query.value(COL_IMPONIBILE).toDouble()));
+    ui->le_iva->setText(locale().toCurrencyString(query.value(COL_IVA).toDouble()));
+
+    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(COL_PREZZO_FIN).toDouble()));
+    ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(COL_PREZZO_VEN).toDouble()));
     ui->le_fattura->setText(query.value(COL_FATTURA).toString());
     ui->le_data->setDate(QDate::currentDate());
 
@@ -145,8 +147,6 @@ void ArticoloDialog::setValue(QString id)
 
     ui->te_note->setText(query.value(COL_NOTE).toString());
 
-    updatePrezzoAcquisto();
-    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(COL_PREZZO_FIN).toDouble()));
 }
 
 void ArticoloDialog::prepareMap()
@@ -213,8 +213,8 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
     query_articolo.bindValue(":ricarico", articolo["ricarico"]);
     query_articolo.bindValue(":id_cod_iva", articolo["codiva"]);
     query_articolo.bindValue(":iva", articolo["iva"]);
-    query_articolo.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
     query_articolo.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
+    query_articolo.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
 
     query_articolo.bindValue(":id_sede_magazzino", articolo["sede_magazzino"]);
     query_articolo.bindValue(":data_arrivo", articolo["data"]);
@@ -232,8 +232,8 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
     query_storico.bindValue(":quantita", articolo["quantita"]);
     query_storico.bindValue(":prezzo_acquisto", articolo["prezzo_acquisto"]);
     query_storico.bindValue(":iva", articolo["iva"]);
-    query_storico.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
     query_storico.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
+    query_storico.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
     query_storico.bindValue(":fattura", articolo["nr_fattura"]);
 
     return query_storico;
