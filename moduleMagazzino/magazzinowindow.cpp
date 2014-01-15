@@ -19,8 +19,10 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->move(parent->pos());
-
-    ui->groupBoxInfo->setHidden(true);
+    QList <int> list;
+    list.append(400); //Larghezza articoloView
+    list.append(150); //Larghezza storicoView
+    ui->splitter->setSizes(list);
 
     magazzinoModel = new QSqlQueryModel(this);
     ui->articoloView->setModel(magazzinoModel);
