@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Aggiungi Articolo</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
@@ -211,8 +211,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>315</height>
+            <width>271</width>
+            <height>310</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">

@@ -68,6 +68,7 @@ void AgentiViewDialog::updateRecord(void)
 
     AgentiAddDialog dlg(this);
     dlg.setValue(id);
+    dlg.setWindowTitle("Modifica Agente");
     bool ok = dlg.exec();
     if (!ok) {
         return;

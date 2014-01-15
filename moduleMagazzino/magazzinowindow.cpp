@@ -100,6 +100,7 @@ void MagazzinoWindow::updateRecord(void)
     QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
     ArticoloDialog dlg(this);
     dlg.setValue(id);
+    dlg.setWindowTitle("Modifica Articolo");
     bool ok = dlg.exec();
     if (!ok) {
         return;

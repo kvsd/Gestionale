@@ -73,6 +73,7 @@ void anagraficaWindow::updateRecord(void)
     QString id = anagraficaModel->index(index.row(), anagrafica::COL_ID).data().toString();
     AnagraficaAddDialog dlg(this);
     dlg.setValue(id);
+    dlg.setWindowTitle("Modifica Cliente Fornitore");
     bool ok = dlg.exec();
     if (!ok) {
         return;
