@@ -3,7 +3,7 @@
 
 const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
 const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
-const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, imponibile, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
+const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
 const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
 const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, id_cod_iva=:id_cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_acquisto=:prezzo_acquisto, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, imponibile=:imponibile, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
 
@@ -239,6 +239,9 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
     query_storico.bindValue(":data_arrivo", articolo["data"]);
     query_storico.bindValue(":quantita", articolo["quantita"]);
     query_storico.bindValue(":prezzo_acquisto", articolo["prezzo_acquisto"]);
+    query_storico.bindValue(":sconto_fornitore", articolo["sconto"]);
+    query_storico.bindValue(":ricarico", articolo["ricarico"]);
+    query_storico.bindValue(":imponibile", articolo["imponibile"]);
     query_storico.bindValue(":iva", articolo["iva"]);
     query_storico.bindValue(":prezzo_finito", articolo["prezzo_finito"]);
     query_storico.bindValue(":prezzo_vendita", articolo["prezzo_vendita"]);
@@ -260,7 +263,7 @@ void ArticoloDialog::save(void)
     }
     if (!articolo.contains("id")) {
         QSqlQuery query_id;
-        query_id.prepare("SELECT * from lastval();");
+        query_id.prepare("SELECT * FROM lastval();");
         if (!query_id.exec()) {
             qDebug() << "errore: " << query_id.lastError();
             db.rollback();

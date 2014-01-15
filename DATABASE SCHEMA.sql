@@ -308,22 +308,15 @@ ORDER BY mgz.id;
 CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino(id) ON DELETE CASCADE,
                               data_arrivo DATE DEFAULT current_date,
                               quantita DECIMAL NOT NULL,
+                              prezzo_acquisto DECIMAL NOT NULL,
+                              sconto_fornitore TEXT,
+                              ricarico TEXT,
                               imponibile DECIMAL,
                               iva DECIMAL,
                               prezzo_finito DECIMAL,
                               prezzo_vendita DECIMAL,
                               fattura TEXT);
-INSERT INTO listino_storico VALUES (1, '08/02/2012', 10, 8, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (1, '05/06/2012', 7, 8, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (1, '12/08/2012', 8, 8, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (1, '18/10/2012', 10, 8, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (2, '08/02/2012', 10, 5, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (2, '05/06/2012', 7, 2, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (2, '12/08/2012', 8, 8, 2, 10, 11, 45);
-INSERT INTO listino_storico VALUES (2, '18/10/2012', 10, 4, 2, 10, 11, 45);
-
-
 --########################################################################################
-CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Imponibile", "IVA", "Prezzo finito", "Vendità", "Nr. Fattura") AS
-SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.imponibile::money, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
+CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo acquisto", "Sconto", "Ricarico", "Imponibile", "IVA", "Prezzo finito", "Vendità", "Nr. Fattura") AS
+SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_acquisto::money, ls.sconto_fornitore, ls.ricarico, ls.imponibile::money, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
 FROM listino_storico AS ls ORDER BY ls.id_articolo, ls.data_arrivo;
