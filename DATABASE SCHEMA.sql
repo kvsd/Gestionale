@@ -305,7 +305,7 @@ WHERE anag.id = mgz.id_fornitore AND
       sm.id = id_sede_magazzino
 ORDER BY mgz.id;
 --######################################################################################
-CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino(id),
+CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino(id) ON DELETE CASCADE,
                               data_arrivo DATE DEFAULT current_date,
                               quantita DECIMAL NOT NULL,
                               imponibile DECIMAL,

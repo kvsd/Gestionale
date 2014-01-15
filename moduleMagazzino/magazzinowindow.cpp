@@ -7,7 +7,7 @@ const QString SELECT_ARTICOLI_MARCA = "SELECT * FROM vw_magazzino WHERE \"Marca\
 const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Cat.Merce\" = '%1'";
 const QString SELECT_FILTER = "SELECT id, descr FROM %1";
 const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";
-const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\"";
+const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\" DESC";
 const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
 
 enum columns {COL_ID=0,
@@ -121,6 +121,7 @@ void MagazzinoWindow::removeRecord(void)
         qDebug() << "Errore query: " << query.lastError().text();
     }
     updateTableMagazzino();
+    storicoModel->setQuery("");
 }
 
 void MagazzinoWindow::updateFilterValue(QString s)
@@ -139,6 +140,9 @@ void MagazzinoWindow::updateFilterValue(QString s)
 
 void MagazzinoWindow::updateStoricoView(QModelIndex index)
 {
+    if (!index.isValid()) {
+        storicoModel->setQuery("");
+    }
     QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
     storicoModel->setQuery(SELECT_STORICO.arg(id));
     ui->storicoView->hideColumn(COL_ID);
