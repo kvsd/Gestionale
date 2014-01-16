@@ -157,3 +157,27 @@ void MagazzinoWindow::updateStoricoView(QModelIndex index)
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }
+
+void MagazzinoWindow::fastSearch(void)
+{
+    QString pattern = ui->le_search->text();
+    if (pattern == "") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+        return;
+    }
+
+    QStringList filtri;
+    if (ui->actionDescrizione->isChecked())
+        filtri.append("\"Descrizione\" ILIKE '%%1%'");
+    if (ui->actionCod_Fornitore->isChecked())
+        filtri.append("\"Cod.Fornitore\" ILIKE '%%1%'");
+    if (ui->actionCod_Articolo->isChecked())
+        filtri.append("\"Cod.Articolo\" ILIKE '%%1%'");
+    if (ui->actionEAN->isChecked())
+        filtri.append("\"Cod.EAN\" ILIKE '%%1%'");
+
+    if (filtri.length() == 0)
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+    else
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
+}

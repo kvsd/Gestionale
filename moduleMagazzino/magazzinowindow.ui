@@ -223,7 +223,7 @@
      <addaction name="actionDescrizione"/>
      <addaction name="actionCod_Articolo"/>
      <addaction name="actionCod_Fornitore"/>
-     <addaction name="actionIban"/>
+     <addaction name="actionEAN"/>
     </widget>
     <addaction name="menuRicerca_per"/>
    </widget>
@@ -247,7 +247,7 @@
     <string>Cod. Fornitore</string>
    </property>
   </action>
-  <action name="actionIban">
+  <action name="actionEAN">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -378,6 +378,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>le_search</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>fastSearch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>785</x>
+     <y>89</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -386,5 +402,6 @@
   <slot>updateStoricoView(QModelIndex)</slot>
   <slot>removeRecord()</slot>
   <slot>updateRecord()</slot>
+  <slot>fastSearch()</slot>
  </slots>
 </ui>
