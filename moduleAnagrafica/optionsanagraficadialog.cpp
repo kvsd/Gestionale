@@ -19,36 +19,36 @@ OptionsAnagraficaDialog::~OptionsAnagraficaDialog()
 
 void OptionsAnagraficaDialog::prepareMap()
 {
-    anagrafica_cols[0] = "Id";
-    anagrafica_cols[1] = "Ragione sociale";
-    anagrafica_cols[2] = "Tipo di ditta";
-    anagrafica_cols[3] = "Nome";
-    anagrafica_cols[4] = "Cognome";
-    anagrafica_cols[5] = "Indirizzo";
-    anagrafica_cols[6] = "Citta";
-    anagrafica_cols[7] = "Provincia";
-    anagrafica_cols[8] = "CAP";
-    anagrafica_cols[9] = "Stato";
-    anagrafica_cols[10] = "Codice fiscale";
-    anagrafica_cols[11] = "Partita iva";
-    anagrafica_cols[12] = "Agente";
-    anagrafica_cols[13] = "Telefono";
-    anagrafica_cols[14] = "Fax";
-    anagrafica_cols[15] = "Cellulare";
-    anagrafica_cols[16] = "Email";
-    anagrafica_cols[17] = "Sito web";
-    anagrafica_cols[18] = "Banca";
-    anagrafica_cols[19] = "Agenzia";
-    anagrafica_cols[20] = "Conto";
-    anagrafica_cols[21] = "Swift";
-    anagrafica_cols[22] = "Iban";
-    anagrafica_cols[23] = "Destinazione merce";
-    anagrafica_cols[24] = "Note";
+    anagraficaNameCols[0] = "Id";
+    anagraficaNameCols[1] = "Ragione sociale";
+    anagraficaNameCols[2] = "Tipo di ditta";
+    anagraficaNameCols[3] = "Nome";
+    anagraficaNameCols[4] = "Cognome";
+    anagraficaNameCols[5] = "Indirizzo";
+    anagraficaNameCols[6] = "Citta";
+    anagraficaNameCols[7] = "Provincia";
+    anagraficaNameCols[8] = "CAP";
+    anagraficaNameCols[9] = "Stato";
+    anagraficaNameCols[10] = "Codice fiscale";
+    anagraficaNameCols[11] = "Partita iva";
+    anagraficaNameCols[12] = "Agente";
+    anagraficaNameCols[13] = "Telefono";
+    anagraficaNameCols[14] = "Fax";
+    anagraficaNameCols[15] = "Cellulare";
+    anagraficaNameCols[16] = "Email";
+    anagraficaNameCols[17] = "Sito web";
+    anagraficaNameCols[18] = "Banca";
+    anagraficaNameCols[19] = "Agenzia";
+    anagraficaNameCols[20] = "Conto";
+    anagraficaNameCols[21] = "Swift";
+    anagraficaNameCols[22] = "Iban";
+    anagraficaNameCols[23] = "Destinazione merce";
+    anagraficaNameCols[24] = "Note";
 }
 
 void OptionsAnagraficaDialog::populateAnagraficaList(void)
 {
-    for (QMap<int,QString>::Iterator i = anagrafica_cols.begin(); i!=anagrafica_cols.end(); i++) {
+    for (QMap<int,QString>::Iterator i = anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         ui->lw_column_anagrafica->insertItem(i.key(), i.value());
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         col->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
@@ -58,22 +58,40 @@ void OptionsAnagraficaDialog::populateAnagraficaList(void)
 
 void OptionsAnagraficaDialog::saveConfig(void)
 {
-    settings.beginGroup("AnagraficaCols");
-    for (QMap<int,QString>::Iterator i=anagrafica_cols.begin(); i!=anagrafica_cols.end(); i++) {
+    settings.beginGroup("AnagraficaColsStatus");
+    for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         int checkState = col->checkState()==Qt::Checked ? 1 : 0;
         settings.setValue(QVariant(i.key()).toString(), checkState);
+    }
+    settings.endGroup();
+
+    settings.beginGroup("AnagraficaColsColors");
+    for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
+        QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
+        QString color = col->backgroundColor().name();
+        settings.setValue(QVariant(i.key()).toString(), color);
     }
     settings.endGroup();
 }
 
 void OptionsAnagraficaDialog::loadConfig(void)
 {
-    settings.beginGroup("AnagraficaCols");
-    for (QMap<int,QString>::Iterator i=anagrafica_cols.begin(); i!=anagrafica_cols.end(); i++) {
+    settings.beginGroup("AnagraficaColsStatus");
+    for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         int status = settings.value(QVariant(i.key()).toString(), 1).toInt();
         col->setCheckState(status==1 ? Qt::Checked : Qt::Unchecked);
+    }
+    settings.endGroup();
+
+    settings.beginGroup("AnagraficaColsColors");
+    for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
+        QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
+        QString colorstr = settings.value(QVariant(i.key()).toString(), 1).toString();
+        QColor color;
+        color.setNamedColor(colorstr);
+        col->setBackgroundColor(color);
     }
     settings.endGroup();
 }
@@ -81,10 +99,21 @@ void OptionsAnagraficaDialog::loadConfig(void)
 void OptionsAnagraficaDialog::restoreToDefault(void)
 {
     settings.beginGroup("AnagraficaCols");
-    for (QMap<int,QString>::Iterator i=anagrafica_cols.begin(); i!=anagrafica_cols.end(); i++) {
+    for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         col->setCheckState(Qt::Checked);
         settings.setValue(QVariant(i.key()).toString(), 1);
     }
     settings.endGroup();
+}
+
+void OptionsAnagraficaDialog::setColumnColor(QModelIndex index)
+{
+    QListWidgetItem *col = ui->lw_column_anagrafica->item(index.row());
+    QColorDialog dlg(this);
+    bool ok = dlg.exec();
+    if (ok) {
+        QColor color = dlg.selectedColor();
+        col->setBackgroundColor(color);
+    }
 }

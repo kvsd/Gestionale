@@ -5,6 +5,8 @@
 #include <QMap>
 #include <QDebug>
 #include <QSettings>
+#include <QColorDialog>
+#include <QModelIndex>
 
 namespace Ui {
 class OptionsAnagraficaDialog;
@@ -20,7 +22,7 @@ public:
 
 private:
     Ui::OptionsAnagraficaDialog *ui;
-    QMap <int, QString> anagrafica_cols;
+    QMap <int, QString> anagraficaNameCols;
     QSettings settings;
 
     void prepareMap(void);
@@ -30,6 +32,7 @@ public slots:
     void saveConfig(void);
     void loadConfig(void);
     void restoreToDefault(void);
+    void setColumnColor(QModelIndex);
 };
 
 #endif // OPTIONSANAGRAFICADIALOG_H
