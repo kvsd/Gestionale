@@ -26,10 +26,10 @@ public:
 
 private:
     Ui::AziendaDialog *ui;
-    QSqlTableModel *model_citta;
-    QSqlTableModel *model_provincia;
-    QSqlTableModel *model_cap;
-    QSqlTableModel *model_stato;
+    QSqlTableModel *modelCitta;
+    QSqlTableModel *modelProvincia;
+    QSqlTableModel *modelCap;
+    QSqlTableModel *modelStato;
     QMap <QString, QString> azienda;
 
     void setValue(QString id="0");

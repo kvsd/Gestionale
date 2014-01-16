@@ -20,7 +20,7 @@ public:
 
 private:
     Ui::OptionsAnagraficaDialog *ui;
-    QMap <int, QString> anagrafica_cols;
+    QMap <int, QString> mapAnagraficaCols;
     QSettings settings;
 
     void prepareMap(void);

@@ -13,40 +13,40 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
 {
     ui->setupUi(this); 
 
-    model_tipo_ditta = new QSqlTableModel(this);
-    model_tipo_ditta->setTable("tipo_ditta");
-    model_tipo_ditta->select();
-    ui->cb_tipo_ditta->setModel(model_tipo_ditta);
+    modelDitta = new QSqlTableModel(this);
+    modelDitta->setTable("tipo_ditta");
+    modelDitta->select();
+    ui->cb_tipo_ditta->setModel(modelDitta);
     ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
-    model_citta = new QSqlTableModel(this);
-    model_citta->setTable("citta");
-    model_citta->select();
-    ui->cb_citta->setModel(model_citta);
+    modelCitta = new QSqlTableModel(this);
+    modelCitta->setTable("citta");
+    modelCitta->select();
+    ui->cb_citta->setModel(modelCitta);
     ui->cb_citta->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
-    model_provincia = new QSqlTableModel(this);
-    model_provincia->setTable("provincia");
-    model_provincia->select();
-    ui->cb_provincia->setModel(model_provincia);
+    modelProvincia = new QSqlTableModel(this);
+    modelProvincia->setTable("provincia");
+    modelProvincia->select();
+    ui->cb_provincia->setModel(modelProvincia);
     ui->cb_provincia->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
-    model_cap = new QSqlTableModel(this);
-    model_cap->setTable("cap");
-    model_cap->select();
-    ui->cb_cap->setModel(model_cap);
+    modelCap = new QSqlTableModel(this);
+    modelCap->setTable("cap");
+    modelCap->select();
+    ui->cb_cap->setModel(modelCap);
     ui->cb_cap->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
-    model_stato = new QSqlTableModel(this);
-    model_stato->setTable("stato");
-    model_stato->select();
-    ui->cb_stato->setModel(model_stato);
+    modelStato = new QSqlTableModel(this);
+    modelStato->setTable("stato");
+    modelStato->select();
+    ui->cb_stato->setModel(modelStato);
     ui->cb_stato->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
-    model_agente = new QSqlTableModel(this);
-    model_agente->setTable("agenti");
-    model_agente->select();
-    ui->cb_agente->setModel(model_agente);
+    modelAgente = new QSqlTableModel(this);
+    modelAgente->setTable("agenti");
+    modelAgente->select();
+    ui->cb_agente->setModel(modelAgente);
     ui->cb_agente->setModelColumn(anagrafica::COL_MODEL_COGNOME);
 
     ui->cb_agente->setShown(false);
@@ -127,77 +127,77 @@ void AnagraficaAddDialog::setValue(QString id)
     ui->te_destinazione_merce->setText(query.value(anagrafica::COL_MERCE).toString());
     ui->te_note->setText(query.value(anagrafica::COL_NOTE).toString());
 
-    persona["id"]=id;
+    mapPersona["id"]=id;
 
 }
 
 void AnagraficaAddDialog::prepareMap(void)
 {
-    persona["rag_soc"] = ui->le_rag_sociale->text();
-    persona["tipo_ditta"] = model_tipo_ditta->index(ui->cb_tipo_ditta->currentIndex(), anagrafica::COL_ID).data().toString();
-    persona["cliente"] = ui->cliente_cb->isChecked() ? "y" : "n";
-    persona["fornitore"] = ui->fornitore_cb->isChecked() ? "y" : "n";
-    persona["nome"] = ui->le_nome->text();
-    persona["cognome"] = ui->le_cognome->text();
-    persona["prt_iva"] = ui->le_piva->text();
-    persona["cod_fiscale"] = ui->le_cod_fiscale->text();
-    persona["agente"] = model_agente->index(ui->cb_agente->currentIndex(), anagrafica::COL_ID).data().toString();
-    persona["indirizzo"] = ui->le_indirizzo->text();
-    persona["id_citta"] = model_citta->index(ui->cb_citta->currentIndex(), anagrafica::COL_ID).data().toString();
-    persona["id_provincia"] = model_provincia->index(ui->cb_provincia->currentIndex(), anagrafica::COL_ID).data().toString();
-    persona["id_cap"]= model_cap->index(ui->cb_cap->currentIndex(), anagrafica::COL_ID).data().toString();
-    persona["id_stato"]= model_stato->index(ui->cb_stato->currentIndex(), anagrafica::COL_ID).data().toString();
-    persona["tel"]= ui->le_tel->text();
-    persona["cel"]= ui->le_cel->text();
-    persona["fax"] = ui->le_fax->text();
-    persona["email"] = ui->le_email->text();
-    persona["web"] = ui->le_web->text();
-    persona["banca"] = ui->le_banca->text();
-    persona["agenzia"] = ui->le_agenzia->text();
-    persona["conto"] = ui->le_conto->text();
-    persona["swift"] = ui->le_swift->text();
-    persona["iban"] = ui->le_iban->text();
-    persona["dest_merce"] = ui->te_destinazione_merce->toPlainText();
-    persona["note"] = ui->te_note->toPlainText();
+    mapPersona["rag_soc"] = ui->le_rag_sociale->text();
+    mapPersona["tipo_ditta"] = modelDitta->index(ui->cb_tipo_ditta->currentIndex(), anagrafica::COL_ID).data().toString();
+    mapPersona["cliente"] = ui->cliente_cb->isChecked() ? "y" : "n";
+    mapPersona["fornitore"] = ui->fornitore_cb->isChecked() ? "y" : "n";
+    mapPersona["nome"] = ui->le_nome->text();
+    mapPersona["cognome"] = ui->le_cognome->text();
+    mapPersona["prt_iva"] = ui->le_piva->text();
+    mapPersona["cod_fiscale"] = ui->le_cod_fiscale->text();
+    mapPersona["agente"] = modelAgente->index(ui->cb_agente->currentIndex(), anagrafica::COL_ID).data().toString();
+    mapPersona["indirizzo"] = ui->le_indirizzo->text();
+    mapPersona["id_citta"] = modelCitta->index(ui->cb_citta->currentIndex(), anagrafica::COL_ID).data().toString();
+    mapPersona["id_provincia"] = modelProvincia->index(ui->cb_provincia->currentIndex(), anagrafica::COL_ID).data().toString();
+    mapPersona["id_cap"]= modelCap->index(ui->cb_cap->currentIndex(), anagrafica::COL_ID).data().toString();
+    mapPersona["id_stato"]= modelStato->index(ui->cb_stato->currentIndex(), anagrafica::COL_ID).data().toString();
+    mapPersona["tel"]= ui->le_tel->text();
+    mapPersona["cel"]= ui->le_cel->text();
+    mapPersona["fax"] = ui->le_fax->text();
+    mapPersona["email"] = ui->le_email->text();
+    mapPersona["web"] = ui->le_web->text();
+    mapPersona["banca"] = ui->le_banca->text();
+    mapPersona["agenzia"] = ui->le_agenzia->text();
+    mapPersona["conto"] = ui->le_conto->text();
+    mapPersona["swift"] = ui->le_swift->text();
+    mapPersona["iban"] = ui->le_iban->text();
+    mapPersona["dest_merce"] = ui->te_destinazione_merce->toPlainText();
+    mapPersona["note"] = ui->te_note->toPlainText();
 }
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
 {
     QSqlQuery query;
-    if (persona.contains("id")) {
+    if (mapPersona.contains("id")) {
         query.prepare(UPDATE_QUERY);
-        query.bindValue(":id", persona["id"]);
+        query.bindValue(":id", mapPersona["id"]);
     }
     else {
         query.prepare(INSERT_QUERY);
     }
 
-    query.bindValue(":fornitore",persona["fornitore"]);
-    query.bindValue(":cliente",persona["cliente"]);
-    query.bindValue(":rag_sociale",persona["rag_soc"]);
-    query.bindValue(":id_tipo_ditta",persona["tipo_ditta"]);
-    query.bindValue(":nome",persona["nome"]);
-    query.bindValue(":cognome",persona["cognome"]);
-    query.bindValue(":indirizzo",persona["indirizzo"]);
-    query.bindValue(":id_citta",persona["id_citta"]);
-    query.bindValue(":id_provincia",persona["id_provincia"]);
-    query.bindValue(":id_cap",persona["id_cap"]);
-    query.bindValue(":id_stato",persona["id_stato"]);
-    query.bindValue(":cod_fisc",persona["cod_fiscale"]);
-    query.bindValue(":prt_iva",persona["prt_iva"]);
-    query.bindValue(":id_agente",persona["agente"]);
-    query.bindValue(":tel",persona["tel"]);
-    query.bindValue(":fax",persona["fax"]);
-    query.bindValue(":cel",persona["cel"]);
-    query.bindValue(":email",persona["email"]);
-    query.bindValue(":sito_web",persona["web"]);
-    query.bindValue(":banca",persona["banca"]);
-    query.bindValue(":agenzia",persona["agenzia"]);
-    query.bindValue(":conto",persona["conto"]);
-    query.bindValue(":swift",persona["swift"]);
-    query.bindValue(":iban",persona["iban"]);
-    query.bindValue(":dest_merce",persona["dest_merce"]);
-    query.bindValue(":note",persona["note"]);
+    query.bindValue(":fornitore",mapPersona["fornitore"]);
+    query.bindValue(":cliente",mapPersona["cliente"]);
+    query.bindValue(":rag_sociale",mapPersona["rag_soc"]);
+    query.bindValue(":id_tipo_ditta",mapPersona["tipo_ditta"]);
+    query.bindValue(":nome",mapPersona["nome"]);
+    query.bindValue(":cognome",mapPersona["cognome"]);
+    query.bindValue(":indirizzo",mapPersona["indirizzo"]);
+    query.bindValue(":id_citta",mapPersona["id_citta"]);
+    query.bindValue(":id_provincia",mapPersona["id_provincia"]);
+    query.bindValue(":id_cap",mapPersona["id_cap"]);
+    query.bindValue(":id_stato",mapPersona["id_stato"]);
+    query.bindValue(":cod_fisc",mapPersona["cod_fiscale"]);
+    query.bindValue(":prt_iva",mapPersona["prt_iva"]);
+    query.bindValue(":id_agente",mapPersona["agente"]);
+    query.bindValue(":tel",mapPersona["tel"]);
+    query.bindValue(":fax",mapPersona["fax"]);
+    query.bindValue(":cel",mapPersona["cel"]);
+    query.bindValue(":email",mapPersona["email"]);
+    query.bindValue(":sito_web",mapPersona["web"]);
+    query.bindValue(":banca",mapPersona["banca"]);
+    query.bindValue(":agenzia",mapPersona["agenzia"]);
+    query.bindValue(":conto",mapPersona["conto"]);
+    query.bindValue(":swift",mapPersona["swift"]);
+    query.bindValue(":iban",mapPersona["iban"]);
+    query.bindValue(":dest_merce",mapPersona["dest_merce"]);
+    query.bindValue(":note",mapPersona["note"]);
     return query;
 }
 
@@ -205,33 +205,33 @@ void AnagraficaAddDialog::save(void)
 {
     prepareMap();
 
-    if (persona["rag_soc"].isEmpty()) {
+    if (mapPersona["rag_soc"].isEmpty()) {
         showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
         ui->le_rag_sociale->setStyleSheet(CSS_WARNING_STYLE);
         return;
     }
 
-    else if (persona["cliente"] == "n" && persona["fornitore"] == "n") {
+    else if (mapPersona["cliente"] == "n" && mapPersona["fornitore"] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
         ui->cliente_cb->setStyleSheet(CSS_WARNING_STYLE);
         ui->fornitore_cb->setStyleSheet(CSS_WARNING_STYLE);
         return;
     }
 
-    else if (persona["cod_fiscale"].isEmpty() || persona["prt_iva"].isEmpty()) {
+    else if (mapPersona["cod_fiscale"].isEmpty() || mapPersona["prt_iva"].isEmpty()) {
         showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
         ui->le_cod_fiscale->setStyleSheet(CSS_WARNING_STYLE);
         ui->le_piva->setStyleSheet(CSS_WARNING_STYLE);
         return;
     }
 
-    if (!controlloPartitaIva(persona["prt_iva"])) {
+    if (!controlloPartitaIva(mapPersona["prt_iva"])) {
         if (!showDialogWarning(this, ERR023, MSG019)) //NOTE codice errore 023
             return;
     }
 
-    if (persona["cod_fiscale"] != persona["prt_iva"]) {
-        if (!controlloCodiceFiscale(persona["cod_fiscale"])) {
+    if (mapPersona["cod_fiscale"] != mapPersona["prt_iva"]) {
+        if (!controlloCodiceFiscale(mapPersona["cod_fiscale"])) {
             if (!showDialogWarning(this, ERR024, MSG020)) //NOTE codice errore 024
                 return;
         }
@@ -239,7 +239,7 @@ void AnagraficaAddDialog::save(void)
 
     QSqlQuery query = prepareQuery();
     if (!query.exec()) {
-        if (persona.contains("id")) {
+        if (mapPersona.contains("id")) {
             showDialogError(this, ERR011, MSG005, query.lastError().text()); //NOTE codice errore 011
         }
         else {
@@ -252,41 +252,41 @@ void AnagraficaAddDialog::save(void)
 }
 
 
-void AnagraficaAddDialog::open_add_tipoditta(void)
+void AnagraficaAddDialog::openAddTipoditta(void)
 {
-    allDlg(this, model_tipo_ditta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
+    allDlg(this, modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
 }
 
-void AnagraficaAddDialog::open_add_citta(void)
+void AnagraficaAddDialog::openAddCitta(void)
 {
-    allDlg(this, model_citta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
+    allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
 }
 
-void AnagraficaAddDialog::open_add_provincia(void)
+void AnagraficaAddDialog::openAddProvincia(void)
 {
-    allDlg(this, model_provincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017
+    allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017
 }
 
-void AnagraficaAddDialog::open_add_cap(void)
+void AnagraficaAddDialog::openAddCap(void)
 {
-    allDlg(this, model_cap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018
+    allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018
 }
 
-void AnagraficaAddDialog::open_add_stato(void)
+void AnagraficaAddDialog::openAddStato(void)
 {
-    allDlg(this, model_stato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019
+    allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019
 }
 
-void AnagraficaAddDialog::open_add_agente(void)
+void AnagraficaAddDialog::openAddAgente(void)
 {
     AgentiAddDialog dlg(this);
     bool ok = dlg.exec();
     if (ok) {
-        model_agente->select();
+        modelAgente->select();
     }
 }
 
-void AnagraficaAddDialog::copy_prt_iva(void)
+void AnagraficaAddDialog::copyPrtIva(void)
 {
     ui->le_cod_fiscale->setText(ui->le_piva->text());
 }
