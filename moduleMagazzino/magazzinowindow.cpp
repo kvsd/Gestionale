@@ -5,6 +5,7 @@ const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
 const QString SELECT_ARTICOLI_FORNITORE = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
 const QString SELECT_ARTICOLI_MARCA = "SELECT * FROM vw_magazzino WHERE \"Marca\"= '%1'";
 const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Cat.Merce\" = '%1'";
+const QString SELECT_ARTICOLI_SEDE = "SELECT * FROM vw_magazzino WHERE \"Sede Magazzino\" = '%1'";
 const QString SELECT_FILTER = "SELECT id, descr FROM %1";
 const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";
 const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\" DESC, \"Imponibile\" DESC";
@@ -36,7 +37,8 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     filterMap["-----"] = "";
     filterMap["Fornitore"] = "";
     filterMap["Marca"] = "marca";
-    filterMap["Categoria"] = "cat_merce" ;
+    filterMap["Categoria"] = "cat_merce";
+    filterMap["Sede Magazzino"] = "sede_magazzino";
     ui->cb_filter_selection->insertItems(0, filterMap.keys());
 }
 
@@ -69,6 +71,9 @@ void MagazzinoWindow::updateTableMagazzino(void)
     }
     else if (filter == "Categoria") {
         magazzinoModel->setQuery(SELECT_ARTICOLI_CATEGORIA.arg(ui->cb_filter_value->currentText()));
+    }
+    else if (filter == "Sede Magazzino") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_SEDE.arg(ui->cb_filter_value->currentText()));
     }
     else {
         magazzinoModel->clear();
@@ -151,4 +156,28 @@ void MagazzinoWindow::updateStoricoView(QModelIndex index)
     ui->storicoView->hideColumn(COL_ID);
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
+}
+
+void MagazzinoWindow::fastSearch(void)
+{
+    QString pattern = ui->le_search->text();
+    if (pattern == "") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+        return;
+    }
+
+    QStringList filtri;
+    if (ui->actionDescrizione->isChecked())
+        filtri.append("\"Descrizione\" ILIKE '%%1%'");
+    if (ui->actionCod_Fornitore->isChecked())
+        filtri.append("\"Cod.Fornitore\" ILIKE '%%1%'");
+    if (ui->actionCod_Articolo->isChecked())
+        filtri.append("\"Cod.Articolo\" ILIKE '%%1%'");
+    if (ui->actionEAN->isChecked())
+        filtri.append("\"Cod.EAN\" ILIKE '%%1%'");
+
+    if (filtri.length() == 0)
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+    else
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
 }

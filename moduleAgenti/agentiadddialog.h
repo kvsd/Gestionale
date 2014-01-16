@@ -25,7 +25,7 @@ public:
 
 private:
     Ui::AgentiAddDialog *ui;
-    QMap <QString, QString> agente;
+    QMap <QString, QString> mapAgente;
 
 public slots:
     void save(void);

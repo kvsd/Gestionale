@@ -31,37 +31,37 @@ void AgentiAddDialog::setValue(QString id)
     ui->le_tel->setText(query.value(agenti::COL_TEL).toString());
     ui->le_cel->setText(query.value(agenti::COL_CEL).toString());
     ui->le_email->setText(query.value(agenti::COL_EMAIL).toString());
-    agente["id"] = id;
+    mapAgente["id"] = id;
 }
 
 void AgentiAddDialog::save(void)
 {
-    agente["nome"] = ui->le_nome->text();
-    agente["cognome"] = ui->le_cognome->text();
-    agente["tel"] = ui->le_tel->text();
-    agente["cel"] = ui->le_cel->text();
-    agente["email"] = ui->le_email->text();
+    mapAgente["nome"] = ui->le_nome->text();
+    mapAgente["cognome"] = ui->le_cognome->text();
+    mapAgente["tel"] = ui->le_tel->text();
+    mapAgente["cel"] = ui->le_cel->text();
+    mapAgente["email"] = ui->le_email->text();
 
-    if (agente["cognome"].isEmpty()) {
+    if (mapAgente["cognome"].isEmpty()) {
         showDialogError(this, ERR008, MSG021); //NOTE codice errore 008
         ui->le_cognome->setStyleSheet(CSS_WARNING_STYLE);
         return;
     }
 
     QSqlQuery query;
-    if (agente.contains("id")) {
+    if (mapAgente.contains("id")) {
         query.prepare(UPDATE_QUERY);
-        query.bindValue(":id", agente["id"]);
+        query.bindValue(":id", mapAgente["id"]);
     }
     else {
         query.prepare(ADD_QUERY);
     }
 
-    query.bindValue(":nome", agente["nome"]);
-    query.bindValue(":cognome", agente["cognome"]);
-    query.bindValue(":tel", agente["tel"]);
-    query.bindValue(":cel", agente["cel"]);
-    query.bindValue(":email", agente["email"]);
+    query.bindValue(":nome", mapAgente["nome"]);
+    query.bindValue(":cognome", mapAgente["cognome"]);
+    query.bindValue(":tel", mapAgente["tel"]);
+    query.bindValue(":cel", mapAgente["cel"]);
+    query.bindValue(":email", mapAgente["email"]);
 
     if (!query.exec()) {
         showDialogError(this, ERR009, MSG022, query.lastError().text()); //NOTE codice errore 009

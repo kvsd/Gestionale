@@ -27,7 +27,7 @@ public:
     
 private:
     Ui::AgentiViewDialog *ui;
-    QSqlQueryModel *model;
+    QSqlQueryModel *modelAgenti;
     QSettings settings;
 
 protected:

@@ -26,28 +26,28 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model_citta = new QSqlTableModel(this);
-    model_citta->setTable("citta");
-    model_citta->select();
-    ui->cb_citta->setModel(model_citta);
+    modelCitta = new QSqlTableModel(this);
+    modelCitta->setTable("citta");
+    modelCitta->select();
+    ui->cb_citta->setModel(modelCitta);
     ui->cb_citta->setModelColumn(azienda::COL_DESCR);
 
-    model_provincia = new QSqlTableModel(this);
-    model_provincia->setTable("provincia");
-    model_provincia->select();
-    ui->cb_provincia->setModel(model_provincia);
+    modelProvincia = new QSqlTableModel(this);
+    modelProvincia->setTable("provincia");
+    modelProvincia->select();
+    ui->cb_provincia->setModel(modelProvincia);
     ui->cb_provincia->setModelColumn(azienda::COL_DESCR);
 
-    model_cap = new QSqlTableModel(this);
-    model_cap->setTable("cap");
-    model_cap->select();
-    ui->cb_cap->setModel(model_cap);
+    modelCap = new QSqlTableModel(this);
+    modelCap->setTable("cap");
+    modelCap->select();
+    ui->cb_cap->setModel(modelCap);
     ui->cb_cap->setModelColumn(azienda::COL_DESCR);
 
-    model_stato = new QSqlTableModel(this);
-    model_stato->setTable("stato");
-    model_stato->select();
-    ui->cb_stato->setModel(model_stato);
+    modelStato = new QSqlTableModel(this);
+    modelStato->setTable("stato");
+    modelStato->select();
+    ui->cb_stato->setModel(modelStato);
     ui->cb_stato->setModelColumn(azienda::COL_DESCR);
 
     setValue();
@@ -60,22 +60,22 @@ AziendaDialog::~AziendaDialog()
 
 void AziendaDialog::open_add_citta(void)
 {
-    allDlg(this, model_citta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016.1
+    allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016.1
 }
 
 void AziendaDialog::open_add_provincia(void)
 {
-    allDlg(this, model_provincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017.1
+    allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017.1
 }
 
 void AziendaDialog::open_add_cap(void)
 {
-    allDlg(this, model_cap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018.1
+    allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018.1
 }
 
 void AziendaDialog::open_add_stato(void)
 {
-    allDlg(this, model_stato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019.1
+    allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019.1
 }
 
 void AziendaDialog::setValue(QString id)
@@ -127,10 +127,10 @@ void AziendaDialog::prepareMap(void)
     azienda["nome"] = ui->le_nome->text();
     azienda["cognome"] = ui->le_cognome->text();
     azienda["indirizzo"] = ui->le_indirizzo->text();
-    azienda["id_citta"] = model_citta->index(ui->cb_citta->currentIndex(), azienda::COL_ID).data().toString();
-    azienda["id_provincia"] = model_provincia->index(ui->cb_provincia->currentIndex(), azienda::COL_ID).data().toString();
-    azienda["id_cap"] = model_cap->index(ui->cb_cap->currentIndex(), azienda::COL_ID).data().toString();
-    azienda["id_stato"] = model_stato->index(ui->cb_stato->currentIndex(), azienda::COL_ID).data().toString();
+    azienda["id_citta"] = modelCitta->index(ui->cb_citta->currentIndex(), azienda::COL_ID).data().toString();
+    azienda["id_provincia"] = modelProvincia->index(ui->cb_provincia->currentIndex(), azienda::COL_ID).data().toString();
+    azienda["id_cap"] = modelCap->index(ui->cb_cap->currentIndex(), azienda::COL_ID).data().toString();
+    azienda["id_stato"] = modelStato->index(ui->cb_stato->currentIndex(), azienda::COL_ID).data().toString();
     azienda["tel"] = ui->le_tel->text();
     azienda["fax"] = ui->le_fax->text();
     azienda["email"] = ui->le_email->text();

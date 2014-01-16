@@ -41,6 +41,7 @@ public slots:
     void updateRecord();
     void removeRecord();
     void updateStoricoView(QModelIndex index);
+    void fastSearch();
 };
 
 #endif // MAGAZZINOWINDOW_H

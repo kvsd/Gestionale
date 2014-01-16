@@ -380,8 +380,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>110</width>
-            <height>165</height>
+            <width>508</width>
+            <height>251</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -488,8 +488,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>105</width>
-            <height>165</height>
+            <width>508</width>
+            <height>251</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -596,8 +596,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>172</width>
-            <height>248</height>
+            <width>508</width>
+            <height>251</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -739,7 +739,7 @@
    <sender>pb_tp_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>open_add_tipoditta()</slot>
+   <slot>openAddTipoditta()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>412</x>
@@ -787,7 +787,7 @@
    <sender>pb_citta_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>open_add_citta()</slot>
+   <slot>openAddCitta()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>518</x>
@@ -803,7 +803,7 @@
    <sender>pb_prov_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>open_add_provincia()</slot>
+   <slot>openAddProvincia()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>518</x>
@@ -819,7 +819,7 @@
    <sender>pb_cap_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>open_add_cap()</slot>
+   <slot>openAddCap()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>518</x>
@@ -835,7 +835,7 @@
    <sender>pb_stato_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>open_add_stato()</slot>
+   <slot>openAddStato()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>518</x>
@@ -1171,7 +1171,7 @@
    <sender>pb_agenti_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>open_add_agente()</slot>
+   <slot>openAddAgente()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>513</x>
@@ -1187,7 +1187,7 @@
    <sender>pb_copy</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaAddDialog</receiver>
-   <slot>copy_prt_iva()</slot>
+   <slot>copyPrtIva()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>511</x>
@@ -1201,13 +1201,13 @@
   </connection>
  </connections>
  <slots>
-  <slot>open_add_tipoditta()</slot>
-  <slot>open_add_citta()</slot>
-  <slot>open_add_provincia()</slot>
-  <slot>open_add_stato()</slot>
-  <slot>open_add_cap()</slot>
+  <slot>openAddTipoditta()</slot>
+  <slot>openAddCitta()</slot>
+  <slot>openAddProvincia()</slot>
+  <slot>openAddStato()</slot>
+  <slot>openAddCap()</slot>
   <slot>save()</slot>
-  <slot>open_add_agente()</slot>
-  <slot>copy_prt_iva()</slot>
+  <slot>openAddAgente()</slot>
+  <slot>copyPrtIva()</slot>
  </slots>
 </ui>
