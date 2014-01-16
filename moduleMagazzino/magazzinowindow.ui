@@ -20,6 +20,16 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1" columnminimumwidth="0,0,0">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Filtra per</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="cb_filter_selection"/>
+      </item>
       <item row="0" column="2">
        <widget class="QComboBox" name="cb_filter_value">
         <property name="editable">
@@ -30,19 +40,9 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Ricerca veloce:</string>
+         <string>Ricerca per:</string>
         </property>
        </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Filtra per</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="cb_filter_selection"/>
       </item>
       <item row="1" column="1" colspan="2">
        <widget class="QLineEdit" name="le_search"/>
@@ -209,9 +209,60 @@
      <string>&amp;Opzioni</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuRicerca">
+    <property name="title">
+     <string>Ricerca</string>
+    </property>
+    <widget class="QMenu" name="menuRicerca_per">
+     <property name="tearOffEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>Ricerca per</string>
+     </property>
+     <addaction name="actionDescrizione"/>
+     <addaction name="actionCod_Articolo"/>
+     <addaction name="actionCod_Fornitore"/>
+     <addaction name="actionIban"/>
+    </widget>
+    <addaction name="menuRicerca_per"/>
+   </widget>
    <addaction name="menuOpzioni"/>
+   <addaction name="menuRicerca"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCod_Articolo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cod Articolo</string>
+   </property>
+  </action>
+  <action name="actionCod_Fornitore">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cod. Fornitore</string>
+   </property>
+  </action>
+  <action name="actionIban">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cod. a Barre</string>
+   </property>
+  </action>
+  <action name="actionDescrizione">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Descrizione</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
