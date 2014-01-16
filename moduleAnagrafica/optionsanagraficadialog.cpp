@@ -69,8 +69,11 @@ void OptionsAnagraficaDialog::saveConfig(void)
     settings.beginGroup("AnagraficaColsColors");
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
-        QString color = col->background().color().name();
-        settings.setValue(QVariant(i.key()).toString(), color);
+        QColor color = col->background().color();
+        if (color == QColor(Qt::transparent))
+            settings.setValue(QVariant(i.key()).toString(), "-1");
+        else
+            settings.setValue(QVariant(i.key()).toString(), color.name());
     }
     settings.endGroup();
 }
@@ -85,15 +88,15 @@ void OptionsAnagraficaDialog::loadConfig(void)
     }
     settings.endGroup();
 
+    QColor color;
     settings.beginGroup("AnagraficaColsColors");
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
-        QString colorstr = settings.value(QVariant(i.key()).toString(), 1).toString();
-        QColor color;
-        if (colorstr == "#000000")
+        QString colorStr = settings.value(QVariant(i.key()).toString(), "-1").toString();
+        if (colorStr == "-1")
             color = QColor(Qt::transparent);
         else
-            color.setNamedColor(colorstr);
+            color.setNamedColor(colorStr);
 
         col->setBackground(QBrush(color));
     }
