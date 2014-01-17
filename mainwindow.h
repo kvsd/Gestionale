@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include "error.h"
-#include "logindialog.h"
-#include "connectionsetupdialog.h"
-#include "tablesetupdialog.h"
+#include "moduleDatabase/logindialog.h"
+#include "moduleDatabase/connectionsetupdialog.h"
+#include "moduleDatabase/tablesetupdialog.h"
 #include "moduleAgenti/agentiviewdialog.h"
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "moduleAzienda/aziendadialog.h"

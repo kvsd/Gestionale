@@ -11,20 +11,22 @@ DEPENDPATH += . \
               moduleAnagrafica \
               moduleAzienda \
               moduleMagazzino \
+			  moduleDatabase \
               utils
 INCLUDEPATH += . \
                moduleAgenti \
                moduleAnagrafica \
                utils \
                moduleAzienda \
-               moduleMagazzino
+               moduleMagazzino \
+			   moduleDatabase
 
 # Input
-HEADERS += connectionsetupdialog.h \
+HEADERS += moduleDatabase/connectionsetupdialog.h \
            error.h \
-           logindialog.h \
+           moduleDatabase/logindialog.h \
            mainwindow.h \
-           tablesetupdialog.h \
+           moduleDatabase/tablesetupdialog.h \
            moduleAgenti/agentiadddialog.h \
            moduleAgenti/agentiviewdialog.h \
            moduleAnagrafica/anagraficaadddialog.h \
@@ -35,11 +37,11 @@ HEADERS += connectionsetupdialog.h \
            moduleMagazzino/magazzinowindow.h \
            utils/controllodati.h \
            utils/simpledialogs.h \
-    utils/enum_const.h
-FORMS += connectionsetupdialog.ui \
-         logindialog.ui \
+           utils/enum_const.h
+FORMS += moduleDatabase/connectionsetupdialog.ui \
+         moduleDatabase/logindialog.ui \
          mainwindow.ui \
-         tablesetupdialog.ui \
+         moduleDatabase/tablesetupdialog.ui \
          moduleAgenti/agentiadddialog.ui \
          moduleAgenti/agentiviewdialog.ui \
          moduleAnagrafica/anagraficaadddialog.ui \
@@ -48,12 +50,12 @@ FORMS += connectionsetupdialog.ui \
          moduleAzienda/aziendadialog.ui \
          moduleMagazzino/articolodialog.ui \
          moduleMagazzino/magazzinowindow.ui
-SOURCES += connectionsetupdialog.cpp \
+SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            error.cpp \
-           logindialog.cpp \
+           moduleDatabase/logindialog.cpp \
            main.cpp \
            mainwindow.cpp \
-           tablesetupdialog.cpp \
+           moduleDatabase/tablesetupdialog.cpp \
            moduleAgenti/agentiadddialog.cpp \
            moduleAgenti/agentiviewdialog.cpp \
            moduleAnagrafica/anagraficaadddialog.cpp \
