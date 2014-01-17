@@ -4,6 +4,7 @@
 #include "moduleAnagrafica/anagraficaadddialog.h"
 #include "moduleAnagrafica/optionsanagraficadialog.h"
 #include "utils/enum_const.h"
+#include "custommodel.h"
 
 #include <QMainWindow>
 #include <QDialog>
@@ -26,7 +27,7 @@ public:
 
 private:
     Ui::anagraficaWindow *ui;
-    QSqlQueryModel *anagraficaModel;
+    CustomModel *anagraficaModel;
     QSettings settings;
     void loadConfigSettings();
     QString str_search;

@@ -1,6 +1,6 @@
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "ui_anagraficawindow.h"
-
+#include "custommodel.h"
 const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
 const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
 const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";
@@ -13,7 +13,8 @@ anagraficaWindow::anagraficaWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->move(parent->pos());
-    anagraficaModel = new QSqlQueryModel(this);
+    //anagraficaModel = new QSqlQueryModel(this);
+    anagraficaModel = new CustomModel("AnagraficaColsColors");
     ui->anagraficaView->setModel(anagraficaModel);
 
     updateTable();
@@ -44,6 +45,8 @@ void anagraficaWindow::loadConfigSettings()
 
     }
     settings.endGroup();
+
+    anagraficaModel->loadSettings();
 }
 
 void anagraficaWindow::closeEvent(QCloseEvent *event)
