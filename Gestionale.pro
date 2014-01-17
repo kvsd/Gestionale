@@ -37,7 +37,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleMagazzino/magazzinowindow.h \
            utils/controllodati.h \
            utils/simpledialogs.h \
-           utils/enum_const.h
+           utils/enum_const.h \
+    custommodel.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -65,4 +66,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            moduleMagazzino/articolodialog.cpp \
            moduleMagazzino/magazzinowindow.cpp \
            utils/controllodati.cpp \
-           utils/simpledialogs.cpp
+           utils/simpledialogs.cpp \
+    custommodel.cpp

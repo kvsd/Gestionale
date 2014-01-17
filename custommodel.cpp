@@ -1,29 +1,11 @@
 #include "custommodel.h"
 
-CustomModel::CustomModel(QObject *parent) :
+CustomModel::CustomModel(QString colsGroup, QObject *parent) :
     QSqlQueryModel(parent)
 {
-    colors[0] = QColor(Qt::transparent);
-    colors[1] = QColor(Qt::transparent);
-    colors[2] = QColor(Qt::transparent);
-    colors[3] = QColor(Qt::transparent);
-    colors[4] = QColor(Qt::transparent);
-    colors[5] = QColor(Qt::transparent);
-    colors[6] = QColor(Qt::transparent);
-    colors[7] = QColor(Qt::transparent);
-    colors[8] = QColor(Qt::transparent);
-    colors[9] = QColor(Qt::transparent);
-    colors[10] = QColor(Qt::transparent);
-    colors[11] = QColor(Qt::transparent);
-    colors[12] = QColor(Qt::transparent);
-    colors[13] = QColor(Qt::transparent);
-    colors[14] = QColor(Qt::transparent);
-    colors[15] = QColor(Qt::transparent);
-    colors[16] = QColor(Qt::transparent);
-    colors[17] = QColor(Qt::transparent);
-    colors[18] = QColor(Qt::transparent);
-    colors[19] = QColor(Qt::transparent);
-    colors[20] = QColor(Qt::transparent);
+    group = colsGroup;
+    prepareMap();
+    loadSettings();
 }
 
 QVariant CustomModel::data(const QModelIndex &item, int role) const
@@ -33,74 +15,125 @@ QVariant CustomModel::data(const QModelIndex &item, int role) const
     if (role == Qt::BackgroundRole) {
         switch(item.column()) {
         case 0:
-            return QBrush(colors[0]);
+            return colors[0];
             break;
         case 1:
-            return QBrush(colors[1]);
+            return colors[1];
             break;
         case 2:
-            return QBrush(colors[2]);
+            return colors[2];
             break;
         case 3:
-            return QBrush(colors[3]);
+            return colors[3];
             break;
         case 4:
-            return QBrush(colors[4]);
+            return colors[4];
             break;
         case 5:
-            return QBrush(colors[5]);
+            return colors[5];
             break;
         case 6:
-            return QBrush(colors[6]);
+            return colors[6];
             break;
 		case 7:
-            return QBrush(colors[7]);
+            return colors[7];
             break;
 		case 8:
-            return QBrush(colors[8]);
+            return colors[8];
             break;
         case 9:
-            return QBrush(colors[9]);
+            return colors[9];
             break;
         case 10:
-            return QBrush(colors[10]);
+            return colors[10];
             break;
         case 11:
-            return QBrush(colors[11]);
+            return colors[11];
             break;
         case 12:
-            return QBrush(colors[12]);
+            return colors[12];
             break;
         case 13:
-            return QBrush(colors[13]);
+            return colors[13];
             break;
         case 14:
-            return QBrush(colors[14]);
+            return colors[14];
             break;
 		case 15:
-            return QBrush(colors[15]);
+            return colors[15];
             break;
 		case 16:
-			return QBrush(colors[16]);
+            return colors[16];
 			break;
 		case 17:
-            return QBrush(colors[17]);
+            return colors[17];
             break;
 		case 18:
-			return QBrush(colors[18]);
+            return colors[18];
 			break;
 		case 19:
-            return QBrush(colors[19]);
+            return colors[19];
             break;
 		case 20:
-			return QBrush(colors[20]);
+            return colors[20];
 			break;
+        case 21:
+            return colors[21];
+            break;
+        case 22:
+            return colors[22];
+            break;
+        case 23:
+            return colors[23];
+            break;
+        case 24:
+            return colors[24];
+            break;
+        case 25:
+            return colors[25];
+            break;
+        case 26:
+            return colors[26];
+            break;
+        case 27:
+            return colors[27];
+            break;
+        case 28:
+            return colors[28];
+            break;
+        case 29:
+            return colors[29];
+            break;
+        case 30:
+            return colors[30];
+            break;
         default:
-            return QBrush(colors[5]);
+            return QBrush(Qt::transparent);
             break;
 
         }
     }
 
     return value;
+}
+
+void CustomModel::prepareMap(void)
+{
+    for (int i=0; i<=30; i++) {
+        colors[i] = QBrush(Qt::transparent);
+    }
+}
+
+void CustomModel::loadSettings(void)
+{
+    settings.beginGroup(group);
+    int lenght = settings.allKeys().length();
+    for (int i=0; i<lenght; i++) {
+        QString value = settings.value(QVariant(i).toString(), "-1").toString();
+        if (value == "-1")
+            colors[i] = QBrush(Qt::transparent);
+        else
+            colors[i] = QBrush(QColor(value));
+    }
+    settings.endGroup();
 }
