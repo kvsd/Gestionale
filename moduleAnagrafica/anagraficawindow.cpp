@@ -33,7 +33,7 @@ anagraficaWindow::~anagraficaWindow()
 
 void anagraficaWindow::loadConfigSettings()
 {
-    settings.beginGroup("AnagraficaCols");
+    settings.beginGroup("AnagraficaColsStatus");
     QStringList cols = settings.allKeys();
     if (cols.isEmpty()) {
         return;

@@ -105,11 +105,17 @@ void OptionsAnagraficaDialog::loadConfig(void)
 
 void OptionsAnagraficaDialog::restoreToDefault(void)
 {
-    settings.beginGroup("AnagraficaCols");
+    settings.beginGroup("AnagraficaColsStatus");
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         col->setCheckState(Qt::Checked);
         settings.setValue(QVariant(i.key()).toString(), 1);
+    }
+    settings.endGroup();
+
+    settings.beginGroup("AnagraficaColsColors");
+    for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
+        settings.setValue(QVariant(i.key()).toString(), "-1");
     }
     settings.endGroup();
 }
