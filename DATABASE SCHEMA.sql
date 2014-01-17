@@ -214,7 +214,8 @@ WHERE id_tipo_ditta=tipo_ditta.id AND
       id_provincia=provincia.id AND
       id_cap=cap.id AND
       id_stato=stato.id AND
-      id_agente=agenti.id;
+      id_agente=agenti.id
+ORDER BY anagrafica.rag_sociale;
 --##############################################################################
 CREATE VIEW vw_anagrafica_clienti ("Id", "Ragione sociale", "Tipo di ditta",
        "Nome", "Cognome", "Indirizzo", "Citta", "Provincia", "CAP", "Stato", 
@@ -236,7 +237,8 @@ WHERE anagrafica.cliente=true AND
       id_provincia=provincia.id AND
       id_cap=cap.id AND
       id_stato=stato.id AND
-	  id_agente=agenti.id;
+	  id_agente=agenti.id
+ORDER BY anagrafica.rag_sociale;
 --##############################################################################
 CREATE VIEW vw_anagrafica_fornitori ("Id", "Ragione sociale", "Tipo di ditta",
        "Nome", "Cognome", "Indirizzo", "Citta", "Provincia", "CAP", "Stato", 
@@ -258,7 +260,8 @@ WHERE anagrafica.fornitore=true AND
       id_provincia=provincia.id AND
       id_cap=cap.id AND
       id_stato=stato.id AND
-      id_agente=agenti.id;
+      id_agente=agenti.id
+ORDER BY anagrafica.rag_sociale;
 --######################################################################################
 CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         descr TEXT,
