@@ -35,12 +35,12 @@ protected:
     void showEvent(QShowEvent *);
 
 public slots:
-    void updateTableMagazzino(void);
+    void updateViewMagazzino(void);
     void updateFilterValue(QString s);
     void addRecord();
     void updateRecord();
     void removeRecord();
-    void updateStoricoView(QModelIndex index);
+    void updateViewStorico(QModelIndex index);
     void fastSearch();
 };
 

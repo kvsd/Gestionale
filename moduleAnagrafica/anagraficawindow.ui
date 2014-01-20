@@ -396,7 +396,7 @@
    <sender>clientiCheck</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>updateTable()</slot>
+   <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>615</x>
@@ -412,7 +412,7 @@
    <sender>fornitoriCheck</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>updateTable()</slot>
+   <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>625</x>
@@ -508,7 +508,7 @@
    <sender>pb_refreshdb</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>updateTable()</slot>
+   <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
@@ -590,7 +590,7 @@
   <slot>removeRecord()</slot>
   <slot>searchRecord(QString)</slot>
   <slot>updateRecord()</slot>
-  <slot>updateTable()</slot>
+  <slot>updateViewAnagrafica()</slot>
   <slot>openConfigDialog()</slot>
   <slot>modifyStringSearch()</slot>
  </slots>

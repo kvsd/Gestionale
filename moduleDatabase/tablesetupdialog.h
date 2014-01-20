@@ -34,7 +34,7 @@ public slots:
     void addRecord(void);
     void removeRecord(void);
     void updateRecord(void);
-    void updateTable(void);
+    void updateView(void);
 };
 
 #endif // TABLESETUPDIALOG_H

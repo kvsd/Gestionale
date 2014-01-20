@@ -55,7 +55,7 @@ void TableSetupDialog::changeTable(QString tbname)
 {
     setWindowTitle(tbname);
     currentTable = mapTables.value(tbname);
-    updateTable();
+    updateView();
 }
 
 void TableSetupDialog::addRecord(void)
@@ -74,7 +74,7 @@ void TableSetupDialog::addRecord(void)
             showDialogError(this, ERR002, MSG002, query.lastError().text()); //NOTE codice errore 002
             return;
         }
-        updateTable();
+        updateView();
     }
 }
 
@@ -97,7 +97,7 @@ void TableSetupDialog::removeRecord(void)
             showDialogError(this, ERR003, MSG003, query.lastError().text()); //NOTE codice errore 003
             return;
         }
-        updateTable();
+        updateView();
     }
     else {
         showDialogError(this, ERR004, MSG004); //NOTE codice errore 004
@@ -122,7 +122,7 @@ void TableSetupDialog::updateRecord(void)
                     showDialogError(this, ERR005, MSG005, query.lastError().text()); //NOTE codice errore 005
                     return;
                 }
-                updateTable();
+                updateView();
             }
             else {
                 showDialogError(this, ERR006, MSG006); //NOTE codice errore 006
@@ -136,7 +136,7 @@ void TableSetupDialog::updateRecord(void)
     }
 }
 
-void TableSetupDialog::updateTable(void)
+void TableSetupDialog::updateView(void)
 {
     QString query = SELECT_QUERY.arg(currentTable);
     model->setQuery(query);

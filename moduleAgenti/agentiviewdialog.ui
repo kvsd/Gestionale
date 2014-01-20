@@ -25,19 +25,6 @@
         <item>
          <widget class="QLineEdit" name="le_search"/>
         </item>
-        <item>
-         <widget class="QToolButton" name="pb_clear">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>X</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -227,22 +214,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_search</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>291</x>
-     <y>55</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>241</x>
-     <y>46</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>le_search</sender>
    <signal>textChanged(QString)</signal>
    <receiver>AgentiViewDialog</receiver>
@@ -262,7 +233,7 @@
    <sender>pb_refresh</sender>
    <signal>clicked()</signal>
    <receiver>AgentiViewDialog</receiver>
-   <slot>updateTable()</slot>
+   <slot>updateViewAgenti()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>364</x>
@@ -280,6 +251,6 @@
   <slot>updateRecord()</slot>
   <slot>removeRecord()</slot>
   <slot>searchRecord(QString)</slot>
-  <slot>updateTable()</slot>
+  <slot>updateViewAgenti()</slot>
  </slots>
 </ui>

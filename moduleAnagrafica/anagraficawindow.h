@@ -29,22 +29,21 @@ private:
     Ui::anagraficaWindow *ui;
     CustomModel *anagraficaModel;
     QSettings settings;
-    void loadConfigSettings();
     QString str_search;
+    void loadConfigSettings();
 
 protected:
     void closeEvent(QCloseEvent *);
 
-private slots:
+public slots:
     void addRecord(void);
     void updateRecord(void);
     void removeRecord(void);
     void searchRecord(QString s);
+    void updateViewAnagrafica(void);
     void openConfigDialog(void);
     void modifyStringSearch(void);
 
-public slots:
-    void updateTable(void);
 };
 
 #endif // ANAGRAFICAWINDOW_H

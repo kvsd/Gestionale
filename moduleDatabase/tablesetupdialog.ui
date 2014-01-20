@@ -67,7 +67,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="updateButton">
        <property name="text">
         <string>&amp;Modifica</string>
        </property>
@@ -94,7 +94,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>&amp;Chiudi</string>
        </property>
@@ -107,7 +107,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>TableSetupDialog</receiver>
    <slot>close()</slot>
@@ -155,7 +155,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>updateButton</sender>
    <signal>clicked()</signal>
    <receiver>TableSetupDialog</receiver>
    <slot>updateRecord()</slot>

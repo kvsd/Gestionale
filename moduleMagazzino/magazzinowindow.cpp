@@ -54,10 +54,10 @@ void MagazzinoWindow::closeEvent(QCloseEvent *)
 
 void MagazzinoWindow::showEvent(QShowEvent *)
 {
-    updateTableMagazzino();
+    updateViewMagazzino();
 }
 
-void MagazzinoWindow::updateTableMagazzino(void)
+void MagazzinoWindow::updateViewMagazzino(void)
 {
     QString filter = ui->cb_filter_selection->currentText();
     if (filter == "-----") {
@@ -91,7 +91,7 @@ void MagazzinoWindow::addRecord()
     if (!ok) {
         return;
     }
-    updateTableMagazzino();
+    updateViewMagazzino();
 }
 
 void MagazzinoWindow::updateRecord(void)
@@ -110,8 +110,8 @@ void MagazzinoWindow::updateRecord(void)
     if (!ok) {
         return;
     }
-    updateTableMagazzino();
-    updateStoricoView(index);
+    updateViewMagazzino();
+    updateViewStorico(index);
 }
 
 void MagazzinoWindow::removeRecord(void)
@@ -128,7 +128,7 @@ void MagazzinoWindow::removeRecord(void)
     if (!query.exec()) {
         qDebug() << "Errore query: " << query.lastError().text();
     }
-    updateTableMagazzino();
+    updateViewMagazzino();
     storicoModel->setQuery("");
 }
 
@@ -146,7 +146,7 @@ void MagazzinoWindow::updateFilterValue(QString s)
     ui->cb_filter_value->setModelColumn(COL_DESCR);
 }
 
-void MagazzinoWindow::updateStoricoView(QModelIndex index)
+void MagazzinoWindow::updateViewStorico(QModelIndex index)
 {
     if (!index.isValid()) {
         storicoModel->setQuery("");

@@ -107,7 +107,7 @@ void MainWindow::launchAnagraficaDlg(void)
     }
     this->hide();
     anagraficaMW->show();
-    anagraficaMW->updateTable();
+    anagraficaMW->updateViewAnagrafica();
 }
 
 void MainWindow::launchAziendaDlg(void)

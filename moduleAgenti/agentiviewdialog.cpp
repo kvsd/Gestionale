@@ -38,7 +38,7 @@ void AgentiViewDialog::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void AgentiViewDialog::updateTable(void)
+void AgentiViewDialog::updateViewAgenti(void)
 {
     modelAgenti->setQuery(SELECT_QUERY);
     ui->agentiView->resizeColumnsToContents();
@@ -53,7 +53,7 @@ void AgentiViewDialog::addRecord(void)
         return;
     }
 
-    updateTable();
+    updateViewAgenti();
 }
 
 void AgentiViewDialog::updateRecord(void)
@@ -74,7 +74,7 @@ void AgentiViewDialog::updateRecord(void)
         return;
     }
 
-    updateTable();
+    updateViewAgenti();
 }
 
 void AgentiViewDialog::removeRecord(void)
@@ -95,13 +95,13 @@ void AgentiViewDialog::removeRecord(void)
         return;
     }
 
-    updateTable();
+    updateViewAgenti();
 }
 
 void AgentiViewDialog::searchRecord(QString s)
 {
     if (s.isEmpty()) {
-        updateTable();
+        updateViewAgenti();
         return;
     }
 

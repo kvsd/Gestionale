@@ -318,7 +318,7 @@
    <sender>cb_filter_value</sender>
    <signal>currentIndexChanged(QString)</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>updateTableMagazzino()</slot>
+   <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>475</x>
@@ -334,7 +334,7 @@
    <sender>articoloView</sender>
    <signal>clicked(QModelIndex)</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>updateStoricoView(QModelIndex)</slot>
+   <slot>updateViewStorico(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>62</x>
@@ -398,8 +398,8 @@
  <slots>
   <slot>addRecord()</slot>
   <slot>updateFilterValue(QString)</slot>
-  <slot>updateTableMagazzino()</slot>
-  <slot>updateStoricoView(QModelIndex)</slot>
+  <slot>updateViewMagazzino()</slot>
+  <slot>updateViewStorico(QModelIndex)</slot>
   <slot>removeRecord()</slot>
   <slot>updateRecord()</slot>
   <slot>fastSearch()</slot>

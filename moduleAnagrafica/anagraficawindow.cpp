@@ -1,6 +1,7 @@
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "ui_anagraficawindow.h"
 #include "custommodel.h"
+
 const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
 const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
 const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";
@@ -13,11 +14,10 @@ anagraficaWindow::anagraficaWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->move(parent->pos());
-    //anagraficaModel = new QSqlQueryModel(this);
     anagraficaModel = new CustomModel("AnagraficaColsColors");
     ui->anagraficaView->setModel(anagraficaModel);
 
-    updateTable();
+    updateViewAnagrafica();
 
     str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
 
@@ -33,6 +33,8 @@ anagraficaWindow::~anagraficaWindow()
 
 void anagraficaWindow::loadConfigSettings()
 {
+    //legge il file file di configurazione e in base al valore
+    //mostra o nasconde le colonne
     settings.beginGroup("AnagraficaColsStatus");
     QStringList cols = settings.allKeys();
     if (cols.isEmpty()) {
@@ -46,6 +48,8 @@ void anagraficaWindow::loadConfigSettings()
     }
     settings.endGroup();
 
+    //imposta i colori delle colonne, questo viene fatto dal model
+    //e non dalla view. MISTERI DI QT
     anagraficaModel->loadSettings();
 }
 
@@ -63,7 +67,7 @@ void anagraficaWindow::addRecord(void)
     if (!ok) {
         return;
     }
-    updateTable();
+    updateViewAnagrafica();
 }
 
 void anagraficaWindow::updateRecord(void)
@@ -81,7 +85,7 @@ void anagraficaWindow::updateRecord(void)
     if (!ok) {
         return;
     }
-    updateTable();
+    updateViewAnagrafica();
 }
 
 void anagraficaWindow::removeRecord(void)
@@ -99,10 +103,35 @@ void anagraficaWindow::removeRecord(void)
     if (!query.exec()) {
         showDialogError(this, ERR028, MSG003, query.lastError().text()); //NOTE codice errore 028
     }
-    updateTable();
+    updateViewAnagrafica();
 }
 
-void anagraficaWindow::updateTable(void)
+void anagraficaWindow::searchRecord(QString s)
+{
+    if (s.isEmpty()) {
+        updateViewAnagrafica();
+        return;
+    }
+
+    QString query;
+    if (ui->clientiCheck->isChecked() && ui->fornitoriCheck->isChecked()) {
+        query.append(SELECT_ALL);
+    }
+    else if (ui->clientiCheck->isChecked()) {
+        query.append(SELECT_CLNT);
+    }
+    else if (ui->fornitoriCheck->isChecked()) {
+        query.append(SELECT_FORN);
+    }
+    else {
+        return;
+    }
+
+    query.append(str_search);
+    anagraficaModel->setQuery(query.arg(s));
+}
+
+void anagraficaWindow::updateViewAnagrafica(void)
 {
     ui->le_search->clear();
 
@@ -124,31 +153,6 @@ void anagraficaWindow::updateTable(void)
                                                         //preimpostato. Poi sara' l'utente a decidere cosa visualizzare
     ui->anagraficaView->resizeColumnsToContents();
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
-}
-
-void anagraficaWindow::searchRecord(QString s)
-{
-    if (s.isEmpty()) {
-        updateTable();
-        return;
-    }
-
-    QString query;
-    if (ui->clientiCheck->isChecked() && ui->fornitoriCheck->isChecked()) {
-        query.append(SELECT_ALL);
-    }
-    else if (ui->clientiCheck->isChecked()) {
-        query.append(SELECT_CLNT);
-    }
-    else if (ui->fornitoriCheck->isChecked()) {
-        query.append(SELECT_FORN);
-    }
-    else {
-        return;
-    }
-
-    query.append(str_search);
-    anagraficaModel->setQuery(query.arg(s));
 }
 
 void anagraficaWindow::openConfigDialog(void)
