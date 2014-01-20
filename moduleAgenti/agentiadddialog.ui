@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="le_nome"/>
+      <widget class="QLineEdit" name="nomeLineEdit"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -37,7 +37,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="le_cognome"/>
+      <widget class="QLineEdit" name="cognomeLineEdit"/>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_3">
@@ -47,7 +47,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="le_tel"/>
+      <widget class="QLineEdit" name="telLineEdit"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
@@ -57,7 +57,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="le_cel"/>
+      <widget class="QLineEdit" name="celLineEdit"/>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_5">
@@ -67,7 +67,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QLineEdit" name="le_email"/>
+      <widget class="QLineEdit" name="emailLineEdit"/>
      </item>
     </layout>
    </item>
@@ -87,7 +87,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pb_close">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>&amp;Chiudi</string>
        </property>
@@ -107,14 +107,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_clear">
+      <widget class="QPushButton" name="clearButton">
        <property name="text">
         <string>C&amp;ancella</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_save">
+      <widget class="QPushButton" name="saveButton">
        <property name="text">
         <string>&amp;Salva</string>
        </property>
@@ -130,9 +130,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pb_clear</sender>
+   <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>le_nome</receiver>
+   <receiver>nomeLineEdit</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -146,9 +146,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
+   <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>le_cognome</receiver>
+   <receiver>cognomeLineEdit</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -162,9 +162,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
+   <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>le_tel</receiver>
+   <receiver>telLineEdit</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -178,9 +178,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
+   <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>le_cel</receiver>
+   <receiver>celLineEdit</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -194,9 +194,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
+   <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>le_email</receiver>
+   <receiver>emailLineEdit</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -210,7 +210,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_save</sender>
+   <sender>saveButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiAddDialog</receiver>
    <slot>save()</slot>
@@ -226,7 +226,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiAddDialog</receiver>
    <slot>reject()</slot>

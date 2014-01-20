@@ -26,25 +26,25 @@ void AgentiAddDialog::setValue(QString id)
     query.bindValue(":id", id);
     query.exec();
     query.first();
-    ui->le_nome->setText(query.value(agenti::COL_NOME).toString());
-    ui->le_cognome->setText(query.value(agenti::COL_COGNOME).toString());
-    ui->le_tel->setText(query.value(agenti::COL_TEL).toString());
-    ui->le_cel->setText(query.value(agenti::COL_CEL).toString());
-    ui->le_email->setText(query.value(agenti::COL_EMAIL).toString());
+    ui->nomeLineEdit->setText(query.value(agenti::COL_NOME).toString());
+    ui->cognomeLineEdit->setText(query.value(agenti::COL_COGNOME).toString());
+    ui->telLineEdit->setText(query.value(agenti::COL_TEL).toString());
+    ui->celLineEdit->setText(query.value(agenti::COL_CEL).toString());
+    ui->emailLineEdit->setText(query.value(agenti::COL_EMAIL).toString());
     mapAgente["id"] = id;
 }
 
 void AgentiAddDialog::save(void)
 {
-    mapAgente["nome"] = ui->le_nome->text();
-    mapAgente["cognome"] = ui->le_cognome->text();
-    mapAgente["tel"] = ui->le_tel->text();
-    mapAgente["cel"] = ui->le_cel->text();
-    mapAgente["email"] = ui->le_email->text();
+    mapAgente["nome"] = ui->nomeLineEdit->text();
+    mapAgente["cognome"] = ui->cognomeLineEdit->text();
+    mapAgente["tel"] = ui->telLineEdit->text();
+    mapAgente["cel"] = ui->celLineEdit->text();
+    mapAgente["email"] = ui->emailLineEdit->text();
 
     if (mapAgente["cognome"].isEmpty()) {
         showDialogError(this, ERR008, MSG021); //NOTE codice errore 008
-        ui->le_cognome->setStyleSheet(CSS_WARNING_STYLE);
+        ui->cognomeLineEdit->setStyleSheet(CSS_WARNING_STYLE);
         return;
     }
 
