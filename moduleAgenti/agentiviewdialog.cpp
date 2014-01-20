@@ -40,6 +40,7 @@ void AgentiViewDialog::closeEvent(QCloseEvent *event)
 
 void AgentiViewDialog::updateViewAgenti(void)
 {
+    ui->searchLineEdit->clear();
     modelAgenti->setQuery(SELECT_QUERY);
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
@@ -98,8 +99,10 @@ void AgentiViewDialog::removeRecord(void)
     updateViewAgenti();
 }
 
-void AgentiViewDialog::searchRecord(QString s)
+void AgentiViewDialog::searchRecord()
 {
+    QString s = ui->searchLineEdit->text();
+
     if (s.isEmpty()) {
         updateViewAgenti();
         return;

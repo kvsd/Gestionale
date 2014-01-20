@@ -37,7 +37,7 @@ public slots:
     void addRecord(void);
     void updateRecord(void);
     void removeRecord(void);
-    void searchRecord(QString s);
+    void searchRecord();
     void updateViewAgenti(void);
 
 };

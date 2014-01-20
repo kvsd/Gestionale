@@ -23,7 +23,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLineEdit" name="le_search"/>
+         <widget class="QLineEdit" name="searchLineEdit"/>
         </item>
        </layout>
       </widget>
@@ -70,33 +70,45 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pb_add">
+      <widget class="QPushButton" name="addButton">
        <property name="text">
         <string>&amp;Aggiungi</string>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
        <property name="default">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_update">
+      <widget class="QPushButton" name="updateButton">
        <property name="text">
         <string>&amp;Modifica</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pb_remove">
-       <property name="text">
-        <string>&amp;Rimuovi</string>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_refresh">
+      <widget class="QPushButton" name="removeButton">
+       <property name="text">
+        <string>&amp;Rimuovi</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="refreshButton">
        <property name="text">
         <string>Aggiorna</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -114,9 +126,12 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_close">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>&amp;Chiudi</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -125,16 +140,16 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pb_add</tabstop>
-  <tabstop>pb_update</tabstop>
-  <tabstop>pb_remove</tabstop>
-  <tabstop>pb_close</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>updateButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>closeButton</tabstop>
   <tabstop>agentiView</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiViewDialog</receiver>
    <slot>close()</slot>
@@ -150,7 +165,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_add</sender>
+   <sender>addButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiViewDialog</receiver>
    <slot>addRecord()</slot>
@@ -166,7 +181,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_update</sender>
+   <sender>updateButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiViewDialog</receiver>
    <slot>updateRecord()</slot>
@@ -182,7 +197,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_remove</sender>
+   <sender>removeButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiViewDialog</receiver>
    <slot>removeRecord()</slot>
@@ -214,10 +229,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_search</sender>
-   <signal>textChanged(QString)</signal>
+   <sender>searchLineEdit</sender>
+   <signal>returnPressed()</signal>
    <receiver>AgentiViewDialog</receiver>
-   <slot>searchRecord(QString)</slot>
+   <slot>searchRecord()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>40</x>
@@ -230,7 +245,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_refresh</sender>
+   <sender>refreshButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiViewDialog</receiver>
    <slot>updateViewAgenti()</slot>
@@ -250,7 +265,7 @@
   <slot>addRecord()</slot>
   <slot>updateRecord()</slot>
   <slot>removeRecord()</slot>
-  <slot>searchRecord(QString)</slot>
+  <slot>searchRecord()</slot>
   <slot>updateViewAgenti()</slot>
  </slots>
 </ui>
