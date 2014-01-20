@@ -39,7 +39,7 @@ public slots:
     void addRecord(void);
     void updateRecord(void);
     void removeRecord(void);
-    void searchRecord(QString s);
+    void searchRecord(void);
     void updateViewAnagrafica(void);
     void openConfigDialog(void);
     void modifyStringSearch(void);

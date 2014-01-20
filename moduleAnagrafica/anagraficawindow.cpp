@@ -106,21 +106,23 @@ void anagraficaWindow::removeRecord(void)
     updateViewAnagrafica();
 }
 
-void anagraficaWindow::searchRecord(QString s)
+void anagraficaWindow::searchRecord(void)
 {
+    QString s = ui->searchLineEdit->text();
+
     if (s.isEmpty()) {
         updateViewAnagrafica();
         return;
     }
 
     QString query;
-    if (ui->clientiCheck->isChecked() && ui->fornitoriCheck->isChecked()) {
+    if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
         query.append(SELECT_ALL);
     }
-    else if (ui->clientiCheck->isChecked()) {
+    else if (ui->clientiCheckBox->isChecked()) {
         query.append(SELECT_CLNT);
     }
-    else if (ui->fornitoriCheck->isChecked()) {
+    else if (ui->fornitoriCheckBox->isChecked()) {
         query.append(SELECT_FORN);
     }
     else {
@@ -133,15 +135,15 @@ void anagraficaWindow::searchRecord(QString s)
 
 void anagraficaWindow::updateViewAnagrafica(void)
 {
-    ui->le_search->clear();
+    ui->searchLineEdit->clear();
 
-    if (ui->clientiCheck->isChecked() && ui->fornitoriCheck->isChecked()) {
+    if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
         anagraficaModel->setQuery(SELECT_ALL);
     }
-    else if (ui->clientiCheck->isChecked()) {
+    else if (ui->clientiCheckBox->isChecked()) {
         anagraficaModel->setQuery(SELECT_CLNT);
     }
-    else if (ui->fornitoriCheck->isChecked()) {
+    else if (ui->fornitoriCheckBox->isChecked()) {
         anagraficaModel->setQuery(SELECT_FORN);
     }
     else {
@@ -168,15 +170,15 @@ void anagraficaWindow::openConfigDialog(void)
 
 void anagraficaWindow::modifyStringSearch(void)
 {
-    if (!ui->actionRagione_Sociale->isChecked() && !ui->actionCognome->isChecked() &&
-        !ui->actionPartita_iva->isChecked() && !ui->actionCodice_Fiscale->isChecked()) {
+    if (!ui->actionRagioneSociale->isChecked() && !ui->actionCognome->isChecked() &&
+        !ui->actionPartitaIVA->isChecked() && !ui->actionCodiceFiscale->isChecked()) {
         //Niente selezionato Ragione sociale di default;
         str_search = " WHERE \"Ragione sociale\" ILIKE '\%%1\%'";
-        ui->actionRagione_Sociale->setChecked(true);
+        ui->actionRagioneSociale->setChecked(true);
     }
     else {
         QStringList test;
-        if (ui->actionRagione_Sociale->isChecked()) {
+        if (ui->actionRagioneSociale->isChecked()) {
             test.append(QString("\"Ragione sociale\" ILIKE '\%%1\%'"));
         }
 
@@ -184,11 +186,11 @@ void anagraficaWindow::modifyStringSearch(void)
             test.append(QString("\"Cognome\" ILIKE '\%%1\%'"));
         }
 
-        if (ui->actionCodice_Fiscale->isChecked()) {
+        if (ui->actionCodiceFiscale->isChecked()) {
             test.append(QString("\"Codice fiscale\" ILIKE '\%%1\%'"));
         }
 
-        if (ui->actionPartita_iva->isChecked()) {
+        if (ui->actionPartitaIVA->isChecked()) {
             test.append(QString("\"Partita Iva\" ILIKE '\%%1\%'"));
         }
 

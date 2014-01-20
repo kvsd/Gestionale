@@ -24,20 +24,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QLineEdit" name="le_search"/>
-         </item>
-         <item>
-          <widget class="QToolButton" name="pb_clear">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>X</string>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="searchLineEdit"/>
          </item>
         </layout>
        </widget>
@@ -136,7 +123,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QCheckBox" name="clientiCheck">
+          <widget class="QCheckBox" name="clientiCheckBox">
            <property name="text">
             <string>Cli&amp;enti</string>
            </property>
@@ -146,7 +133,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="fornitoriCheck">
+          <widget class="QCheckBox" name="fornitoriCheckBox">
            <property name="text">
             <string>&amp;Fornitori</string>
            </property>
@@ -168,34 +155,34 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QPushButton" name="pb_add">
+          <widget class="QPushButton" name="addButton">
            <property name="text">
             <string>&amp;Aggiungi</string>
            </property>
            <property name="autoDefault">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="default">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pb_update">
+          <widget class="QPushButton" name="updateButton">
            <property name="text">
             <string>&amp;Modifica</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pb_remove">
+          <widget class="QPushButton" name="removeButton">
            <property name="text">
             <string>&amp;Rimuovi</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pb_refreshdb">
+          <widget class="QPushButton" name="refreshButton">
            <property name="text">
             <string>Aggiorna</string>
            </property>
@@ -215,7 +202,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pb_close">
+          <widget class="QPushButton" name="closeButton">
            <property name="text">
             <string>&amp;Chiudi</string>
            </property>
@@ -251,10 +238,10 @@
      <property name="title">
       <string>Ricerca Veloce</string>
      </property>
-     <addaction name="actionRagione_Sociale"/>
+     <addaction name="actionRagioneSociale"/>
      <addaction name="actionCognome"/>
-     <addaction name="actionPartita_iva"/>
-     <addaction name="actionCodice_Fiscale"/>
+     <addaction name="actionPartitaIVA"/>
+     <addaction name="actionCodiceFiscale"/>
     </widget>
     <addaction name="actionConfigura"/>
     <addaction name="menuRicerca_Veloce"/>
@@ -267,7 +254,7 @@
     <string>&amp;Configura...</string>
    </property>
   </action>
-  <action name="actionRagione_Sociale">
+  <action name="actionRagioneSociale">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -303,7 +290,7 @@
     <string>ricerca per Cognome</string>
    </property>
   </action>
-  <action name="actionPartita_iva">
+  <action name="actionPartitaIVA">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -314,7 +301,7 @@
     <string>ricerca per Partita IVA</string>
    </property>
   </action>
-  <action name="actionCodice_Fiscale">
+  <action name="actionCodiceFiscale">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -329,7 +316,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pb_add</sender>
+   <sender>addButton</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>addRecord()</slot>
@@ -345,7 +332,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_update</sender>
+   <sender>updateButton</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>updateRecord()</slot>
@@ -361,7 +348,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_remove</sender>
+   <sender>removeButton</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>removeRecord()</slot>
@@ -377,7 +364,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>close()</slot>
@@ -393,7 +380,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>clientiCheck</sender>
+   <sender>clientiCheckBox</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>updateViewAnagrafica()</slot>
@@ -409,7 +396,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>fornitoriCheck</sender>
+   <sender>fornitoriCheckBox</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>updateViewAnagrafica()</slot>
@@ -425,10 +412,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_search</sender>
-   <signal>textChanged(QString)</signal>
+   <sender>searchLineEdit</sender>
+   <signal>returnPressed()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>searchRecord(QString)</slot>
+   <slot>searchRecord()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>249</x>
@@ -489,23 +476,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_search</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>567</x>
-     <y>79</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>509</x>
-     <y>77</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_refreshdb</sender>
+   <sender>refreshButton</sender>
    <signal>clicked()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>updateViewAnagrafica()</slot>
@@ -521,7 +492,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionRagione_Sociale</sender>
+   <sender>actionRagioneSociale</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>modifyStringSearch()</slot>
@@ -553,7 +524,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionPartita_iva</sender>
+   <sender>actionPartitaIVA</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>modifyStringSearch()</slot>
@@ -569,7 +540,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCodice_Fiscale</sender>
+   <sender>actionCodiceFiscale</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
    <slot>modifyStringSearch()</slot>
@@ -588,7 +559,7 @@
  <slots>
   <slot>addRecord()</slot>
   <slot>removeRecord()</slot>
-  <slot>searchRecord(QString)</slot>
+  <slot>searchRecord()</slot>
   <slot>updateRecord()</slot>
   <slot>updateViewAnagrafica()</slot>
   <slot>openConfigDialog()</slot>
