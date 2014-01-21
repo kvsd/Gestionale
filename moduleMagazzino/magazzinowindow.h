@@ -2,6 +2,7 @@
 #define MAGAZZINOWINDOW_H
 
 #include "articolodialog.h"
+#include "optionsmagazzinodialog.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
@@ -42,6 +43,7 @@ public slots:
     void removeRecord();
     void updateViewStorico(QModelIndex index);
     void fastSearch();
+    void openConfigDialog(void);
 };
 
 #endif // MAGAZZINOWINDOW_H
