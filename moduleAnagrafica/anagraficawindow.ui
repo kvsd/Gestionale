@@ -495,7 +495,7 @@
    <sender>actionRagioneSociale</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>modifyStringSearch()</slot>
+   <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -511,7 +511,7 @@
    <sender>actionCognome</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>modifyStringSearch()</slot>
+   <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -527,7 +527,7 @@
    <sender>actionPartitaIVA</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>modifyStringSearch()</slot>
+   <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -543,7 +543,7 @@
    <sender>actionCodiceFiscale</sender>
    <signal>changed()</signal>
    <receiver>anagraficaWindow</receiver>
-   <slot>modifyStringSearch()</slot>
+   <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -563,6 +563,6 @@
   <slot>updateRecord()</slot>
   <slot>updateViewAnagrafica()</slot>
   <slot>openConfigDialog()</slot>
-  <slot>modifyStringSearch()</slot>
+  <slot>updateStringSearch()</slot>
  </slots>
 </ui>

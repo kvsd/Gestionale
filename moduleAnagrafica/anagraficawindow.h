@@ -42,7 +42,7 @@ public slots:
     void searchRecord(void);
     void updateViewAnagrafica(void);
     void openConfigDialog(void);
-    void modifyStringSearch(void);
+    void updateStringSearch(void);
 
 };
 

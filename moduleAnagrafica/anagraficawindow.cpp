@@ -1,6 +1,7 @@
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "ui_anagraficawindow.h"
 #include "custommodel.h"
+#include "QBitArray"
 
 const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
 const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
@@ -13,16 +14,17 @@ anagraficaWindow::anagraficaWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->move(parent->pos());
     anagraficaModel = new CustomModel("AnagraficaColsColors");
     ui->anagraficaView->setModel(anagraficaModel);
+
+    this->move(parent->pos());
 
     updateViewAnagrafica();
 
     str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
 
     ui->docView->setShown(false);
-    this->setGeometry(settings.value("AnagraficaWindow.size", QRect(0, 0, 700, 500)).toRect());
+
     loadConfigSettings();
 }
 
@@ -33,6 +35,7 @@ anagraficaWindow::~anagraficaWindow()
 
 void anagraficaWindow::loadConfigSettings()
 {
+    this->setGeometry(settings.value("AnagraficaWindow.size", QRect(0, 0, 700, 500)).toRect());
     //legge il file file di configurazione e in base al valore
     //mostra o nasconde le colonne
     settings.beginGroup("AnagraficaColsStatus");
@@ -51,12 +54,21 @@ void anagraficaWindow::loadConfigSettings()
     //imposta i colori delle colonne, questo viene fatto dal model
     //e non dalla view. MISTERI DI QT
     anagraficaModel->loadSettings();
+
+    //Carica la disposizione delle colonne
+    ui->anagraficaView->horizontalHeader()->setMovable(true);
+    if (settings.contains("AnagraficaWindow.header")) {
+        QByteArray array = settings.value("AnagraficaWindow.header").toByteArray();
+        ui->anagraficaView->horizontalHeader()->restoreState(array);
+
+    }
 }
 
 void anagraficaWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();
     settings.setValue("AnagraficaWindow.size", this->geometry());
+    settings.setValue("AnagraficaWindow.header", ui->anagraficaView->horizontalHeader()->saveState());
     event->accept();
 }
 
@@ -168,7 +180,7 @@ void anagraficaWindow::openConfigDialog(void)
     loadConfigSettings();
 }
 
-void anagraficaWindow::modifyStringSearch(void)
+void anagraficaWindow::updateStringSearch(void)
 {
     if (!ui->actionRagioneSociale->isChecked() && !ui->actionCognome->isChecked() &&
         !ui->actionPartitaIVA->isChecked() && !ui->actionCodiceFiscale->isChecked()) {
