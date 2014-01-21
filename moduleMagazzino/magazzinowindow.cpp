@@ -181,3 +181,12 @@ void MagazzinoWindow::fastSearch(void)
     else
         magazzinoModel->setQuery(SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
 }
+
+void MagazzinoWindow::openConfigDialog(void)
+{
+    OptionsMagazzinoDialog dlg(this);
+    bool ok = dlg.exec();
+    if (!ok) {
+        return;
+    }
+}

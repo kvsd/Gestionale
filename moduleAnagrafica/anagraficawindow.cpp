@@ -1,7 +1,6 @@
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "ui_anagraficawindow.h"
 #include "custommodel.h"
-#include "QBitArray"
 
 const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
 const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";

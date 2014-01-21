@@ -208,6 +208,7 @@
     <property name="title">
      <string>&amp;Opzioni</string>
     </property>
+    <addaction name="actionConfigura"/>
    </widget>
    <widget class="QMenu" name="menuRicerca">
     <property name="title">
@@ -261,6 +262,11 @@
    </property>
    <property name="text">
     <string>Descrizione</string>
+   </property>
+  </action>
+  <action name="actionConfigura">
+   <property name="text">
+    <string>Configura...</string>
    </property>
   </action>
  </widget>
@@ -394,6 +400,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionConfigura</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>openConfigDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -403,5 +425,6 @@
   <slot>removeRecord()</slot>
   <slot>updateRecord()</slot>
   <slot>fastSearch()</slot>
+  <slot>openConfigDialog()</slot>
  </slots>
 </ui>
