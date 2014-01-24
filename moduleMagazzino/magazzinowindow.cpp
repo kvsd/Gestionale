@@ -14,6 +14,13 @@ const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
 enum columns {COL_ID=0,
               COL_ID_FORN, COL_RAG_SOC=1, COL_DESCR=1};
 
+
+const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
+const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
+
+const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
+const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
+
 MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MagazzinoWindow)
@@ -25,13 +32,13 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     list.append(150); //Larghezza storicoView
     ui->splitter->setSizes(list);
 
-    magazzinoModel = new QSqlQueryModel(this);
-    ui->articoloView->setModel(magazzinoModel);
+    articoloModel = new CustomModel(ARTICOLO_COLORS, this);
+    ui->articoloView->setModel(articoloModel);
 
     selectionModel = new QSqlQueryModel(this);
     ui->filterValueComboBox->setModel(selectionModel);
 
-    storicoModel = new QSqlQueryModel(this);
+    storicoModel = new CustomModel(STORICO_COLORS, this);
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
        corrotto il file di configurazione. Questa impostazione permette di avere
        il model impostato senza valori ed evitare la corruzione dei dati di
@@ -69,6 +76,35 @@ void MagazzinoWindow::loadConfigSettings()
         QByteArray array = settings.value("MagazzinoWindow.header.storico").toByteArray();
         ui->storicoView->horizontalHeader()->restoreState(array);
     }
+
+    settings.beginGroup(ARTICOLO_STATUS);
+    QStringList articoloCols = settings.allKeys();
+    if (articoloCols.isEmpty()) {
+        return;
+    }
+    for (QStringList::Iterator i=articoloCols.begin(); i!=articoloCols.end(); i++) {
+        int col = QVariant((*i)).toInt();
+        bool value = settings.value((*i)).toBool();
+        ui->articoloView->setColumnHidden(col, !value);
+
+    }
+    settings.endGroup();
+
+    settings.beginGroup(STORICO_STATUS);
+    QStringList storicoCols = settings.allKeys();
+    if (storicoCols.isEmpty()) {
+        return;
+    }
+    for (QStringList::Iterator i=storicoCols.begin(); i!=storicoCols.end(); i++) {
+        int col = QVariant((*i)).toInt();
+        bool value = settings.value((*i)).toBool();
+        ui->storicoView->setColumnHidden(col, !value);
+
+    }
+    settings.endGroup();
+
+    articoloModel->loadSettings();
+    storicoModel->loadSettings();
 }
 
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
@@ -103,7 +139,7 @@ void MagazzinoWindow::updateRecord(void)
         return;
     }
 
-    QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), COL_ID).data().toString();
     ArticoloDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Articolo");
@@ -122,7 +158,7 @@ void MagazzinoWindow::removeRecord(void)
         qDebug() << "Errore: " << "selezionare prima di cancellare";
         return;
     }
-    QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), COL_ID).data().toString();
     QSqlQuery query;
     query.prepare(DELETE_ARTICOLO);
     query.bindValue(":id", id);
@@ -151,22 +187,22 @@ void MagazzinoWindow::updateViewMagazzino(void)
 {
     QString filter = ui->filterTypeComboBox->currentText();
     if (filter == "-----") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+        articoloModel->setQuery(SELECT_ARTICOLI_ALL);
     }
     else if (filter == "Marca") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_MARCA.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(SELECT_ARTICOLI_MARCA.arg(ui->filterValueComboBox->currentText()));
     }
     else if (filter == "Fornitore") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_FORNITORE.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(SELECT_ARTICOLI_FORNITORE.arg(ui->filterValueComboBox->currentText()));
     }
     else if (filter == "Categoria") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_CATEGORIA.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(SELECT_ARTICOLI_CATEGORIA.arg(ui->filterValueComboBox->currentText()));
     }
     else if (filter == "Sede Magazzino") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_SEDE.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(SELECT_ARTICOLI_SEDE.arg(ui->filterValueComboBox->currentText()));
     }
     else {
-        magazzinoModel->clear();
+        articoloModel->clear();
     }
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
@@ -178,7 +214,7 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     if (!index.isValid()) {
         storicoModel->setQuery(SELECT_STORICO.arg(-1));
     }
-    QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), COL_ID).data().toString();
     storicoModel->setQuery(SELECT_STORICO.arg(id));
     ui->storicoView->hideColumn(COL_ID);
     ui->storicoView->resizeColumnsToContents();
@@ -189,7 +225,7 @@ void MagazzinoWindow::searchRecord(void)
 {
     QString pattern = ui->searchLineEdit->text();
     if (pattern == "") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+        articoloModel->setQuery(SELECT_ARTICOLI_ALL);
         return;
     }
 
@@ -204,9 +240,9 @@ void MagazzinoWindow::searchRecord(void)
         filtri.append("\"Cod.EAN\" ILIKE '%%1%'");
 
     if (filtri.length() == 0)
-        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+        articoloModel->setQuery(SELECT_ARTICOLI_ALL);
     else
-        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
+        articoloModel->setQuery(SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
 }
 
 void MagazzinoWindow::openConfigDialog(void)
@@ -216,4 +252,5 @@ void MagazzinoWindow::openConfigDialog(void)
     if (!ok) {
         return;
     }
+    loadConfigSettings();
 }

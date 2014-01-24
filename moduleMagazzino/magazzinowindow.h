@@ -3,6 +3,7 @@
 
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
+#include "../custommodel.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
@@ -24,9 +25,9 @@ public:
 
 private:
     Ui::MagazzinoWindow *ui;
-    QSqlQueryModel *magazzinoModel;
+    CustomModel *articoloModel;
     QSqlQueryModel *selectionModel;
-    QSqlQueryModel *storicoModel;
+    CustomModel *storicoModel;
     QSettings settings;
 
     QMap <QString, QString> filterMap;
