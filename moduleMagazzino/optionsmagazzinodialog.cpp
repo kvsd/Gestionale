@@ -48,14 +48,14 @@ void OptionsMagazzinoDialog::prepareMaps()
 
     storicoNameCols[0] = "Id Articolo";
     storicoNameCols[1] = "Data";
-    storicoNameCols[2] = "Quantità";
+    storicoNameCols[2] = QString::fromUtf8("Quantità");
     storicoNameCols[3] = "Prezzo acquisto";
     storicoNameCols[4] = "Sconto";
     storicoNameCols[5] = "Ricarico";
     storicoNameCols[6] = "Imponibile";
     storicoNameCols[7] = "IVA";
     storicoNameCols[8] = "Prezzo finito";
-    storicoNameCols[9] = "Vendità";
+    storicoNameCols[9] = QString::fromUtf8("Vendità");
     storicoNameCols[10] = "Nr. Fattura";
 }
 

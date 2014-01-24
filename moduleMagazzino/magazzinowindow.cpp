@@ -29,9 +29,14 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     ui->articoloView->setModel(magazzinoModel);
 
     selectionModel = new QSqlQueryModel(this);
-    ui->cb_filter_value->setModel(selectionModel);
+    ui->filterValueComboBox->setModel(selectionModel);
 
     storicoModel = new QSqlQueryModel(this);
+    /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
+       corrotto il file di configurazione. Questa impostazione permette di avere
+       il model impostato senza valori ed evitare la corruzione dei dati di
+       configurazione*/
+    storicoModel->setQuery(SELECT_STORICO.arg(-1));
     ui->storicoView->setModel(storicoModel);
 
     filterMap["-----"] = "";
@@ -39,7 +44,9 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     filterMap["Marca"] = "marca";
     filterMap["Categoria"] = "cat_merce";
     filterMap["Sede Magazzino"] = "sede_magazzino";
-    ui->cb_filter_selection->insertItems(0, filterMap.keys());
+    ui->filterTypeComboBox->insertItems(0, filterMap.keys());
+
+    loadConfigSettings();
 }
 
 MagazzinoWindow::~MagazzinoWindow()
@@ -47,42 +54,36 @@ MagazzinoWindow::~MagazzinoWindow()
     delete ui;
 }
 
-void MagazzinoWindow::closeEvent(QCloseEvent *)
+void MagazzinoWindow::loadConfigSettings()
+{
+    this->setGeometry(settings.value("MagazzinoWindow.size", QRect(0,0,700,500)).toRect());
+
+    ui->articoloView->horizontalHeader()->setMovable(true);
+    if (settings.contains("MagazzinoWindow.header.articolo")) {
+        QByteArray array = settings.value("MagazzinoWindow.header.articolo").toByteArray();
+        ui->articoloView->horizontalHeader()->restoreState(array);
+    }
+
+    ui->storicoView->horizontalHeader()->setMovable(true);
+    if (settings.contains("MagazzinoWindow.header.storico")) {
+        QByteArray array = settings.value("MagazzinoWindow.header.storico").toByteArray();
+        ui->storicoView->horizontalHeader()->restoreState(array);
+    }
+}
+
+void MagazzinoWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();
+    settings.setValue("MagazzinoWindow.size", this->geometry());
+    settings.setValue("MagazzinoWindow.header.articolo", ui->articoloView->horizontalHeader()->saveState());
+    settings.setValue("MagazzinoWindow.header.storico", ui->storicoView->horizontalHeader()->saveState());
+    event->accept();
 }
 
 void MagazzinoWindow::showEvent(QShowEvent *)
 {
     updateViewMagazzino();
 }
-
-void MagazzinoWindow::updateViewMagazzino(void)
-{
-    QString filter = ui->cb_filter_selection->currentText();
-    if (filter == "-----") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
-    }
-    else if (filter == "Marca") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_MARCA.arg(ui->cb_filter_value->currentText()));
-    }
-    else if (filter == "Fornitore") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_FORNITORE.arg(ui->cb_filter_value->currentText()));
-    }
-    else if (filter == "Categoria") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_CATEGORIA.arg(ui->cb_filter_value->currentText()));
-    }
-    else if (filter == "Sede Magazzino") {
-        magazzinoModel->setQuery(SELECT_ARTICOLI_SEDE.arg(ui->cb_filter_value->currentText()));
-    }
-    else {
-        magazzinoModel->clear();
-    }
-    ui->articoloView->resizeColumnsToContents();
-    ui->articoloView->horizontalHeader()->setStretchLastSection(true);
-    ui->articoloView->hideColumn(COL_ID);
-}
-
 
 void MagazzinoWindow::addRecord()
 {
@@ -143,13 +144,39 @@ void MagazzinoWindow::updateFilterValue(QString s)
     else {
         selectionModel->setQuery(SELECT_FILTER.arg(filterMap[s]));
     }
-    ui->cb_filter_value->setModelColumn(COL_DESCR);
+    ui->filterValueComboBox->setModelColumn(COL_DESCR);
+}
+
+void MagazzinoWindow::updateViewMagazzino(void)
+{
+    QString filter = ui->filterTypeComboBox->currentText();
+    if (filter == "-----") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
+    }
+    else if (filter == "Marca") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_MARCA.arg(ui->filterValueComboBox->currentText()));
+    }
+    else if (filter == "Fornitore") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_FORNITORE.arg(ui->filterValueComboBox->currentText()));
+    }
+    else if (filter == "Categoria") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_CATEGORIA.arg(ui->filterValueComboBox->currentText()));
+    }
+    else if (filter == "Sede Magazzino") {
+        magazzinoModel->setQuery(SELECT_ARTICOLI_SEDE.arg(ui->filterValueComboBox->currentText()));
+    }
+    else {
+        magazzinoModel->clear();
+    }
+    ui->articoloView->resizeColumnsToContents();
+    ui->articoloView->horizontalHeader()->setStretchLastSection(true);
+    ui->articoloView->hideColumn(COL_ID);
 }
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
 {
     if (!index.isValid()) {
-        storicoModel->setQuery("");
+        storicoModel->setQuery(SELECT_STORICO.arg(-1));
     }
     QString id = magazzinoModel->index(index.row(), COL_ID).data().toString();
     storicoModel->setQuery(SELECT_STORICO.arg(id));
@@ -158,9 +185,9 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }
 
-void MagazzinoWindow::fastSearch(void)
+void MagazzinoWindow::searchRecord(void)
 {
-    QString pattern = ui->le_search->text();
+    QString pattern = ui->searchLineEdit->text();
     if (pattern == "") {
         magazzinoModel->setQuery(SELECT_ARTICOLI_ALL);
         return;

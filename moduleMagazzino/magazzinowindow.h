@@ -8,6 +8,7 @@
 #include <QSqlQueryModel>
 #include <QMap>
 #include <QDebug>
+#include <QCloseEvent>
 
 namespace Ui {
 class MagazzinoWindow;
@@ -26,23 +27,23 @@ private:
     QSqlQueryModel *magazzinoModel;
     QSqlQueryModel *selectionModel;
     QSqlQueryModel *storicoModel;
+    QSettings settings;
 
-    QString id_fornitore;
     QMap <QString, QString> filterMap;
-
+    void loadConfigSettings();
 
 protected:
-    void closeEvent(QCloseEvent *);
+    void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *);
 
 public slots:
-    void updateViewMagazzino(void);
-    void updateFilterValue(QString s);
     void addRecord();
     void updateRecord();
     void removeRecord();
+    void updateFilterValue(QString s);
+    void updateViewMagazzino(void);
     void updateViewStorico(QModelIndex index);
-    void fastSearch();
+    void searchRecord();
     void openConfigDialog(void);
 };
 

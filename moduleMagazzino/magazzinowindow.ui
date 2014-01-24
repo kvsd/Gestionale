@@ -28,10 +28,10 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="cb_filter_selection"/>
+       <widget class="QComboBox" name="filterTypeComboBox"/>
       </item>
       <item row="0" column="2">
-       <widget class="QComboBox" name="cb_filter_value">
+       <widget class="QComboBox" name="filterValueComboBox">
         <property name="editable">
          <bool>false</bool>
         </property>
@@ -45,18 +45,12 @@
        </widget>
       </item>
       <item row="1" column="1" colspan="2">
-       <widget class="QLineEdit" name="le_search"/>
+       <widget class="QLineEdit" name="searchLineEdit"/>
       </item>
      </layout>
     </item>
     <item>
      <widget class="QSplitter" name="splitter">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -144,28 +138,28 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QPushButton" name="pb_add">
+       <widget class="QPushButton" name="addButton">
         <property name="text">
          <string>Aggiungi</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pb_update">
+       <widget class="QPushButton" name="updateButton">
         <property name="text">
          <string>Modifica</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pb_delete">
+       <widget class="QPushButton" name="removeButton">
         <property name="text">
          <string>Rimuovi</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pb_print">
+       <widget class="QPushButton" name="printButton">
         <property name="text">
          <string>Stampa</string>
         </property>
@@ -185,7 +179,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pb_close">
+       <widget class="QPushButton" name="closeButton">
         <property name="text">
          <string>Chiudi</string>
         </property>
@@ -273,7 +267,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>close()</slot>
@@ -289,7 +283,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_add</sender>
+   <sender>addButton</sender>
    <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>addRecord()</slot>
@@ -305,7 +299,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>cb_filter_selection</sender>
+   <sender>filterTypeComboBox</sender>
    <signal>currentIndexChanged(QString)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateFilterValue(QString)</slot>
@@ -321,7 +315,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>cb_filter_value</sender>
+   <sender>filterValueComboBox</sender>
    <signal>currentIndexChanged(QString)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateViewMagazzino()</slot>
@@ -353,7 +347,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_delete</sender>
+   <sender>removeButton</sender>
    <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>removeRecord()</slot>
@@ -369,7 +363,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_update</sender>
+   <sender>updateButton</sender>
    <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateRecord()</slot>
@@ -385,10 +379,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_search</sender>
+   <sender>searchLineEdit</sender>
    <signal>returnPressed()</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>fastSearch()</slot>
+   <slot>searchRecord()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>270</x>
@@ -424,7 +418,7 @@
   <slot>updateViewStorico(QModelIndex)</slot>
   <slot>removeRecord()</slot>
   <slot>updateRecord()</slot>
-  <slot>fastSearch()</slot>
+  <slot>searchRecord()</slot>
   <slot>openConfigDialog()</slot>
  </slots>
 </ui>
