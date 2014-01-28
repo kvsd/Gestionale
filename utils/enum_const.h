@@ -2,7 +2,12 @@
 #define ENUM_CONST_H
 
 namespace agenti {
-    enum columns {COL_ID, COL_NOME, COL_COGNOME, COL_TEL, COL_CEL, COL_EMAIL};
+    enum columns {COL_ID,
+                  COL_NOME,
+                  COL_COGNOME,
+                  COL_TEL,
+                  COL_CEL,
+                  COL_EMAIL};
 }
 
 namespace anagrafica {
@@ -52,6 +57,33 @@ namespace azienda {
                   COL_COD_FISC,
                   COL_TRIB,
                   COL_CCIAA};
+}
+
+namespace magazzino {
+    enum columns {COL_ID,
+                  COL_DESCR = 1,
+                  COL_ID_FORN,
+                  COL_ID_MARCA,
+                  COL_MODELLO,
+                  COL_COD_ART,
+                  COL_COD_FOR,
+                  COL_COD_EAN,
+                  COL_ID_MERCE,
+                  COL_ID_COD_IVA,
+                  COL_ID_UM,
+                  COL_SCORTA,
+                  COL_QUANTITA,
+                  COL_PREZZO_ACQ,
+                  COL_SCONTO,
+                  COL_RICARICO,
+                  COL_IMPONIBILE,
+                  COL_IVA,
+                  COL_PREZZO_FIN,
+                  COL_PREZZO_VEN,
+                  COL_FATTURA,
+                  COL_DATA,
+                  COL_ID_SEDE,
+                  COL_NOTE};
 }
 
 #endif // ENUM_CONST_H
