@@ -1,6 +1,9 @@
 #ifndef ARTICOLODIALOG_H
 #define ARTICOLODIALOG_H
 
+#include "utils/simpledialogs.h"
+#include "utils/enum_const.h"
+
 #include <QDialog>
 #include <QSqlTableModel>
 #include <QSqlQuery>
@@ -44,6 +47,13 @@ public slots:
     void updateIva(void);
     void updatePrezzoFinito(void);
     void save(void);
+    void openAddMarca();
+    void openAddCategoria();
+    void openAddMisura();
+    void openAddFornitore();
+    void openAddIVA();
+    void openAddSede();
+
 };
 
 #endif // ARTICOLODIALOG_H
