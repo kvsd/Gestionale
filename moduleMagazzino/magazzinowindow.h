@@ -32,6 +32,7 @@ private:
 
     QMap <QString, QString> filterMap;
     void loadConfigSettings();
+    void saveConfigSettings();
 
 protected:
     void closeEvent(QCloseEvent *event);

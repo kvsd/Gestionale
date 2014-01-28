@@ -12,14 +12,15 @@ const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Arti
 const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
 
 enum columns {COL_ID=0,
-              COL_ID_FORN, COL_RAG_SOC=1, COL_DESCR=1};
+              COL_DESCR=1};
 
 
 const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
 const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
-
 const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
 const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
+const QString WINDOW_SIZE = "MagazzinoWindow.size";
+
 
 MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -63,7 +64,7 @@ MagazzinoWindow::~MagazzinoWindow()
 
 void MagazzinoWindow::loadConfigSettings()
 {
-    this->setGeometry(settings.value("MagazzinoWindow.size", QRect(0,0,700,500)).toRect());
+    this->setGeometry(settings.value(WINDOW_SIZE, QRect(0,0,700,500)).toRect());
 
     ui->articoloView->horizontalHeader()->setMovable(true);
     if (settings.contains("MagazzinoWindow.header.articolo")) {
@@ -107,12 +108,18 @@ void MagazzinoWindow::loadConfigSettings()
     storicoModel->loadSettings();
 }
 
+void MagazzinoWindow::saveConfigSettings()
+{
+    settings.setValue(WINDOW_SIZE, this->geometry());
+    settings.setValue("MagazzinoWindow.header.articolo", ui->articoloView->horizontalHeader()->saveState());
+    settings.setValue("MagazzinoWindow.header.storico", ui->storicoView->horizontalHeader()->saveState());
+    //TODO salvare stato menu Ricerca
+}
+
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();
-    settings.setValue("MagazzinoWindow.size", this->geometry());
-    settings.setValue("MagazzinoWindow.header.articolo", ui->articoloView->horizontalHeader()->saveState());
-    settings.setValue("MagazzinoWindow.header.storico", ui->storicoView->horizontalHeader()->saveState());
+    saveConfigSettings();
     event->accept();
 }
 
@@ -135,7 +142,7 @@ void MagazzinoWindow::updateRecord(void)
 {
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        qDebug() << "Errore: " << "selezionare prima di aggiornare";
+        qDebug() << "Errore: " << "selezionare prima di aggiornare"; //TODO definire codice errore
         return;
     }
 
@@ -155,7 +162,7 @@ void MagazzinoWindow::removeRecord(void)
 {
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        qDebug() << "Errore: " << "selezionare prima di cancellare";
+        qDebug() << "Errore: " << "selezionare prima di cancellare"; //TODO definire codice errore
         return;
     }
     QString id = articoloModel->index(index.row(), COL_ID).data().toString();
@@ -163,7 +170,7 @@ void MagazzinoWindow::removeRecord(void)
     query.prepare(DELETE_ARTICOLO);
     query.bindValue(":id", id);
     if (!query.exec()) {
-        qDebug() << "Errore query: " << query.lastError().text();
+        qDebug() << "Errore query: " << query.lastError().text(); //TODO definire codice errore
     }
     updateViewMagazzino();
     storicoModel->setQuery("");
@@ -223,6 +230,7 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
 
 void MagazzinoWindow::searchRecord(void)
 {
+    //TODO riscrivere funzione
     QString pattern = ui->searchLineEdit->text();
     if (pattern == "") {
         articoloModel->setQuery(SELECT_ARTICOLI_ALL);
