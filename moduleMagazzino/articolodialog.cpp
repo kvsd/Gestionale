@@ -1,13 +1,6 @@
 #include "articolodialog.h"
 #include "ui_articolodialog.h"
 
-const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
-const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
-const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, prezzo_acquisto, sconto_fornitore, ricarico, imponibile, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_acquisto, :sconto_fornitore, :ricarico, :imponibile, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
-const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
-const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, id_cod_iva=:id_cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_acquisto=:prezzo_acquisto, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, imponibile=:imponibile, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
-
-
 ArticoloDialog::ArticoloDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ArticoloDialog)
@@ -39,7 +32,7 @@ void ArticoloDialog::initModel(void)
     ui->cb_codiva->setModelColumn(magazzino::COL_DESCR);
 
     modelFornitore = new QSqlQueryModel(this);
-    modelFornitore->setQuery(SELECT_FORNITORE);
+    modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
     ui->cb_fornitore->setModel(modelFornitore);
     ui->cb_fornitore->setModelColumn(magazzino::COL_DESCR);
 
@@ -65,7 +58,7 @@ void ArticoloDialog::initModel(void)
 void ArticoloDialog::setValue(QString id)
 {
     QSqlQuery query;
-    query.prepare(SELECT_FROM_ID);
+    query.prepare(magazzino::SELECT_FROM_ID);
     query.bindValue(":id", id);
     if (!query.exec()) {
         qDebug() << "ERRORE: " << query.lastError().text(); //TODO definire codice errore
@@ -172,11 +165,11 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 {
     QSqlQuery query_articolo;
     if (articolo.contains("id")) {
-        query_articolo.prepare(UPDATE_ARTICOLO);
+        query_articolo.prepare(magazzino::UPDATE_ARTICOLO);
         query_articolo.bindValue(":id", articolo["id"]);
     }
     else {
-        query_articolo.prepare(INSERT_ARTICOLO);
+        query_articolo.prepare(magazzino::INSERT_ARTICOLO);
     }
 
     query_articolo.bindValue(":descr", articolo["descr"]);
@@ -210,7 +203,7 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 {
     QSqlQuery query_storico;
-    query_storico.prepare(INSERT_STORICO);
+    query_storico.prepare(magazzino::INSERT_STORICO);
 
     query_storico.bindValue(":data_arrivo", articolo["data"]);
     query_storico.bindValue(":quantita", articolo["quantita"]);

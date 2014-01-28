@@ -1,16 +1,6 @@
 #include "magazzinowindow.h"
 #include "ui_magazzinowindow.h"
 
-const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
-const QString SELECT_ARTICOLI_FORNITORE = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
-const QString SELECT_ARTICOLI_MARCA = "SELECT * FROM vw_magazzino WHERE \"Marca\"= '%1'";
-const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Cat.Merce\" = '%1'";
-const QString SELECT_ARTICOLI_SEDE = "SELECT * FROM vw_magazzino WHERE \"Sede Magazzino\" = '%1'";
-const QString SELECT_FILTER = "SELECT id, descr FROM %1";
-const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";
-const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\" DESC, \"Imponibile\" DESC";
-const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
-
 enum columns {COL_ID=0,
               COL_DESCR=1};
 
@@ -44,7 +34,7 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
        corrotto il file di configurazione. Questa impostazione permette di avere
        il model impostato senza valori ed evitare la corruzione dei dati di
        configurazione*/
-    storicoModel->setQuery(SELECT_STORICO.arg(-1));
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
     ui->storicoView->setModel(storicoModel);
 
     filterMap["-----"] = "";
@@ -167,7 +157,7 @@ void MagazzinoWindow::removeRecord(void)
     }
     QString id = articoloModel->index(index.row(), COL_ID).data().toString();
     QSqlQuery query;
-    query.prepare(DELETE_ARTICOLO);
+    query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(":id", id);
     if (!query.exec()) {
         qDebug() << "Errore query: " << query.lastError().text(); //TODO definire codice errore
@@ -182,10 +172,10 @@ void MagazzinoWindow::updateFilterValue(QString s)
         selectionModel->clear();
     }
     else if (s == "Fornitore") {
-        selectionModel->setQuery(SELECT_FILTER_FORNITORI);
+        selectionModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
     }
     else {
-        selectionModel->setQuery(SELECT_FILTER.arg(filterMap[s]));
+        selectionModel->setQuery(magazzino::SELECT_FILTER.arg(filterMap[s]));
     }
     ui->filterValueComboBox->setModelColumn(COL_DESCR);
 }
@@ -194,19 +184,19 @@ void MagazzinoWindow::updateViewMagazzino(void)
 {
     QString filter = ui->filterTypeComboBox->currentText();
     if (filter == "-----") {
-        articoloModel->setQuery(SELECT_ARTICOLI_ALL);
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
     }
     else if (filter == "Marca") {
-        articoloModel->setQuery(SELECT_ARTICOLI_MARCA.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_MARCA.arg(ui->filterValueComboBox->currentText()));
     }
     else if (filter == "Fornitore") {
-        articoloModel->setQuery(SELECT_ARTICOLI_FORNITORE.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_FORNITORE.arg(ui->filterValueComboBox->currentText()));
     }
     else if (filter == "Categoria") {
-        articoloModel->setQuery(SELECT_ARTICOLI_CATEGORIA.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_CATEGORIA.arg(ui->filterValueComboBox->currentText()));
     }
     else if (filter == "Sede Magazzino") {
-        articoloModel->setQuery(SELECT_ARTICOLI_SEDE.arg(ui->filterValueComboBox->currentText()));
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_SEDE.arg(ui->filterValueComboBox->currentText()));
     }
     else {
         articoloModel->clear();
@@ -219,10 +209,10 @@ void MagazzinoWindow::updateViewMagazzino(void)
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
 {
     if (!index.isValid()) {
-        storicoModel->setQuery(SELECT_STORICO.arg(-1));
+        storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
     }
     QString id = articoloModel->index(index.row(), COL_ID).data().toString();
-    storicoModel->setQuery(SELECT_STORICO.arg(id));
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
     ui->storicoView->hideColumn(COL_ID);
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
@@ -233,7 +223,7 @@ void MagazzinoWindow::searchRecord(void)
     //TODO riscrivere funzione
     QString pattern = ui->searchLineEdit->text();
     if (pattern == "") {
-        articoloModel->setQuery(SELECT_ARTICOLI_ALL);
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
         return;
     }
 
@@ -248,9 +238,9 @@ void MagazzinoWindow::searchRecord(void)
         filtri.append("\"Cod.EAN\" ILIKE '%%1%'");
 
     if (filtri.length() == 0)
-        articoloModel->setQuery(SELECT_ARTICOLI_ALL);
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
     else
-        articoloModel->setQuery(SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
 }
 
 void MagazzinoWindow::openConfigDialog(void)
