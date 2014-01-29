@@ -96,6 +96,11 @@ void MagazzinoWindow::loadConfigSettings()
 
     articoloModel->loadSettings();
     storicoModel->loadSettings();
+
+    ui->actionDescrizione->setChecked(settings.value("MagazzinoWindow.search.descrizione", true).toBool());
+    ui->actionCod_Articolo->setChecked(settings.value("MagazzinoWindow.search.codarticolo", false).toBool());
+    ui->actionCod_Fornitore->setChecked(settings.value("MagazzinoWindow.search.codfornitore", false).toBool());
+    ui->actionEAN->setChecked(settings.value("MagazzinoWindow.search.codean", false).toBool());
 }
 
 void MagazzinoWindow::saveConfigSettings()
@@ -103,6 +108,10 @@ void MagazzinoWindow::saveConfigSettings()
     settings.setValue(WINDOW_SIZE, this->geometry());
     settings.setValue("MagazzinoWindow.header.articolo", ui->articoloView->horizontalHeader()->saveState());
     settings.setValue("MagazzinoWindow.header.storico", ui->storicoView->horizontalHeader()->saveState());
+    settings.setValue("MagazzinoWindow.search.descrizione", ui->actionDescrizione->isChecked());
+    settings.setValue("MagazzinoWindow.search.codarticolo", ui->actionCod_Articolo->isChecked());
+    settings.setValue("MagazzinoWindow.search.codfornitore", ui->actionCod_Fornitore->isChecked());
+    settings.setValue("MagazzinoWindow.search.codean", ui->actionEAN->isChecked());
     //TODO salvare stato menu Ricerca
 }
 
