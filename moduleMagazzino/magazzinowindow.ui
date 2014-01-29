@@ -410,6 +410,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>articoloView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>636</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>788</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
