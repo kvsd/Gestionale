@@ -3,7 +3,7 @@
 
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
-#include "../custommodel.h"
+#include "libs/custommodel.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>

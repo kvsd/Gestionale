@@ -11,19 +11,19 @@ DEPENDPATH += . \
               moduleAnagrafica \
               moduleAzienda \
               moduleMagazzino \
-			  moduleDatabase \
-              utils
+              moduleDatabase \
+              libs
 INCLUDEPATH += . \
                moduleAgenti \
                moduleAnagrafica \
-               utils \
+               libs \
                moduleAzienda \
                moduleMagazzino \
-			   moduleDatabase
+               moduleDatabase
 
 # Input
 HEADERS += moduleDatabase/connectionsetupdialog.h \
-           error.h \
+           libs/error.h \
            moduleDatabase/logindialog.h \
            mainwindow.h \
            moduleDatabase/tablesetupdialog.h \
@@ -35,11 +35,11 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleAzienda/aziendadialog.h \
            moduleMagazzino/articolodialog.h \
            moduleMagazzino/magazzinowindow.h \
-           utils/controllodati.h \
-           utils/simpledialogs.h \
-           utils/enum_const.h \
-    custommodel.h \
-    moduleMagazzino/optionsmagazzinodialog.h
+           libs/controllodati.h \
+           libs/simpledialogs.h \
+           libs/enum_const.h \
+           libs/custommodel.h \
+           moduleMagazzino/optionsmagazzinodialog.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -52,9 +52,9 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleAzienda/aziendadialog.ui \
          moduleMagazzino/articolodialog.ui \
          moduleMagazzino/magazzinowindow.ui \
-    moduleMagazzino/optionsmagazzinodialog.ui
+         moduleMagazzino/optionsmagazzinodialog.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
-           error.cpp \
+           libs/error.cpp \
            moduleDatabase/logindialog.cpp \
            main.cpp \
            mainwindow.cpp \
@@ -67,7 +67,7 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            moduleAzienda/aziendadialog.cpp \
            moduleMagazzino/articolodialog.cpp \
            moduleMagazzino/magazzinowindow.cpp \
-           utils/controllodati.cpp \
-           utils/simpledialogs.cpp \
-    custommodel.cpp \
-    moduleMagazzino/optionsmagazzinodialog.cpp
+           libs/controllodati.cpp \
+           libs/simpledialogs.cpp \
+           libs/custommodel.cpp \
+           moduleMagazzino/optionsmagazzinodialog.cpp

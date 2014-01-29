@@ -1,7 +1,7 @@
 #ifndef TABLESETUPDIALOG_H
 #define TABLESETUPDIALOG_H
 
-#include "error.h"
+#include "libs/error.h"
 
 #include <QDialog>
 #include <QDebug>

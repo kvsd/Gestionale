@@ -1,10 +1,10 @@
 #ifndef AZIENDADIALOG_H
 #define AZIENDADIALOG_H
 
-#include "../error.h"
-#include "utils/simpledialogs.h"
-#include "utils/controllodati.h"
-#include "utils/enum_const.h"
+#include "libs/error.h"
+#include "libs/simpledialogs.h"
+#include "libs/controllodati.h"
+#include "libs/enum_const.h"
 
 #include <QDialog>
 #include <QSqlTableModel>

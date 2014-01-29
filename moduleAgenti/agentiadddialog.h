@@ -1,8 +1,8 @@
 #ifndef AGENTIADDDIALOG_H
 #define AGENTIADDDIALOG_H
 
-#include "error.h"
-#include "utils/enum_const.h"
+#include "libs/error.h"
+#include "libs/enum_const.h"
 
 #include <QDialog>
 #include <QMap>

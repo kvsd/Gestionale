@@ -2,8 +2,8 @@
 #define AGENTIVIEWDIALOG_H
 
 #include <moduleAgenti/agentiadddialog.h>
-#include "error.h"
-#include "utils/enum_const.h"
+#include "libs/error.h"
+#include "libs/enum_const.h"
 
 #include <QDialog>
 #include <QSqlQueryModel>

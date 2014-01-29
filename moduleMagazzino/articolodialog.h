@@ -1,8 +1,8 @@
 #ifndef ARTICOLODIALOG_H
 #define ARTICOLODIALOG_H
 
-#include "utils/simpledialogs.h"
-#include "utils/enum_const.h"
+#include "libs/simpledialogs.h"
+#include "libs/enum_const.h"
 
 #include <QDialog>
 #include <QSqlTableModel>

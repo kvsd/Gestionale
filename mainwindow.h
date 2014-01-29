@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "error.h"
+#include "libs/error.h"
 #include "moduleDatabase/logindialog.h"
 #include "moduleDatabase/connectionsetupdialog.h"
 #include "moduleDatabase/tablesetupdialog.h"

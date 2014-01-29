@@ -1,10 +1,10 @@
 #ifndef ANAGRAFICAADDDIALOG_H
 #define ANAGRAFICAADDDIALOG_H
 
-#include "error.h"
-#include "utils/controllodati.h"
-#include "utils/simpledialogs.h"
-#include "utils/enum_const.h"
+#include "libs/error.h"
+#include "libs/controllodati.h"
+#include "libs/simpledialogs.h"
+#include "libs/enum_const.h"
 #include "moduleAgenti/agentiadddialog.h"
 
 #include <QDialog>
