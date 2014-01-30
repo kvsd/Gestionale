@@ -2,7 +2,7 @@
 #define ARTICOLODIALOG_H
 
 #include "libs/simpledialogs.h"
-#include "libs/enum_const.h"
+#include "magazzino_const.h"
 
 #include <QDialog>
 #include <QSqlTableModel>

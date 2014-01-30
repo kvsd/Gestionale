@@ -1,16 +1,6 @@
 #include "optionsmagazzinodialog.h"
 #include "ui_optionsmagazzinodialog.h"
 
-const int TAB_MAGAZZINO = 0;
-const int TAB_STORICO = 1;
-
-const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
-const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
-
-const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
-const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
-
-
 OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OptionsMagazzinoDialog)
@@ -85,7 +75,7 @@ void OptionsMagazzinoDialog::populateList(void)
 
 void OptionsMagazzinoDialog::saveConfig(void)
 {
-    settings.beginGroup(ARTICOLO_STATUS);
+    settings.beginGroup(magazzino::ARTICOLO_STATUS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
         int checkState = col->checkState()==Qt::Checked ? 1 : 0;
@@ -93,7 +83,7 @@ void OptionsMagazzinoDialog::saveConfig(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(ARTICOLO_COLORS);
+    settings.beginGroup(magazzino::ARTICOLO_COLORS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
         QColor color = col->background().color();
@@ -104,7 +94,7 @@ void OptionsMagazzinoDialog::saveConfig(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_STATUS);
+    settings.beginGroup(magazzino::STORICO_STATUS);
     for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
         QListWidgetItem *col = ui->storicoListView->item(i.key());
         int checkState = col->checkState()==Qt::Checked ? 1 : 0;
@@ -112,7 +102,7 @@ void OptionsMagazzinoDialog::saveConfig(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_COLORS);
+    settings.beginGroup(magazzino::STORICO_COLORS);
     for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
         QListWidgetItem *col = ui->storicoListView->item(i.key());
         QColor color = col->background().color();
@@ -126,7 +116,7 @@ void OptionsMagazzinoDialog::saveConfig(void)
 
 void OptionsMagazzinoDialog::loadConfig(void)
 {
-    settings.beginGroup(ARTICOLO_STATUS);
+    settings.beginGroup(magazzino::ARTICOLO_STATUS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
         int status = settings.value(QVariant(i.key()).toString(), 1).toInt();
@@ -135,7 +125,7 @@ void OptionsMagazzinoDialog::loadConfig(void)
     settings.endGroup();
 
     QColor color;
-    settings.beginGroup(ARTICOLO_COLORS);
+    settings.beginGroup(magazzino::ARTICOLO_COLORS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
         QString colorStr = settings.value(QVariant(i.key()).toString(), "-1").toString();
@@ -148,7 +138,7 @@ void OptionsMagazzinoDialog::loadConfig(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_STATUS);
+    settings.beginGroup(magazzino::STORICO_STATUS);
     for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
         QListWidgetItem *col = ui->storicoListView->item(i.key());
         int status = settings.value(QVariant(i.key()).toString(), 1).toInt();
@@ -156,7 +146,7 @@ void OptionsMagazzinoDialog::loadConfig(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_COLORS);
+    settings.beginGroup(magazzino::STORICO_COLORS);
     for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
         QListWidgetItem *col = ui->storicoListView->item(i.key());
         QString colorStr = settings.value(QVariant(i.key()).toString(), "-1").toString();
@@ -172,7 +162,7 @@ void OptionsMagazzinoDialog::loadConfig(void)
 
 void OptionsMagazzinoDialog::restoreToDefault(void)
 {
-    settings.beginGroup(ARTICOLO_STATUS);
+    settings.beginGroup(magazzino::ARTICOLO_STATUS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
         col->setCheckState(Qt::Checked);
@@ -180,13 +170,13 @@ void OptionsMagazzinoDialog::restoreToDefault(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(ARTICOLO_COLORS);
+    settings.beginGroup(magazzino::ARTICOLO_COLORS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         settings.setValue(QVariant(i.key()).toString(), "-1");
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_STATUS);
+    settings.beginGroup(magazzino::STORICO_STATUS);
     for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
         QListWidgetItem *col = ui->storicoListView->item(i.key());
         col->setCheckState(Qt::Checked);
@@ -194,7 +184,7 @@ void OptionsMagazzinoDialog::restoreToDefault(void)
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_COLORS);
+    settings.beginGroup(magazzino::STORICO_COLORS);
     for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
         settings.setValue(QVariant(i.key()).toString(), "-1");
     }
@@ -206,9 +196,9 @@ void OptionsMagazzinoDialog::restoreToDefault(void)
 void OptionsMagazzinoDialog::setColumnColor(QModelIndex index)
 {
     QListWidgetItem *col;
-    if (ui->tabWidget->currentIndex() == TAB_MAGAZZINO)
+    if (ui->tabWidget->currentIndex() == magazzino::TAB_MAGAZZINO)
         col = ui->magazzinoListView->item(index.row());
-    else if (ui->tabWidget->currentIndex() == TAB_STORICO)
+    else if (ui->tabWidget->currentIndex() == magazzino::TAB_STORICO)
         col = ui->storicoListView->item(index.row());
     QColorDialog dlg(this);
     bool ok = dlg.exec();

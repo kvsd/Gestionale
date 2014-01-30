@@ -1,17 +1,6 @@
 #include "magazzinowindow.h"
 #include "ui_magazzinowindow.h"
 
-enum columns {COL_ID=0,
-              COL_DESCR=1};
-
-
-const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
-const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
-const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
-const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
-const QString WINDOW_SIZE = "MagazzinoWindow.size";
-
-
 MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MagazzinoWindow)
@@ -19,17 +8,17 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     ui->setupUi(this);
     this->move(parent->pos());
     QList <int> list;
-    list.append(400); //Larghezza articoloView
-    list.append(150); //Larghezza storicoView
+    list.append(400); //Altezza articoloView
+    list.append(150); //Altezza storicoView
     ui->splitter->setSizes(list);
 
-    articoloModel = new CustomModel(ARTICOLO_COLORS, this);
+    articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, this);
     ui->articoloView->setModel(articoloModel);
 
     selectionModel = new QSqlQueryModel(this);
     ui->filterValueComboBox->setModel(selectionModel);
 
-    storicoModel = new CustomModel(STORICO_COLORS, this);
+    storicoModel = new CustomModel(magazzino::STORICO_COLORS, this);
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
        corrotto il file di configurazione. Questa impostazione permette di avere
        il model impostato senza valori ed evitare la corruzione dei dati di
@@ -54,21 +43,24 @@ MagazzinoWindow::~MagazzinoWindow()
 
 void MagazzinoWindow::loadConfigSettings()
 {
-    this->setGeometry(settings.value(WINDOW_SIZE, QRect(0,0,700,500)).toRect());
+    this->setGeometry(settings.value(magazzino::WINDOW_SIZE, magazzino::DEFAULT_WINDOW_SIZE).toRect());
 
+    //Carico la disposizione delle colonne della vista articolo
     ui->articoloView->horizontalHeader()->setMovable(true);
-    if (settings.contains("MagazzinoWindow.header.articolo")) {
-        QByteArray array = settings.value("MagazzinoWindow.header.articolo").toByteArray();
+    if (settings.contains(magazzino::ARTICOLO_HEADER)) {
+        QByteArray array = settings.value(magazzino::ARTICOLO_HEADER).toByteArray();
         ui->articoloView->horizontalHeader()->restoreState(array);
     }
 
+    //Carico la disposizione delle colonne della vista storico
     ui->storicoView->horizontalHeader()->setMovable(true);
-    if (settings.contains("MagazzinoWindow.header.storico")) {
-        QByteArray array = settings.value("MagazzinoWindow.header.storico").toByteArray();
+    if (settings.contains(magazzino::STORICO_HEADER)) {
+        QByteArray array = settings.value(magazzino::STORICO_HEADER).toByteArray();
         ui->storicoView->horizontalHeader()->restoreState(array);
     }
 
-    settings.beginGroup(ARTICOLO_STATUS);
+    //Carico la visibilita delle colonne della vista articolo
+    settings.beginGroup(magazzino::ARTICOLO_STATUS);
     QStringList articoloCols = settings.allKeys();
     if (articoloCols.isEmpty()) {
         return;
@@ -81,7 +73,8 @@ void MagazzinoWindow::loadConfigSettings()
     }
     settings.endGroup();
 
-    settings.beginGroup(STORICO_STATUS);
+    //Carico la visibilita delle colonne della vista storico
+    settings.beginGroup(magazzino::STORICO_STATUS);
     QStringList storicoCols = settings.allKeys();
     if (storicoCols.isEmpty()) {
         return;
@@ -94,25 +87,28 @@ void MagazzinoWindow::loadConfigSettings()
     }
     settings.endGroup();
 
+    //Carico il colore dello sfondo delle colonne. (Si e' gestito dai model)
     articoloModel->loadSettings();
     storicoModel->loadSettings();
 
-    ui->actionDescrizione->setChecked(settings.value("MagazzinoWindow.search.descrizione", true).toBool());
-    ui->actionCod_Articolo->setChecked(settings.value("MagazzinoWindow.search.codarticolo", false).toBool());
-    ui->actionCod_Fornitore->setChecked(settings.value("MagazzinoWindow.search.codfornitore", false).toBool());
-    ui->actionEAN->setChecked(settings.value("MagazzinoWindow.search.codean", false).toBool());
+    //Carico le impostazioni del menu ricerca
+    ui->actionDescrizione->setChecked(settings.value(magazzino::SEARCH_DESCR, true).toBool());
+    ui->actionCod_Articolo->setChecked(settings.value(magazzino::SEARCH_COD_ART, false).toBool());
+    ui->actionCod_Fornitore->setChecked(settings.value(magazzino::SEARCH_COD_FRN, false).toBool());
+    ui->actionEAN->setChecked(settings.value(magazzino::SEARCH_COD_EAN, false).toBool());
 }
 
 void MagazzinoWindow::saveConfigSettings()
 {
-    settings.setValue(WINDOW_SIZE, this->geometry());
-    settings.setValue("MagazzinoWindow.header.articolo", ui->articoloView->horizontalHeader()->saveState());
-    settings.setValue("MagazzinoWindow.header.storico", ui->storicoView->horizontalHeader()->saveState());
-    settings.setValue("MagazzinoWindow.search.descrizione", ui->actionDescrizione->isChecked());
-    settings.setValue("MagazzinoWindow.search.codarticolo", ui->actionCod_Articolo->isChecked());
-    settings.setValue("MagazzinoWindow.search.codfornitore", ui->actionCod_Fornitore->isChecked());
-    settings.setValue("MagazzinoWindow.search.codean", ui->actionEAN->isChecked());
-    //TODO salvare stato menu Ricerca
+    settings.setValue(magazzino::WINDOW_SIZE, this->geometry());
+    //Salvo la disposizione delle colonne delle viste
+    settings.setValue(magazzino::ARTICOLO_HEADER, ui->articoloView->horizontalHeader()->saveState());
+    settings.setValue(magazzino::STORICO_HEADER, ui->storicoView->horizontalHeader()->saveState());
+    //Salvo le impostazioni del menu Ricerca
+    settings.setValue(magazzino::SEARCH_DESCR, ui->actionDescrizione->isChecked());
+    settings.setValue(magazzino::SEARCH_COD_ART, ui->actionCod_Articolo->isChecked());
+    settings.setValue(magazzino::SEARCH_COD_FRN, ui->actionCod_Fornitore->isChecked());
+    settings.setValue(magazzino::SEARCH_COD_EAN, ui->actionEAN->isChecked());
 }
 
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
@@ -145,7 +141,7 @@ void MagazzinoWindow::updateRecord(void)
         return;
     }
 
-    QString id = articoloModel->index(index.row(), COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
     ArticoloDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Articolo");
@@ -164,7 +160,7 @@ void MagazzinoWindow::removeRecord(void)
         qDebug() << "Errore: " << "selezionare prima di cancellare"; //TODO definire codice errore
         return;
     }
-    QString id = articoloModel->index(index.row(), COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
     QSqlQuery query;
     query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(":id", id);
@@ -186,7 +182,7 @@ void MagazzinoWindow::updateFilterValue(QString s)
     else {
         selectionModel->setQuery(magazzino::SELECT_FILTER.arg(filterMap[s]));
     }
-    ui->filterValueComboBox->setModelColumn(COL_DESCR);
+    ui->filterValueComboBox->setModelColumn(magazzino::COL_DESCR);
 }
 
 void MagazzinoWindow::updateViewMagazzino(void)
@@ -212,7 +208,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
     }
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
-    ui->articoloView->hideColumn(COL_ID);
+    ui->articoloView->hideColumn(magazzino::COL_ID);
 }
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
@@ -220,9 +216,9 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     if (!index.isValid()) {
         storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
     }
-    QString id = articoloModel->index(index.row(), COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
-    ui->storicoView->hideColumn(COL_ID);
+    ui->storicoView->hideColumn(magazzino::COL_ID);
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }

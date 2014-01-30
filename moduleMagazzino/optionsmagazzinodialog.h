@@ -1,6 +1,8 @@
 #ifndef OPTIONSMAGAZZINODIALOG_H
 #define OPTIONSMAGAZZINODIALOG_H
 
+#include "magazzino_const.h"
+
 #include <QDialog>
 #include <QMap>
 #include <QDebug>

@@ -1,9 +1,9 @@
 #ifndef MAGAZZINOWINDOW_H
 #define MAGAZZINOWINDOW_H
 
+#include "libs/custommodel.h"
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
-#include "libs/custommodel.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
