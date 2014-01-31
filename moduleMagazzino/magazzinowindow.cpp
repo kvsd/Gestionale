@@ -226,10 +226,17 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
 void MagazzinoWindow::searchRecord(void)
 {
     QString pattern = ui->searchLineEdit->text();
-    if (pattern == "") {
+    if (pattern.isEmpty()){
         ui->filterTypeComboBox->setCurrentIndex(0);
         articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
         return;
+    }
+
+    if (!ui->actionDescrizione->isChecked() &&
+        !ui->actionCod_Fornitore->isChecked() &&
+        !ui->actionCod_Articolo->isChecked() &&
+        !ui->actionEAN->isChecked()) {
+        qDebug() << "Devi selezionare un campo di ricerca dal menu Ricerca"; //TODO definire codice errore
     }
 
     QStringList filtri;
