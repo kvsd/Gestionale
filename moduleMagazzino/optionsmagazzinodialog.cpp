@@ -30,7 +30,7 @@ void OptionsMagazzinoDialog::prepareMaps()
     magazzinoNameCols[8] = "Cod.IVA";
     magazzinoNameCols[9] = "UM";
     magazzinoNameCols[10] = "Scorta Minima";
-    magazzinoNameCols[11] = "Quantità";
+    magazzinoNameCols[11] = QString::fromUtf8("Quantità");
     magazzinoNameCols[12] = "Prezzo Acquisto";
     magazzinoNameCols[13] = "Sconto";
     magazzinoNameCols[14] = "Ricarico";

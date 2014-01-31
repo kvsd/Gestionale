@@ -137,7 +137,7 @@ void MagazzinoWindow::updateRecord(void)
 {
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        qDebug() << "Errore: " << "selezionare prima di aggiornare"; //TODO definire codice errore
+        showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
         return;
     }
 
@@ -157,7 +157,7 @@ void MagazzinoWindow::removeRecord(void)
 {
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        qDebug() << "Errore: " << "selezionare prima di cancellare"; //TODO definire codice errore
+        showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
         return;
     }
     QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
@@ -165,7 +165,7 @@ void MagazzinoWindow::removeRecord(void)
     query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(":id", id);
     if (!query.exec()) {
-        qDebug() << "Errore query: " << query.lastError().text(); //TODO definire codice errore
+        showDialogError(this, "Errore 1", "Errore 2", query.lastError().text()); //TODO definire codice errore
     }
     updateViewMagazzino();
     storicoModel->setQuery("");
@@ -236,6 +236,7 @@ void MagazzinoWindow::searchRecord(void)
         !ui->actionCod_Fornitore->isChecked() &&
         !ui->actionCod_Articolo->isChecked() &&
         !ui->actionEAN->isChecked()) {
+        showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
         qDebug() << "Devi selezionare un campo di ricerca dal menu Ricerca"; //TODO definire codice errore
     }
 
