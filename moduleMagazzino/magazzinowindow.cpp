@@ -225,9 +225,9 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
 
 void MagazzinoWindow::searchRecord(void)
 {
-    //TODO riscrivere funzione
     QString pattern = ui->searchLineEdit->text();
     if (pattern == "") {
+        ui->filterTypeComboBox->setCurrentIndex(0);
         articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
         return;
     }
@@ -244,8 +244,16 @@ void MagazzinoWindow::searchRecord(void)
 
     if (filtri.length() == 0)
         articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
-    else
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filtri.join(" OR ").arg(pattern));
+    else {
+        QString current_query = articoloModel->query().lastQuery();
+        QString filter = filtri.join(" OR ").arg(pattern);
+        if (current_query.contains("WHERE")) {
+            articoloModel->setQuery(current_query + " AND " + filter);
+        }
+        else {
+            articoloModel->setQuery(current_query + " WHERE" + filter);
+        }
+    }
 }
 
 void MagazzinoWindow::openConfigDialog(void)
