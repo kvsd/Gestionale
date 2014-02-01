@@ -19,11 +19,6 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     ui->filterValueComboBox->setModel(selectionModel);
 
     storicoModel = new CustomModel(magazzino::STORICO_COLORS, this);
-    /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
-       corrotto il file di configurazione. Questa impostazione permette di avere
-       il model impostato senza valori ed evitare la corruzione dei dati di
-       configurazione*/
-    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
     ui->storicoView->setModel(storicoModel);
 
     filterMap["-----"] = "";
@@ -209,6 +204,12 @@ void MagazzinoWindow::updateViewMagazzino(void)
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
     ui->articoloView->hideColumn(magazzino::COL_ID);
+
+    /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
+       corrotto il file di configurazione. Questa impostazione permette di avere
+       il model impostato senza valori ed evitare la corruzione dei dati di
+       configurazione*/
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 }
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
