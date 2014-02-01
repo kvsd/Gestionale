@@ -230,24 +230,26 @@ void ArticoloDialog::save(void)
         db.rollback();
         return;
     }
-    if (!articolo.contains("id")) {
-        QSqlQuery query_id;
-        query_id.prepare("SELECT * FROM lastval();");
-        if (!query_id.exec()) {
-            qDebug() << "errore: " << query_id.lastError();
+    if (ui->updateStoricoCheckBox->isChecked()) {
+        if (!articolo.contains("id")) {
+            QSqlQuery query_id;
+            query_id.prepare("SELECT * FROM lastval();");
+            if (!query_id.exec()) {
+                qDebug() << "errore: " << query_id.lastError();
+                db.rollback();
+                return;
+            }
+            query_id.first();
+            articolo["id"] = query_id.value(0).toString();
+        }
+
+        QSqlQuery query_storico = prepareQueryStorico();
+        query_storico.bindValue(":id_articolo", articolo["id"]);
+        if (!query_storico.exec()) {
+            qDebug() << "errore storico: " << articolo["id"] << query_storico.lastError();
             db.rollback();
             return;
         }
-        query_id.first();
-        articolo["id"] = query_id.value(0).toString();
-    }
-
-    QSqlQuery query_storico = prepareQueryStorico();
-    query_storico.bindValue(":id_articolo", articolo["id"]);
-    if (!query_storico.exec()) {
-        qDebug() << "errore storico: " << articolo["id"] << query_storico.lastError();
-        db.rollback();
-        return;
     }
 
     db.commit();

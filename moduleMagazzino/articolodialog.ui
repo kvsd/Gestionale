@@ -41,7 +41,7 @@
             <x>0</x>
             <y>0</y>
             <width>680</width>
-            <height>315</height>
+            <height>288</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -211,8 +211,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>315</height>
+            <width>271</width>
+            <height>310</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
@@ -436,8 +436,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>315</height>
+            <width>249</width>
+            <height>226</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -532,6 +532,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="updateStoricoCheckBox">
+     <property name="text">
+      <string>Inserire l'articolo nello storico prezzi</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pb_close">
@@ -623,8 +633,8 @@
      <y>180</y>
     </hint>
     <hint type="destinationlabel">
-     <x>141</x>
-     <y>218</y>
+     <x>129</x>
+     <y>180</y>
     </hint>
    </hints>
   </connection>
@@ -667,8 +677,8 @@
    <slot>updateImponibile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>194</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
@@ -683,8 +693,8 @@
    <slot>updatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>165</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
@@ -699,8 +709,8 @@
    <slot>updateImponibile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>223</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -715,8 +725,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>218</x>
-     <y>281</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
@@ -731,8 +741,8 @@
    <slot>updatePrezzoFinito()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>310</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -811,8 +821,8 @@
    <slot>openAddFornitore()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>675</x>
-     <y>73</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
@@ -827,8 +837,8 @@
    <slot>openAddIVA()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>678</x>
-     <y>266</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -843,8 +853,8 @@
    <slot>openAddSede()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>63</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
