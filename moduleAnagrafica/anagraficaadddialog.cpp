@@ -1,12 +1,6 @@
 #include "moduleAnagrafica/anagraficaadddialog.h"
 #include "ui_anagraficaadddialog.h"
 
-const QString INSERT_QUERY = "INSERT INTO anagrafica(fornitore, cliente, rag_sociale, id_tipo_ditta, nome, cognome, indirizzo, id_citta, id_provincia, id_cap, id_stato, cod_fisc, prt_iva, id_agente, tel, fax, cel, email, sito_web, banca, agenzia, conto, swift, iban, dest_merce, note) VALUES(:fornitore, :cliente, :rag_sociale, :id_tipo_ditta, :nome, :cognome, :indirizzo, :id_citta, :id_provincia, :id_cap, :id_stato, :cod_fisc, :prt_iva, :id_agente, :tel, :fax, :cel, :email, :sito_web, :banca, :agenzia, :conto, :swift, :iban, :dest_merce, :note)";
-const QString UPDATE_QUERY = "UPDATE anagrafica SET fornitore=:fornitore, cliente=:cliente, rag_sociale=:rag_sociale, id_tipo_ditta=:id_tipo_ditta, nome=:nome, cognome=:cognome, indirizzo=:indirizzo, id_citta=:id_citta, id_provincia=:id_provincia, id_cap=:id_cap, id_stato=:id_stato, cod_fisc=:cod_fisc, prt_iva=:prt_iva, id_agente=:id_agente, tel=:tel, fax=:fax, cel=:cel, email=:email, sito_web=:sito_web, banca=:banca, agenzia=:agenzia, conto=:conto, swift=:swift, iban=:iban, dest_merce=:dest_merce, note=:note WHERE id=:id";
-const QString SELECT_QUERY = "SELECT * FROM anagrafica WHERE id=:id";
-
-const QString CSS_WARNING_STYLE = "background-color:yellow";
-
 AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AnagraficaAddDialog)
@@ -62,7 +56,7 @@ AnagraficaAddDialog::~AnagraficaAddDialog()
 void AnagraficaAddDialog::setValue(QString id)
 {
     QSqlQuery query;
-    query.prepare(SELECT_QUERY);
+    query.prepare(anagrafica::SELECT_FROM_ID);
     query.bindValue(":id", id);
     query.exec();
     query.first();
@@ -165,11 +159,11 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
 {
     QSqlQuery query;
     if (mapPersona.contains("id")) {
-        query.prepare(UPDATE_QUERY);
+        query.prepare(anagrafica::UPDATE_QUERY);
         query.bindValue(":id", mapPersona["id"]);
     }
     else {
-        query.prepare(INSERT_QUERY);
+        query.prepare(anagrafica::INSERT_QUERY);
     }
 
     query.bindValue(":fornitore",mapPersona["fornitore"]);
@@ -207,21 +201,21 @@ void AnagraficaAddDialog::save(void)
 
     if (mapPersona["rag_soc"].isEmpty()) {
         showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
-        ui->le_rag_sociale->setStyleSheet(CSS_WARNING_STYLE);
+        ui->le_rag_sociale->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
     else if (mapPersona["cliente"] == "n" && mapPersona["fornitore"] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
-        ui->cliente_cb->setStyleSheet(CSS_WARNING_STYLE);
-        ui->fornitore_cb->setStyleSheet(CSS_WARNING_STYLE);
+        ui->cliente_cb->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->fornitore_cb->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
     else if (mapPersona["cod_fiscale"].isEmpty() || mapPersona["prt_iva"].isEmpty()) {
         showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
-        ui->le_cod_fiscale->setStyleSheet(CSS_WARNING_STYLE);
-        ui->le_piva->setStyleSheet(CSS_WARNING_STYLE);
+        ui->le_cod_fiscale->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->le_piva->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 

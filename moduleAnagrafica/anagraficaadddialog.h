@@ -4,7 +4,7 @@
 #include "libs/error.h"
 #include "libs/controllodati.h"
 #include "libs/simpledialogs.h"
-#include "libs/enum_const.h"
+#include "anagrafica_const.h"
 #include "moduleAgenti/agentiadddialog.h"
 
 #include <QDialog>

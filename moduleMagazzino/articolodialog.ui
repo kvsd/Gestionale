@@ -211,7 +211,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>271</width>
+            <width>666</width>
             <height>310</height>
            </rect>
           </property>
@@ -436,8 +436,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>249</width>
-            <height>226</height>
+            <width>680</width>
+            <height>288</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -475,8 +475,18 @@
              </item>
              <item row="1" column="1">
               <widget class="QDateEdit" name="le_data">
+               <property name="displayFormat">
+                <string>dd/MM/yyyy</string>
+               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
+               </property>
+               <property name="date">
+                <date>
+                 <year>2000</year>
+                 <month>1</month>
+                 <day>1</day>
+                </date>
                </property>
               </widget>
              </item>

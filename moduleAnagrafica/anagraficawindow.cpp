@@ -2,11 +2,6 @@
 #include "ui_anagraficawindow.h"
 #include "custommodel.h"
 
-const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
-const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
-const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";
-const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
-
 anagraficaWindow::anagraficaWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::anagraficaWindow)
@@ -109,7 +104,7 @@ void anagraficaWindow::removeRecord(void)
     QString id = anagraficaModel->index(index.row(), anagrafica::COL_ID).data().toString();
 
     QSqlQuery query;
-    query.prepare(DELETE_QUERY);
+    query.prepare(anagrafica::DELETE_QUERY);
     query.bindValue(":id", id);
     if (!query.exec()) {
         showDialogError(this, ERR028, MSG003, query.lastError().text()); //NOTE codice errore 028
@@ -128,13 +123,13 @@ void anagraficaWindow::searchRecord(void)
 
     QString query;
     if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
-        query.append(SELECT_ALL);
+        query.append(anagrafica::SELECT_ALL);
     }
     else if (ui->clientiCheckBox->isChecked()) {
-        query.append(SELECT_CLNT);
+        query.append(anagrafica::SELECT_CLNT);
     }
     else if (ui->fornitoriCheckBox->isChecked()) {
-        query.append(SELECT_FORN);
+        query.append(anagrafica::SELECT_FORN);
     }
     else {
         return;
@@ -149,13 +144,13 @@ void anagraficaWindow::updateViewAnagrafica(void)
     ui->searchLineEdit->clear();
 
     if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
-        anagraficaModel->setQuery(SELECT_ALL);
+        anagraficaModel->setQuery(anagrafica::SELECT_ALL);
     }
     else if (ui->clientiCheckBox->isChecked()) {
-        anagraficaModel->setQuery(SELECT_CLNT);
+        anagraficaModel->setQuery(anagrafica::SELECT_CLNT);
     }
     else if (ui->fornitoriCheckBox->isChecked()) {
-        anagraficaModel->setQuery(SELECT_FORN);
+        anagraficaModel->setQuery(anagrafica::SELECT_FORN);
     }
     else {
         anagraficaModel->setQuery("");

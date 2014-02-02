@@ -40,7 +40,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            libs/enum_const.h \
            libs/custommodel.h \
            moduleMagazzino/optionsmagazzinodialog.h \
-    moduleMagazzino/magazzino_const.h
+    moduleMagazzino/magazzino_const.h \
+    moduleAnagrafica/anagrafica_const.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
