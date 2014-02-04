@@ -31,6 +31,7 @@ private:
     QSettings settings;
     QString str_search;
     void loadConfigSettings();
+    void saveConfigSettings();
 
 protected:
     void closeEvent(QCloseEvent *);

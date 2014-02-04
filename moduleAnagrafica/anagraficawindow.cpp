@@ -58,11 +58,16 @@ void anagraficaWindow::loadConfigSettings()
     }
 }
 
+void anagraficaWindow::saveConfigSettings()
+{
+    settings.setValue("AnagraficaWindow.size", this->geometry());
+    settings.setValue("AnagraficaWindow.header", ui->anagraficaView->horizontalHeader()->saveState());
+}
+
 void anagraficaWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();
-    settings.setValue("AnagraficaWindow.size", this->geometry());
-    settings.setValue("AnagraficaWindow.header", ui->anagraficaView->horizontalHeader()->saveState());
+    saveConfigSettings();
     event->accept();
 }
 
