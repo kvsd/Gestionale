@@ -26,11 +26,15 @@ public:
 private:
     Ui::MagazzinoWindow *ui;
     CustomModel *articoloModel;
-    QSqlQueryModel *selectionModel;
     CustomModel *storicoModel;
+    QSqlQueryModel *fornitoreModel;
+    QSqlTableModel *categoriaModel;
+    QSqlTableModel *marcaModel;
+    QSqlTableModel *sedeModel;
     QSettings settings;
 
-    QMap <QString, QString> filterMap;
+    void initModel();
+    void updateModel();
     void loadConfigSettings();
     void saveConfigSettings();
 
@@ -42,7 +46,6 @@ public slots:
     void addRecord();
     void updateRecord();
     void removeRecord();
-    void updateFilterValue(QString s);
     void updateViewMagazzino(void);
     void updateViewStorico(QModelIndex index);
     void searchRecord();

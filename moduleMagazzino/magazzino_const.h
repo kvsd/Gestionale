@@ -26,10 +26,10 @@ namespace magazzino {
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
 
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
-    const QString SELECT_ARTICOLI_FORNITORE = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
-    const QString SELECT_ARTICOLI_MARCA = "SELECT * FROM vw_magazzino WHERE \"Marca\"= '%1'";
-    const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Cat.Merce\" = '%1'";
-    const QString SELECT_ARTICOLI_SEDE = "SELECT * FROM vw_magazzino WHERE \"Sede Magazzino\" = '%1'";
+//    const QString SELECT_ARTICOLI_FORNITORE = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
+//    const QString SELECT_ARTICOLI_MARCA = "SELECT * FROM vw_magazzino WHERE \"Marca\"= '%1'";
+//    const QString SELECT_ARTICOLI_CATEGORIA = "SELECT * FROM vw_magazzino WHERE \"Cat.Merce\" = '%1'";
+//    const QString SELECT_ARTICOLI_SEDE = "SELECT * FROM vw_magazzino WHERE \"Sede Magazzino\" = '%1'";
 
     const QString SELECT_FILTER = "SELECT id, descr FROM %1";
     const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";

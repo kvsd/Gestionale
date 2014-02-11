@@ -12,28 +12,54 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     list.append(150); //Altezza storicoView
     ui->splitter->setSizes(list);
 
-    articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, this);
-    ui->articoloView->setModel(articoloModel);
-
-    selectionModel = new QSqlQueryModel(this);
-    ui->filterValueComboBox->setModel(selectionModel);
-
-    storicoModel = new CustomModel(magazzino::STORICO_COLORS, this);
-    ui->storicoView->setModel(storicoModel);
-
-    filterMap["-----"] = "";
-    filterMap["Fornitore"] = "";
-    filterMap["Marca"] = "marca";
-    filterMap["Categoria"] = "cat_merce";
-    filterMap["Sede Magazzino"] = "sede_magazzino";
-    ui->filterTypeComboBox->insertItems(0, filterMap.keys());
-
+    initModel();
     loadConfigSettings();
+
+    ui->data1LineEdit->setDate(QDate::currentDate());
+    ui->data2LineEdit->setDate(QDate::currentDate());
 }
 
 MagazzinoWindow::~MagazzinoWindow()
 {
     delete ui;
+}
+
+void MagazzinoWindow::initModel()
+{
+    articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, this);
+    ui->articoloView->setModel(articoloModel);
+
+    storicoModel = new CustomModel(magazzino::STORICO_COLORS, this);
+    ui->storicoView->setModel(storicoModel);
+
+    fornitoreModel = new QSqlQueryModel(this);
+    fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
+    ui->fornitoreComboBox->setModel(fornitoreModel);
+    ui->fornitoreComboBox->setModelColumn(magazzino::COL_DESCR);
+
+    categoriaModel = new QSqlTableModel(this);
+    categoriaModel->setTable("cat_merce");
+    ui->categoriaComboBox->setModel(categoriaModel);
+    ui->categoriaComboBox->setModelColumn(magazzino::COL_DESCR);
+
+    marcaModel = new QSqlTableModel(this);
+    marcaModel->setTable("marca");
+    ui->marcaComboBox->setModel(marcaModel);
+    ui->marcaComboBox->setModelColumn(magazzino::COL_DESCR);
+
+    sedeModel = new QSqlTableModel(this);
+    sedeModel->setTable("sede_magazzino");
+    ui->sedeComboBox->setModel(sedeModel);
+    ui->sedeComboBox->setModelColumn(magazzino::COL_DESCR);
+
+    updateModel();
+}
+
+void MagazzinoWindow::updateModel()
+{
+    categoriaModel->select();
+    marcaModel->select();
+    sedeModel->select();
 }
 
 void MagazzinoWindow::loadConfigSettings()
@@ -166,41 +192,55 @@ void MagazzinoWindow::removeRecord(void)
     storicoModel->setQuery("");
 }
 
-void MagazzinoWindow::updateFilterValue(QString s)
-{
-    if (s == "-----") {
-        selectionModel->clear();
-    }
-    else if (s == "Fornitore") {
-        selectionModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
-    }
-    else {
-        selectionModel->setQuery(magazzino::SELECT_FILTER.arg(filterMap[s]));
-    }
-    ui->filterValueComboBox->setModelColumn(magazzino::COL_DESCR);
-}
-
 void MagazzinoWindow::updateViewMagazzino(void)
 {
-    QString filter = ui->filterTypeComboBox->currentText();
-    if (filter == "-----") {
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+    QStringList filter;
+    if (ui->fornitoreComboBox->isEnabled()) {
+        QString fornitore = "\"Fornitore\" ILIKE '%1'";
+        filter.append(fornitore.arg(ui->fornitoreComboBox->currentText()));
     }
-    else if (filter == "Marca") {
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_MARCA.arg(ui->filterValueComboBox->currentText()));
+
+    if (ui->categoriaComboBox->isEnabled()) {
+        QString catmerce = "\"Cat.Merce\" ILIKE '%1'";
+        filter.append(catmerce.arg(ui->categoriaComboBox->currentText()));
     }
-    else if (filter == "Fornitore") {
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_FORNITORE.arg(ui->filterValueComboBox->currentText()));
+
+    if (ui->marcaComboBox->isEnabled()) {
+        QString marca = "\"Marca\" ILIKE '%1'";
+        filter.append(marca.arg(ui->marcaComboBox->currentText()));
     }
-    else if (filter == "Categoria") {
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_CATEGORIA.arg(ui->filterValueComboBox->currentText()));
+
+    if (ui->sedeComboBox->isEnabled()) {
+        QString sede = "\"Sede Magazzino\" ILIKE '%1'";
+        filter.append(sede.arg(ui->sedeComboBox->currentText()));
     }
-    else if (filter == "Sede Magazzino") {
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_SEDE.arg(ui->filterValueComboBox->currentText()));
+
+    if (ui->data1LineEdit->isEnabled() && ui->data2LineEdit->isEnabled()) {
+        QString data1 = ui->data1LineEdit->text();
+        QString data2 = ui->data2LineEdit->text();
+        QString data = "\"Data Arrivo\" > '%1' AND \"Data Arrivo\" < '%2'";
+        filter.append(data.arg(data1, data2));
+    }
+    else if(ui->data1LineEdit->isEnabled() && !ui->data2LineEdit->isEnabled()) {
+        QString data = "\"Data Arrivo\" = '%1'";
+        filter.append(data.arg(ui->data1LineEdit->text()));
+        ui->data2LineEdit->setDate(ui->data1LineEdit->date());
+    }
+    else if(!ui->data1LineEdit->isEnabled() && ui->data2LineEdit->isEnabled()) {
+        ui->data2Enabler->setChecked(false);
+        ui->data2LineEdit->setEnabled(false);
+        //spiega a cosa serve il secondo campo all'utente
+    }
+
+    if (!filter.isEmpty()) {
+        QString query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter.join(" AND ");
+        qDebug() << query;
+        articoloModel->setQuery(query);
     }
     else {
-        articoloModel->clear();
+        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
     }
+
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
     ui->articoloView->hideColumn(magazzino::COL_ID);
@@ -228,10 +268,12 @@ void MagazzinoWindow::searchRecord(void)
 {
     QString pattern = ui->searchLineEdit->text();
     if (pattern.isEmpty()){
-        ui->filterTypeComboBox->setCurrentIndex(0);
         articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+        updateViewMagazzino();
         return;
     }
+
+    updateViewMagazzino();
 
     if (!ui->actionDescrizione->isChecked() &&
         !ui->actionCod_Fornitore->isChecked() &&
@@ -252,12 +294,12 @@ void MagazzinoWindow::searchRecord(void)
         filtri.append("\"Cod.EAN\" ILIKE '%%1%'");
 
     if (filtri.length() == 0)
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+        return;
     else {
         QString current_query = articoloModel->query().lastQuery();
         QString filter = filtri.join(" OR ").arg(pattern);
         if (current_query.contains("WHERE")) {
-            articoloModel->setQuery(current_query + " AND " + filter);
+            articoloModel->setQuery(current_query + " AND " + "(" + filter + ")");
         }
         else {
             articoloModel->setQuery(current_query + " WHERE" + filter);
