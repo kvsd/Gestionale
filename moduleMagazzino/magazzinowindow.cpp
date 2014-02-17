@@ -132,6 +132,83 @@ void MagazzinoWindow::saveConfigSettings()
     settings.setValue(magazzino::SEARCH_COD_EAN, ui->actionEAN->isChecked());
 }
 
+QString MagazzinoWindow::searchString(void) {
+    //Prepara i filtri della query in base alla stringa che viene
+    //immessa nel box della ricerca veloce e ai parametri del menu
+    //ricerca veloce
+    QString pattern = ui->searchLineEdit->text();
+    if (pattern.isEmpty()) {
+        return "";
+    }
+
+    QStringList filter;
+    if (ui->actionDescrizione->isChecked()) {
+        filter.append("\"Descrizione\" ILIKE '%%1%'");
+    }
+
+    if (ui->actionCod_Fornitore->isChecked()) {
+        filter.append("\"Cod.Fornitore\" ILIKE '%%1%'");
+    }
+
+    if (ui->actionCod_Articolo->isChecked()) {
+        filter.append("\"Cod.Articolo\" ILIKE '%%1%'");
+    }
+
+    if (ui->actionEAN->isChecked()) {
+        filter.append("\"Cod.EAN\" ILIKE '%%1%'");
+    }
+
+    if (filter.isEmpty()) {
+        return "";
+    }
+
+    return ( "(" + filter.join(" OR ").arg(pattern) + ")" );
+}
+
+QString MagazzinoWindow::filterString(void) {
+    //Prepara i filtri della query in base ai vari parametri che vengono
+    //selezionati nel pannello filtro
+    QStringList filter;
+    if (ui->fornitoreComboBox->isEnabled()) {
+        QString fornitore = "\"Fornitore\" = '%1'";
+        filter.append(fornitore.arg(ui->fornitoreComboBox->currentText()));
+    }
+
+    if (ui->categoriaComboBox->isEnabled()) {
+        QString catmerce = "\"Cat.Merce\" = '%1'";
+        filter.append(catmerce.arg(ui->categoriaComboBox->currentText()));
+    }
+
+    if (ui->marcaComboBox->isEnabled()) {
+        QString marca = "\"Marca\" = '%1'";
+        filter.append(marca.arg(ui->marcaComboBox->currentText()));
+    }
+
+    if (ui->sedeComboBox->isEnabled()) {
+        QString sede = "\"Sede Magazzino\" = '%1'";
+        filter.append(sede.arg(ui->sedeComboBox->currentText()));
+    }
+
+    if (ui->data1LineEdit->isEnabled() && ui->data2LineEdit->isEnabled()) {
+        QString data1 = ui->data1LineEdit->text();
+        QString data2 = ui->data2LineEdit->text();
+        QString data = "\"Data Arrivo\" > '%1' AND \"Data Arrivo\" < '%2'";
+        filter.append(data.arg(data1, data2));
+    }
+    else if(ui->data1LineEdit->isEnabled() && !ui->data2LineEdit->isEnabled()) {
+        QString data = "\"Data Arrivo\" = '%1'";
+        filter.append(data.arg(ui->data1LineEdit->text()));
+        ui->data2LineEdit->setDate(ui->data1LineEdit->date());
+    }
+
+    if (filter.isEmpty()) {
+        return "";
+    }
+    else {
+        return filter.join(" AND ");
+    }
+}
+
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();
@@ -194,52 +271,25 @@ void MagazzinoWindow::removeRecord(void)
 
 void MagazzinoWindow::updateViewMagazzino(void)
 {
-    QStringList filter;
-    if (ui->fornitoreComboBox->isEnabled()) {
-        QString fornitore = "\"Fornitore\" ILIKE '%1'";
-        filter.append(fornitore.arg(ui->fornitoreComboBox->currentText()));
-    }
+    QString filter1 = filterString();
+    QString filter2 = searchString();
 
-    if (ui->categoriaComboBox->isEnabled()) {
-        QString catmerce = "\"Cat.Merce\" ILIKE '%1'";
-        filter.append(catmerce.arg(ui->categoriaComboBox->currentText()));
-    }
+    QString query;
 
-    if (ui->marcaComboBox->isEnabled()) {
-        QString marca = "\"Marca\" ILIKE '%1'";
-        filter.append(marca.arg(ui->marcaComboBox->currentText()));
+    if (filter1.isEmpty() && filter2.isEmpty()) {
+        query = magazzino::SELECT_ARTICOLI_ALL;
     }
-
-    if (ui->sedeComboBox->isEnabled()) {
-        QString sede = "\"Sede Magazzino\" ILIKE '%1'";
-        filter.append(sede.arg(ui->sedeComboBox->currentText()));
+    else if (!filter1.isEmpty() && filter2.isEmpty()) {
+        query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter1;
     }
-
-    if (ui->data1LineEdit->isEnabled() && ui->data2LineEdit->isEnabled()) {
-        QString data1 = ui->data1LineEdit->text();
-        QString data2 = ui->data2LineEdit->text();
-        QString data = "\"Data Arrivo\" > '%1' AND \"Data Arrivo\" < '%2'";
-        filter.append(data.arg(data1, data2));
-    }
-    else if(ui->data1LineEdit->isEnabled() && !ui->data2LineEdit->isEnabled()) {
-        QString data = "\"Data Arrivo\" = '%1'";
-        filter.append(data.arg(ui->data1LineEdit->text()));
-        ui->data2LineEdit->setDate(ui->data1LineEdit->date());
-    }
-    else if(!ui->data1LineEdit->isEnabled() && ui->data2LineEdit->isEnabled()) {
-        ui->data2Enabler->setChecked(false);
-        ui->data2LineEdit->setEnabled(false);
-        //spiega a cosa serve il secondo campo all'utente
-    }
-
-    if (!filter.isEmpty()) {
-        QString query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter.join(" AND ");
-        qDebug() << query;
-        articoloModel->setQuery(query);
+    else if (filter1.isEmpty() && !filter2.isEmpty()) {
+        query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter2;
     }
     else {
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+        query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter2 + " AND " + filter1;
     }
+
+    articoloModel->setQuery(query);
 
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
@@ -262,49 +312,6 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     ui->storicoView->hideColumn(magazzino::COL_ID);
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
-}
-
-void MagazzinoWindow::searchRecord(void)
-{
-    QString pattern = ui->searchLineEdit->text();
-    if (pattern.isEmpty()){
-        articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
-        updateViewMagazzino();
-        return;
-    }
-
-    updateViewMagazzino();
-
-    if (!ui->actionDescrizione->isChecked() &&
-        !ui->actionCod_Fornitore->isChecked() &&
-        !ui->actionCod_Articolo->isChecked() &&
-        !ui->actionEAN->isChecked()) {
-        showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
-        qDebug() << "Devi selezionare un campo di ricerca dal menu Ricerca"; //TODO definire codice errore
-    }
-
-    QStringList filtri;
-    if (ui->actionDescrizione->isChecked())
-        filtri.append("\"Descrizione\" ILIKE '%%1%'");
-    if (ui->actionCod_Fornitore->isChecked())
-        filtri.append("\"Cod.Fornitore\" ILIKE '%%1%'");
-    if (ui->actionCod_Articolo->isChecked())
-        filtri.append("\"Cod.Articolo\" ILIKE '%%1%'");
-    if (ui->actionEAN->isChecked())
-        filtri.append("\"Cod.EAN\" ILIKE '%%1%'");
-
-    if (filtri.length() == 0)
-        return;
-    else {
-        QString current_query = articoloModel->query().lastQuery();
-        QString filter = filtri.join(" OR ").arg(pattern);
-        if (current_query.contains("WHERE")) {
-            articoloModel->setQuery(current_query + " AND " + "(" + filter + ")");
-        }
-        else {
-            articoloModel->setQuery(current_query + " WHERE" + filter);
-        }
-    }
 }
 
 void MagazzinoWindow::openConfigDialog(void)

@@ -37,6 +37,8 @@ private:
     void updateModel();
     void loadConfigSettings();
     void saveConfigSettings();
+    QString searchString();
+    QString filterString();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -48,7 +50,6 @@ public slots:
     void removeRecord();
     void updateViewMagazzino(void);
     void updateViewStorico(QModelIndex index);
-    void searchRecord();
     void openConfigDialog(void);
 };
 
