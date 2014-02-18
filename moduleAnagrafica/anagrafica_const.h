@@ -4,6 +4,12 @@
 #include <QString>
 
 namespace anagrafica {
+
+    const QString SEARCH_RAGSOCL = "AnagraficaWindow.search.ragcociale";
+    const QString SEARCH_COGNOME = "AnagraficaWindow.search.cognome";
+    const QString SEARCH_CODFISC = "AnagraficaWindow.search.codfisc";
+    const QString SEARCH_PIVA = "AnagraficaWindow.search.piva";
+
     const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
     const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
     const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";

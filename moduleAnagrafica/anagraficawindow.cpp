@@ -56,12 +56,23 @@ void anagraficaWindow::loadConfigSettings()
         ui->anagraficaView->horizontalHeader()->restoreState(array);
 
     }
+
+    //Carico le impostazioni del menu ricerca
+    ui->actionRagioneSociale->setChecked(settings.value(anagrafica::SEARCH_RAGSOCL, true).toBool());
+    ui->actionCognome->setChecked(settings.value(anagrafica::SEARCH_COGNOME, false).toBool());
+    ui->actionCodiceFiscale->setChecked(settings.value(anagrafica::SEARCH_CODFISC, false).toBool());
+    ui->actionPartitaIVA->setChecked(settings.value(anagrafica::SEARCH_PIVA, false).toBool());
 }
 
 void anagraficaWindow::saveConfigSettings()
 {
     settings.setValue("AnagraficaWindow.size", this->geometry());
     settings.setValue("AnagraficaWindow.header", ui->anagraficaView->horizontalHeader()->saveState());
+    //Salvo le impostazioni del menu ricerca
+    settings.setValue(anagrafica::SEARCH_RAGSOCL, ui->actionRagioneSociale->isChecked());
+    settings.setValue(anagrafica::SEARCH_COGNOME, ui->actionCognome->isChecked());
+    settings.setValue(anagrafica::SEARCH_CODFISC, ui->actionCodiceFiscale->isChecked());
+    settings.setValue(anagrafica::SEARCH_PIVA, ui->actionPartitaIVA->isChecked());
 }
 
 void anagraficaWindow::closeEvent(QCloseEvent *event)
