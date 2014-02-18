@@ -7,10 +7,6 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->move(parent->pos());
-    QList <int> list;
-    list.append(400); //Altezza articoloView
-    list.append(150); //Altezza storicoView
-    ui->splitter->setSizes(list);
 
     initModel();
     loadConfigSettings();
@@ -65,6 +61,8 @@ void MagazzinoWindow::updateModel()
 void MagazzinoWindow::loadConfigSettings()
 {
     this->setGeometry(settings.value(magazzino::WINDOW_SIZE, magazzino::DEFAULT_WINDOW_SIZE).toRect());
+    ui->splitter_1->restoreState(settings.value(magazzino::SPLITTER1_SIZE).toByteArray());
+    ui->splitter_2->restoreState(settings.value(magazzino::SPLITTER2_SIZE).toByteArray());
 
     //Carico la disposizione delle colonne della vista articolo
     ui->articoloView->horizontalHeader()->setMovable(true);
@@ -122,6 +120,8 @@ void MagazzinoWindow::loadConfigSettings()
 void MagazzinoWindow::saveConfigSettings()
 {
     settings.setValue(magazzino::WINDOW_SIZE, this->geometry());
+    settings.setValue(magazzino::SPLITTER1_SIZE, ui->splitter_1->saveState());
+    settings.setValue(magazzino::SPLITTER2_SIZE, ui->splitter_2->saveState());
     //Salvo la disposizione delle colonne delle viste
     settings.setValue(magazzino::ARTICOLO_HEADER, ui->articoloView->horizontalHeader()->saveState());
     settings.setValue(magazzino::STORICO_HEADER, ui->storicoView->horizontalHeader()->saveState());

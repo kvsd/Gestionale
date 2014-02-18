@@ -46,7 +46,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QSplitter" name="splitter">
+      <widget class="QSplitter" name="splitter_1">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -157,7 +157,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>351</width>
+             <width>336</width>
              <height>420</height>
             </rect>
            </property>
