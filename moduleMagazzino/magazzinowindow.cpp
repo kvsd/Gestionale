@@ -229,6 +229,7 @@ void MagazzinoWindow::addRecord()
         return;
     }
     updateViewMagazzino();
+    updateModel();
 }
 
 void MagazzinoWindow::updateRecord(void)
@@ -249,6 +250,7 @@ void MagazzinoWindow::updateRecord(void)
     }
     updateViewMagazzino();
     updateViewStorico(index);
+    updateModel();
 }
 
 void MagazzinoWindow::removeRecord(void)
