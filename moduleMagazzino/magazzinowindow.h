@@ -10,6 +10,8 @@
 #include <QMap>
 #include <QDebug>
 #include <QCloseEvent>
+#include <QFileDialog>
+#include <QSqlRecord>
 
 namespace Ui {
 class MagazzinoWindow;
@@ -51,6 +53,7 @@ public slots:
     void updateViewMagazzino(void);
     void updateViewStorico(QModelIndex index);
     void openConfigDialog(void);
+    void exportMagazzinoCsv(void);
 };
 
 #endif // MAGAZZINOWINDOW_H

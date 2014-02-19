@@ -218,5 +218,4 @@ void anagraficaWindow::updateStringSearch(void)
 
         str_search = " WHERE " + test.join(" OR ");
     }
-    //TODO salvare le impostazioni di ricerca nei settaggi;
 }

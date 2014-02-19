@@ -325,3 +325,23 @@ void MagazzinoWindow::openConfigDialog(void)
     }
     loadConfigSettings();
 }
+
+void MagazzinoWindow::exportMagazzinoCsv(void)
+{
+    QString filename = QFileDialog::getSaveFileName();
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+
+    for (int r=0; r < articoloModel->rowCount(); r++) {
+        QSqlRecord record = articoloModel->record(r);
+        for (int c=0; c < record.count(); c++) {
+            out << record.value(c).toString() << ";";
+        }
+        out << "\n";
+    }
+
+    file.close();
+}

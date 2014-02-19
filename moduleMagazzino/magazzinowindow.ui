@@ -382,8 +382,15 @@
     </widget>
     <addaction name="menuRicerca_per"/>
    </widget>
+   <widget class="QMenu" name="menuEsporta">
+    <property name="title">
+     <string>Esporta</string>
+    </property>
+    <addaction name="actionCSV"/>
+   </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
+   <addaction name="menuEsporta"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCod_Articolo">
@@ -421,6 +428,11 @@
   <action name="actionConfigura">
    <property name="text">
     <string>Configura...</string>
+   </property>
+  </action>
+  <action name="actionCSV">
+   <property name="text">
+    <string>Magazzino in CSV</string>
    </property>
   </action>
  </widget>
@@ -858,6 +870,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCSV</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>exportMagazzinoCsv()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -868,5 +896,6 @@
   <slot>updateRecord()</slot>
   <slot>searchRecord()</slot>
   <slot>openConfigDialog()</slot>
+  <slot>exportMagazzinoCsv()</slot>
  </slots>
 </ui>
