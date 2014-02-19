@@ -54,6 +54,7 @@ public slots:
     void updateViewStorico(QModelIndex index);
     void openConfigDialog(void);
     void exportMagazzinoCsv(void);
+    void exportStoricoCsv(void);
 };
 
 #endif // MAGAZZINOWINDOW_H

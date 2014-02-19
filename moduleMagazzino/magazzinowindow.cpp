@@ -329,16 +329,44 @@ void MagazzinoWindow::openConfigDialog(void)
 void MagazzinoWindow::exportMagazzinoCsv(void)
 {
     QString filename = QFileDialog::getSaveFileName();
+    if (filename.isEmpty())
+        return;
+
     QFile file(filename);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
     QTextStream out(&file);
 
-    for (int r=0; r < articoloModel->rowCount(); r++) {
-        QSqlRecord record = articoloModel->record(r);
+    QSqlQuery query("SELECT * FROM magazzino");
+    while (query.next()) {
+        QSqlRecord record = query.record();
         for (int c=0; c < record.count(); c++) {
-            out << record.value(c).toString() << ";";
+            out << record.value(c).toString() << ":";
+        }
+        out << "\n";
+    }
+
+    file.close();
+}
+
+void MagazzinoWindow::exportStoricoCsv(void)
+{
+    QString filename = QFileDialog::getSaveFileName();
+    if (filename.isEmpty())
+        return;
+
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+
+    QSqlQuery query("SELECT * FROM listino_storico");
+    while (query.next()) {
+        QSqlRecord record = query.record();
+        for (int c=0; c < record.count(); c++) {
+            out << record.value(c).toString() << ":";
         }
         out << "\n";
     }

@@ -386,7 +386,8 @@
     <property name="title">
      <string>Esporta</string>
     </property>
-    <addaction name="actionCSV"/>
+    <addaction name="actionMagazzinoCSV"/>
+    <addaction name="actionStoricoCSV"/>
    </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
@@ -430,9 +431,14 @@
     <string>Configura...</string>
    </property>
   </action>
-  <action name="actionCSV">
+  <action name="actionMagazzinoCSV">
    <property name="text">
     <string>Magazzino in CSV</string>
+   </property>
+  </action>
+  <action name="actionStoricoCSV">
+   <property name="text">
+    <string>Storico in CSV</string>
    </property>
   </action>
  </widget>
@@ -871,10 +877,26 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCSV</sender>
+   <sender>actionMagazzinoCSV</sender>
    <signal>triggered()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>exportMagazzinoCsv()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStoricoCSV</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>exportStoricoCsv()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -897,5 +919,6 @@
   <slot>searchRecord()</slot>
   <slot>openConfigDialog()</slot>
   <slot>exportMagazzinoCsv()</slot>
+  <slot>exportStoricoCsv()</slot>
  </slots>
 </ui>
