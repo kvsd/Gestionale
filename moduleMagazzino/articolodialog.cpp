@@ -10,6 +10,9 @@ ArticoloDialog::ArticoloDialog(QWidget *parent) :
     initModel();
 
     ui->le_data->setDate(QDate::currentDate());
+
+    int index = ui->cb_codiva->findText(settings.value(magazzino::DEFAULT_IVA).toString());
+    ui->cb_codiva->setCurrentIndex(index);
 }
 
 ArticoloDialog::~ArticoloDialog()

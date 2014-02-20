@@ -9,6 +9,8 @@ namespace magazzino {
     const int TAB_MAGAZZINO = 0;
     const int TAB_STORICO = 1;
 
+    const QString DEFAULT_IVA = "default.civa";
+
     const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
     const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
     const QString ARTICOLO_HEADER = "MagazzinoWindow.header.articolo";

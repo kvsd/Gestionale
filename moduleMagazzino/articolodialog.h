@@ -12,6 +12,7 @@
 #include <QMap>
 #include <QDebug>
 #include <QLocale>
+#include <QSettings>
 
 namespace Ui {
 class ArticoloDialog;
@@ -35,6 +36,7 @@ private:
     QSqlTableModel *modelSede;
     QSqlTableModel *modelUnita;
     QMap <QString,QString> articolo;
+    QSettings settings;
 
     void initModel(void);
     void prepareMap(void);

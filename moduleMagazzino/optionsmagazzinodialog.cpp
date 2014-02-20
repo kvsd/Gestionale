@@ -7,9 +7,16 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    codIvaModel = new QSqlTableModel(this);
+    codIvaModel->setTable("cod_iva");
+    codIvaModel->select();
+    ui->codIvaComboBox->setModel(codIvaModel);
+    ui->codIvaComboBox->setModelColumn(magazzino::COL_DESCR);
+
     prepareMaps();
     populateList();
     loadConfig();
+
 }
 
 OptionsMagazzinoDialog::~OptionsMagazzinoDialog()
@@ -112,6 +119,8 @@ void OptionsMagazzinoDialog::saveConfig(void)
             settings.setValue(QVariant(i.key()).toString(), color.name());
     }
     settings.endGroup();
+
+    settings.setValue(magazzino::DEFAULT_IVA, ui->codIvaComboBox->currentText());
 }
 
 void OptionsMagazzinoDialog::loadConfig(void)
@@ -158,6 +167,9 @@ void OptionsMagazzinoDialog::loadConfig(void)
         col->setBackground(QBrush(color));
     }
     settings.endGroup();
+
+    int index = ui->codIvaComboBox->findText(settings.value(magazzino::DEFAULT_IVA).toString());
+    ui->codIvaComboBox->setCurrentIndex(index);
 }
 
 void OptionsMagazzinoDialog::restoreToDefault(void)
