@@ -16,7 +16,6 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     prepareMaps();
     populateList();
     loadConfig();
-
 }
 
 OptionsMagazzinoDialog::~OptionsMagazzinoDialog()
@@ -29,26 +28,27 @@ void OptionsMagazzinoDialog::prepareMaps()
     magazzinoNameCols[0] = "Id";
     magazzinoNameCols[1] = "Descrizione";
     magazzinoNameCols[2] = "Fornitore";
-    magazzinoNameCols[3] = "Modello";
-    magazzinoNameCols[4] = "Cod.Articolo";
-    magazzinoNameCols[5] = "Cod.Fornitore";
-    magazzinoNameCols[6] = "Cod.EAN";
-    magazzinoNameCols[7] = "Cat.Merce";
-    magazzinoNameCols[8] = "Cod.IVA";
-    magazzinoNameCols[9] = "UM";
-    magazzinoNameCols[10] = "Scorta Minima";
-    magazzinoNameCols[11] = QString::fromUtf8("Quantità");
-    magazzinoNameCols[12] = "Prezzo Acquisto";
-    magazzinoNameCols[13] = "Sconto";
-    magazzinoNameCols[14] = "Ricarico";
-    magazzinoNameCols[15] = "Imponibile";
-    magazzinoNameCols[16] = "Iva";
-    magazzinoNameCols[17] = "Prezzo Finito";
-    magazzinoNameCols[18] = "Prezzo Vendità";
-    magazzinoNameCols[19] = "Nr.Fattura";
-    magazzinoNameCols[20] = "Data Arrivo";
-    magazzinoNameCols[21] = "Sede Magazzino";
-    magazzinoNameCols[22] = "Note";
+    magazzinoNameCols[3] = "Marca";
+    magazzinoNameCols[4] = "Modello";
+    magazzinoNameCols[5] = "Cod.Articolo";
+    magazzinoNameCols[6] = "Cod.Fornitore";
+    magazzinoNameCols[7] = "Cod.EAN";
+    magazzinoNameCols[8] = "Cat.Merce";
+    magazzinoNameCols[9] = "Cod.IVA";
+    magazzinoNameCols[10] = "UM";
+    magazzinoNameCols[11] = "Scorta Minima";
+    magazzinoNameCols[12] = QString::fromUtf8("Quantità");
+    magazzinoNameCols[13] = "Prezzo Acquisto";
+    magazzinoNameCols[14] = "Sconto";
+    magazzinoNameCols[15] = "Ricarico";
+    magazzinoNameCols[16] = "Imponibile";
+    magazzinoNameCols[17] = "Iva";
+    magazzinoNameCols[18] = "Prezzo Finito";
+    magazzinoNameCols[19] = "Prezzo Vendità";
+    magazzinoNameCols[20] = "Nr.Fattura";
+    magazzinoNameCols[21] = "Data Arrivo";
+    magazzinoNameCols[22] = "Sede Magazzino";
+    magazzinoNameCols[23] = "Note";
 
     storicoNameCols[0] = "Id Articolo";
     storicoNameCols[1] = "Data";
@@ -168,7 +168,7 @@ void OptionsMagazzinoDialog::loadConfig(void)
     }
     settings.endGroup();
 
-    int index = ui->codIvaComboBox->findText(settings.value(magazzino::DEFAULT_IVA).toString());
+    int index = ui->codIvaComboBox->findText(settings.value(magazzino::DEFAULT_IVA).toString(), 0);
     ui->codIvaComboBox->setCurrentIndex(index);
 }
 
@@ -205,13 +205,11 @@ void OptionsMagazzinoDialog::restoreToDefault(void)
     loadConfig();
 }
 
-void OptionsMagazzinoDialog::setColumnColor(QModelIndex index)
+void OptionsMagazzinoDialog::setColumnColorMagazzino(QModelIndex index)
 {
     QListWidgetItem *col;
-    if (ui->tabWidget->currentIndex() == magazzino::TAB_MAGAZZINO)
-        col = ui->magazzinoListView->item(index.row());
-    else if (ui->tabWidget->currentIndex() == magazzino::TAB_STORICO)
-        col = ui->storicoListView->item(index.row());
+    col = ui->magazzinoListView->item(index.row());
+
     QColorDialog dlg(this);
     bool ok = dlg.exec();
     if (ok) {
@@ -219,3 +217,17 @@ void OptionsMagazzinoDialog::setColumnColor(QModelIndex index)
         col->setBackgroundColor(color);
     }
 }
+
+void OptionsMagazzinoDialog::setColumnColorStorico(QModelIndex index)
+{
+    QListWidgetItem *col;
+    col = ui->storicoListView->item(index.row());
+
+    QColorDialog dlg(this);
+    bool ok = dlg.exec();
+    if (ok) {
+        QColor color = dlg.selectedColor();
+        col->setBackgroundColor(color);
+    }
+}
+

@@ -37,7 +37,8 @@ public slots:
     void saveConfig(void);
     void loadConfig(void);
     void restoreToDefault(void);
-    void setColumnColor(QModelIndex);
+    void setColumnColorMagazzino(QModelIndex);
+    void setColumnColorStorico(QModelIndex);
 };
 
 #endif // OPTIONSMAGAZZINODIALOG_H

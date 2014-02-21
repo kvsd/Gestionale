@@ -81,28 +81,26 @@ void MagazzinoWindow::loadConfigSettings()
     //Carico la visibilita delle colonne della vista articolo
     settings.beginGroup(magazzino::ARTICOLO_STATUS);
     QStringList articoloCols = settings.allKeys();
-    if (articoloCols.isEmpty()) {
-        return;
-    }
-    for (QStringList::Iterator i=articoloCols.begin(); i!=articoloCols.end(); i++) {
-        int col = QVariant((*i)).toInt();
-        bool value = settings.value((*i)).toBool();
-        ui->articoloView->setColumnHidden(col, !value);
+    if (!articoloCols.isEmpty()) {
+        for (QStringList::Iterator i=articoloCols.begin(); i!=articoloCols.end(); i++) {
+            int col = QVariant((*i)).toInt();
+            bool value = settings.value((*i)).toBool();
+            ui->articoloView->setColumnHidden(col, !value);
 
+        }
     }
     settings.endGroup();
 
     //Carico la visibilita delle colonne della vista storico
     settings.beginGroup(magazzino::STORICO_STATUS);
     QStringList storicoCols = settings.allKeys();
-    if (storicoCols.isEmpty()) {
-        return;
-    }
-    for (QStringList::Iterator i=storicoCols.begin(); i!=storicoCols.end(); i++) {
-        int col = QVariant((*i)).toInt();
-        bool value = settings.value((*i)).toBool();
-        ui->storicoView->setColumnHidden(col, !value);
+    if (!storicoCols.isEmpty()) {
+        for (QStringList::Iterator i=storicoCols.begin(); i!=storicoCols.end(); i++) {
+            int col = QVariant((*i)).toInt();
+            bool value = settings.value((*i)).toBool();
+            ui->storicoView->setColumnHidden(col, !value);
 
+        }
     }
     settings.endGroup();
 
@@ -295,7 +293,6 @@ void MagazzinoWindow::updateViewMagazzino(void)
 
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
-    ui->articoloView->hideColumn(magazzino::COL_ID);
 
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
        corrotto il file di configurazione. Questa impostazione permette di avere
@@ -311,13 +308,13 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     }
     QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
-    ui->storicoView->hideColumn(magazzino::COL_ID);
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }
 
 void MagazzinoWindow::openConfigDialog(void)
 {
+    saveConfigSettings();
     OptionsMagazzinoDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
