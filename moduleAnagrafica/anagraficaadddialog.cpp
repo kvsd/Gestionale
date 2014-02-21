@@ -7,43 +7,9 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
 {
     ui->setupUi(this); 
 
-    modelDitta = new QSqlTableModel(this);
-    modelDitta->setTable("tipo_ditta");
-    modelDitta->select();
-    ui->cb_tipo_ditta->setModel(modelDitta);
-    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_MODEL_DESCR);
+    initModel();
+    initComboBox();
 
-    modelCitta = new QSqlTableModel(this);
-    modelCitta->setTable("citta");
-    modelCitta->select();
-    ui->cb_citta->setModel(modelCitta);
-    ui->cb_citta->setModelColumn(anagrafica::COL_MODEL_DESCR);
-
-    modelProvincia = new QSqlTableModel(this);
-    modelProvincia->setTable("provincia");
-    modelProvincia->select();
-    ui->cb_provincia->setModel(modelProvincia);
-    ui->cb_provincia->setModelColumn(anagrafica::COL_MODEL_DESCR);
-
-    modelCap = new QSqlTableModel(this);
-    modelCap->setTable("cap");
-    modelCap->select();
-    ui->cb_cap->setModel(modelCap);
-    ui->cb_cap->setModelColumn(anagrafica::COL_MODEL_DESCR);
-
-    modelStato = new QSqlTableModel(this);
-    modelStato->setTable("stato");
-    modelStato->select();
-    ui->cb_stato->setModel(modelStato);
-    ui->cb_stato->setModelColumn(anagrafica::COL_MODEL_DESCR);
-
-    modelAgente = new QSqlTableModel(this);
-    modelAgente->setTable("agenti");
-    modelAgente->select();
-    ui->cb_agente->setModel(modelAgente);
-    ui->cb_agente->setModelColumn(anagrafica::COL_MODEL_COGNOME);
-
-    ui->cb_agente->setShown(false);
     ui->lb_agente->setShown(false);
     ui->pb_agenti_dlg->setShown(false);
 }
@@ -123,6 +89,56 @@ void AnagraficaAddDialog::setValue(QString id)
 
     mapPersona["id"]=id;
 
+}
+
+void AnagraficaAddDialog::initModel()
+{
+    modelDitta = new QSqlTableModel(this);
+    modelDitta->setTable("tipo_ditta");
+    modelDitta->select();
+
+    modelCitta = new QSqlTableModel(this);
+    modelCitta->setTable("citta");
+    modelCitta->select();
+
+    modelProvincia = new QSqlTableModel(this);
+    modelProvincia->setTable("provincia");
+    modelProvincia->select();
+
+    modelCap = new QSqlTableModel(this);
+    modelCap->setTable("cap");
+    modelCap->select();
+
+
+    modelStato = new QSqlTableModel(this);
+    modelStato->setTable("stato");
+    modelStato->select();
+
+    modelAgente = new QSqlTableModel(this);
+    modelAgente->setTable("agenti");
+    modelAgente->select();
+}
+
+void AnagraficaAddDialog::initComboBox()
+{
+    ui->cb_tipo_ditta->setModel(modelDitta);
+    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_MODEL_DESCR);
+
+    ui->cb_citta->setModel(modelCitta);
+    ui->cb_citta->setModelColumn(anagrafica::COL_MODEL_DESCR);
+
+    ui->cb_provincia->setModel(modelProvincia);
+    ui->cb_provincia->setModelColumn(anagrafica::COL_MODEL_DESCR);
+
+    ui->cb_cap->setModel(modelCap);
+    ui->cb_cap->setModelColumn(anagrafica::COL_MODEL_DESCR);
+
+    ui->cb_stato->setModel(modelStato);
+    ui->cb_stato->setModelColumn(anagrafica::COL_MODEL_DESCR);
+
+    ui->cb_agente->setModel(modelAgente);
+    ui->cb_agente->setModelColumn(anagrafica::COL_MODEL_COGNOME);
+    ui->cb_agente->setShown(false);
 }
 
 void AnagraficaAddDialog::prepareMap(void)

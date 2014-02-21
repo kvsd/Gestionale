@@ -38,6 +38,8 @@ private:
     QSqlTableModel *modelStato;
     QSqlTableModel *modelAgente;
 
+    void initModel(void);
+    void initComboBox(void);
     void prepareMap(void);
     QSqlQuery prepareQuery(void);
 
