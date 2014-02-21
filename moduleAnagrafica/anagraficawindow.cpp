@@ -30,32 +30,32 @@ anagraficaWindow::~anagraficaWindow()
 void anagraficaWindow::loadConfigSettings()
 {
     this->setGeometry(settings.value("AnagraficaWindow.size", QRect(0, 0, 700, 500)).toRect());
+
+    //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
+    //salva anche lo stato delle colonne (mostra/nascondi), quindi bisogna caricarle
+    //prima di leggere lo stato mostra nascondi.
+    ui->anagraficaView->horizontalHeader()->setMovable(true);
+    if (settings.contains("AnagraficaWindow.header")) {
+        QByteArray array = settings.value("AnagraficaWindow.header").toByteArray();
+        ui->anagraficaView->horizontalHeader()->restoreState(array);
+    }
+
     //legge il file file di configurazione e in base al valore
     //mostra o nasconde le colonne
     settings.beginGroup("AnagraficaColsStatus");
     QStringList cols = settings.allKeys();
-    if (cols.isEmpty()) {
-        return;
-    }
-    for (QStringList::Iterator i=cols.begin(); i!=cols.end(); i++) {
-        int col = QVariant((*i)).toInt();
-        bool value = settings.value((*i)).toBool();
-        ui->anagraficaView->setColumnHidden(col, !value);
-
+    if (!cols.isEmpty()) {
+        for (QStringList::Iterator i=cols.begin(); i!=cols.end(); i++) {
+            int col = QVariant((*i)).toInt();
+            bool value = settings.value((*i)).toBool();
+            ui->anagraficaView->setColumnHidden(col, !value);
+        }
     }
     settings.endGroup();
 
     //imposta i colori delle colonne, questo viene fatto dal model
     //e non dalla view. MISTERI DI QT
     anagraficaModel->loadSettings();
-
-    //Carica la disposizione delle colonne
-    ui->anagraficaView->horizontalHeader()->setMovable(true);
-    if (settings.contains("AnagraficaWindow.header")) {
-        QByteArray array = settings.value("AnagraficaWindow.header").toByteArray();
-        ui->anagraficaView->horizontalHeader()->restoreState(array);
-
-    }
 
     //Carico le impostazioni del menu ricerca
     ui->actionRagioneSociale->setChecked(settings.value(anagrafica::SEARCH_RAGSOCL, true).toBool());
@@ -172,9 +172,6 @@ void anagraficaWindow::updateViewAnagrafica(void)
         anagraficaModel->setQuery("");
     }
 
-    ui->anagraficaView->hideColumn(anagrafica::COL_ID); //FIXME se nelle impostazioni viene specificato di visualizzare l'id questo lo
-                                                        //scavalca. Possibile soluzione è impostare al primo avvio un file di configurazione
-                                                        //preimpostato. Poi sara' l'utente a decidere cosa visualizzare
     ui->anagraficaView->resizeColumnsToContents();
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
 }
