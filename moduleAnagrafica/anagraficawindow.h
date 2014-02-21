@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QShowEvent>
 
 namespace Ui {
 class anagraficaWindow;
@@ -34,6 +35,7 @@ private:
     void saveConfigSettings();
 
 protected:
+    void showEvent(QShowEvent *);
     void closeEvent(QCloseEvent *);
 
 public slots:

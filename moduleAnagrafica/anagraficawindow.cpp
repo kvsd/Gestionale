@@ -75,6 +75,12 @@ void anagraficaWindow::saveConfigSettings()
     settings.setValue(anagrafica::SEARCH_PIVA, ui->actionPartitaIVA->isChecked());
 }
 
+void anagraficaWindow::showEvent(QShowEvent *event)
+{
+    updateViewAnagrafica();
+    event->accept();
+}
+
 void anagraficaWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();

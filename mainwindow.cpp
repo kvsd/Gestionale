@@ -106,8 +106,8 @@ void MainWindow::launchAnagraficaDlg(void)
         anagraficaMW = new anagraficaWindow(this);
     }
     this->hide();
+    anagraficaMW->move(this->pos());
     anagraficaMW->show();
-    anagraficaMW->updateViewAnagrafica();
 }
 
 void MainWindow::launchAziendaDlg(void)
@@ -124,5 +124,6 @@ void MainWindow::launchMagazzinoDlg(void)
         magazzinoMW = new MagazzinoWindow(this);
     }
     this->hide();
+    magazzinoMW->move(this->pos());
     magazzinoMW->show();
 }

@@ -44,6 +44,9 @@ namespace magazzino {
     const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
     const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
 
+    const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
+    const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
+
     enum columns {COL_ID,
                   COL_DESCR = 1,
                   COL_ID_FORN,
