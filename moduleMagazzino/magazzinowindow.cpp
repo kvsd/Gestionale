@@ -187,16 +187,16 @@ QString MagazzinoWindow::filterString(void) {
         filter.append(sede.arg(ui->sedeComboBox->currentText()));
     }
 
-    if (ui->data1LineEdit->isEnabled() && ui->data2LineEdit->isEnabled()) {
+    if (ui->currentDateEnabler->isChecked()) {
+        QString data = "\"Data Arrivo\" = '%1'";
+        QString currentDate = QDate::currentDate().toString("dd/MM/yy");
+        filter.append(data.arg(currentDate));
+    }
+    else if (ui->rangeDateEnabler->isChecked()) {
         QString data1 = ui->data1LineEdit->text();
         QString data2 = ui->data2LineEdit->text();
         QString data = "\"Data Arrivo\" > '%1' AND \"Data Arrivo\" < '%2'";
         filter.append(data.arg(data1, data2));
-    }
-    else if(ui->data1LineEdit->isEnabled() && !ui->data2LineEdit->isEnabled()) {
-        QString data = "\"Data Arrivo\" = '%1'";
-        filter.append(data.arg(ui->data1LineEdit->text()));
-        ui->data2LineEdit->setDate(ui->data1LineEdit->date());
     }
 
     if (filter.isEmpty()) {
