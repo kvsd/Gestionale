@@ -39,6 +39,7 @@ private:
     QSettings settings;
 
     void initModel(void);
+    void initComboBox(void);
     void prepareMap(void);
     QSqlQuery prepareQueryArticolo(void);
     QSqlQuery prepareQueryStorico(void);

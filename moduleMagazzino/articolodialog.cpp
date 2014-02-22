@@ -8,11 +8,9 @@ ArticoloDialog::ArticoloDialog(QWidget *parent) :
     ui->setupUi(this);
 
     initModel();
+    initComboBox();
 
     ui->le_data->setDate(QDate::currentDate());
-
-    int index = ui->cb_codiva->findText(settings.value(magazzino::DEFAULT_IVA).toString());
-    ui->cb_codiva->setCurrentIndex(index);
 }
 
 ArticoloDialog::~ArticoloDialog()
@@ -25,35 +23,47 @@ void ArticoloDialog::initModel(void)
     modelCatMerce = new QSqlTableModel(this);
     modelCatMerce->setTable("cat_merce");
     modelCatMerce->select();
-    ui->cb_catmerce->setModel(modelCatMerce);
-    ui->cb_catmerce->setModelColumn(magazzino::COL_DESCR);
 
     modelCodIva = new QSqlTableModel(this);
     modelCodIva->setTable("cod_iva");
     modelCodIva->select();
-    ui->cb_codiva->setModel(modelCodIva);
-    ui->cb_codiva->setModelColumn(magazzino::COL_DESCR);
 
     modelFornitore = new QSqlQueryModel(this);
     modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
-    ui->cb_fornitore->setModel(modelFornitore);
-    ui->cb_fornitore->setModelColumn(magazzino::COL_DESCR);
 
     modelMarca = new QSqlTableModel(this);
     modelMarca->setTable("marca");
     modelMarca->select();
-    ui->cb_marca->setModel(modelMarca);
-    ui->cb_marca->setModelColumn(magazzino::COL_DESCR);
 
     modelSede = new QSqlTableModel(this);
     modelSede->setTable("sede_magazzino");
     modelSede->select();
-    ui->cb_sede->setModel(modelSede);
-    ui->cb_sede->setModelColumn(magazzino::COL_DESCR);
 
     modelUnita = new QSqlTableModel(this);
     modelUnita->setTable("unita_misura");
     modelUnita->select();
+
+}
+
+void ArticoloDialog::initComboBox(void)
+{
+    ui->cb_catmerce->setModel(modelCatMerce);
+    ui->cb_catmerce->setModelColumn(magazzino::COL_DESCR);
+
+    ui->cb_codiva->setModel(modelCodIva);
+    ui->cb_codiva->setModelColumn(magazzino::COL_DESCR);
+    int index = ui->cb_codiva->findText(settings.value(magazzino::DEFAULT_IVA).toString());
+    ui->cb_codiva->setCurrentIndex(index);
+
+    ui->cb_fornitore->setModel(modelFornitore);
+    ui->cb_fornitore->setModelColumn(magazzino::COL_DESCR);
+
+    ui->cb_marca->setModel(modelMarca);
+    ui->cb_marca->setModelColumn(magazzino::COL_DESCR);
+
+    ui->cb_sede->setModel(modelSede);
+    ui->cb_sede->setModelColumn(magazzino::COL_DESCR);
+
     ui->cb_unitamisura->setModel(modelUnita);
     ui->cb_unitamisura->setModelColumn(magazzino::COL_DESCR);
 }
