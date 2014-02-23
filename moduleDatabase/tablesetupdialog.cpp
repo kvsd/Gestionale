@@ -21,22 +21,22 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
         descr -> TEXT UNIQUE NOT NULL
       Per aggiunge tabelle basta inserirle in mapTables*/
 
-    mapTables["Categoria merceologica"] = "cat_merce";
-    mapTables["Codice Iva"] = "cod_iva";
-    mapTables["Unita di misura"] = "unita_misura";
-    mapTables["Sedi magazzino"] = "sede_magazzino";
-    mapTables["Marca"] = "marca";
-    mapTables["Tipo di ditta"] = "tipo_ditta";
-    mapTables["Citta"] = "citta";
-    mapTables["Provincia"] = "provincia";
-    mapTables["CAP"] = "cap";
-    mapTables["Stato"] = "stato";
-    mapTables["Banca"] = "banca";
-    mapTables["Agenzia"] = "agenzia";
-    mapTables["Tipo di pagamento"] = "tipo_pagamento";
-    mapTables["Casuale di trasporto"] = "casuale_trasporto";
-    mapTables["Vettore"] = "vettore";
-    mapTables["Aspetto dei beni"] = "aspetto_beni";
+    mapTables["Categoria merceologica"] = table::CATEGORIA_MERCE;
+    mapTables["Codice Iva"] = table::CODICE_IVA;
+    mapTables["Unita di misura"] = table::UNITA_MISURA;
+    mapTables["Sedi magazzino"] = table::SEDE_MAGAZZINO;
+    mapTables["Marca"] = table::MARCA;
+    mapTables["Tipo di ditta"] = table::TIPO_DITTA;
+    mapTables["Citta"] = table::CITTA;
+    mapTables["Provincia"] = table::PROVINCIA;
+    mapTables["CAP"] = table::CAP;
+    mapTables["Stato"] = table::STATO;
+    mapTables["Banca"] = table::BANCA;
+    mapTables["Agenzia"] = table::AGENZIA;
+    mapTables["Tipo di pagamento"] = table::TIPO_PAGAMENTO;
+    mapTables["Casuale di trasporto"] = table::CASUALE_TRASPORTO;
+    mapTables["Vettore"] = table::VETTORE;
+    mapTables["Aspetto dei beni"] = table::ASPETTO_BENI;
 
 
     ui->comboBox->addItems(mapTables.keys());

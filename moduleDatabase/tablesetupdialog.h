@@ -2,6 +2,7 @@
 #define TABLESETUPDIALOG_H
 
 #include "libs/error.h"
+#include "libs/enum_const.h"
 
 #include <QDialog>
 #include <QDebug>
