@@ -34,17 +34,17 @@ void MagazzinoWindow::initModel()
     ui->fornitoreComboBox->setModelColumn(magazzino::COL_DESCR);
 
     categoriaModel = new QSqlTableModel(this);
-    categoriaModel->setTable("cat_merce");
+    categoriaModel->setTable(table::CATEGORIA_MERCE);
     ui->categoriaComboBox->setModel(categoriaModel);
     ui->categoriaComboBox->setModelColumn(magazzino::COL_DESCR);
 
     marcaModel = new QSqlTableModel(this);
-    marcaModel->setTable("marca");
+    marcaModel->setTable(table::MARCA);
     ui->marcaComboBox->setModel(marcaModel);
     ui->marcaComboBox->setModelColumn(magazzino::COL_DESCR);
 
     sedeModel = new QSqlTableModel(this);
-    sedeModel->setTable("sede_magazzino");
+    sedeModel->setTable(table::SEDE_MAGAZZINO);
     ui->sedeComboBox->setModel(sedeModel);
     ui->sedeComboBox->setModelColumn(magazzino::COL_DESCR);
 

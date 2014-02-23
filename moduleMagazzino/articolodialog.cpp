@@ -21,26 +21,26 @@ ArticoloDialog::~ArticoloDialog()
 void ArticoloDialog::initModel(void)
 {
     modelCatMerce = new QSqlTableModel(this);
-    modelCatMerce->setTable("cat_merce");
+    modelCatMerce->setTable(table::CATEGORIA_MERCE);
     modelCatMerce->select();
 
     modelCodIva = new QSqlTableModel(this);
-    modelCodIva->setTable("cod_iva");
+    modelCodIva->setTable(table::CODICE_IVA);
     modelCodIva->select();
 
     modelFornitore = new QSqlQueryModel(this);
     modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
 
     modelMarca = new QSqlTableModel(this);
-    modelMarca->setTable("marca");
+    modelMarca->setTable(table::MARCA);
     modelMarca->select();
 
     modelSede = new QSqlTableModel(this);
-    modelSede->setTable("sede_magazzino");
+    modelSede->setTable(table::SEDE_MAGAZZINO);
     modelSede->select();
 
     modelUnita = new QSqlTableModel(this);
-    modelUnita->setTable("unita_misura");
+    modelUnita->setTable(table::UNITA_MISURA);
     modelUnita->select();
 
 }
@@ -239,7 +239,7 @@ void ArticoloDialog::save(void)
     prepareMap();
     QSqlQuery query_articolo = prepareQueryArticolo();
     if (!query_articolo.exec()) {
-        qDebug() << "errore: " << query_articolo.lastError();
+        qDebug() << "errore: " << query_articolo.lastError(); //TODO definire codice errore
         db.rollback();
         return;
     }
@@ -248,7 +248,7 @@ void ArticoloDialog::save(void)
             QSqlQuery query_id;
             query_id.prepare("SELECT * FROM lastval();");
             if (!query_id.exec()) {
-                qDebug() << "errore: " << query_id.lastError();
+                qDebug() << "errore: " << query_id.lastError(); //TODO definire codice errore
                 db.rollback();
                 return;
             }
@@ -259,7 +259,7 @@ void ArticoloDialog::save(void)
         QSqlQuery query_storico = prepareQueryStorico();
         query_storico.bindValue(":id_articolo", articolo["id"]);
         if (!query_storico.exec()) {
-            qDebug() << "errore storico: " << articolo["id"] << query_storico.lastError();
+            qDebug() << "errore storico: " << articolo["id"] << query_storico.lastError(); //TODO definire codice errore
             db.rollback();
             return;
         }

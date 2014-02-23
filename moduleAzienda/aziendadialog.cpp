@@ -27,25 +27,25 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     ui->setupUi(this);
 
     modelCitta = new QSqlTableModel(this);
-    modelCitta->setTable("citta");
+    modelCitta->setTable(table::CITTA);
     modelCitta->select();
     ui->cb_citta->setModel(modelCitta);
     ui->cb_citta->setModelColumn(azienda::COL_DESCR);
 
     modelProvincia = new QSqlTableModel(this);
-    modelProvincia->setTable("provincia");
+    modelProvincia->setTable(table::PROVINCIA);
     modelProvincia->select();
     ui->cb_provincia->setModel(modelProvincia);
     ui->cb_provincia->setModelColumn(azienda::COL_DESCR);
 
     modelCap = new QSqlTableModel(this);
-    modelCap->setTable("cap");
+    modelCap->setTable(table::CAP);
     modelCap->select();
     ui->cb_cap->setModel(modelCap);
     ui->cb_cap->setModelColumn(azienda::COL_DESCR);
 
     modelStato = new QSqlTableModel(this);
-    modelStato->setTable("stato");
+    modelStato->setTable(table::STATO);
     modelStato->select();
     ui->cb_stato->setModel(modelStato);
     ui->cb_stato->setModelColumn(azienda::COL_DESCR);

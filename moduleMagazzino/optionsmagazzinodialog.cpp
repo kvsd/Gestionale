@@ -8,7 +8,7 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     ui->setupUi(this);
 
     codIvaModel = new QSqlTableModel(this);
-    codIvaModel->setTable("cod_iva");
+    codIvaModel->setTable(table::CODICE_IVA);
     codIvaModel->select();
     ui->codIvaComboBox->setModel(codIvaModel);
     ui->codIvaComboBox->setModelColumn(magazzino::COL_DESCR);

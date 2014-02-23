@@ -2,6 +2,7 @@
 #define OPTIONSMAGAZZINODIALOG_H
 
 #include "magazzino_const.h"
+#include "libs/enum_const.h"
 
 #include <QDialog>
 #include <QMap>

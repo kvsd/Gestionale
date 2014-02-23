@@ -2,6 +2,7 @@
 #define MAGAZZINOWINDOW_H
 
 #include "libs/custommodel.h"
+#include "libs/enum_const.h"
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
 

@@ -94,28 +94,28 @@ void AnagraficaAddDialog::setValue(QString id)
 void AnagraficaAddDialog::initModel()
 {
     modelDitta = new QSqlTableModel(this);
-    modelDitta->setTable("tipo_ditta");
+    modelDitta->setTable(table::TIPO_DITTA);
     modelDitta->select();
 
     modelCitta = new QSqlTableModel(this);
-    modelCitta->setTable("citta");
+    modelCitta->setTable(table::CITTA);
     modelCitta->select();
 
     modelProvincia = new QSqlTableModel(this);
-    modelProvincia->setTable("provincia");
+    modelProvincia->setTable(table::PROVINCIA);
     modelProvincia->select();
 
     modelCap = new QSqlTableModel(this);
-    modelCap->setTable("cap");
+    modelCap->setTable(table::CAP);
     modelCap->select();
 
 
     modelStato = new QSqlTableModel(this);
-    modelStato->setTable("stato");
+    modelStato->setTable(table::STATO);
     modelStato->select();
 
     modelAgente = new QSqlTableModel(this);
-    modelAgente->setTable("agenti");
+    modelAgente->setTable(table::AGENTI);
     modelAgente->select();
 }
 
