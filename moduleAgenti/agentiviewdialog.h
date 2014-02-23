@@ -3,7 +3,7 @@
 
 #include <moduleAgenti/agentiadddialog.h>
 #include "libs/error.h"
-#include "libs/enum_const.h"
+#include "libs/gestionale_const.h"
 
 #include <QDialog>
 #include <QSqlQueryModel>

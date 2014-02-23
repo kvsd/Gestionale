@@ -4,7 +4,7 @@
 #include "libs/error.h"
 #include "libs/simpledialogs.h"
 #include "libs/controllodati.h"
-#include "libs/enum_const.h"
+#include "libs/gestionale_const.h"
 
 #include <QDialog>
 #include <QSqlTableModel>

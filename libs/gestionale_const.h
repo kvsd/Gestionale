@@ -1,5 +1,5 @@
-#ifndef ENUM_CONST_H
-#define ENUM_CONST_H
+#ifndef GESTIONALE_CONST_H
+#define GESTIONALE_CONST_H
 
 #include <QString>
 
@@ -56,4 +56,4 @@ namespace table {
     const QString VETTORE = "vettore";
 }
 
-#endif // ENUM_CONST_H
+#endif // GESTIONALE_CONST_H

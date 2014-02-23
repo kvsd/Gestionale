@@ -37,11 +37,11 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleMagazzino/magazzinowindow.h \
            libs/controllodati.h \
            libs/simpledialogs.h \
-           libs/enum_const.h \
            libs/custommodel.h \
            moduleMagazzino/optionsmagazzinodialog.h \
     moduleMagazzino/magazzino_const.h \
-    moduleAnagrafica/anagrafica_const.h
+    moduleAnagrafica/anagrafica_const.h \
+    libs/gestionale_const.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
