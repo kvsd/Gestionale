@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QRect>
+#include <QMap>
 
 namespace magazzino {
 
@@ -71,5 +72,8 @@ namespace magazzino {
                   COL_DATA,
                   COL_ID_SEDE,
                   COL_NOTE};
+
+    QMap<int,QString> prepareMapsNameColsArticolo();
+    QMap<int,QString> prepareMapsNameColsStorico();
 }
 #endif // MAGAZZINO_CONST_H
