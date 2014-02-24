@@ -23,7 +23,7 @@ QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
     magazzinoNameCols[16] = "Imponibile";
     magazzinoNameCols[17] = "Iva";
     magazzinoNameCols[18] = "Prezzo Finito";
-    magazzinoNameCols[19] = "Prezzo Vendità";
+    magazzinoNameCols[19] = QString::fromUtf8("Prezzo Vendità");
     magazzinoNameCols[20] = "Nr.Fattura";
     magazzinoNameCols[21] = "Data Arrivo";
     magazzinoNameCols[22] = "Sede Magazzino";

@@ -5,6 +5,7 @@
 #include "libs/gestionale_const.h"
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
+#include "magazzino_const.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
@@ -37,11 +38,13 @@ private:
     QSettings settings;
 
     void initModel();
+    void initComboBox();
     void updateModel();
     void loadConfigSettings();
     void saveConfigSettings();
     QString searchString();
     QString filterString();
+    QString orderString();
 
 protected:
     void closeEvent(QCloseEvent *event);

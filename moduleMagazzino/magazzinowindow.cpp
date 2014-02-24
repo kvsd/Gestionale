@@ -9,6 +9,7 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     this->move(parent->pos());
 
     initModel();
+    initComboBox();
     loadConfigSettings();
 
     ui->data1LineEdit->setDate(QDate::currentDate());
@@ -30,25 +31,35 @@ void MagazzinoWindow::initModel()
 
     fornitoreModel = new QSqlQueryModel(this);
     fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
-    ui->fornitoreComboBox->setModel(fornitoreModel);
-    ui->fornitoreComboBox->setModelColumn(magazzino::COL_DESCR);
 
     categoriaModel = new QSqlTableModel(this);
     categoriaModel->setTable(table::CATEGORIA_MERCE);
-    ui->categoriaComboBox->setModel(categoriaModel);
-    ui->categoriaComboBox->setModelColumn(magazzino::COL_DESCR);
 
     marcaModel = new QSqlTableModel(this);
     marcaModel->setTable(table::MARCA);
-    ui->marcaComboBox->setModel(marcaModel);
-    ui->marcaComboBox->setModelColumn(magazzino::COL_DESCR);
 
     sedeModel = new QSqlTableModel(this);
     sedeModel->setTable(table::SEDE_MAGAZZINO);
+
+
+    updateModel();
+}
+
+void MagazzinoWindow::initComboBox()
+{
+    ui->fornitoreComboBox->setModel(fornitoreModel);
+    ui->fornitoreComboBox->setModelColumn(magazzino::COL_DESCR);
+
+    ui->categoriaComboBox->setModel(categoriaModel);
+    ui->categoriaComboBox->setModelColumn(magazzino::COL_DESCR);
+
+    ui->marcaComboBox->setModel(marcaModel);
+    ui->marcaComboBox->setModelColumn(magazzino::COL_DESCR);
+
     ui->sedeComboBox->setModel(sedeModel);
     ui->sedeComboBox->setModelColumn(magazzino::COL_DESCR);
 
-    updateModel();
+    ui->orderbyComboBox->addItems(magazzino::prepareMapsNameColsArticolo().values());
 }
 
 void MagazzinoWindow::updateModel()
@@ -207,6 +218,15 @@ QString MagazzinoWindow::filterString(void) {
     }
 }
 
+QString MagazzinoWindow::orderString()
+{
+    QString str = " ORDER BY \"%1\"";
+    if (ui->orderbyComboBox->isEnabled())
+        return str.arg(ui->orderbyComboBox->currentText());
+    else
+        return "";
+}
+
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
 {
     this->parentWidget()->show();
@@ -273,6 +293,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
 {
     QString filter1 = filterString();
     QString filter2 = searchString();
+    QString order = orderString();
 
     QString query;
 
@@ -289,6 +310,9 @@ void MagazzinoWindow::updateViewMagazzino(void)
         query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter2 + " AND " + filter1;
     }
 
+    if (!order.isEmpty()) {
+        query.append(order);
+    }
     articoloModel->setQuery(query);
 
     ui->articoloView->resizeColumnsToContents();

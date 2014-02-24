@@ -157,7 +157,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>336</width>
+             <width>338</width>
              <height>420</height>
             </rect>
            </property>
@@ -274,6 +274,20 @@
                   </widget>
                  </item>
                 </layout>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QCheckBox" name="checkBox">
+                <property name="text">
+                 <string>Ordina per</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QComboBox" name="orderbyComboBox">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
              </layout>
@@ -798,7 +812,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>801</x>
-     <y>329</y>
+     <y>358</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -814,7 +828,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>801</x>
-     <y>359</y>
+     <y>388</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -861,12 +875,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>323</y>
+     <x>555</x>
+     <y>355</y>
     </hint>
     <hint type="destinationlabel">
-     <x>577</x>
-     <y>309</y>
+     <x>801</x>
+     <y>358</y>
     </hint>
    </hints>
   </connection>
@@ -877,12 +891,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>527</x>
-     <y>325</y>
+     <x>555</x>
+     <y>355</y>
     </hint>
     <hint type="destinationlabel">
-     <x>588</x>
-     <y>345</y>
+     <x>801</x>
+     <y>388</y>
     </hint>
    </hints>
   </connection>
@@ -893,8 +907,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>257</y>
+     <x>801</x>
+     <y>301</y>
     </hint>
     <hint type="destinationlabel">
      <x>842</x>
@@ -909,8 +923,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>624</x>
-     <y>293</y>
+     <x>801</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>839</x>
@@ -925,8 +939,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
-     <y>322</y>
+     <x>555</x>
+     <y>355</y>
     </hint>
     <hint type="destinationlabel">
      <x>840</x>
@@ -934,10 +948,41 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>orderbyComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>628</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>673</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>orderbyComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>735</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
-  <slot>updateFilterValue(QString)</slot>
   <slot>updateViewMagazzino()</slot>
   <slot>updateViewStorico(QModelIndex)</slot>
   <slot>removeRecord()</slot>
