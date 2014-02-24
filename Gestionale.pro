@@ -72,4 +72,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/controllodati.cpp \
            libs/simpledialogs.cpp \
            libs/custommodel.cpp \
-           moduleMagazzino/optionsmagazzinodialog.cpp
+           moduleMagazzino/optionsmagazzinodialog.cpp \
+    moduleMagazzino/magazzino_const.cpp
