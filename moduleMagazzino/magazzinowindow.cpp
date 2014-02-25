@@ -41,7 +41,6 @@ void MagazzinoWindow::initModel()
     sedeModel = new QSqlTableModel(this);
     sedeModel->setTable(table::SEDE_MAGAZZINO);
 
-
     updateModel();
 }
 
@@ -329,6 +328,7 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
 {
     if (!index.isValid()) {
         storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
+        return;
     }
     QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
