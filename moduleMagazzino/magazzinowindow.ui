@@ -387,6 +387,7 @@
      <string>&amp;Opzioni</string>
     </property>
     <addaction name="actionConfigura"/>
+    <addaction name="actionAggiornaCodIva"/>
    </widget>
    <widget class="QMenu" name="menuRicerca">
     <property name="title">
@@ -463,6 +464,11 @@
   <action name="actionStoricoCSV">
    <property name="text">
     <string>Storico in CSV</string>
+   </property>
+  </action>
+  <action name="actionAggiornaCodIva">
+   <property name="text">
+    <string>Aggiorna codice iva</string>
    </property>
   </action>
  </widget>
@@ -980,6 +986,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAggiornaCodIva</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>changeCodIva()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -991,5 +1013,6 @@
   <slot>openConfigDialog()</slot>
   <slot>exportMagazzinoCsv()</slot>
   <slot>exportStoricoCsv()</slot>
+  <slot>changeCodIva()</slot>
  </slots>
 </ui>

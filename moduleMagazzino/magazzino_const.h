@@ -48,6 +48,9 @@ namespace magazzino {
     const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
 
+    const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:cod_iva";
+    const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
+
     enum columns {COL_ID,
                   COL_DESCR = 1,
                   COL_ID_FORN,

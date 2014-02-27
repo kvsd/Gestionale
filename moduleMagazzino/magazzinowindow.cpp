@@ -394,3 +394,10 @@ void MagazzinoWindow::exportStoricoCsv(void)
 
     file.close();
 }
+
+void MagazzinoWindow::changeCodIva(void)
+{
+    codIvaUpdateDialog dlg(this);
+    if (dlg.exec())
+        updateViewMagazzino();
+}

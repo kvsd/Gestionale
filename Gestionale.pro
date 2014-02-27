@@ -41,7 +41,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleMagazzino/optionsmagazzinodialog.h \
     moduleMagazzino/magazzino_const.h \
     moduleAnagrafica/anagrafica_const.h \
-    libs/gestionale_const.h
+    libs/gestionale_const.h \
+    moduleMagazzino/codivaupdatedialog.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -54,7 +55,8 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleAzienda/aziendadialog.ui \
          moduleMagazzino/articolodialog.ui \
          moduleMagazzino/magazzinowindow.ui \
-         moduleMagazzino/optionsmagazzinodialog.ui
+         moduleMagazzino/optionsmagazzinodialog.ui \
+    moduleMagazzino/codivaupdatedialog.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \
@@ -73,4 +75,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/simpledialogs.cpp \
            libs/custommodel.cpp \
            moduleMagazzino/optionsmagazzinodialog.cpp \
-    moduleMagazzino/magazzino_const.cpp
+    moduleMagazzino/magazzino_const.cpp \
+    moduleMagazzino/codivaupdatedialog.cpp

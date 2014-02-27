@@ -6,6 +6,7 @@
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
 #include "magazzino_const.h"
+#include "codivaupdatedialog.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
@@ -59,6 +60,7 @@ public slots:
     void openConfigDialog(void);
     void exportMagazzinoCsv(void);
     void exportStoricoCsv(void);
+    void changeCodIva(void);
 };
 
 #endif // MAGAZZINOWINDOW_H
