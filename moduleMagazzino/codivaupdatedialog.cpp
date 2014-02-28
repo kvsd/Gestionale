@@ -40,7 +40,13 @@ void codIvaUpdateDialog::updateIva(void)
 {
     QString oldIvaId = oldIvaModel->index(ui->oldCodIvaComboBox->currentIndex(), magazzino::COL_ID).data().toString();
     QString newIvaId = oldIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_ID).data().toString();
-    int newIvastr = oldIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_DESCR).data().toInt();
+
+    int oldIvastr = oldIvaModel->index(ui->oldCodIvaComboBox->currentIndex(), magazzino::COL_DESCR).data().toInt();
+    int newIvastr = newIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_DESCR).data().toInt();
+
+    if (!showDialogWarning(this, "Attenzione", MSG023.arg(oldIvastr).arg(newIvastr))) {
+        return;
+    }
 
     QSqlQuery query;
     query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);

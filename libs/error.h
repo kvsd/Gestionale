@@ -70,6 +70,7 @@ const QString MSG019 = QString::fromUtf8("La partita IVA immessa potrebbe essere
 const QString MSG020 = QString::fromUtf8("Il codice fiscale immesso potrebbe essere sbagliato. Si vuole continuare lo stesso?");
 const QString MSG021 = QString::fromUtf8("Il cognome dell'agente è obbligatorio");
 const QString MSG022 = QString::fromUtf8("Si è verificato un errore nell'inserimento del record");
+const QString MSG023 = QString::fromUtf8("Sto per aggiornare gli articoli con iva al %1% al %2% ");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");

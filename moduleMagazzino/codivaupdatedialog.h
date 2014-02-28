@@ -3,6 +3,7 @@
 
 #include "libs/gestionale_const.h"
 #include "magazzino_const.h"
+#include "libs/error.h"
 
 #include <QDate>
 #include <QDialog>
