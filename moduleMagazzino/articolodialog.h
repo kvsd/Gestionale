@@ -36,7 +36,7 @@ private:
     QSqlTableModel *modelMarca;
     QSqlTableModel *modelSede;
     QSqlTableModel *modelUnita;
-    QMap <QString,QString> articolo;
+    QMap <int,QString> articolo;
     QSettings settings;
 
     void initModel(void);
