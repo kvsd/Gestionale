@@ -107,6 +107,8 @@ namespace keymap {
         KEY_TIPO_DITTA,
         KEY_UNITA,
         KEY_WEB,
+        KEY_ISCR_TRIB,
+        KEY_CCIAA
     };
 }
 
