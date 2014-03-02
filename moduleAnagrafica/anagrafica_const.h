@@ -21,6 +21,11 @@ namespace anagrafica {
 
     const QString CSS_WARNING_STYLE = "background-color:yellow";
 
+    const QString ANGRFC_STATUS ="AnagraficaColsStatus";
+    const QString ANGRFC_COLORS = "AnagraficaColsColors";
+    const QString ANGRFC_HEADER = "AnagraficaWindow.header";
+    const QString ANGRFC_SIZE = "AnagraficaWindow.size";
+
     enum columns {COL_ID,
                   COL_FORNITORE, COL_MODEL_DESCR = 1,
                   COL_CLIENTE, COL_MODEL_COGNOME = 2,
