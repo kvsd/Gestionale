@@ -30,7 +30,7 @@ private:
     QSqlTableModel *modelProvincia;
     QSqlTableModel *modelCap;
     QSqlTableModel *modelStato;
-    QMap <QString, QString> azienda;
+    QMap <int, QString> azienda;
 
     void setValue(QString id="0");
     void prepareMap(void);
