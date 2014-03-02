@@ -8,7 +8,7 @@ anagraficaWindow::anagraficaWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    anagraficaModel = new CustomModel("AnagraficaColsColors");
+    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS);
     ui->anagraficaView->setModel(anagraficaModel);
 
     this->move(parent->pos());
@@ -29,20 +29,20 @@ anagraficaWindow::~anagraficaWindow()
 
 void anagraficaWindow::loadConfigSettings()
 {
-    this->setGeometry(settings.value("AnagraficaWindow.size", QRect(0, 0, 700, 500)).toRect());
+    this->setGeometry(settings.value(anagrafica::ANGRFC_SIZE, QRect(0, 0, 700, 500)).toRect());
 
     //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
     //salva anche lo stato delle colonne (mostra/nascondi), quindi bisogna caricarle
     //prima di leggere lo stato mostra nascondi.
     ui->anagraficaView->horizontalHeader()->setMovable(true);
-    if (settings.contains("AnagraficaWindow.header")) {
-        QByteArray array = settings.value("AnagraficaWindow.header").toByteArray();
+    if (settings.contains(anagrafica::ANGRFC_HEADER)) {
+        QByteArray array = settings.value(anagrafica::ANGRFC_HEADER).toByteArray();
         ui->anagraficaView->horizontalHeader()->restoreState(array);
     }
 
     //legge il file file di configurazione e in base al valore
     //mostra o nasconde le colonne
-    settings.beginGroup("AnagraficaColsStatus");
+    settings.beginGroup(anagrafica::ANGRFC_STATUS);
     QStringList cols = settings.allKeys();
     if (!cols.isEmpty()) {
         for (QStringList::Iterator i=cols.begin(); i!=cols.end(); i++) {
@@ -66,8 +66,8 @@ void anagraficaWindow::loadConfigSettings()
 
 void anagraficaWindow::saveConfigSettings()
 {
-    settings.setValue("AnagraficaWindow.size", this->geometry());
-    settings.setValue("AnagraficaWindow.header", ui->anagraficaView->horizontalHeader()->saveState());
+    settings.setValue(anagrafica::ANGRFC_SIZE, this->geometry());
+    settings.setValue(anagrafica::ANGRFC_HEADER, ui->anagraficaView->horizontalHeader()->saveState());
     //Salvo le impostazioni del menu ricerca
     settings.setValue(anagrafica::SEARCH_RAGSOCL, ui->actionRagioneSociale->isChecked());
     settings.setValue(anagrafica::SEARCH_COGNOME, ui->actionCognome->isChecked());

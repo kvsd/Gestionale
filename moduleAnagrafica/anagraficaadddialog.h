@@ -30,7 +30,7 @@ public:
     
 private:
     Ui::AnagraficaAddDialog *ui;
-    QMap <QString, QString> mapPersona;
+    QMap <int, QString> mapPersona;
     QSqlTableModel *modelDitta;
     QSqlTableModel *modelCitta;
     QSqlTableModel *modelProvincia;

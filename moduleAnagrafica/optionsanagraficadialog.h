@@ -1,6 +1,7 @@
 #ifndef OPTIONSANAGRAFICADIALOG_H
 #define OPTIONSANAGRAFICADIALOG_H
 
+#include "anagrafica_const.h"
 #include <QDialog>
 #include <QMap>
 #include <QDebug>

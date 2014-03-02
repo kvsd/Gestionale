@@ -58,7 +58,7 @@ void OptionsAnagraficaDialog::populateAnagraficaList(void)
 
 void OptionsAnagraficaDialog::saveConfig(void)
 {
-    settings.beginGroup("AnagraficaColsStatus");
+    settings.beginGroup(anagrafica::ANGRFC_STATUS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         int checkState = col->checkState()==Qt::Checked ? 1 : 0;
@@ -66,7 +66,7 @@ void OptionsAnagraficaDialog::saveConfig(void)
     }
     settings.endGroup();
 
-    settings.beginGroup("AnagraficaColsColors");
+    settings.beginGroup(anagrafica::ANGRFC_COLORS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         QColor color = col->background().color();
@@ -80,7 +80,7 @@ void OptionsAnagraficaDialog::saveConfig(void)
 
 void OptionsAnagraficaDialog::loadConfig(void)
 {
-    settings.beginGroup("AnagraficaColsStatus");
+    settings.beginGroup(anagrafica::ANGRFC_STATUS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         int status = settings.value(QVariant(i.key()).toString(), 1).toInt();
@@ -89,7 +89,7 @@ void OptionsAnagraficaDialog::loadConfig(void)
     settings.endGroup();
 
     QColor color;
-    settings.beginGroup("AnagraficaColsColors");
+    settings.beginGroup(anagrafica::ANGRFC_COLORS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         QString colorStr = settings.value(QVariant(i.key()).toString(), "-1").toString();
@@ -105,7 +105,7 @@ void OptionsAnagraficaDialog::loadConfig(void)
 
 void OptionsAnagraficaDialog::restoreToDefault(void)
 {
-    settings.beginGroup("AnagraficaColsStatus");
+    settings.beginGroup(anagrafica::ANGRFC_STATUS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
         col->setCheckState(Qt::Checked);
@@ -113,7 +113,7 @@ void OptionsAnagraficaDialog::restoreToDefault(void)
     }
     settings.endGroup();
 
-    settings.beginGroup("AnagraficaColsColors");
+    settings.beginGroup(anagrafica::ANGRFC_COLORS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         settings.setValue(QVariant(i.key()).toString(), "-1");
     }
