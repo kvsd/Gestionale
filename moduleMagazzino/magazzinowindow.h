@@ -45,6 +45,7 @@ private:
     void saveConfigSettings();
     QString searchString();
     QString filterString();
+    QString giacenzaString();
     QString orderString();
 
 protected:

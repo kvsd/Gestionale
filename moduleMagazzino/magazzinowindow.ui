@@ -157,8 +157,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>338</width>
-             <height>420</height>
+             <width>324</width>
+             <height>477</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -223,7 +223,7 @@
                 </property>
                </widget>
               </item>
-              <item row="5" column="0" colspan="2">
+              <item row="6" column="0" colspan="2">
                <widget class="QGroupBox" name="groupBox_4">
                 <property name="title">
                  <string>Data Arrivo:</string>
@@ -288,6 +288,49 @@
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
+               </widget>
+              </item>
+              <item row="5" column="0" colspan="2">
+               <widget class="QGroupBox" name="groupBox_5">
+                <property name="title">
+                 <string>Giacenza</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QRadioButton" name="radioGiacenzaAll">
+                   <property name="text">
+                    <string>Qualsiasi</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioGiacenzaPos">
+                   <property name="text">
+                    <string>Positiva</string>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioGiacenza0">
+                   <property name="text">
+                    <string>Uguale a 0</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioGiacenzaNeg">
+                   <property name="text">
+                    <string>Negativa</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
@@ -471,6 +514,11 @@
     <string>Aggiorna codice iva</string>
    </property>
   </action>
+  <action name="actionArticoliEsauriti">
+   <property name="text">
+    <string>Articoli esauriti</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -513,7 +561,7 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>813</x>
+     <x>799</x>
      <y>151</y>
     </hint>
     <hint type="destinationlabel">
@@ -645,7 +693,7 @@
      <y>121</y>
     </hint>
     <hint type="destinationlabel">
-     <x>813</x>
+     <x>799</x>
      <y>122</y>
     </hint>
    </hints>
@@ -661,7 +709,7 @@
      <y>150</y>
     </hint>
     <hint type="destinationlabel">
-     <x>813</x>
+     <x>799</x>
      <y>151</y>
     </hint>
    </hints>
@@ -677,7 +725,7 @@
      <y>179</y>
     </hint>
     <hint type="destinationlabel">
-     <x>813</x>
+     <x>799</x>
      <y>180</y>
     </hint>
    </hints>
@@ -693,7 +741,7 @@
      <y>208</y>
     </hint>
     <hint type="destinationlabel">
-     <x>813</x>
+     <x>799</x>
      <y>209</y>
     </hint>
    </hints>
@@ -721,8 +769,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>800</x>
-     <y>193</y>
+     <x>799</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel">
      <x>844</x>
@@ -737,8 +785,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>169</y>
+     <x>799</x>
+     <y>180</y>
     </hint>
     <hint type="destinationlabel">
      <x>842</x>
@@ -817,8 +865,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>801</x>
-     <y>358</y>
+     <x>787</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -833,8 +881,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>801</x>
-     <y>388</y>
+     <x>787</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -881,12 +929,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>555</x>
-     <y>355</y>
+     <x>553</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
-     <x>801</x>
-     <y>358</y>
+     <x>787</x>
+     <y>508</y>
     </hint>
    </hints>
   </connection>
@@ -897,12 +945,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>555</x>
-     <y>355</y>
+     <x>553</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
-     <x>801</x>
-     <y>388</y>
+     <x>787</x>
+     <y>538</y>
     </hint>
    </hints>
   </connection>
@@ -913,8 +961,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>801</x>
-     <y>301</y>
+     <x>787</x>
+     <y>451</y>
     </hint>
     <hint type="destinationlabel">
      <x>842</x>
@@ -929,8 +977,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>801</x>
-     <y>328</y>
+     <x>787</x>
+     <y>478</y>
     </hint>
     <hint type="destinationlabel">
      <x>839</x>
@@ -945,8 +993,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>555</x>
-     <y>355</y>
+     <x>553</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>840</x>
@@ -1002,6 +1050,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>radioGiacenza0</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>339</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioGiacenzaAll</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>285</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioGiacenzaPos</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioGiacenzaNeg</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>366</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1014,5 +1126,6 @@
   <slot>exportMagazzinoCsv()</slot>
   <slot>exportStoricoCsv()</slot>
   <slot>changeCodIva()</slot>
+  <slot>showArticoliEsauriti()</slot>
  </slots>
 </ui>

@@ -217,6 +217,20 @@ QString MagazzinoWindow::filterString(void) {
     }
 }
 
+QString MagazzinoWindow::giacenzaString(void)
+{
+    QString result = "";
+
+    if (ui->radioGiacenzaPos->isChecked())
+        result = QString::fromUtf8("\"Quantità\" > \"Scorta Minima\"");
+    else if (ui->radioGiacenzaNeg->isChecked())
+        result = QString::fromUtf8("\"Quantità\" < \"Scorta Minima\"");
+    else if (ui->radioGiacenza0->isChecked())
+        result = QString::fromUtf8("\"Quantità\" = 0");
+
+    return result;
+}
+
 QString MagazzinoWindow::orderString()
 {
     QString str = " ORDER BY \"%1\"";
@@ -292,26 +306,27 @@ void MagazzinoWindow::updateViewMagazzino(void)
 {
     QString filter1 = filterString();
     QString filter2 = searchString();
+    QString filter3 = giacenzaString();
     QString order = orderString();
 
-    QString query;
+    QString query = magazzino::SELECT_ARTICOLI_ALL;
+    QStringList filterList;
+    if (!filter1.isEmpty())
+        filterList.append(filter1);
 
-    if (filter1.isEmpty() && filter2.isEmpty()) {
-        query = magazzino::SELECT_ARTICOLI_ALL;
-    }
-    else if (!filter1.isEmpty() && filter2.isEmpty()) {
-        query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter1;
-    }
-    else if (filter1.isEmpty() && !filter2.isEmpty()) {
-        query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter2;
-    }
-    else {
-        query = magazzino::SELECT_ARTICOLI_ALL + " WHERE " + filter2 + " AND " + filter1;
-    }
+    if (!filter2.isEmpty())
+        filterList.append(filter2);
+
+    if (!filter3.isEmpty())
+        filterList.append(filter3);
+
+    if (filterList.length())
+        query.append(" WHERE " + filterList.join(" AND "));
 
     if (!order.isEmpty()) {
         query.append(order);
     }
+
     articoloModel->setQuery(query);
 
     ui->articoloView->resizeColumnsToContents();
