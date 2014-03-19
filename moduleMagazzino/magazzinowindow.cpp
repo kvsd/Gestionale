@@ -416,3 +416,9 @@ void MagazzinoWindow::changeCodIva(void)
     if (dlg.exec())
         updateViewMagazzino();
 }
+
+void MagazzinoWindow::launchConfigPrintDlg(void)
+{
+    ConfigPrintDialog dlg(this);
+    dlg.exec();
+}

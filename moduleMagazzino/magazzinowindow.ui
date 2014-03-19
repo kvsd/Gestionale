@@ -457,9 +457,16 @@
     <addaction name="actionMagazzinoCSV"/>
     <addaction name="actionStoricoCSV"/>
    </widget>
+   <widget class="QMenu" name="menuStampa">
+    <property name="title">
+     <string>Stampa</string>
+    </property>
+    <addaction name="actionPrintConfig"/>
+   </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
    <addaction name="menuEsporta"/>
+   <addaction name="menuStampa"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCod_Articolo">
@@ -517,6 +524,11 @@
   <action name="actionArticoliEsauriti">
    <property name="text">
     <string>Articoli esauriti</string>
+   </property>
+  </action>
+  <action name="actionPrintConfig">
+   <property name="text">
+    <string>Configura...</string>
    </property>
   </action>
  </widget>
@@ -1114,6 +1126,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionPrintConfig</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>launchConfigPrintDlg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1127,5 +1155,6 @@
   <slot>exportStoricoCsv()</slot>
   <slot>changeCodIva()</slot>
   <slot>showArticoliEsauriti()</slot>
+  <slot>launchConfigPrintDlg()</slot>
  </slots>
 </ui>
