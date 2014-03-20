@@ -30,6 +30,8 @@ namespace magazzino {
     const QString SEARCH_COD_FRN = "MagazzinoWindow.search.codfornitore";
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
 
+    const QString LISTINO_COLS_ORDER = "Listino.columns.orders";
+
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
 
     const QString SELECT_FILTER = "SELECT id, descr FROM %1";

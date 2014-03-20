@@ -2,8 +2,10 @@
 #define CONFIGPRINTDIALOG_H
 
 #include <QDialog>
-#include "magazzino_const.h"
+#include <QSettings>
 #include <QDebug>
+
+#include "magazzino_const.h"
 
 namespace Ui {
 class ConfigPrintDialog;
@@ -21,8 +23,10 @@ private:
     Ui::ConfigPrintDialog *ui;
     QMap<int, QString> nameCols;
     QMap<QString, int> sizeCols;
+    QSettings settings;
 
     void populateList(void);
+    void loadSettings(void);
 
 public slots:
     void addColumn(void);
