@@ -462,6 +462,9 @@
      <string>Stampa</string>
     </property>
     <addaction name="actionPrintConfig"/>
+    <addaction name="actionListino"/>
+    <addaction name="actionInventario"/>
+    <addaction name="actionOrdine"/>
    </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
@@ -529,6 +532,21 @@
   <action name="actionPrintConfig">
    <property name="text">
     <string>Configura...</string>
+   </property>
+  </action>
+  <action name="actionListino">
+   <property name="text">
+    <string>Listino</string>
+   </property>
+  </action>
+  <action name="actionInventario">
+   <property name="text">
+    <string>Inventario</string>
+   </property>
+  </action>
+  <action name="actionOrdine">
+   <property name="text">
+    <string>Ordine</string>
    </property>
   </action>
  </widget>
@@ -1142,6 +1160,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionListino</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>printListino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionInventario</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>printInventario()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOrdine</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>printOrdine()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1156,5 +1222,8 @@
   <slot>changeCodIva()</slot>
   <slot>showArticoliEsauriti()</slot>
   <slot>launchConfigPrintDlg()</slot>
+  <slot>printInventario()</slot>
+  <slot>printListino()</slot>
+  <slot>printOrdine()</slot>
  </slots>
 </ui>

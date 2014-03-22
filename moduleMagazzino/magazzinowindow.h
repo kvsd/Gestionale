@@ -16,6 +16,10 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 #include <QSqlRecord>
+#include <QSqlField>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPainter>
 
 namespace Ui {
 class MagazzinoWindow;
@@ -64,6 +68,9 @@ public slots:
     void exportStoricoCsv(void);
     void changeCodIva(void);
     void launchConfigPrintDlg(void);
+    void printListino(void);
+    void printInventario(void);
+    void printOrdine(void);
 };
 
 #endif // MAGAZZINOWINDOW_H

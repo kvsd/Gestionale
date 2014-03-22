@@ -31,6 +31,7 @@ namespace magazzino {
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
 
     const QString LISTINO_COLS_ORDER = "Listino.columns.orders";
+    const QString LISTINO_PAGE_LAYOUT = "Listino.page.layout";
 
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
 

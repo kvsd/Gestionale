@@ -8,7 +8,6 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
     ui->setupUi(this);
 
     populateList();
-    sizeCols = magazzino::prepareMapsSizeColsArticolo();
     loadSettings();
 }
 
@@ -37,10 +36,16 @@ void ConfigPrintDialog::loadSettings()
     default_list.append(nameCols.value(19));
 
     QStringList cols_list = settings.value(magazzino::LISTINO_COLS_ORDER, default_list).toStringList();
-
-    for (int i=0; i<cols_list.length(); i++) {
+    int length = cols_list.length();
+    for (int i=0; i<length; i++) {
         ui->layoutListWidget->addItem(cols_list[i]);
     }
+
+    QString page_layout = settings.value(magazzino::LISTINO_PAGE_LAYOUT, "vertical").toString();
+    if (page_layout == "vertical")
+        ui->verticalPage->setChecked("true");
+    else
+        ui->horizontalPage->setChecked("true");
 }
 
 void ConfigPrintDialog::addColumn(void)
@@ -51,6 +56,10 @@ void ConfigPrintDialog::addColumn(void)
         return;
     }
     ui->layoutListWidget->addItem(col->text());
+
+    int length = ui->layoutListWidget->count();
+    if (length > 5)
+        ui->horizontalPage->setChecked(true);
 }
 
 void ConfigPrintDialog::removeColumn(void)
@@ -80,4 +89,8 @@ void ConfigPrintDialog::save(void)
     }
 
     settings.setValue(magazzino::LISTINO_COLS_ORDER, cols_listino);
+    if (ui->verticalPage->isChecked())
+        settings.setValue(magazzino::LISTINO_PAGE_LAYOUT, "vertical");
+    else
+        settings.setValue(magazzino::LISTINO_PAGE_LAYOUT, "horizontal");
 }
