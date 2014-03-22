@@ -50,36 +50,3 @@ QMap<int,QString> magazzino::prepareMapsNameColsStorico()
 
     return storicoNameCols;
 }
-
-
-QMap<QString, int> magazzino::prepareMapsSizeColsArticolo(void)
-{
-    QMap <QString, int> magazzinoSizeCols;
-
-    magazzinoSizeCols["Id"] = 100;
-    magazzinoSizeCols["Descrizione"] = 300;
-    magazzinoSizeCols["Fornitore"] = 200;
-    magazzinoSizeCols["Marca"] = 200;
-    magazzinoSizeCols["Modello"] = 200 ;
-    magazzinoSizeCols["Cod.Articolo"] = 200;
-    magazzinoSizeCols["Cod.Fornitore"] = 200;
-    magazzinoSizeCols["Cod.EAN"] = 200;
-    magazzinoSizeCols["Cat.Merce"] = 200;
-    magazzinoSizeCols["Cod.IVA"] = 200;
-    magazzinoSizeCols["UM"] = 100;
-    magazzinoSizeCols["Scorta Minima"] = 100;
-    magazzinoSizeCols[QString::fromUtf8("Quantità")] = 100;
-    magazzinoSizeCols["Prezzo Acquisto"] = 100;
-    magazzinoSizeCols["Sconto"] = 100;
-    magazzinoSizeCols["Ricarico"] = 100;
-    magazzinoSizeCols["Imponibile"] = 100;
-    magazzinoSizeCols["Iva"] = 100;
-    magazzinoSizeCols["Prezzo Finito"] = 100;
-    magazzinoSizeCols[QString::fromUtf8("Prezzo Vendità")] = 200;
-    magazzinoSizeCols["Nr.Fattura"] = 200;
-    magazzinoSizeCols["Data Arrivo"] = 200;
-    magazzinoSizeCols["Sede Magazzino"] = 200;
-    magazzinoSizeCols["Note"] = 200;
-
-    return magazzinoSizeCols;
-}

@@ -80,6 +80,5 @@ namespace magazzino {
 
     QMap<int,QString> prepareMapsNameColsArticolo();
     QMap<int,QString> prepareMapsNameColsStorico();
-    QMap<QString, int> prepareMapsSizeColsArticolo();
 }
 #endif // MAGAZZINO_CONST_H
