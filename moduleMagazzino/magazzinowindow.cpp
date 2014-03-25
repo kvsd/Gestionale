@@ -430,12 +430,12 @@ void MagazzinoWindow::printListino(void)
         qDebug() << "ERRORE: devi selezionare il fornitore";
         return;
     }
+
     QString fornitore = ui->fornitoreComboBox->currentText();
     QString data = QDate::currentDate().toString("dd/MM/yy");
     QString titleStr = "%1 del %2";
 
-
-    ListinoPrintLayout ciccio(articoloModel, titleStr.arg(fornitore).arg(data));
+    ListinoPrintLayout printDlg(articoloModel, titleStr.arg(fornitore).arg(data), this);
 }
 
 void MagazzinoWindow::printInventario(void)
