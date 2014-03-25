@@ -431,7 +431,7 @@ void MagazzinoWindow::printListino(void)
         return;
     }
     QString fornitore = ui->fornitoreComboBox->currentText();
-    QString data = QDate::currentDate().toString("dd/MM/YY");
+    QString data = QDate::currentDate().toString("dd/MM/yy");
     QString titleStr = "%1 del %2";
 
 
