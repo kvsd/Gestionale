@@ -43,7 +43,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     moduleAnagrafica/anagrafica_const.h \
     libs/gestionale_const.h \
     moduleMagazzino/codivaupdatedialog.h \
-    moduleMagazzino/configprintdialog.h
+    moduleMagazzino/configprintdialog.h \
+    moduleMagazzino/listinoprintlayout.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -79,4 +80,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            moduleMagazzino/optionsmagazzinodialog.cpp \
     moduleMagazzino/magazzino_const.cpp \
     moduleMagazzino/codivaupdatedialog.cpp \
-    moduleMagazzino/configprintdialog.cpp
+    moduleMagazzino/configprintdialog.cpp \
+    moduleMagazzino/listinoprintlayout.cpp

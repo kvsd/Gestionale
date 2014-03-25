@@ -430,53 +430,12 @@ void MagazzinoWindow::printListino(void)
         qDebug() << "ERRORE: devi selezionare il fornitore";
         return;
     }
-
     QString fornitore = ui->fornitoreComboBox->currentText();
-    QStringList cols = settings.value(magazzino::LISTINO_COLS_ORDER).toStringList();
-    if (cols.isEmpty()) {
-        qDebug() << "Non e' stata trovato nessuna configurazione, Menu Stampa->Configurazione...";
-        return;
-    }
-    QMap <int, QString> nameCols = magazzino::prepareMapsNameColsArticolo();
-
-//    for (int i=0; i<articoloModel->rowCount(); i++) {
-//        QSqlRecord asshole = articoloModel->record(i);
-//        for (int c=0; c<cols.length(); c++) {
-//            qDebug() << asshole.field(cols[c]).value().toString();
-//        }
-//        qDebug() << "\n";
-//    }
-
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFileName("/home/kvsd/print.pdf");
-    QPainter painter;
-    painter.begin(&printer);
-
-    //Stampo intestazione
-    QPen pen;
-    pen.setWidth(10);
-    painter.setPen(pen);
-
-    int margin = 100;
-    int width = printer.width();
-    int height = printer.height();
-
-    painter.drawLine(0, 0, 0, height);
-    painter.drawText(margin, 250, "Cod.Articolo");
-
-    painter.drawLine(1500, 0, 1500, height);
-    painter.drawText(1500+margin, 250, "Descrizione");
-
-    painter.drawLine(6000, 0, 6000, height);
-    painter.drawText(6000+margin, 250, "Imponibile");
-
-    painter.drawLine(7500, 0, 7500, height);
-    painter.drawText(7500+margin, 250, "Prezzo Vendita");
-
-    painter.drawLine(width, 0, width, height);
+    QString data = QDate::currentDate().toString("dd/MM/YY");
+    QString titleStr = "%1 del %2";
 
 
-    painter.end();
+    ListinoPrintLayout ciccio(articoloModel, titleStr.arg(fornitore).arg(data));
 }
 
 void MagazzinoWindow::printInventario(void)
@@ -494,3 +453,4 @@ void MagazzinoWindow::printOrdine(void)
 
     QString fornitore = ui->fornitoreComboBox->currentText();
 }
+

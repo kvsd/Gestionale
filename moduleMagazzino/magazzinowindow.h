@@ -8,6 +8,7 @@
 #include "magazzino_const.h"
 #include "codivaupdatedialog.h"
 #include "configprintdialog.h"
+#include "listinoprintlayout.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
@@ -17,9 +18,6 @@
 #include <QFileDialog>
 #include <QSqlRecord>
 #include <QSqlField>
-#include <QPrinter>
-#include <QPrintDialog>
-#include <QPainter>
 
 namespace Ui {
 class MagazzinoWindow;
