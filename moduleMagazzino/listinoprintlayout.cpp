@@ -1,6 +1,6 @@
 #include "listinoprintlayout.h"
 
-ListinoPrintLayout::ListinoPrintLayout(CustomModel *model, QString titleStr)
+ListinoPrintLayout::ListinoPrintLayout(CustomModel *model, QString titleStr, QWidget *parent)
 {
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
@@ -21,14 +21,14 @@ ListinoPrintLayout::ListinoPrintLayout(CustomModel *model, QString titleStr)
     col3 = QRect(colWidth*4+margin, 0, (colWidth*1)-margin*2, colHeight);
     col4 = QRect(colWidth*5+margin, 0, (colWidth*1)-margin*2, colHeight);
 
-    printer->setOutputFileName("/home/kvsd/print.pdf");
-    painter->begin(printer);
-    initPainter();
-
-    printHeader(titleStr);
-    printData();
-
-    painter->end();
+    QPrintDialog printDialog(printer, parent);
+    if (printDialog.exec() == QDialog::Accepted) {
+        painter->begin(printer);
+        initPainter();
+        printHeader(titleStr);
+        printData();
+        painter->end();
+    }
 }
 
 ListinoPrintLayout::~ListinoPrintLayout()

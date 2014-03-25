@@ -1,8 +1,10 @@
 #ifndef LISTINOPRINTLAYOUT_H
 #define LISTINOPRINTLAYOUT_H
 
+#include <QWidget>
 #include <QPainter>
 #include <QPrinter>
+#include <QPrintDialog>
 #include <QRect>
 #include <QDebug>
 #include <QPen>
@@ -13,7 +15,7 @@ class ListinoPrintLayout
 {
 
 public:
-    ListinoPrintLayout(CustomModel *model, QString titleStr);
+    ListinoPrintLayout(CustomModel *model, QString titleStr, QWidget *parent=0);
     ~ListinoPrintLayout();
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);
