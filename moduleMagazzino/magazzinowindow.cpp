@@ -441,6 +441,7 @@ void MagazzinoWindow::printListino(void)
 void MagazzinoWindow::printInventario(void)
 {
     qDebug() << "printInventario()";
+    InventarioPrintLayout inventarioDlg(this);
 }
 
 void MagazzinoWindow::printOrdine(void)
