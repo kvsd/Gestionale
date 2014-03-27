@@ -7,24 +7,25 @@ ListinoPrintLayout::ListinoPrintLayout(CustomModel *model, QString titleStr, QWi
 
     articoloModel = model;
 
-    titleStr = titleStr;
-    titleHeight = 500;
-    colHeight = 300;
-    margin = 50;
-    pageHeight = printer->height();
-    pageWidth = printer->width();
-    colWidth = pageWidth/6;
-
-    title = QRect(0, 0, pageWidth, titleHeight);
-    col1 = QRect(colWidth*0+margin, 0, (colWidth*1)-margin*2, colHeight);
-    col2 = QRect(colWidth*1+margin, 0, (colWidth*3)-margin*2, colHeight);
-    col3 = QRect(colWidth*4+margin, 0, (colWidth*1)-margin*2, colHeight);
-    col4 = QRect(colWidth*5+margin, 0, (colWidth*1)-margin*2, colHeight);
-
     QPrintDialog printDialog(printer, parent);
     if (printDialog.exec() == QDialog::Accepted) {
         painter->begin(printer);
         initPainter();
+
+        titleStr = titleStr;
+        titleHeight = 500;
+        colHeight = 300;
+        margin = 50;
+        pageHeight = printer->height();
+        pageWidth = printer->width();
+        colWidth = pageWidth/6;
+
+        title = QRect(0, 0, pageWidth, titleHeight);
+        col1 = QRect(colWidth*0+margin, 0, (colWidth*1)-margin*2, colHeight);
+        col2 = QRect(colWidth*1+margin, 0, (colWidth*3)-margin*2, colHeight);
+        col3 = QRect(colWidth*4+margin, 0, (colWidth*1)-margin*2, colHeight);
+        col4 = QRect(colWidth*5+margin, 0, (colWidth*1)-margin*2, colHeight);
+
         printHeader(titleStr);
         printData();
         painter->end();
@@ -81,8 +82,9 @@ void ListinoPrintLayout::printRow(int row, QSqlRecord record)
 
 void ListinoPrintLayout::printData()
 {
+    int MAX_ROW = (pageHeight-titleHeight)/colHeight;
     for (int i=0, r=0; i<articoloModel->rowCount(); i++, r++) {
-        if (i%42 == 0 && i!=0) {
+        if (i%MAX_ROW == 0 && i!=0) {
             printer->newPage();
             r = 0;
             printHeader(titleStr);
