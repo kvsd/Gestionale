@@ -10,6 +10,7 @@
 #include <QPen>
 #include <QSqlRecord>
 #include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QDate>
 
 class InventarioPrintLayout
@@ -20,6 +21,7 @@ public:
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);
     void printData();
+    void printTotale(int row);
 
 private:
     QSqlQueryModel *articoloModel;
