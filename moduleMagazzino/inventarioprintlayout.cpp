@@ -87,7 +87,7 @@ void InventarioPrintLayout::printRow(int row, QSqlRecord record)
 
 void InventarioPrintLayout::printData()
 {
-    const int ROW_X_PAGE = 42;
+    const int ROW_X_PAGE = (pageHeight-titleHeight)/colHeight;
     int row = 0;
     for (int i=0, page=1; i<articoloModel->rowCount(); i++, row++) {
         if (i%ROW_X_PAGE == 0 && i!=0) {
