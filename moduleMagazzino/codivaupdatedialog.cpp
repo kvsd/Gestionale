@@ -56,7 +56,7 @@ void codIvaUpdateDialog::updateIva(void)
         QString id = query.value(magazzino::COL_ID).toString();
         QString data = QDate::currentDate().toString("dd/MM/yyyy");
         QString quantita = query.value(magazzino::COL_QUANTITA).toString();
-        QString prezzo_acquisto = query.value(magazzino::COL_PREZZO_ACQ).toString();
+        QString prezzo_acquisto = query.value(magazzino::COL_PREZZO_FATTURA).toString();
         QString sconto = query.value(magazzino::COL_SCONTO).toString();
         QString ricarico = query.value(magazzino::COL_RICARICO).toString();
         QString fattura = query.value(magazzino::COL_FATTURA).toString();

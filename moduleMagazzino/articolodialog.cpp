@@ -113,7 +113,7 @@ void ArticoloDialog::setValue(QString id)
 
     ui->le_scorta->setText(query.value(magazzino::COL_SCORTA).toString());
     ui->le_quantita->setText(query.value(magazzino::COL_QUANTITA).toString());
-    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_ACQ).toDouble()));
+    ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_FATTURA).toDouble()));
     ui->le_sconto->setText(query.value(magazzino::COL_SCONTO).toString());
     ui->le_ricarico->setText(query.value(magazzino::COL_RICARICO).toString());
     ui->le_imponibile->setText(locale().toCurrencyString(query.value(magazzino::COL_IMPONIBILE).toDouble()));
@@ -152,8 +152,8 @@ void ArticoloDialog::prepareMap()
     double quantita = ui->le_quantita->text().toDouble();
     articolo[keymap::KEY_QUANTITA] = QString().setNum(quantita);
 
-    double prezzo_acq = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(),"").toDouble();
-    articolo[keymap::KEY_PRZ_ACQUISTO] = QString().setNum(prezzo_acq);
+    double prezzo_fattura = ui->le_prezzo_fattura->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo[keymap::KEY_PRZ_FATTURA] = QString().setNum(prezzo_fattura);
 
     articolo[keymap::KEY_SCONTO] =  ui->le_sconto->text();
     articolo[keymap::KEY_RICARICO] = ui->le_ricarico->text();
@@ -197,7 +197,7 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
     query_articolo.bindValue(":id_fornitore", articolo[keymap::KEY_ID_FORNITORE]);
     query_articolo.bindValue(":cod_fornitore", articolo[keymap::KEY_COD_FORNITORE]);
     query_articolo.bindValue(":quantita", articolo[keymap::KEY_QUANTITA]);
-    query_articolo.bindValue(":prezzo_acquisto", articolo[keymap::KEY_PRZ_ACQUISTO]);
+    query_articolo.bindValue(":prezzo_fattura", articolo[keymap::KEY_PRZ_FATTURA]);
     query_articolo.bindValue(":sconto_fornitore", articolo[keymap::KEY_SCONTO]);
     query_articolo.bindValue(":imponibile", articolo[keymap::KEY_IMPONIBILE]);
     query_articolo.bindValue(":ricarico", articolo[keymap::KEY_RICARICO]);
@@ -220,7 +220,7 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 
     query_storico.bindValue(":data_arrivo", articolo[keymap::KEY_DATA]);
     query_storico.bindValue(":quantita", articolo[keymap::KEY_QUANTITA]);
-    query_storico.bindValue(":prezzo_acquisto", articolo[keymap::KEY_PRZ_ACQUISTO]);
+    query_storico.bindValue(":prezzo_fattura", articolo[keymap::KEY_PRZ_FATTURA]);
     query_storico.bindValue(":sconto_fornitore", articolo[keymap::KEY_SCONTO]);
     query_storico.bindValue(":ricarico", articolo[keymap::KEY_RICARICO]);
     query_storico.bindValue(":imponibile", articolo[keymap::KEY_IMPONIBILE]);
@@ -271,10 +271,10 @@ void ArticoloDialog::save(void)
 
 void ArticoloDialog::updatePrezzoAcquisto(void)
 {
-    QString prezzo_str = ui->le_prezzo_acquisto->text();
+    QString prezzo_str = ui->le_prezzo_fattura->text();
 
     if (!prezzo_str.contains(locale().currencySymbol())) {
-            ui->le_prezzo_acquisto->setText(locale().toCurrencyString(prezzo_str.toDouble()));
+            ui->le_prezzo_fattura->setText(locale().toCurrencyString(prezzo_str.toDouble()));
     }
 
     updateImponibile();
@@ -282,7 +282,7 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
 
 void ArticoloDialog::updateImponibile(void)
 {
-    QString prezzo_str = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(),"");
+    QString prezzo_str = ui->le_prezzo_fattura->text().replace(locale().currencySymbol(),"");
     if (prezzo_str.isEmpty()) {
         return;
     }
@@ -326,7 +326,7 @@ void ArticoloDialog::updateImponibile(void)
 
 void ArticoloDialog::updateIva(void)
 {
-    if (ui->le_prezzo_acquisto->text().isEmpty() || ui->le_ricarico->text().isEmpty()) {
+    if (ui->le_prezzo_fattura->text().isEmpty() || ui->le_ricarico->text().isEmpty()) {
         return;
     }
 
@@ -343,7 +343,7 @@ void ArticoloDialog::updateIva(void)
 
 void ArticoloDialog::updatePrezzoFinito(void)
 {
-    if (ui->le_prezzo_acquisto->text().isEmpty()) {
+    if (ui->le_prezzo_fattura->text().isEmpty()) {
         return;
     }
 

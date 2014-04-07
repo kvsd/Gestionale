@@ -93,7 +93,7 @@ namespace keymap {
         KEY_NOTE,
         KEY_NR_FATTURA,
         KEY_PRT_IVA,
-        KEY_PRZ_ACQUISTO,
+        KEY_PRZ_FATTURA,
         KEY_PRZ_FINITO,
         KEY_PRZ_VENDITA,
         KEY_RAGSOC,
