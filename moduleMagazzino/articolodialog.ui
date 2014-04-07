@@ -219,7 +219,7 @@
            <item>
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="3" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_prezzo_acquisto">
+              <widget class="QLineEdit" name="le_prezzo_fattura">
                <property name="placeholderText">
                 <string/>
                </property>
@@ -258,10 +258,10 @@
              <item row="3" column="0">
               <widget class="QLabel" name="label_14">
                <property name="text">
-                <string>Prezzo acquisto:</string>
+                <string>Prezzo fattura:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_acquisto</cstring>
+                <cstring>le_prezzo_fattura</cstring>
                </property>
               </widget>
              </item>
@@ -436,8 +436,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>288</height>
+            <width>264</width>
+            <height>226</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -612,7 +612,7 @@
   <tabstop>pb_fornitore_dlg</tabstop>
   <tabstop>le_cod_fornitore</tabstop>
   <tabstop>le_quantita</tabstop>
-  <tabstop>le_prezzo_acquisto</tabstop>
+  <tabstop>le_prezzo_fattura</tabstop>
   <tabstop>le_sconto</tabstop>
   <tabstop>le_ricarico</tabstop>
   <tabstop>cb_codiva</tabstop>
@@ -697,7 +697,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_prezzo_acquisto</sender>
+   <sender>le_prezzo_fattura</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updatePrezzoAcquisto()</slot>

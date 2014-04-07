@@ -17,7 +17,7 @@ QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
     magazzinoNameCols[10] = "UM";
     magazzinoNameCols[11] = "Scorta Minima";
     magazzinoNameCols[12] = QString::fromUtf8("Quantità");
-    magazzinoNameCols[13] = "Prezzo Acquisto";
+    magazzinoNameCols[13] = "Prezzo Fattura";
     magazzinoNameCols[14] = "Sconto";
     magazzinoNameCols[15] = "Ricarico";
     magazzinoNameCols[16] = "Imponibile";

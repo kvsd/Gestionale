@@ -276,7 +276,7 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         id_unita_misura INTEGER references unita_misura(id) DEFAULT 0,
                         scorta_minima DECIMAL,
                         quantita DECIMAL NOT NULL,
-                        prezzo_acquisto DECIMAL NOT NULL,
+                        prezzo_fattura DECIMAL NOT NULL,
                         sconto_fornitore TEXT,
                         ricarico TEXT,
                         imponibile DECIMAL,
@@ -293,11 +293,11 @@ INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AAA', 1, 1, 'extra', '0
                              '9.15', '9.20', '241', DEFAULT, 1, 'note');
 --######################################################################################
 CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", "Cod.Articolo", "Cod.Fornitore",
-                          "Cod.EAN", "Cat.Merce", "Cod.IVA", "UM", "Scorta Minima", "Quantità", "Prezzo Acquisto", "Sconto", "Ricarico",
+                          "Cod.EAN", "Cat.Merce", "Cod.IVA", "UM", "Scorta Minima", "Quantità", "Prezzo Fattura", "Sconto", "Ricarico",
                           "Imponibile", "Iva", "Prezzo Finito", "Prezzo Vendità", "Nr.Fattura", "Data Arrivo", "Sede Magazzino",
                           "Note") AS
 SELECT mgz.id, mgz.descr, anag.rag_sociale, marca.descr, mgz.modello, mgz.cod_articolo, mgz.cod_fornitore, mgz.cod_barre,
-       cat_merce.descr, cod_iva.descr, um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_acquisto::money, mgz.sconto_fornitore,
+       cat_merce.descr, cod_iva.descr, um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_fattura::money, mgz.sconto_fornitore,
        mgz.ricarico, mgz.imponibile::money, mgz.iva::money, mgz.prezzo_finito::money, mgz.prezzo_vendita::money, mgz.fattura, mgz.data_arrivo, sm.descr,
        mgz.note FROM magazzino AS mgz, anagrafica AS anag, marca, cat_merce, cod_iva, unita_misura AS um, sede_magazzino AS sm
 WHERE anag.id = mgz.id_fornitore AND
@@ -311,7 +311,7 @@ ORDER BY mgz.id;
 CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino(id) ON DELETE CASCADE,
                               data_arrivo DATE DEFAULT current_date,
                               quantita DECIMAL NOT NULL,
-                              prezzo_acquisto DECIMAL NOT NULL,
+                              prezzo_fattura DECIMAL NOT NULL,
                               sconto_fornitore TEXT,
                               ricarico TEXT,
                               imponibile DECIMAL,
@@ -320,6 +320,6 @@ CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino
                               prezzo_vendita DECIMAL,
                               fattura TEXT);
 --########################################################################################
-CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo acquisto", "Sconto", "Ricarico", "Imponibile", "IVA", "Prezzo finito", "Vendità", "Nr. Fattura") AS
-SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_acquisto::money, ls.sconto_fornitore, ls.ricarico, ls.imponibile::money, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
+CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo Fattura", "Sconto", "Ricarico", "Imponibile", "IVA", "Prezzo finito", "Prezzo Vendità", "Nr. Fattura") AS
+SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_fattura::money, ls.sconto_fornitore, ls.ricarico, ls.imponibile::money, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
 FROM listino_storico AS ls ORDER BY ls.id_articolo, ls.data_arrivo;
