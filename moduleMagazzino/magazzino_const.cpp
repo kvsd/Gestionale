@@ -20,7 +20,7 @@ QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
     magazzinoNameCols[13] = "Prezzo Fattura";
     magazzinoNameCols[14] = "Sconto";
     magazzinoNameCols[15] = "Ricarico";
-    magazzinoNameCols[16] = "Imponibile";
+    magazzinoNameCols[16] = "Prezzo Acquisto";
     magazzinoNameCols[17] = "Iva";
     magazzinoNameCols[18] = "Prezzo Finito";
     magazzinoNameCols[19] = QString::fromUtf8("Prezzo Vendità");
@@ -39,13 +39,13 @@ QMap<int,QString> magazzino::prepareMapsNameColsStorico()
     storicoNameCols[0] = "Id Articolo";
     storicoNameCols[1] = "Data";
     storicoNameCols[2] = QString::fromUtf8("Quantità");
-    storicoNameCols[3] = "Prezzo acquisto";
+    storicoNameCols[3] = "Prezzo Fattura";
     storicoNameCols[4] = "Sconto";
     storicoNameCols[5] = "Ricarico";
-    storicoNameCols[6] = "Imponibile";
+    storicoNameCols[6] = "Prezzo Acquisto";
     storicoNameCols[7] = "IVA";
-    storicoNameCols[8] = "Prezzo finito";
-    storicoNameCols[9] = QString::fromUtf8("Vendità");
+    storicoNameCols[8] = "Prezzo Finito";
+    storicoNameCols[9] = QString::fromUtf8("Prezzo Vendità");
     storicoNameCols[10] = "Nr. Fattura";
 
     return storicoNameCols;

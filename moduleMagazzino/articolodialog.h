@@ -46,10 +46,11 @@ private:
     QSqlQuery prepareQueryStorico(void);
 
 public slots:
+    void updatePrezzoFattura(void);
     void updatePrezzoAcquisto(void);
-    void updateImponibile(void);
     void updateIva(void);
     void updatePrezzoFinito(void);
+    void updatePrezzoVendita(void);
     void save(void);
     void openAddMarca();
     void openAddCategoria();

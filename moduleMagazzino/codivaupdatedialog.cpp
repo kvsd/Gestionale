@@ -60,7 +60,7 @@ void codIvaUpdateDialog::updateIva(void)
         QString sconto = query.value(magazzino::COL_SCONTO).toString();
         QString ricarico = query.value(magazzino::COL_RICARICO).toString();
         QString fattura = query.value(magazzino::COL_FATTURA).toString();
-        double imponibile = query.value(magazzino::COL_IMPONIBILE).toDouble();
+        double imponibile = query.value(magazzino::COL_PRZ_ACQUISTO).toDouble();
         double iva = imponibile*newIvastr/100.0;
         double prezzo_finito = imponibile+iva;
         double prezzo_vendita = prezzo_finito;

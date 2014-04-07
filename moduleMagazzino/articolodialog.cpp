@@ -116,7 +116,7 @@ void ArticoloDialog::setValue(QString id)
     ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_FATTURA).toDouble()));
     ui->le_sconto->setText(query.value(magazzino::COL_SCONTO).toString());
     ui->le_ricarico->setText(query.value(magazzino::COL_RICARICO).toString());
-    ui->le_imponibile->setText(locale().toCurrencyString(query.value(magazzino::COL_IMPONIBILE).toDouble()));
+    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(magazzino::COL_PRZ_ACQUISTO).toDouble()));
     ui->le_iva->setText(locale().toCurrencyString(query.value(magazzino::COL_IVA).toDouble()));
 
     ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_FIN).toDouble()));
@@ -158,8 +158,8 @@ void ArticoloDialog::prepareMap()
     articolo[keymap::KEY_SCONTO] =  ui->le_sconto->text();
     articolo[keymap::KEY_RICARICO] = ui->le_ricarico->text();
 
-    double imponibile = ui->le_imponibile->text().replace(locale().currencySymbol(),"").toDouble();
-    articolo[keymap::KEY_IMPONIBILE] = QString().setNum(imponibile);
+    double prezzo_acquisto = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(),"").toDouble();
+    articolo[keymap::KEY_PRZ_ACQUISTO] = QString().setNum(prezzo_acquisto);
     articolo[keymap::KEY_COD_IVA] = modelCodIva->index(ui->cb_codiva->currentIndex(), magazzino::COL_ID).data().toString();
     double iva = ui->le_iva->text().replace(locale().currencySymbol(),"").toDouble();
     articolo[keymap::KEY_IVA] = QString().setNum(iva);
@@ -199,7 +199,7 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
     query_articolo.bindValue(":quantita", articolo[keymap::KEY_QUANTITA]);
     query_articolo.bindValue(":prezzo_fattura", articolo[keymap::KEY_PRZ_FATTURA]);
     query_articolo.bindValue(":sconto_fornitore", articolo[keymap::KEY_SCONTO]);
-    query_articolo.bindValue(":imponibile", articolo[keymap::KEY_IMPONIBILE]);
+    query_articolo.bindValue(":prezzo_acquisto", articolo[keymap::KEY_PRZ_ACQUISTO]);
     query_articolo.bindValue(":ricarico", articolo[keymap::KEY_RICARICO]);
     query_articolo.bindValue(":id_cod_iva", articolo[keymap::KEY_COD_IVA]);
     query_articolo.bindValue(":iva", articolo[keymap::KEY_IVA]);
@@ -223,7 +223,7 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
     query_storico.bindValue(":prezzo_fattura", articolo[keymap::KEY_PRZ_FATTURA]);
     query_storico.bindValue(":sconto_fornitore", articolo[keymap::KEY_SCONTO]);
     query_storico.bindValue(":ricarico", articolo[keymap::KEY_RICARICO]);
-    query_storico.bindValue(":imponibile", articolo[keymap::KEY_IMPONIBILE]);
+    query_storico.bindValue(":prezzo_acquisto", articolo[keymap::KEY_PRZ_ACQUISTO]);
     query_storico.bindValue(":iva", articolo[keymap::KEY_IVA]);
     query_storico.bindValue(":prezzo_finito", articolo[keymap::KEY_PRZ_FINITO]);
     query_storico.bindValue(":prezzo_vendita", articolo[keymap::KEY_PRZ_VENDITA]);
@@ -269,7 +269,7 @@ void ArticoloDialog::save(void)
     this->accept();
 }
 
-void ArticoloDialog::updatePrezzoAcquisto(void)
+void ArticoloDialog::updatePrezzoFattura(void)
 {
     QString prezzo_str = ui->le_prezzo_fattura->text();
 
@@ -277,10 +277,10 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
             ui->le_prezzo_fattura->setText(locale().toCurrencyString(prezzo_str.toDouble()));
     }
 
-    updateImponibile();
+    updatePrezzoAcquisto();
 }
 
-void ArticoloDialog::updateImponibile(void)
+void ArticoloDialog::updatePrezzoAcquisto(void)
 {
     QString prezzo_str = ui->le_prezzo_fattura->text().replace(locale().currencySymbol(),"");
     if (prezzo_str.isEmpty()) {
@@ -289,7 +289,7 @@ void ArticoloDialog::updateImponibile(void)
 
     QString sconto_str = ui->le_sconto->text().replace("%", "");
 
-    double imponibile = prezzo_str.toDouble();
+    double prezzo_acquisto = prezzo_str.toDouble();
     double sconto = 0;
 
     if (sconto_str.contains("+")) {
@@ -297,30 +297,15 @@ void ArticoloDialog::updateImponibile(void)
         QString s;
         foreach(s, sconti) {
             sconto = s.toDouble()/100.0;
-            imponibile -= imponibile*sconto;
+            prezzo_acquisto -= prezzo_acquisto*sconto;
         }
     }
     else {
         sconto = sconto_str.toDouble()/100.0;
-        imponibile -= imponibile*sconto;
+        prezzo_acquisto -= prezzo_acquisto*sconto;
     }
 
-    QString ricarico_str = ui->le_ricarico->text().replace("%","");
-    double ricarico = 0;
-    if (ricarico_str.contains("+")) {
-        QStringList ricarichi = ricarico_str.split("+");
-        QString s;
-        foreach(s, ricarichi) {
-            ricarico = s.toDouble()/100;
-            imponibile += imponibile*ricarico;
-        }
-    }
-    else {
-        ricarico = ricarico_str.toDouble()/100;
-        imponibile += imponibile*ricarico;
-    }
-
-    ui->le_imponibile->setText(locale().toCurrencyString(imponibile));
+    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(prezzo_acquisto));
     updateIva();
 }
 
@@ -330,13 +315,28 @@ void ArticoloDialog::updateIva(void)
         return;
     }
 
-    double imponibile = ui->le_imponibile->text().replace(locale().currencySymbol(), "").toDouble();
-    double codiva = ui->cb_codiva->currentText().toDouble()/100.0;
+    double prezzo_acquisto = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(), "").toDouble();
+    double ricarico = 0;
 
-    double iva = imponibile*codiva;
+    QString ricarico_str = ui->le_ricarico->text().replace("%","");
+    if (ricarico_str.contains("+")) {
+        QStringList ricarichi = ricarico_str.split("+");
+        QString s;
+        foreach(s, ricarichi) {
+            ricarico = s.toDouble()/100;
+            prezzo_acquisto += prezzo_acquisto*ricarico;
+        }
+    }
+    else {
+        ricarico = ricarico_str.toDouble()/100;
+        prezzo_acquisto += prezzo_acquisto*ricarico;
+    }
+
+    double codiva = ui->cb_codiva->currentText().toDouble()/100.0;
+    double iva = prezzo_acquisto*codiva;
     ui->le_iva->setText(locale().toCurrencyString(iva));
 
-    double prezzo_vendita = imponibile+iva;
+    double prezzo_vendita = prezzo_acquisto+iva;
     ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_vendita));
     ui->le_prezzo_finito->setText(locale().toCurrencyString(prezzo_vendita));
 }
@@ -350,6 +350,15 @@ void ArticoloDialog::updatePrezzoFinito(void)
     QString prezzo = ui->le_prezzo_finito->text();
     if (!prezzo.contains(locale().currencySymbol())) {
         ui->le_prezzo_finito->setText(locale().toCurrencyString(prezzo.toDouble()));
+    }
+}
+
+void ArticoloDialog::updatePrezzoVendita(void)
+{
+    QString prezzo_str = ui->le_prezzo_vendita->text();
+
+    if (!prezzo_str.contains(locale().currencySymbol())) {
+            ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_str.toDouble()));
     }
 }
 

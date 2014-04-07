@@ -20,7 +20,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -317,16 +317,6 @@
              <item row="9" column="1">
               <widget class="QComboBox" name="cb_codiva"/>
              </item>
-             <item row="7" column="0">
-              <widget class="QLabel" name="label_19">
-               <property name="text">
-                <string>Imponibile:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_imponibile</cstring>
-               </property>
-              </widget>
-             </item>
              <item row="9" column="2">
               <widget class="QLineEdit" name="le_iva">
                <property name="styleSheet">
@@ -349,16 +339,6 @@
              </item>
              <item row="6" column="1" colspan="2">
               <widget class="QLineEdit" name="le_ricarico"/>
-             </item>
-             <item row="7" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_imponibile">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 127);</string>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-              </widget>
              </item>
              <item row="10" column="0">
               <widget class="QLabel" name="label_23">
@@ -392,6 +372,26 @@
              </item>
              <item row="10" column="1" colspan="2">
               <widget class="QLineEdit" name="le_prezzo_finito">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 127);</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_19">
+               <property name="text">
+                <string>Prezzo acquisto</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_prezzo_acquisto</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1" colspan="2">
+              <widget class="QLineEdit" name="le_prezzo_acquisto">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(255, 255, 127);</string>
                </property>
@@ -627,7 +627,6 @@
   <tabstop>le_iva</tabstop>
   <tabstop>pb_close</tabstop>
   <tabstop>pb_clear</tabstop>
-  <tabstop>le_imponibile</tabstop>
   <tabstop>scrollArea_3</tabstop>
  </tabstops>
  <resources/>
@@ -684,11 +683,11 @@
    <sender>le_sconto</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
-   <slot>updateImponibile()</slot>
+   <slot>updatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>239</x>
+     <y>194</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
@@ -700,31 +699,15 @@
    <sender>le_prezzo_fattura</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoAcquisto()</slot>
+   <slot>updatePrezzoFattura()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>239</x>
+     <y>165</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
      <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>le_ricarico</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updateImponibile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>717</x>
-     <y>237</y>
     </hint>
    </hints>
   </connection>
@@ -735,8 +718,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>218</x>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
@@ -751,8 +734,8 @@
    <slot>updatePrezzoFinito()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>239</x>
+     <y>310</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -831,8 +814,8 @@
    <slot>openAddFornitore()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>676</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
@@ -847,8 +830,8 @@
    <slot>openAddIVA()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>676</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -872,12 +855,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>le_ricarico</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updateIva()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_prezzo_vendita</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updatePrezzoVendita()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>328</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <slot>updatePrezzoAcquisto()</slot>
+  <slot>updatePrezzoFattura()</slot>
   <slot>updateIva()</slot>
   <slot>updatePrezzoFinito()</slot>
-  <slot>updateImponibile()</slot>
+  <slot>updatePrezzoAcquisto()</slot>
   <slot>save()</slot>
   <slot>openAddMarca()</slot>
   <slot>openAddCategoria()</slot>
@@ -885,5 +900,6 @@
   <slot>openAddFornitore()</slot>
   <slot>openAddIVA()</slot>
   <slot>openAddSede()</slot>
+  <slot>updatePrezzoVendita()</slot>
  </slots>
 </ui>
