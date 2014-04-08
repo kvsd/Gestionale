@@ -373,6 +373,7 @@ void MagazzinoWindow::exportMagazzinoCsv(void)
         return;
 
     QTextStream out(&file);
+    out << magazzino::CVS_VERSION << "\n";
 
     QSqlQuery query(magazzino::SELECT_CSV_MAGAZZINO);
     while (query.next()) {
@@ -397,6 +398,7 @@ void MagazzinoWindow::exportStoricoCsv(void)
         return;
 
     QTextStream out(&file);
+    out << magazzino::CVS_VERSION << "\n";
 
     QSqlQuery query(magazzino::SELECT_CSV_STORICO);
     while (query.next()) {
