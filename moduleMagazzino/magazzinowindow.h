@@ -65,6 +65,8 @@ public slots:
     void openConfigDialog(void);
     void exportMagazzinoCsv(void);
     void exportStoricoCsv(void);
+    void importMagazzinoCvs(void);
+    void importStoricoCvs(void);
     void changeCodIva(void);
     void launchConfigPrintDlg(void);
     void printListino(void);

@@ -51,6 +51,7 @@ namespace magazzino {
     const QString CVS_VERSION = "CVS::1.0";
     const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
+    const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, ricarico, prezzo_acquisto, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :ricarico, :prezzo_acquisto, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
 
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:cod_iva";
     const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";

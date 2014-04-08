@@ -14,6 +14,9 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
 
     ui->data1LineEdit->setDate(QDate::currentDate());
     ui->data2LineEdit->setDate(QDate::currentDate());
+
+    importMagazzinoCvs();
+    importStoricoCvs();
 }
 
 MagazzinoWindow::~MagazzinoWindow()
@@ -96,7 +99,6 @@ void MagazzinoWindow::loadConfigSettings()
             int col = QVariant((*i)).toInt();
             bool value = settings.value((*i)).toBool();
             ui->articoloView->setColumnHidden(col, !value);
-
         }
     }
     settings.endGroup();
@@ -109,7 +111,6 @@ void MagazzinoWindow::loadConfigSettings()
             int col = QVariant((*i)).toInt();
             bool value = settings.value((*i)).toBool();
             ui->storicoView->setColumnHidden(col, !value);
-
         }
     }
     settings.endGroup();
@@ -130,7 +131,7 @@ void MagazzinoWindow::saveConfigSettings()
     settings.setValue(magazzino::WINDOW_SIZE, this->geometry());
     settings.setValue(magazzino::SPLITTER1_SIZE, ui->splitter_1->saveState());
     settings.setValue(magazzino::SPLITTER2_SIZE, ui->splitter_2->saveState());
-    //Salvo la disposizione delle colonne delle viste
+    //Salvo la disposizione delle colonne delle viste BUGGATA si corrompe e non ne capisco il motivo
     settings.setValue(magazzino::ARTICOLO_HEADER, ui->articoloView->horizontalHeader()->saveState());
     settings.setValue(magazzino::STORICO_HEADER, ui->storicoView->horizontalHeader()->saveState());
     //Salvo le impostazioni del menu Ricerca
@@ -299,7 +300,6 @@ void MagazzinoWindow::removeRecord(void)
         showDialogError(this, "Errore 1", "Errore 2", query.lastError().text()); //TODO definire codice errore
     }
     updateViewMagazzino();
-    storicoModel->setQuery("");
 }
 
 void MagazzinoWindow::updateViewMagazzino(void)
@@ -378,10 +378,11 @@ void MagazzinoWindow::exportMagazzinoCsv(void)
     QSqlQuery query(magazzino::SELECT_CSV_MAGAZZINO);
     while (query.next()) {
         QSqlRecord record = query.record();
+        QStringList listValue;
         for (int c=0; c < record.count(); c++) {
-            out << record.value(c).toString() << ":";
+            listValue.append(record.value(c).toString());
         }
-        out << "\n";
+        out << listValue.join(":")+"\n";
     }
 
     file.close();
@@ -403,10 +404,75 @@ void MagazzinoWindow::exportStoricoCsv(void)
     QSqlQuery query(magazzino::SELECT_CSV_STORICO);
     while (query.next()) {
         QSqlRecord record = query.record();
+        QStringList listValue;
         for (int c=0; c < record.count(); c++) {
-            out << record.value(c).toString() << ":";
+            listValue.append(record.value(c).toString());
         }
-        out << "\n";
+        out << listValue.join(":")+"\n";
+    }
+
+    file.close();
+}
+
+void MagazzinoWindow::importMagazzinoCvs(void)
+{
+    QString filename = QFileDialog::getOpenFileName();
+    if (filename.isEmpty())
+        return;
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    QString version = in.readLine();
+    if (version != magazzino::CVS_VERSION) {
+        qDebug() << "ERRORE"; //TODO definire codice errore per CVS
+        return;
+    }
+
+    QString line = in.readLine();
+    while (!line.isNull()) {
+        QStringList listvalue = line.split(":");
+        QSqlQuery query;
+        query.prepare(magazzino::INSERT_CSV_ARTICOLO);
+        for (int i=0; i<listvalue.length(); i++) {
+            query.bindValue(i, listvalue[i]);
+        }
+        query.exec();
+        line = in.readLine();
+    }
+
+    file.close();
+}
+
+void MagazzinoWindow::importStoricoCvs(void)
+{
+    QString filename = QFileDialog::getOpenFileName();
+    if (filename.isEmpty())
+        return;
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    QString version = in.readLine();
+    if (version != magazzino::CVS_VERSION) {
+        qDebug() << "ERRORE"; //TODO definire codice errore per CVS
+        return;
+    }
+
+    QString line = in.readLine();
+    while (!line.isNull()) {
+        QStringList listvalue = line.split(":");
+        QSqlQuery query;
+        query.prepare(magazzino::INSERT_STORICO);
+        for (int i=0; i<listvalue.length(); i++) {
+            query.bindValue(i, listvalue[i]);
+        }
+        query.exec();
+        line = in.readLine();
     }
 
     file.close();
