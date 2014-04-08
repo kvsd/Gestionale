@@ -222,7 +222,7 @@ QString MagazzinoWindow::giacenzaString(void)
     QString result = "";
 
     if (ui->radioGiacenzaPos->isChecked())
-        result = QString::fromUtf8("\"Quantità\" > \"Scorta Minima\"");
+        result = QString::fromUtf8("\"Quantità\" >= \"Scorta Minima\"");
     else if (ui->radioGiacenzaNeg->isChecked())
         result = QString::fromUtf8("\"Quantità\" < \"Scorta Minima\"");
     else if (ui->radioGiacenza0->isChecked())

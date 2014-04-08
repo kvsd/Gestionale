@@ -308,6 +308,9 @@
                  </item>
                  <item>
                   <widget class="QRadioButton" name="radioGiacenzaPos">
+                   <property name="toolTip">
+                    <string>Quantità uguale o superiore alla scorta minima</string>
+                   </property>
                    <property name="text">
                     <string>Positiva</string>
                    </property>
@@ -318,6 +321,9 @@
                  </item>
                  <item>
                   <widget class="QRadioButton" name="radioGiacenza0">
+                   <property name="toolTip">
+                    <string>Quantità uguale a 0</string>
+                   </property>
                    <property name="text">
                     <string>Uguale a 0</string>
                    </property>
@@ -325,6 +331,9 @@
                  </item>
                  <item>
                   <widget class="QRadioButton" name="radioGiacenzaNeg">
+                   <property name="toolTip">
+                    <string>Quantità inferiore alla scorta minima</string>
+                   </property>
                    <property name="text">
                     <string>Negativa</string>
                    </property>
