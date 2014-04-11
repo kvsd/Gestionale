@@ -5,6 +5,7 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MagazzinoWindow)
 {
+    qDebug() << "MagazzinoWindow";
     ui->setupUi(this);
     this->move(parent->pos());
 
@@ -15,33 +16,31 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     ui->data1LineEdit->setDate(QDate::currentDate());
     ui->data2LineEdit->setDate(QDate::currentDate());
 
-    importMagazzinoCvs();
-    importStoricoCvs();
+//    importMagazzinoCvs();
+//    importStoricoCvs();
 }
 
 MagazzinoWindow::~MagazzinoWindow()
 {
+    qDebug() << "~MagazzinoWindow";
     delete ui;
 }
 
 void MagazzinoWindow::initModel()
 {
+    qDebug() << "MagazzinoWindow::initModel()";
     articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, this);
-    ui->articoloView->setModel(articoloModel);
-
     storicoModel = new CustomModel(magazzino::STORICO_COLORS, this);
-    ui->storicoView->setModel(storicoModel);
-
     fornitoreModel = new QSqlQueryModel(this);
-    fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
-
     categoriaModel = new QSqlTableModel(this);
-    categoriaModel->setTable(table::CATEGORIA_MERCE);
-
     marcaModel = new QSqlTableModel(this);
-    marcaModel->setTable(table::MARCA);
-
     sedeModel = new QSqlTableModel(this);
+
+    ui->articoloView->setModel(articoloModel);
+    ui->storicoView->setModel(storicoModel);
+    fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
+    categoriaModel->setTable(table::CATEGORIA_MERCE);
+    marcaModel->setTable(table::MARCA);
     sedeModel->setTable(table::SEDE_MAGAZZINO);
 
     updateModel();
@@ -49,6 +48,7 @@ void MagazzinoWindow::initModel()
 
 void MagazzinoWindow::initComboBox()
 {
+    qDebug() << "MagazzinoWindow::initComboBox()";
     ui->fornitoreComboBox->setModel(fornitoreModel);
     ui->fornitoreComboBox->setModelColumn(magazzino::COL_DESCR);
 
@@ -66,6 +66,7 @@ void MagazzinoWindow::initComboBox()
 
 void MagazzinoWindow::updateModel()
 {
+    qDebug() << "MagazzinoWindow::updateModel()";
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
@@ -73,6 +74,7 @@ void MagazzinoWindow::updateModel()
 
 void MagazzinoWindow::loadConfigSettings()
 {
+    qDebug() << "MagazzinoWindow::loadConfigSettings()";
     this->setGeometry(settings.value(magazzino::WINDOW_SIZE, magazzino::DEFAULT_WINDOW_SIZE).toRect());
     ui->splitter_1->restoreState(settings.value(magazzino::SPLITTER1_SIZE).toByteArray());
     ui->splitter_2->restoreState(settings.value(magazzino::SPLITTER2_SIZE).toByteArray());
@@ -128,6 +130,7 @@ void MagazzinoWindow::loadConfigSettings()
 
 void MagazzinoWindow::saveConfigSettings()
 {
+    qDebug() << "MagazzinoWindow::saveConfigSettings()";
     settings.setValue(magazzino::WINDOW_SIZE, this->geometry());
     settings.setValue(magazzino::SPLITTER1_SIZE, ui->splitter_1->saveState());
     settings.setValue(magazzino::SPLITTER2_SIZE, ui->splitter_2->saveState());
@@ -145,6 +148,7 @@ QString MagazzinoWindow::searchString(void) {
     //Prepara i filtri della query in base alla stringa che viene
     //immessa nel box della ricerca veloce e ai parametri del menu
     //ricerca veloce
+    qDebug() << "MagazzinoWindow::searchString()";
     QString pattern = ui->searchLineEdit->text();
     if (pattern.isEmpty()) {
         return "";
@@ -177,6 +181,7 @@ QString MagazzinoWindow::searchString(void) {
 QString MagazzinoWindow::filterString(void) {
     //Prepara i filtri della query in base ai vari parametri che vengono
     //selezionati nel pannello filtro
+    qDebug() << "MagazzinoWindow::filterString()";
     QStringList filter;
     if (ui->fornitoreComboBox->isEnabled()) {
         QString fornitore = "\"Fornitore\" = '%1'";
@@ -220,6 +225,7 @@ QString MagazzinoWindow::filterString(void) {
 
 QString MagazzinoWindow::giacenzaString(void)
 {
+    qDebug() << "MagazzinoWindow::giacenzaString()";
     QString result = "";
 
     if (ui->radioGiacenzaPos->isChecked())
@@ -234,6 +240,7 @@ QString MagazzinoWindow::giacenzaString(void)
 
 QString MagazzinoWindow::orderString()
 {
+    qDebug() << "MagazzinoWindow::orderString()";
     QString str = " ORDER BY \"%1\"";
     if (ui->orderbyComboBox->isEnabled())
         return str.arg(ui->orderbyComboBox->currentText());
@@ -243,6 +250,7 @@ QString MagazzinoWindow::orderString()
 
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
 {
+    qDebug() << "MagazzinoWindow::closeEvent()";
     this->parentWidget()->show();
     saveConfigSettings();
     event->accept();
@@ -250,11 +258,13 @@ void MagazzinoWindow::closeEvent(QCloseEvent *event)
 
 void MagazzinoWindow::showEvent(QShowEvent *)
 {
+    qDebug() << "MagazzinoWindow::showEvent()";
     updateViewMagazzino();
 }
 
 void MagazzinoWindow::addRecord()
 {
+    qDebug() << "MagazzinoWindow::addRecord()";
     ArticoloDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
@@ -266,6 +276,7 @@ void MagazzinoWindow::addRecord()
 
 void MagazzinoWindow::updateRecord(void)
 {
+    qDebug() << "MagazzinoWindow::updateRecord()";
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
         showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
@@ -287,6 +298,7 @@ void MagazzinoWindow::updateRecord(void)
 
 void MagazzinoWindow::removeRecord(void)
 {
+    qDebug() << "MagazzinoWindow::removeRecord()";
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
         showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
@@ -304,6 +316,7 @@ void MagazzinoWindow::removeRecord(void)
 
 void MagazzinoWindow::updateViewMagazzino(void)
 {
+    qDebug() << "MagazzinoWindow::updateViewMagazzino()";
     QString filter1 = filterString();
     QString filter2 = searchString();
     QString filter3 = giacenzaString();
@@ -327,9 +340,10 @@ void MagazzinoWindow::updateViewMagazzino(void)
         query.append(order);
     }
 
+
     articoloModel->setQuery(query);
 
-    ui->articoloView->resizeColumnsToContents();
+    ui->articoloView->resizeColumnsToContents();//TODO Rallenta l'esecuzione
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
 
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
@@ -341,6 +355,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
 {
+    qDebug() << "MagazzinoWindow::updateViewStorico()";
     if (!index.isValid()) {
         storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
         return;
@@ -353,6 +368,7 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
 
 void MagazzinoWindow::openConfigDialog(void)
 {
+    qDebug() << "MagazzinoWindow::openConfigDialog()";
     saveConfigSettings();
     OptionsMagazzinoDialog dlg(this);
     bool ok = dlg.exec();
@@ -364,6 +380,7 @@ void MagazzinoWindow::openConfigDialog(void)
 
 void MagazzinoWindow::exportMagazzinoCsv(void)
 {
+    qDebug() << "MagazzinoWindow::exportMagazzinoCsv()";
     QString filename = QFileDialog::getSaveFileName();
     if (filename.isEmpty())
         return;
@@ -390,6 +407,7 @@ void MagazzinoWindow::exportMagazzinoCsv(void)
 
 void MagazzinoWindow::exportStoricoCsv(void)
 {
+    qDebug() << "MagazzinoWindow::exportStoricoCsv()";
     QString filename = QFileDialog::getSaveFileName();
     if (filename.isEmpty())
         return;
@@ -416,6 +434,7 @@ void MagazzinoWindow::exportStoricoCsv(void)
 
 void MagazzinoWindow::importMagazzinoCvs(void)
 {
+    qDebug() << "MagazzinoWindow::importMagazzinoCvs()";
     QString filename = QFileDialog::getOpenFileName();
     if (filename.isEmpty())
         return;
@@ -439,7 +458,9 @@ void MagazzinoWindow::importMagazzinoCvs(void)
         for (int i=0; i<listvalue.length(); i++) {
             query.bindValue(i, listvalue[i]);
         }
+        qDebug() << query.lastError().text();
         query.exec();
+        qDebug() << query.lastError().text();
         line = in.readLine();
     }
 
@@ -448,6 +469,7 @@ void MagazzinoWindow::importMagazzinoCvs(void)
 
 void MagazzinoWindow::importStoricoCvs(void)
 {
+    qDebug() << "MagazzinoWindow::importStoricoCvs()";
     QString filename = QFileDialog::getOpenFileName();
     if (filename.isEmpty())
         return;
@@ -480,6 +502,7 @@ void MagazzinoWindow::importStoricoCvs(void)
 
 void MagazzinoWindow::changeCodIva(void)
 {
+    qDebug() << "MagazzinoWindow::changeCodIva()";
     codIvaUpdateDialog dlg(this);
     if (dlg.exec())
         updateViewMagazzino();
@@ -487,13 +510,14 @@ void MagazzinoWindow::changeCodIva(void)
 
 void MagazzinoWindow::launchConfigPrintDlg(void)
 {
+    qDebug() << "MagazzinoWindow::launchConfigPrintDlg()";
     ConfigPrintDialog dlg(this);
     dlg.exec();
 }
 
 void MagazzinoWindow::printListino(void)
 {
-    qDebug() << "printListino()";
+    qDebug() << "MagazzinoWindow::printListino()";
     if (!ui->fornitoreComboBox->isEnabled()) {
         qDebug() << "ERRORE: devi selezionare il fornitore";
         return;
@@ -508,13 +532,13 @@ void MagazzinoWindow::printListino(void)
 
 void MagazzinoWindow::printInventario(void)
 {
-    qDebug() << "printInventario()";
+    qDebug() << "MagazzinoWindow::printInventario()";
     InventarioPrintLayout inventarioDlg(this);
 }
 
 void MagazzinoWindow::printOrdine(void)
 {
-    qDebug() << "printOrdine()";
+    qDebug() << "MagazzinoWindow::printOrdine()";
     if (!ui->fornitoreComboBox->isEnabled()) {
         qDebug() << "ERRORE: devi selezionare il fornitore";
         return;

@@ -2,7 +2,7 @@
 
 InventarioPrintLayout::InventarioPrintLayout(QWidget *parent)
 {
-    const QString INVENTARIO_ROW = QString::fromUtf8("SELECT \"Quantità\", \"Descrizione\", \"Imponibile\", \"Quantità\"*\"Imponibile\" As \"SubTotale\" FROM vw_magazzino WHERE \"Quantità\"!=0 ORDER BY \"Descrizione\" ");
+    const QString INVENTARIO_ROW = QString::fromUtf8("SELECT \"Quantità\", \"Descrizione\", \"Prezzo Acquisto\", \"Quantità\"*\"Imponibile\" As \"SubTotale\" FROM vw_magazzino WHERE \"Quantità\"!=0 ORDER BY \"Descrizione\" ");
 
     articoloModel = new QSqlQueryModel;
     articoloModel->setQuery(INVENTARIO_ROW);
@@ -52,7 +52,7 @@ void InventarioPrintLayout::printHeader(QString titleStr)
     setRow(0);
     painter->drawText(col1, Qt::AlignCenter, QString::fromUtf8("Quantità"));
     painter->drawText(col2, Qt::AlignCenter, "Descrizione");
-    painter->drawText(col3, Qt::AlignCenter, "Imponibile");
+    painter->drawText(col3, Qt::AlignCenter, "Prezzo Acquisto");
     painter->drawText(col4, Qt::AlignCenter, "SubTotale");
 
     //Stampo la cornice dell'intestazione
@@ -70,7 +70,7 @@ void InventarioPrintLayout::printRow(int row, QSqlRecord record)
 
     QString quantita    = record.value(QString::fromUtf8("Quantità")).toString();
     QString descrizione = record.value("Descrizione").toString();
-    QString imponibile  = record.value("Imponibile").toString();
+    QString imponibile  = record.value("Prezzo Acquisto").toString();
     QString subtotale   = record.value("SubTotale").toString();
 
     painter->drawText(col1, Qt::AlignLeft, quantita);
@@ -118,7 +118,7 @@ void InventarioPrintLayout::setRow(int row)
 void InventarioPrintLayout::printTotale(int row)
 {
     setRow(row);
-    const QString INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Imponibile\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
+    const QString INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
 
     QSqlQuery query(INVENTARIO_TOT);
     query.first();
