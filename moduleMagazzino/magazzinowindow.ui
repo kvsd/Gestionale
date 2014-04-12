@@ -156,9 +156,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+             <y>-57</y>
              <width>324</width>
-             <height>477</height>
+             <height>506</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -229,6 +229,33 @@
                  <string>Data Arrivo:</string>
                 </property>
                 <layout class="QFormLayout" name="formLayout">
+                 <property name="fieldGrowthPolicy">
+                  <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                 </property>
+                 <item row="1" column="0" colspan="2">
+                  <widget class="QRadioButton" name="allDataEnabler">
+                   <property name="text">
+                    <string>Qualsiasi</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0" colspan="2">
+                  <widget class="QRadioButton" name="currentDateEnabler">
+                   <property name="text">
+                    <string>Data corrente</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QRadioButton" name="rangeDateEnabler">
+                   <property name="text">
+                    <string>Da:</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="3" column="1">
                   <widget class="QDateEdit" name="data1LineEdit">
                    <property name="enabled">
@@ -249,27 +276,13 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="0">
-                  <widget class="QRadioButton" name="rangeDateEnabler">
-                   <property name="text">
-                    <string>Da:</string>
+                 <item row="5" column="1">
+                  <widget class="QPushButton" name="searchDateButton">
+                   <property name="enabled">
+                    <bool>false</bool>
                    </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0" colspan="2">
-                  <widget class="QRadioButton" name="allDataEnabler">
                    <property name="text">
-                    <string>Qualsiasi</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0" colspan="2">
-                  <widget class="QRadioButton" name="currentDateEnabler">
-                   <property name="text">
-                    <string>Data corrente</string>
+                    <string>Filtra per data</string>
                    </property>
                   </widget>
                  </item>
@@ -277,7 +290,7 @@
                </widget>
               </item>
               <item row="4" column="0">
-               <widget class="QCheckBox" name="checkBox">
+               <widget class="QCheckBox" name="orderEnabler">
                 <property name="text">
                  <string>Ordina per</string>
                 </property>
@@ -595,7 +608,7 @@
   </connection>
   <connection>
    <sender>categoriaComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>activated(int)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateViewMagazzino()</slot>
    <hints>
@@ -787,7 +800,7 @@
   </connection>
   <connection>
    <sender>fornitoreComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>activated(int)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateViewMagazzino()</slot>
    <hints>
@@ -803,7 +816,7 @@
   </connection>
   <connection>
    <sender>sedeComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>activated(int)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateViewMagazzino()</slot>
    <hints>
@@ -819,7 +832,7 @@
   </connection>
   <connection>
    <sender>marcaComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>activated(int)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateViewMagazzino()</slot>
    <hints>
@@ -830,102 +843,6 @@
     <hint type="destinationlabel">
      <x>842</x>
      <y>172</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fornitoreEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>111</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>categoriaEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>140</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>marcaEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>169</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>sedeEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>198</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>data1LineEdit</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>508</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>data2LineEdit</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>538</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
     </hint>
    </hints>
   </connection>
@@ -994,55 +911,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>allDataEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>451</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>842</x>
-     <y>263</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>currentDateEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>478</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>839</x>
-     <y>302</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rangeDateEnabler</sender>
-   <signal>clicked()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>updateViewMagazzino()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>553</x>
-     <y>505</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>840</x>
-     <y>356</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox</sender>
+   <sender>orderEnabler</sender>
    <signal>clicked(bool)</signal>
    <receiver>orderbyComboBox</receiver>
    <slot>setEnabled(bool)</slot>
@@ -1059,7 +928,7 @@
   </connection>
   <connection>
    <sender>orderbyComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>activated(int)</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>updateViewMagazzino()</slot>
    <hints>
@@ -1078,6 +947,70 @@
    <signal>triggered()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>changeCodIva()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPrintConfig</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>launchConfigPrintDlg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionListino</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>printListino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionInventario</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>printInventario()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOrdine</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>printOrdine()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1154,14 +1087,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionPrintConfig</sender>
-   <signal>triggered()</signal>
+   <sender>categoriaEnabler</sender>
+   <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>launchConfigPrintDlg()</slot>
+   <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
+     <x>570</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1170,14 +1103,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionListino</sender>
-   <signal>triggered()</signal>
+   <sender>marcaEnabler</sender>
+   <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>printListino()</slot>
+   <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
+     <x>570</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1186,14 +1119,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionInventario</sender>
-   <signal>triggered()</signal>
+   <sender>sedeEnabler</sender>
+   <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>printInventario()</slot>
+   <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
+     <x>570</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1202,14 +1135,94 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionOrdine</sender>
-   <signal>triggered()</signal>
+   <sender>orderEnabler</sender>
+   <signal>clicked()</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>printOrdine()</slot>
+   <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
+     <x>570</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fornitoreEnabler</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>allDataEnabler</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>441</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>currentDateEnabler</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>468</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rangeDateEnabler</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>searchDateButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>530</x>
+     <y>438</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>673</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchDateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>673</x>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>

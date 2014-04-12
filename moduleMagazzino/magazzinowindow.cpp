@@ -343,7 +343,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
 
     articoloModel->setQuery(query);
 
-    ui->articoloView->resizeColumnsToContents();//TODO Rallenta l'esecuzione
+    ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
 
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
