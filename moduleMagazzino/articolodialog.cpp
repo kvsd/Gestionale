@@ -5,6 +5,7 @@ ArticoloDialog::ArticoloDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ArticoloDialog)
 {
+    qDebug() << "ArticoloDialog()";
     ui->setupUi(this);
 
     initModel();
@@ -15,11 +16,13 @@ ArticoloDialog::ArticoloDialog(QWidget *parent) :
 
 ArticoloDialog::~ArticoloDialog()
 {
+    qDebug() << "~ArticoloDialog()";
     delete ui;
 }
 
 void ArticoloDialog::initModel(void)
 {
+    qDebug() << "ArticoloDialog::initModel()";
     modelCatMerce = new QSqlTableModel(this);
     modelCatMerce->setTable(table::CATEGORIA_MERCE);
     modelCatMerce->select();
@@ -47,6 +50,7 @@ void ArticoloDialog::initModel(void)
 
 void ArticoloDialog::initComboBox(void)
 {
+    qDebug() << "ArticoloDialog::initComboBox()";
     ui->cb_catmerce->setModel(modelCatMerce);
     ui->cb_catmerce->setModelColumn(magazzino::COL_DESCR);
 
@@ -70,6 +74,7 @@ void ArticoloDialog::initComboBox(void)
 
 void ArticoloDialog::setValue(QString id)
 {
+    qDebug() << "ArticoloDialog::setValue()";
     QSqlQuery query;
     query.prepare(magazzino::SELECT_FROM_ID);
     query.bindValue(":id", id);
@@ -134,6 +139,7 @@ void ArticoloDialog::setValue(QString id)
 
 void ArticoloDialog::prepareMap()
 {
+    qDebug() << "ArticoloDialog::prepareMap";
     articolo[keymap::KEY_DESCRIZIONE] = ui->le_descrizione->text();
     articolo[keymap::KEY_MARCA] = modelMarca->index(ui->cb_marca->currentIndex(), magazzino::COL_ID).data().toString();
     articolo[keymap::KEY_MODELLO] = ui->le_modello->text();
@@ -176,6 +182,7 @@ void ArticoloDialog::prepareMap()
 
 QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 {
+    qDebug() << "ArticoloDialog::prepareQueryArticolo()";
     QSqlQuery query_articolo;
     if (articolo.contains(keymap::KEY_ID)) {
         query_articolo.prepare(magazzino::UPDATE_ARTICOLO);
@@ -215,6 +222,7 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 
 QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 {
+    qDebug() << "ArticoloDialog::prepareQueryStorico()";
     QSqlQuery query_storico;
     query_storico.prepare(magazzino::INSERT_STORICO);
 
@@ -234,6 +242,7 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 
 void ArticoloDialog::save(void)
 {
+    qDebug() << "ArticoloDialog::save()";
     QSqlDatabase db = QSqlDatabase::database();
     db.transaction();
     prepareMap();
@@ -271,6 +280,7 @@ void ArticoloDialog::save(void)
 
 void ArticoloDialog::updatePrezzoFattura(void)
 {
+    qDebug() << "ArticoloDialog::updatePrezzoFattura()";
     QString prezzo_str = ui->le_prezzo_fattura->text();
 
     if (!prezzo_str.contains(locale().currencySymbol())) {
@@ -282,6 +292,7 @@ void ArticoloDialog::updatePrezzoFattura(void)
 
 void ArticoloDialog::updatePrezzoAcquisto(void)
 {
+    qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
     QString prezzo_str = ui->le_prezzo_fattura->text().replace(locale().currencySymbol(),"");
     if (prezzo_str.isEmpty()) {
         return;
@@ -311,6 +322,7 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
 
 void ArticoloDialog::updateIva(void)
 {
+    qDebug() << "ArticoloDialog::updateIva()";
     if (ui->le_prezzo_fattura->text().isEmpty() || ui->le_ricarico->text().isEmpty()) {
         return;
     }
@@ -343,6 +355,7 @@ void ArticoloDialog::updateIva(void)
 
 void ArticoloDialog::updatePrezzoFinito(void)
 {
+    qDebug() << "ArticoloDialog::updatePrezzoFinito()";
     if (ui->le_prezzo_fattura->text().isEmpty()) {
         return;
     }
@@ -355,6 +368,7 @@ void ArticoloDialog::updatePrezzoFinito(void)
 
 void ArticoloDialog::updatePrezzoVendita(void)
 {
+    qDebug() << "ArticoloDialog::updatePrezzoVendita()";
     QString prezzo_str = ui->le_prezzo_vendita->text();
 
     if (!prezzo_str.contains(locale().currencySymbol())) {
@@ -364,30 +378,36 @@ void ArticoloDialog::updatePrezzoVendita(void)
 
 void ArticoloDialog::openAddMarca()
 {
+    qDebug() << "ArticoloDialog::openAddMarca()";
     allDlg(this, modelMarca, ADD_MARCA_QUERY, "Marca", ""); //TODO definire codice errore
 }
 
 void ArticoloDialog::openAddCategoria()
 {
+    qDebug() << "ArticoloDialog::openAddCategoria()";
     allDlg(this, modelCatMerce, ADD_CAT_MERCE_QUERY, "Categoria merce", ""); //TODO definire codice errore
 }
 
 void ArticoloDialog::openAddMisura()
 {
+    qDebug() << "ArticoloDialog::openAddMisura()";
     allDlg(this, modelUnita, ADD_UM_QUERY, "Unita di misura", ""); //TODO definire codice errore
 }
 
 void ArticoloDialog::openAddFornitore()
 {
+    qDebug() << "ArticoloDialog::openAddFornitore()";
     qDebug() << "open fornitore dialog";  //TODO richiamare dialog fornitore
 }
 
 void ArticoloDialog::openAddIVA()
 {
+    qDebug() << "ArticoloDialog::openAddIVA()";
     allDlg(this, modelCodIva, ADD_IVA_QUERY, "Codice IVA", ""); //TODO definire codice errore
 }
 
 void ArticoloDialog::openAddSede()
 {
+    qDebug() << "ArticoloDialog::openAddSede()";
     allDlg(this, modelSede, ADD_SEDE_QUERY, "Sede magazzino", ""); //TODO definire codice errore
 }
