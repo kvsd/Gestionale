@@ -2,6 +2,7 @@
 
 ListinoPrintLayout::ListinoPrintLayout(CustomModel *model, QString titleStr, QWidget *parent)
 {
+    qDebug() << "ListinoPrintLayout()";
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
 
@@ -34,12 +35,14 @@ ListinoPrintLayout::ListinoPrintLayout(CustomModel *model, QString titleStr, QWi
 
 ListinoPrintLayout::~ListinoPrintLayout()
 {
+    qDebug() << "~ListinoPrintLayout()";
     delete printer;
     delete painter;
 }
 
 void ListinoPrintLayout::printHeader(QString titleStr)
 {
+    qDebug() << "ListinoPrintLayout::printHeader()";
     //Stampo titolo
     painter->drawText(title, Qt::AlignLeft|Qt::AlignVCenter, titleStr, &title);
 
@@ -47,7 +50,7 @@ void ListinoPrintLayout::printHeader(QString titleStr)
     setRow(0);
     painter->drawText(col1, Qt::AlignCenter, "Cod.Articolo");
     painter->drawText(col2, Qt::AlignCenter, "Descrizione");
-    painter->drawText(col3, Qt::AlignCenter, "Imponibile");
+    painter->drawText(col3, Qt::AlignCenter, "Prezzo Acquisto");
     painter->drawText(col4, Qt::AlignCenter, QString::fromUtf8("Prezzo Vendità"));
 
     //Stampo la cornice dell'intestazione
@@ -61,11 +64,12 @@ void ListinoPrintLayout::printHeader(QString titleStr)
 
 void ListinoPrintLayout::printRow(int row, QSqlRecord record)
 {
+    qDebug() << "ListinoPrintLayout::printRow()";
     setRow(row);
 
     QString codarticolo = record.value("Cod.Articolo").toString();
     QString descrizione = record.value("Descrizione").toString();
-    QString imponibile  = record.value("Imponibile").toString();
+    QString imponibile  = record.value("Prezzo Acquisto").toString();
     QString prezzo      = record.value(QString::fromUtf8("Prezzo Vendità")).toString();
 
     painter->drawText(col1, Qt::AlignLeft, codarticolo);
@@ -82,6 +86,7 @@ void ListinoPrintLayout::printRow(int row, QSqlRecord record)
 
 void ListinoPrintLayout::printData()
 {
+    qDebug() << "ListinoPrintLayout::printData()";
     int MAX_ROW = (pageHeight-titleHeight)/colHeight;
     for (int i=0, r=0; i<articoloModel->rowCount(); i++, r++) {
         if (i%MAX_ROW == 0 && i!=0) {
@@ -95,6 +100,7 @@ void ListinoPrintLayout::printData()
 
 void ListinoPrintLayout::initPainter()
 {
+    qDebug() << "ListinoPrintLayout::initPainter()";
     QPen pen;
     pen.setWidth(10);
     painter->setPen(pen);
@@ -102,6 +108,7 @@ void ListinoPrintLayout::initPainter()
 
 void ListinoPrintLayout::setRow(int row)
 {
+    qDebug() << "ListinoPrintLayout::setRow()";
     col1.moveTop(row*colHeight+titleHeight);
     col2.moveTop(row*colHeight+titleHeight);
     col3.moveTop(row*colHeight+titleHeight);

@@ -10,6 +10,7 @@
 #include <QPen>
 #include <QSqlRecord>
 #include "custommodel.h"
+#include "magazzino_const.h"
 
 class ListinoPrintLayout
 {
