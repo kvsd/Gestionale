@@ -11,7 +11,7 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     codIvaModel->setTable(table::CODICE_IVA);
     codIvaModel->select();
     ui->codIvaComboBox->setModel(codIvaModel);
-    ui->codIvaComboBox->setModelColumn(magazzino::COL_DESCR);
+    ui->codIvaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
     prepareMaps();
     populateList();
