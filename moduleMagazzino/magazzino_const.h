@@ -53,35 +53,101 @@ namespace magazzino {
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
     const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, ricarico, prezzo_acquisto, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :ricarico, :prezzo_acquisto, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
 
-    const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:cod_iva";
-    const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
+    const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:id_cod_iva";
+    const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:id_cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
 
-    enum columns {COL_ID,
-                  COL_DESCR = 1,
-                  COL_ID_FORN,
-                  COL_ID_MARCA,
-                  COL_MODELLO,
-                  COL_COD_ART,
-                  COL_COD_FOR,
-                  COL_COD_EAN,
-                  COL_ID_MERCE,
-                  COL_ID_COD_IVA,
-                  COL_ID_UM,
-                  COL_SCORTA,
-                  COL_QUANTITA,
-                  COL_PREZZO_FATTURA,
-                  COL_SCONTO,
-                  COL_RICARICO,
-                  COL_PRZ_ACQUISTO,
-                  COL_IVA,
-                  COL_PREZZO_FIN,
-                  COL_PREZZO_VEN,
-                  COL_FATTURA,
-                  COL_DATA,
-                  COL_ID_SEDE,
-                  COL_NOTE};
+    enum columns {COL_MG_ID = 0,            // Id
+                  COL_MG_DESCR = 1,         // Descrizione
+                  COL_MG_ID_FORN = 2,       // Fornitore
+                  COL_MG_ID_MARCA = 3,      // Marca
+                  COL_MG_MODELLO = 4,       // Modello
+                  COL_MG_COD_ART = 5,       // Cod.Articolo
+                  COL_MG_COD_FOR = 6,       // Cod.Fornitore
+                  COL_MG_COD_EAN = 7,       // Cod.EAN
+                  COL_MG_ID_MERCE = 8,      // Cat.Merce
+                  COL_MG_ID_COD_IVA = 9,    // Cod.IVA
+                  COL_MG_ID_UM = 10,        // UM
+                  COL_MG_SCORTA = 11,       // Scorta Minima
+                  COL_MG_QT = 12,           // Quantità
+                  COL_MG_PRZ_FAT = 13,      // Prezzo Fattura
+                  COL_MG_SCONTO = 14,       // Sconto
+                  COL_MG_RICARICO = 15,     // Ricarico
+                  COL_MG_PRZ_ACQ = 16,      // Prezzo Acquisto
+                  COL_MG_IVA = 17,          // Iva
+                  COL_MG_PRZ_FIN = 18,      // Prezzo Finito
+                  COL_MG_PRZ_VEN = 19,      // Prezzo Vendità
+                  COL_MG_FATTURA = 20,      // Nr.Fattura
+                  COL_MG_DATA = 21,         // Data Arrivo
+                  COL_MG_ID_SEDE = 22,      // Sede Magazzino
+                  COL_MG_NOTE = 23,         // Note
+
+                  COL_ST_ID_ARTICOLO = 0,   // Id Articolo
+                  COL_ST_DATA = 1,          // Data
+                  COL_ST_QT = 2,            // Quantita
+                  COL_ST_PRZ_FAT = 3,       // Prezzo Fattura
+                  COL_ST_SCONTO = 4,        // Sconto
+                  COL_ST_RICARICO = 5,      // Ricarico
+                  COL_ST_PRZ_ACQ = 6,       // Prezzo Acquisto
+                  COL_ST_IVA = 7,           // IVA
+                  COL_ST_PRZ_FIN = 8,       // Prezzo Finito
+                  COL_ST_PRZ_VEN = 9,       // Prezzo Vendità
+                  COL_ST_FATTURA = 10       // FATTURA
+                 };
 
     QMap<int,QString> prepareMapsNameColsArticolo();
     QMap<int,QString> prepareMapsNameColsStorico();
+
+    //PH PlaceHolder
+    const QString PH_ID      = ":id";
+    const QString PH_DESCR   = ":descr";
+    const QString PH_ID_FORN = ":id_fornitore";
+    const QString PH_ID_MARC = ":id_marca";
+    const QString PH_MODELLO = ":modello";
+    const QString PH_COD_ART = ":cod_articolo";
+    const QString PH_COD_FRN = ":cod_fornitore";
+    const QString PH_COD_EAN = ":cod_barre";
+    const QString PH_ID_MERC = ":id_merce";
+    const QString PH_COD_IVA = ":id_cod_iva";
+    const QString PH_ID_UM   = ":id_unita_merce";
+    const QString PH_SCORTA  = ":scorta_minima";
+    const QString PH_QUANTIT = ":quantita";
+    const QString PH_PRZ_FAT = ":prezzo_fattura";
+    const QString PH_SCONTO  = ":sconto_fornitore";
+    const QString PH_RICARIC = ":ricarico";
+    const QString PH_PRZ_ACQ = ":prezzo_acquisto";
+    const QString PH_IVA     = ":iva";
+    const QString PH_PRZ_FIN = ":prezzo_finito";
+    const QString PH_PRZ_VEN = ":prezzo_vendita";
+    const QString PH_FATTURA = ":fattura";
+    const QString PH_DATA    = ":data_arrivo";
+    const QString PH_ID_SEDE = ":id_sede_magazzino";
+    const QString PH_NOTE    = ":note";
+    const QString PH_ID_ART  = ":id_articolo";
+
+    const QString CMP_ID      = "Id";
+    const QString CMP_DESCR   = "Descrizione";
+    const QString CMP_FORNIT  = "Fornitore";
+    const QString CMP_MARCA   = "Marca";
+    const QString CMP_MODELLO = "Modello";
+    const QString CMP_COD_ART = "Cod.Articolo";
+    const QString CMP_COD_FOR = "Cod.Fornitore";
+    const QString CMP_COD_EAN = "Cod.EAN";
+    const QString CMP_MERCE   = "Cat.Merce";
+    const QString CMP_COD_IVA = "Cod.IVA";
+    const QString CMP_UM      = "UM";
+    const QString CMP_SCORTA  = "Scorta Minima";
+    const QString CMP_QT      = QString::fromUtf8("Quantità");
+    const QString CMP_PRZ_FAT = "Prezzo Fattura";
+    const QString CMP_SCONTO  = "Sconto";
+    const QString CMP_RICAR   = "Ricarico";
+    const QString CMP_PRZ_ACQ = "Prezzo Acquisto";
+    const QString CMP_IVA     = "Iva";
+    const QString CMP_PRZ_FIN = "Prezzo Finito";
+    const QString CMP_PRZ_VEN = QString::fromUtf8("Prezzo Vendità");
+    const QString CMP_FATTURA = "Nr.Fattura";
+    const QString CMP_DATA    = "Data Arrivo";
+    const QString CMP_SEDE    = "Sede Magazzino";
+    const QString CMP_NOTE    = "Note";
+    const QString CMP_ID_ART  = "Id Articolo";
 }
 #endif // MAGAZZINO_CONST_H
