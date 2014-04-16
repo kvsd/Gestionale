@@ -50,16 +50,16 @@ void MagazzinoWindow::initComboBox()
 {
     qDebug() << "MagazzinoWindow::initComboBox()";
     ui->fornitoreComboBox->setModel(fornitoreModel);
-    ui->fornitoreComboBox->setModelColumn(magazzino::COL_DESCR);
+    ui->fornitoreComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
     ui->categoriaComboBox->setModel(categoriaModel);
-    ui->categoriaComboBox->setModelColumn(magazzino::COL_DESCR);
+    ui->categoriaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
     ui->marcaComboBox->setModel(marcaModel);
-    ui->marcaComboBox->setModelColumn(magazzino::COL_DESCR);
+    ui->marcaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
     ui->sedeComboBox->setModel(sedeModel);
-    ui->sedeComboBox->setModelColumn(magazzino::COL_DESCR);
+    ui->sedeComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
     ui->orderbyComboBox->addItems(magazzino::prepareMapsNameColsArticolo().values());
 }
@@ -283,7 +283,7 @@ void MagazzinoWindow::updateRecord(void)
         return;
     }
 
-    QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), magazzino::COL_MG_ID).data().toString();
     ArticoloDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Articolo");
@@ -304,7 +304,7 @@ void MagazzinoWindow::removeRecord(void)
         showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
         return;
     }
-    QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), magazzino::COL_MG_ID).data().toString();
     QSqlQuery query;
     query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(":id", id);
@@ -360,7 +360,7 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
         storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
         return;
     }
-    QString id = articoloModel->index(index.row(), magazzino::COL_ID).data().toString();
+    QString id = articoloModel->index(index.row(), magazzino::COL_MG_ID).data().toString();
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
