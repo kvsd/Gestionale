@@ -48,10 +48,10 @@ void ListinoPrintLayout::printHeader(QString titleStr)
 
     //Stampo l'intestazione delle tabelle
     setRow(0);
-    painter->drawText(col1, Qt::AlignCenter, "Cod.Articolo");
-    painter->drawText(col2, Qt::AlignCenter, "Descrizione");
-    painter->drawText(col3, Qt::AlignCenter, "Prezzo Acquisto");
-    painter->drawText(col4, Qt::AlignCenter, QString::fromUtf8("Prezzo Vendità"));
+    painter->drawText(col1, Qt::AlignCenter, magazzino::CMP_COD_ART);
+    painter->drawText(col2, Qt::AlignCenter, magazzino::CMP_DESCR);
+    painter->drawText(col3, Qt::AlignCenter, magazzino::CMP_PRZ_ACQ);
+    painter->drawText(col4, Qt::AlignCenter, magazzino::CMP_PRZ_VEN);
 
     //Stampo la cornice dell'intestazione
     painter->drawLine(0, titleHeight, pageWidth, titleHeight);
@@ -67,10 +67,10 @@ void ListinoPrintLayout::printRow(int row, QSqlRecord record)
     qDebug() << "ListinoPrintLayout::printRow()";
     setRow(row);
 
-    QString codarticolo = record.value("Cod.Articolo").toString();
-    QString descrizione = record.value("Descrizione").toString();
-    QString imponibile  = record.value("Prezzo Acquisto").toString();
-    QString prezzo      = record.value(QString::fromUtf8("Prezzo Vendità")).toString();
+    QString codarticolo = record.value(magazzino::CMP_COD_ART).toString();
+    QString descrizione = record.value(magazzino::CMP_DESCR).toString();
+    QString imponibile  = record.value(magazzino::CMP_PRZ_ACQ).toString();
+    QString prezzo      = record.value(magazzino::CMP_PRZ_VEN).toString();
 
     painter->drawText(col1, Qt::AlignLeft, codarticolo);
     painter->drawText(col2, Qt::AlignLeft, descrizione);
