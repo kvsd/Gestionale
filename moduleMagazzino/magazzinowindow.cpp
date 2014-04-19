@@ -390,7 +390,7 @@ void MagazzinoWindow::exportMagazzinoCsv(void)
         return;
 
     QTextStream out(&file);
-    out << magazzino::CVS_VERSION << "\n";
+    out << magazzino::CSV_VERSION << "\n";
 
     QSqlQuery query(magazzino::SELECT_CSV_MAGAZZINO);
     while (query.next()) {
@@ -417,7 +417,7 @@ void MagazzinoWindow::exportStoricoCsv(void)
         return;
 
     QTextStream out(&file);
-    out << magazzino::CVS_VERSION << "\n";
+    out << magazzino::CSV_VERSION << "\n";
 
     QSqlQuery query(magazzino::SELECT_CSV_STORICO);
     while (query.next()) {
@@ -432,7 +432,7 @@ void MagazzinoWindow::exportStoricoCsv(void)
     file.close();
 }
 
-void MagazzinoWindow::importMagazzinoCvs(void)
+void MagazzinoWindow::importMagazzinoCsv(void)
 {
     qDebug() << "MagazzinoWindow::importMagazzinoCvs()";
     QString filename = QFileDialog::getOpenFileName();
@@ -445,7 +445,7 @@ void MagazzinoWindow::importMagazzinoCvs(void)
 
     QTextStream in(&file);
     QString version = in.readLine();
-    if (version != magazzino::CVS_VERSION) {
+    if (version != magazzino::CSV_VERSION) {
         qDebug() << "ERRORE"; //TODO definire codice errore per CVS
         return;
     }
@@ -467,7 +467,7 @@ void MagazzinoWindow::importMagazzinoCvs(void)
     file.close();
 }
 
-void MagazzinoWindow::importStoricoCvs(void)
+void MagazzinoWindow::importStoricoCsv(void)
 {
     qDebug() << "MagazzinoWindow::importStoricoCvs()";
     QString filename = QFileDialog::getOpenFileName();
@@ -480,7 +480,7 @@ void MagazzinoWindow::importStoricoCvs(void)
 
     QTextStream in(&file);
     QString version = in.readLine();
-    if (version != magazzino::CVS_VERSION) {
+    if (version != magazzino::CSV_VERSION) {
         qDebug() << "ERRORE"; //TODO definire codice errore per CVS
         return;
     }

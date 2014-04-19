@@ -156,7 +156,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-57</y>
+             <y>0</y>
              <width>324</width>
              <height>506</height>
             </rect>
@@ -476,8 +476,8 @@
     <property name="title">
      <string>Esporta</string>
     </property>
-    <addaction name="actionMagazzinoCSV"/>
-    <addaction name="actionStoricoCSV"/>
+    <addaction name="actionExportMagazzinoCSV"/>
+    <addaction name="actionExportStoricoCSV"/>
    </widget>
    <widget class="QMenu" name="menuStampa">
     <property name="title">
@@ -488,9 +488,16 @@
     <addaction name="actionInventario"/>
     <addaction name="actionOrdine"/>
    </widget>
+   <widget class="QMenu" name="menuImporta">
+    <property name="title">
+     <string>Importa</string>
+    </property>
+    <addaction name="actionImportMagazzinoCSV"/>
+   </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
    <addaction name="menuEsporta"/>
+   <addaction name="menuImporta"/>
    <addaction name="menuStampa"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -531,12 +538,12 @@
     <string>Configura...</string>
    </property>
   </action>
-  <action name="actionMagazzinoCSV">
+  <action name="actionExportMagazzinoCSV">
    <property name="text">
     <string>Magazzino in CSV</string>
    </property>
   </action>
-  <action name="actionStoricoCSV">
+  <action name="actionExportStoricoCSV">
    <property name="text">
     <string>Storico in CSV</string>
    </property>
@@ -569,6 +576,11 @@
   <action name="actionOrdine">
    <property name="text">
     <string>Ordine</string>
+   </property>
+  </action>
+  <action name="actionImportMagazzinoCSV">
+   <property name="text">
+    <string>Magazzino in CSV</string>
    </property>
   </action>
  </widget>
@@ -847,7 +859,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionMagazzinoCSV</sender>
+   <sender>actionExportMagazzinoCSV</sender>
    <signal>triggered()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>exportMagazzinoCsv()</slot>
@@ -863,7 +875,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionStoricoCSV</sender>
+   <sender>actionExportStoricoCSV</sender>
    <signal>triggered()</signal>
    <receiver>MagazzinoWindow</receiver>
    <slot>exportStoricoCsv()</slot>
@@ -1230,6 +1242,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionImportMagazzinoCSV</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>importMagazzinoCsv()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1247,5 +1275,6 @@
   <slot>printInventario()</slot>
   <slot>printListino()</slot>
   <slot>printOrdine()</slot>
+  <slot>importMagazzinoCsv()</slot>
  </slots>
 </ui>
