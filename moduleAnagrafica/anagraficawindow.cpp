@@ -2,10 +2,11 @@
 #include "ui_anagraficawindow.h"
 #include "custommodel.h"
 
-anagraficaWindow::anagraficaWindow(QWidget *parent) :
+AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::anagraficaWindow)
+    ui(new Ui::AnagraficaWindow)
 {
+    qDebug() << "AnagraficaWindow()";
     ui->setupUi(this);
 
     anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS);
@@ -22,13 +23,15 @@ anagraficaWindow::anagraficaWindow(QWidget *parent) :
     loadConfigSettings();
 }
 
-anagraficaWindow::~anagraficaWindow()
+AnagraficaWindow::~AnagraficaWindow()
 {
+    qDebug() << "~AnagraficaWindow()";
     delete ui;
 }
 
-void anagraficaWindow::loadConfigSettings()
+void AnagraficaWindow::loadConfigSettings()
 {
+    qDebug() << "AnagraficaWindow::loadConfigSettings()";
     this->setGeometry(settings.value(anagrafica::ANGRFC_SIZE, QRect(0, 0, 700, 500)).toRect());
 
     //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
@@ -64,8 +67,9 @@ void anagraficaWindow::loadConfigSettings()
     ui->actionPartitaIVA->setChecked(settings.value(anagrafica::SEARCH_PIVA, false).toBool());
 }
 
-void anagraficaWindow::saveConfigSettings()
+void AnagraficaWindow::saveConfigSettings()
 {
+    qDebug() << "AnagraficaWindow::saveConfigSettings()";
     settings.setValue(anagrafica::ANGRFC_SIZE, this->geometry());
     settings.setValue(anagrafica::ANGRFC_HEADER, ui->anagraficaView->horizontalHeader()->saveState());
     //Salvo le impostazioni del menu ricerca
@@ -75,21 +79,24 @@ void anagraficaWindow::saveConfigSettings()
     settings.setValue(anagrafica::SEARCH_PIVA, ui->actionPartitaIVA->isChecked());
 }
 
-void anagraficaWindow::showEvent(QShowEvent *event)
+void AnagraficaWindow::showEvent(QShowEvent *event)
 {
+    qDebug() << "AnagraficaWindow::showEvent()";
     updateViewAnagrafica();
     event->accept();
 }
 
-void anagraficaWindow::closeEvent(QCloseEvent *event)
+void AnagraficaWindow::closeEvent(QCloseEvent *event)
 {
+    qDebug() << "AnagraficaWindow::closeEvent()";
     this->parentWidget()->show();
     saveConfigSettings();
     event->accept();
 }
 
-void anagraficaWindow::addRecord(void)
+void AnagraficaWindow::addRecord(void)
 {
+    qDebug() << "AnagraficaWindow::addRecord()";
     AnagraficaAddDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
@@ -98,8 +105,9 @@ void anagraficaWindow::addRecord(void)
     updateViewAnagrafica();
 }
 
-void anagraficaWindow::updateRecord(void)
+void AnagraficaWindow::updateRecord(void)
 {
+    qDebug() << "AnagraficaWindow::updateRecord()";
     QModelIndex index = ui->anagraficaView->currentIndex();
     if (!index.isValid()) {
         showDialogError(this, ERR026, MSG007, ""); //NOTE codice errore 026
@@ -116,8 +124,9 @@ void anagraficaWindow::updateRecord(void)
     updateViewAnagrafica();
 }
 
-void anagraficaWindow::removeRecord(void)
+void AnagraficaWindow::removeRecord(void)
 {
+    qDebug() << "AnagraficaWindow::removeRecord()";
     QModelIndex index = ui-> anagraficaView->currentIndex();
     if (!index.isValid()) {
         showDialogError(this, ERR027, MSG004, ""); //NOTE codice errore 027
@@ -134,8 +143,9 @@ void anagraficaWindow::removeRecord(void)
     updateViewAnagrafica();
 }
 
-void anagraficaWindow::searchRecord(void)
+void AnagraficaWindow::searchRecord(void)
 {
+    qDebug() << "AnagraficaWindow::searchRecord()";
     QString s = ui->searchLineEdit->text();
 
     if (s.isEmpty()) {
@@ -161,8 +171,9 @@ void anagraficaWindow::searchRecord(void)
     anagraficaModel->setQuery(query.arg(s));
 }
 
-void anagraficaWindow::updateViewAnagrafica(void)
+void AnagraficaWindow::updateViewAnagrafica(void)
 {
+    qDebug() << "AnagraficaWindow::updateViewAnagrafica()";
     ui->searchLineEdit->clear();
 
     if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
@@ -182,8 +193,9 @@ void anagraficaWindow::updateViewAnagrafica(void)
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
 }
 
-void anagraficaWindow::openConfigDialog(void)
+void AnagraficaWindow::openConfigDialog(void)
 {
+    qDebug() << "AnagraficaWindow::openConfigDialog()";
     OptionsAnagraficaDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
@@ -193,8 +205,9 @@ void anagraficaWindow::openConfigDialog(void)
     loadConfigSettings();
 }
 
-void anagraficaWindow::updateStringSearch(void)
+void AnagraficaWindow::updateStringSearch(void)
 {
+    qDebug() << "AnagraficaWindow::updateStringSearch()";
     if (!ui->actionRagioneSociale->isChecked() && !ui->actionCognome->isChecked() &&
         !ui->actionPartitaIVA->isChecked() && !ui->actionCodiceFiscale->isChecked()) {
         //Niente selezionato Ragione sociale di default;

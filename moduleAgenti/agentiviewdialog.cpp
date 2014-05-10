@@ -11,6 +11,7 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AgentiViewDialog)
 {
+    qDebug() << "AgentiViewDialog()";
     ui->setupUi(this);
     modelAgenti = new QSqlQueryModel(this);
     modelAgenti->setQuery(SELECT_QUERY);
@@ -29,17 +30,20 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
 
 AgentiViewDialog::~AgentiViewDialog()
 {
+    qDebug() << "~AgentiViewDialog()";
     delete ui;
 }
 
 void AgentiViewDialog::closeEvent(QCloseEvent *event)
 {
+    qDebug() << "AgentiViewDialog::closeEvent()";
     settings.setValue("AgentiViewDlg.size", this->geometry());
     event->accept();
 }
 
 void AgentiViewDialog::updateViewAgenti(void)
 {
+    qDebug() << "AgentiViewDialog::updateViewAgenti()";
     ui->searchLineEdit->clear();
     modelAgenti->setQuery(SELECT_QUERY);
     ui->agentiView->resizeColumnsToContents();
@@ -48,6 +52,7 @@ void AgentiViewDialog::updateViewAgenti(void)
 
 void AgentiViewDialog::addRecord(void)
 {
+    qDebug() << "AgentiViewDialog::addRecord()";
     AgentiAddDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
@@ -59,6 +64,7 @@ void AgentiViewDialog::addRecord(void)
 
 void AgentiViewDialog::updateRecord(void)
 {
+    qDebug() << "AgentiViewDialog::updateRecord()";
     QModelIndex index = ui->agentiView->currentIndex();
     QString id = modelAgenti->index(index.row(), agenti::COL_ID).data().toString();
 
@@ -80,6 +86,7 @@ void AgentiViewDialog::updateRecord(void)
 
 void AgentiViewDialog::removeRecord(void)
 {
+    qDebug() << "AgentiViewDialog::removeRecord()";
     QModelIndex index = ui->agentiView->currentIndex();
     QString id = modelAgenti->index(index.row(), agenti::COL_ID).data().toString();
 
@@ -101,6 +108,7 @@ void AgentiViewDialog::removeRecord(void)
 
 void AgentiViewDialog::searchRecord()
 {
+    qDebug() << "AgentiViewDialog::searchRecord()";
     QString s = ui->searchLineEdit->text();
 
     if (s.isEmpty()) {

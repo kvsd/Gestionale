@@ -9,17 +9,20 @@ ConnectionSetupDialog::ConnectionSetupDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConnectionSetupDialog)
 {
+    qDebug() << "ConnectionSetupDialog()";
     ui->setupUi(this);
     loadSettings();
 }
 
 ConnectionSetupDialog::~ConnectionSetupDialog()
 {
+    qDebug() << "~ConnectionSetupDialog()";
     delete ui;
 }
 
 void ConnectionSetupDialog::loadSettings(void)
 {
+    qDebug() << "ConnectionSetupDialog::loadSettings()";
     QString dbname = settings.value("dbname", DEFAULT_DBNAME).toString();
     QString hostname = settings.value("hostname", DEFAULT_HOSTNAME).toString();
     qint16 port = settings.value("port", DEFAULT_PORT).toInt();
@@ -31,6 +34,7 @@ void ConnectionSetupDialog::loadSettings(void)
 
 void ConnectionSetupDialog::saveSettings(void)
 {
+    qDebug() << "ConnectionSetupDialog::saveSettings()";
     QString dbname = ui->le_dbname->text();
     QString hostname = ui->le_hostname->text();
     qint16 port = ui->le_port->value();

@@ -2,6 +2,7 @@
 
 InventarioPrintLayout::InventarioPrintLayout(QWidget *parent)
 {
+    qDebug() << "InventarioPrintLayout()";
     const QString INVENTARIO_ROW = QString::fromUtf8("SELECT \"Quantità\", \"Descrizione\", \"Prezzo Acquisto\", \"Quantità\"*\"Imponibile\" As \"SubTotale\" FROM vw_magazzino WHERE \"Quantità\"!=0 ORDER BY \"Descrizione\" ");
 
     articoloModel = new QSqlQueryModel;
@@ -38,6 +39,7 @@ InventarioPrintLayout::InventarioPrintLayout(QWidget *parent)
 
 InventarioPrintLayout::~InventarioPrintLayout()
 {
+    qDebug() << "~InventarioPrintLayout()";
     delete articoloModel;
     delete printer;
     delete painter;
@@ -45,6 +47,7 @@ InventarioPrintLayout::~InventarioPrintLayout()
 
 void InventarioPrintLayout::printHeader(QString titleStr)
 {
+    qDebug() << "InventarioPrintLayout::printHeader()";
     //Stampo titolo
     painter->drawText(title, Qt::AlignLeft|Qt::AlignVCenter, titleStr, &title);
 
@@ -66,6 +69,7 @@ void InventarioPrintLayout::printHeader(QString titleStr)
 
 void InventarioPrintLayout::printRow(int row, QSqlRecord record)
 {
+    qDebug() << "InventarioPrintLayout::printRow()";
     setRow(row);
 
     QString quantita    = record.value(QString::fromUtf8("Quantità")).toString();
@@ -87,6 +91,7 @@ void InventarioPrintLayout::printRow(int row, QSqlRecord record)
 
 void InventarioPrintLayout::printData()
 {
+    qDebug() << "InventarioPrintLayout::printData()";
     const int ROW_X_PAGE = (pageHeight-titleHeight)/colHeight;
     int row = 0;
     for (int i=0, page=1; i<articoloModel->rowCount(); i++, row++) {
@@ -102,6 +107,7 @@ void InventarioPrintLayout::printData()
 
 void InventarioPrintLayout::initPainter()
 {
+    qDebug() << "InventarioPrintLayout::initPainter()";
     QPen pen;
     pen.setWidth(10);
     painter->setPen(pen);
@@ -109,6 +115,7 @@ void InventarioPrintLayout::initPainter()
 
 void InventarioPrintLayout::setRow(int row)
 {
+    qDebug() << "InventarioPrintLayout::setRow()";
     col1.moveTop(row*colHeight+titleHeight);
     col2.moveTop(row*colHeight+titleHeight);
     col3.moveTop(row*colHeight+titleHeight);
@@ -117,6 +124,7 @@ void InventarioPrintLayout::setRow(int row)
 
 void InventarioPrintLayout::printTotale(int row)
 {
+    qDebug() << "InventarioPrintLayout::printTotale()";
     setRow(row);
     const QString INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
 

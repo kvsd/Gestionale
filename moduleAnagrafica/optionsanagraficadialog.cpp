@@ -5,6 +5,7 @@ OptionsAnagraficaDialog::OptionsAnagraficaDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OptionsAnagraficaDialog)
 {
+    qDebug() << "OptionsAnagraficaDialog()";
     ui->setupUi(this);
 
     prepareMap();
@@ -14,11 +15,13 @@ OptionsAnagraficaDialog::OptionsAnagraficaDialog(QWidget *parent) :
 
 OptionsAnagraficaDialog::~OptionsAnagraficaDialog()
 {
+    qDebug() << "~OptionsAnagraficaDialog()";
     delete ui;
 }
 
 void OptionsAnagraficaDialog::prepareMap()
 {
+    qDebug() << "OptionsAnagraficaDialog::prepareMap()";
     anagraficaNameCols[0] = "Id";
     anagraficaNameCols[1] = "Ragione sociale";
     anagraficaNameCols[2] = "Tipo di ditta";
@@ -48,6 +51,7 @@ void OptionsAnagraficaDialog::prepareMap()
 
 void OptionsAnagraficaDialog::populateAnagraficaList(void)
 {
+    qDebug() << "OptionsAnagraficaDialog::populateAnagraficaList()";
     for (QMap<int,QString>::Iterator i = anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         ui->lw_column_anagrafica->insertItem(i.key(), i.value());
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
@@ -58,6 +62,7 @@ void OptionsAnagraficaDialog::populateAnagraficaList(void)
 
 void OptionsAnagraficaDialog::saveConfig(void)
 {
+    qDebug() << "OptionsAnagraficaDialog::saveConfig()";
     settings.beginGroup(anagrafica::ANGRFC_STATUS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
@@ -80,6 +85,7 @@ void OptionsAnagraficaDialog::saveConfig(void)
 
 void OptionsAnagraficaDialog::loadConfig(void)
 {
+    qDebug() << "OptionsAnagraficaDialog::loadConfig()";
     settings.beginGroup(anagrafica::ANGRFC_STATUS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
@@ -105,6 +111,7 @@ void OptionsAnagraficaDialog::loadConfig(void)
 
 void OptionsAnagraficaDialog::restoreToDefault(void)
 {
+    qDebug() << "OptionsAnagraficaDialog::restoreToDefault()";
     settings.beginGroup(anagrafica::ANGRFC_STATUS);
     for (QMap<int,QString>::Iterator i=anagraficaNameCols.begin(); i!=anagraficaNameCols.end(); i++) {
         QListWidgetItem *col = ui->lw_column_anagrafica->item(i.key());
@@ -122,6 +129,7 @@ void OptionsAnagraficaDialog::restoreToDefault(void)
 
 void OptionsAnagraficaDialog::setColumnColor(QModelIndex index)
 {
+    qDebug() << "OptionsAnagraficaDialog::setColumnColor()";
     QListWidgetItem *col = ui->lw_column_anagrafica->item(index.row());
     QColorDialog dlg(this);
     bool ok = dlg.exec();

@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    qDebug() << "MainWindow()";
     ui->setupUi(this);
 
     db = QSqlDatabase::addDatabase("QPSQL");
@@ -21,17 +22,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    qDebug() << "~MainWindow()";
     delete ui;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    qDebug() << "MainWindow::closeEvent()";
     event->accept();
     settings.setValue("MainWindow.size", this->geometry());
 }
 
 void MainWindow::launchLoginDlg(void)
 {
+    qDebug() << "MainWindow::launchLoginDlg()";
     db.close();
 
     LoginDialog dlg(this);
@@ -80,6 +84,7 @@ void MainWindow::launchLoginDlg(void)
 
 void MainWindow::launchConnectionSetupDlg(void)
 {
+    qDebug() << "MainWindow::launchConnectionSetupDlg()";
     ConnectionSetupDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
@@ -90,20 +95,23 @@ void MainWindow::launchConnectionSetupDlg(void)
 
 void MainWindow::launchTableSetupDlg(void)
 {
+    qDebug() << "MainWindow::launchTableSetupDlg()";
     TableSetupDialog dlg(this);
     dlg.exec();
 }
 
 void MainWindow::launchAgentiViewDlg(void)
 {
+    qDebug() << "MainWindow::launchAgentiViewDlg()";
     AgentiViewDialog dlg(this);
     dlg.exec();
 }
 
 void MainWindow::launchAnagraficaDlg(void)
 {
+    qDebug() << "MainWindow::launchAnagraficaDlg()";
     if (anagraficaMW == 0) {
-        anagraficaMW = new anagraficaWindow(this);
+        anagraficaMW = new AnagraficaWindow(this);
     }
     this->hide();
     anagraficaMW->move(this->pos());
@@ -112,12 +120,14 @@ void MainWindow::launchAnagraficaDlg(void)
 
 void MainWindow::launchAziendaDlg(void)
 {
+    qDebug() << "MainWindow::launchAziendaDlg()";
     AziendaDialog dlg(this);
     dlg.exec();
 }
 
 void MainWindow::launchMagazzinoDlg(void)
 {
+    qDebug() << "MainWindow::launchMagazzinoDlg()";
     //WORKINPROGRESS
 
     if (magazzinoMW == 0) {

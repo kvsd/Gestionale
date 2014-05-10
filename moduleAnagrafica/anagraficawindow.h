@@ -15,19 +15,19 @@
 #include <QShowEvent>
 
 namespace Ui {
-class anagraficaWindow;
+class AnagraficaWindow;
 }
 
-class anagraficaWindow : public QMainWindow
+class AnagraficaWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit anagraficaWindow(QWidget *parent = 0);
-    ~anagraficaWindow();
+    explicit AnagraficaWindow(QWidget *parent = 0);
+    ~AnagraficaWindow();
 
 private:
-    Ui::anagraficaWindow *ui;
+    Ui::AnagraficaWindow *ui;
     CustomModel *anagraficaModel;
     QSettings settings;
     QString str_search;

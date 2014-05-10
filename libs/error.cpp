@@ -3,6 +3,7 @@
 
 void showDialogError(QWidget *parent, QString title, QString informative, QString details)
 {
+    qDebug() << "showDialogError()";
     QMessageBox dlg(parent);
     dlg.setIcon(QMessageBox::Critical);
     dlg.setWindowTitle("Errore");
@@ -18,6 +19,7 @@ void showDialogError(QWidget *parent, QString title, QString informative, QStrin
 
 bool showDialogWarning(QWidget *parent, QString title, QString informative, QString details)
 {
+    qDebug() << "showDialogWarning()";
     QMessageBox dlg(parent);
     dlg.setIcon(QMessageBox::Warning);
     dlg.setWindowTitle("Avviso");

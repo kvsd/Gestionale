@@ -12,6 +12,7 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TableSetupDialog)
 {
+    qDebug() << "TableSetupDialog()";
     ui->setupUi(this);
     model = new QSqlQueryModel(this);
     ui->tableView->setModel(model);
@@ -48,11 +49,13 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
 
 TableSetupDialog::~TableSetupDialog()
 {
+    qDebug() << "~TableSetupDialog()";
     delete ui;
 }
 
 void TableSetupDialog::changeTable(QString tbname)
 {
+    qDebug() << "TableSetupDialog::changeTable()";
     setWindowTitle(tbname);
     currentTable = mapTables.value(tbname);
     updateView();
@@ -60,6 +63,7 @@ void TableSetupDialog::changeTable(QString tbname)
 
 void TableSetupDialog::addRecord(void)
 {
+    qDebug() << "TableSetupDialog::addRecord()";
     bool ok;
     QString value = QInputDialog::getText(this, "Aggiungi record", "Inserisci il valore:", QLineEdit::Normal, "", &ok);
     if (ok) {
@@ -80,6 +84,7 @@ void TableSetupDialog::addRecord(void)
 
 void TableSetupDialog::removeRecord(void)
 {
+    qDebug() << "TableSetupDialog::removeRecord()";
     QModelIndex index = ui->tableView->currentIndex();
     QString id = model->index(index.row(), COL_ID).data().toString();
     //Se non viene selezionato niente il valore e' uguale a una stringa vuota
@@ -106,6 +111,7 @@ void TableSetupDialog::removeRecord(void)
 
 void TableSetupDialog::updateRecord(void)
 {
+    qDebug() << "TableSetupDialog::updateRecord()";
     QModelIndex index = ui->tableView->currentIndex();
     QString id = model->index(index.row(), COL_ID).data().toString();
     QString old_value = model->index(index.row(), COL_DESCR).data().toString();
@@ -138,6 +144,7 @@ void TableSetupDialog::updateRecord(void)
 
 void TableSetupDialog::updateView(void)
 {
+    qDebug() << "TableSetupDialog::updateView()";
     QString query = SELECT_QUERY.arg(currentTable);
     model->setQuery(query);
     model->setHeaderData(COL_DESCR, Qt::Horizontal, "Descrizione");

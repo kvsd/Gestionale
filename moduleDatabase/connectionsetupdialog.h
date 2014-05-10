@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QSettings>
+#include <QDebug>
 
 namespace Ui {
 class ConnectionSetupDialog;

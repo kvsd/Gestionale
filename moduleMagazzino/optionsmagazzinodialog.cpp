@@ -5,6 +5,7 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OptionsMagazzinoDialog)
 {
+    qDebug() << "OptionsMagazzinoDialog()";
     ui->setupUi(this);
 
     codIvaModel = new QSqlTableModel(this);
@@ -20,17 +21,20 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
 
 OptionsMagazzinoDialog::~OptionsMagazzinoDialog()
 {
+    qDebug() << "~OptionsMagazzinoDialog()";
     delete ui;
 }
 
 void OptionsMagazzinoDialog::prepareMaps()
 {
+    qDebug() << "OptionsMagazzinoDialog::prepareMaps()";
     magazzinoNameCols = magazzino::prepareMapsNameColsArticolo();
     storicoNameCols = magazzino::prepareMapsNameColsStorico();
 }
 
 void OptionsMagazzinoDialog::populateList(void)
 {
+    qDebug() << "OptionsMagazzinoDialog::populateList()";
     for (QMap<int,QString>::Iterator i = magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         ui->magazzinoListView->insertItem(i.key(), i.value());
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
@@ -48,6 +52,7 @@ void OptionsMagazzinoDialog::populateList(void)
 
 void OptionsMagazzinoDialog::saveConfig(void)
 {
+    qDebug() << "OptionsMagazzinoDialog::saveConfig()";
     settings.beginGroup(magazzino::ARTICOLO_STATUS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
@@ -91,6 +96,7 @@ void OptionsMagazzinoDialog::saveConfig(void)
 
 void OptionsMagazzinoDialog::loadConfig(void)
 {
+    qDebug() << "OptionsMagazzinoDialog::loadConfig()";
     settings.beginGroup(magazzino::ARTICOLO_STATUS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
@@ -140,6 +146,7 @@ void OptionsMagazzinoDialog::loadConfig(void)
 
 void OptionsMagazzinoDialog::restoreToDefault(void)
 {
+    qDebug() << "OptionsMagazzinoDialog::restoreToDefault()";
     settings.beginGroup(magazzino::ARTICOLO_STATUS);
     for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
         QListWidgetItem *col = ui->magazzinoListView->item(i.key());
@@ -173,6 +180,7 @@ void OptionsMagazzinoDialog::restoreToDefault(void)
 
 void OptionsMagazzinoDialog::setColumnColorMagazzino(QModelIndex index)
 {
+    qDebug() << "OptionsMagazzinoDialog::setColumnColorMagazzino()";
     QListWidgetItem *col;
     col = ui->magazzinoListView->item(index.row());
 
@@ -186,6 +194,7 @@ void OptionsMagazzinoDialog::setColumnColorMagazzino(QModelIndex index)
 
 void OptionsMagazzinoDialog::setColumnColorStorico(QModelIndex index)
 {
+    qDebug() << "OptionsMagazzinoDialog::setColumnColorStorico()";
     QListWidgetItem *col;
     col = ui->storicoListView->item(index.row());
 

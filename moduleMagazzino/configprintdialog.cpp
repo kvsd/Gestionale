@@ -5,6 +5,7 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConfigPrintDialog)
 {
+    qDebug() << "ConfigPrintDialog()";
     ui->setupUi(this);
 
     populateList();
@@ -13,11 +14,13 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
 
 ConfigPrintDialog::~ConfigPrintDialog()
 {
+    qDebug() << "~ConfigPrintDialog()";
     delete ui;
 }
 
 void ConfigPrintDialog::populateList()
 {
+    qDebug() << "ConfigPrintDialog::populateList()";
     nameCols = magazzino::prepareMapsNameColsArticolo();
     for (QMap<int,QString>::Iterator i = nameCols.begin(); i!=nameCols.end(); i++) {
         ui->columnListWidget->insertItem(i.key(), i.value());
@@ -28,6 +31,7 @@ void ConfigPrintDialog::populateList()
 
 void ConfigPrintDialog::loadSettings()
 {
+    qDebug() << "ConfigPrintDialog::loadSettings()";
     QStringList default_list;
     default_list.append(nameCols.value(5));
     default_list.append(nameCols.value(1));
@@ -50,6 +54,7 @@ void ConfigPrintDialog::loadSettings()
 
 void ConfigPrintDialog::addColumn(void)
 {
+    qDebug() << "ConfigPrintDialog::addColumn()";
     QListWidgetItem *col = ui->columnListWidget->currentItem();
     if (!col) {
         //TODO dialog error
@@ -64,6 +69,7 @@ void ConfigPrintDialog::addColumn(void)
 
 void ConfigPrintDialog::removeColumn(void)
 {
+    qDebug() << "ConfigPrintDialog::removeColumn()";
     int row = ui->layoutListWidget->currentRow();
     if (row == -1) {
         //TODO dialog error
@@ -75,6 +81,7 @@ void ConfigPrintDialog::removeColumn(void)
 
 void ConfigPrintDialog::save(void)
 {
+    qDebug() << "ConfigPrintDialog::save()";
     int rowCount = ui->layoutListWidget->count();
 
     if (!rowCount) {

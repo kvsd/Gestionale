@@ -5,6 +5,7 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AnagraficaAddDialog)
 {
+    qDebug() << "AnagraficaAddDialog()";
     ui->setupUi(this); 
 
     initModel();
@@ -16,11 +17,13 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
 
 AnagraficaAddDialog::~AnagraficaAddDialog()
 {
+    qDebug() << "~AnagraficaAddDialog()";
     delete ui;
 }
 
 void AnagraficaAddDialog::setValue(QString id)
 {
+    qDebug() << "AnagraficaAddDialog::setValue()";
     QSqlQuery query;
     query.prepare(anagrafica::SELECT_FROM_ID);
     query.bindValue(":id", id);
@@ -93,6 +96,7 @@ void AnagraficaAddDialog::setValue(QString id)
 
 void AnagraficaAddDialog::initModel()
 {
+    qDebug() << "AnagraficaAddDialog::initModel()";
     modelDitta = new QSqlTableModel(this);
     modelDitta->setTable(table::TIPO_DITTA);
     modelDitta->select();
@@ -121,6 +125,7 @@ void AnagraficaAddDialog::initModel()
 
 void AnagraficaAddDialog::initComboBox()
 {
+    qDebug() << "AnagraficaAddDialog::initComboBox()";
     ui->cb_tipo_ditta->setModel(modelDitta);
     ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_MODEL_DESCR);
 
@@ -143,6 +148,7 @@ void AnagraficaAddDialog::initComboBox()
 
 void AnagraficaAddDialog::prepareMap(void)
 {
+    qDebug() << "AnagraficaAddDialog::prepareMap()";
     mapPersona[keymap::KEY_RAGSOC] = ui->le_rag_sociale->text();
     mapPersona[keymap::KEY_TIPO_DITTA] = modelDitta->index(ui->cb_tipo_ditta->currentIndex(), anagrafica::COL_ID).data().toString();
     mapPersona[keymap::KEY_CLIENTE] = ui->cliente_cb->isChecked() ? "y" : "n";
@@ -173,6 +179,7 @@ void AnagraficaAddDialog::prepareMap(void)
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
 {
+    qDebug() << "AnagraficaAddDialog::prepareQuery()";
     QSqlQuery query;
     if (mapPersona.contains(keymap::KEY_ID)) {
         query.prepare(anagrafica::UPDATE_QUERY);
@@ -213,6 +220,7 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
 
 void AnagraficaAddDialog::save(void)
 {
+    qDebug() << "AnagraficaAddDialog::save()";
     prepareMap();
 
     if (mapPersona[keymap::KEY_RAGSOC].isEmpty()) {
@@ -264,31 +272,37 @@ void AnagraficaAddDialog::save(void)
 
 void AnagraficaAddDialog::openAddTipoditta(void)
 {
+    qDebug() << "AnagraficaAddDialog::openAddTipoDitta()";
     allDlg(this, modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
 }
 
 void AnagraficaAddDialog::openAddCitta(void)
 {
+    qDebug() << "AnagraficaAddDialog::openAddCitta()";
     allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
 }
 
 void AnagraficaAddDialog::openAddProvincia(void)
 {
+    qDebug() << "AnagraficaAddDialog::openAddProvincia";
     allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017
 }
 
 void AnagraficaAddDialog::openAddCap(void)
 {
+    qDebug() << "AnagraficaAddDialog::openAddCap()";
     allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018
 }
 
 void AnagraficaAddDialog::openAddStato(void)
 {
+    qDebug() << "AnagraficaAddDialog::openAddStato()";
     allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019
 }
 
 void AnagraficaAddDialog::openAddAgente(void)
 {
+    qDebug() << "AnagraficaAddDialog::openAddAgente()";
     AgentiAddDialog dlg(this);
     bool ok = dlg.exec();
     if (ok) {
@@ -298,5 +312,6 @@ void AnagraficaAddDialog::openAddAgente(void)
 
 void AnagraficaAddDialog::copyPrtIva(void)
 {
+    qDebug() << "AnagraficaAddDialog::copyPrtIva()";
     ui->le_cod_fiscale->setText(ui->le_piva->text());
 }

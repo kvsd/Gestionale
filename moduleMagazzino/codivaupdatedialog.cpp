@@ -5,6 +5,7 @@ codIvaUpdateDialog::codIvaUpdateDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::codIvaUpdateDialog)
 {
+    qDebug() << "codIvaUpdateDialog()";
     ui->setupUi(this);
 
     initModel();
@@ -13,11 +14,13 @@ codIvaUpdateDialog::codIvaUpdateDialog(QWidget *parent) :
 
 codIvaUpdateDialog::~codIvaUpdateDialog()
 {
+    qDebug() << "~codIvaUpdateDialog()";
     delete ui;
 }
 
 void codIvaUpdateDialog::initModel(void)
 {
+    qDebug() << "codIvaUpdateDialog::initModel()";
     oldIvaModel = new QSqlTableModel(this);
     oldIvaModel->setTable(table::CODICE_IVA);
     oldIvaModel->select();
@@ -29,6 +32,7 @@ void codIvaUpdateDialog::initModel(void)
 
 void codIvaUpdateDialog::initComboBox(void)
 {
+    qDebug() << "codIvaUpdateDialog::initComboBox()";
     ui->oldCodIvaComboBox->setModel(oldIvaModel);
     ui->oldCodIvaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
@@ -38,6 +42,7 @@ void codIvaUpdateDialog::initComboBox(void)
 
 void codIvaUpdateDialog::updateIva(void)
 {
+    qDebug() << "codIvaUpdateDialog::updateIva()";
     QString oldIvaId = oldIvaModel->index(ui->oldCodIvaComboBox->currentIndex(), magazzino::COL_MG_ID).data().toString();
     QString newIvaId = oldIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_MG_ID).data().toString();
 

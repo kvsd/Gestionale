@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>anagraficaWindow</class>
- <widget class="QMainWindow" name="anagraficaWindow">
+ <class>AnagraficaWindow</class>
+ <widget class="QMainWindow" name="AnagraficaWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -221,7 +221,7 @@
      <x>0</x>
      <y>0</y>
      <width>708</width>
-     <height>20</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpzioni">
@@ -326,7 +326,7 @@
   <connection>
    <sender>addButton</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>addRecord()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -342,7 +342,7 @@
   <connection>
    <sender>updateButton</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -358,7 +358,7 @@
   <connection>
    <sender>removeButton</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>removeRecord()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -374,7 +374,7 @@
   <connection>
    <sender>closeButton</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -390,7 +390,7 @@
   <connection>
    <sender>clientiCheckBox</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -406,7 +406,7 @@
   <connection>
    <sender>fornitoriCheckBox</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -422,7 +422,7 @@
   <connection>
    <sender>searchLineEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>searchRecord()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -454,7 +454,7 @@
   <connection>
    <sender>anagraficaView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -470,7 +470,7 @@
   <connection>
    <sender>actionConfigura</sender>
    <signal>triggered()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>openConfigDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -486,7 +486,7 @@
   <connection>
    <sender>refreshButton</sender>
    <signal>clicked()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -502,7 +502,7 @@
   <connection>
    <sender>actionRagioneSociale</sender>
    <signal>changed()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -518,7 +518,7 @@
   <connection>
    <sender>actionCognome</sender>
    <signal>changed()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -534,7 +534,7 @@
   <connection>
    <sender>actionPartitaIVA</sender>
    <signal>changed()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -550,7 +550,7 @@
   <connection>
    <sender>actionCodiceFiscale</sender>
    <signal>changed()</signal>
-   <receiver>anagraficaWindow</receiver>
+   <receiver>AnagraficaWindow</receiver>
    <slot>updateStringSearch()</slot>
    <hints>
     <hint type="sourcelabel">

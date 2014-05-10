@@ -2,6 +2,7 @@
 
 QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
 {
+    qDebug() << "magazzino::prepareMapsNameColsArticolo()";
     QMap <int,QString> magazzinoNameCols;
 
     magazzinoNameCols[COL_MG_ID] = CMP_ID;              //Id
@@ -34,6 +35,7 @@ QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
 
 QMap<int,QString> magazzino::prepareMapsNameColsStorico()
 {
+    qDebug() << "magazzino::prepareMapsNameColsStorico()";
     QMap <int,QString> storicoNameCols;
 
     storicoNameCols[COL_ST_ID_ARTICOLO] = CMP_ID_ART;   //Id Articolo

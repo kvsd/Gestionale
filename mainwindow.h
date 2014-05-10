@@ -16,6 +16,7 @@
 #include <QSettings>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -33,7 +34,7 @@ private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QSettings settings;
-    anagraficaWindow *anagraficaMW;
+    AnagraficaWindow *anagraficaMW;
     MagazzinoWindow *magazzinoMW;
 
 

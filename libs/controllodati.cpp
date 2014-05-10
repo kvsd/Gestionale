@@ -2,6 +2,7 @@
 
 bool controlloPartitaIva(QString s)
 {
+    qDebug() << "controlloPartitaIva()";
     //La partita iva ha una lunghezza di 11 cifre
     if (s.length() != LENGHT_PAR_IVA) {
         return false;
@@ -41,6 +42,7 @@ bool controlloPartitaIva(QString s)
 
 bool controlloCodiceFiscale(QString s)
 {
+    qDebug() << "controlloCodiceFiscale()";
     //Il codice fiscale ha una lunghezza di 16 cifre
     if (s.length() != LENGHT_COD_FISCALE) {
         return false;

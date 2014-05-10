@@ -24,6 +24,7 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AziendaDialog)
 {
+    qDebug() << "AziendaDialog()";
     ui->setupUi(this);
 
     modelCitta = new QSqlTableModel(this);
@@ -55,31 +56,37 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
 
 AziendaDialog::~AziendaDialog()
 {
+    qDebug() << "~AziendaDialog()";
     delete ui;
 }
 
 void AziendaDialog::open_add_citta(void)
 {
+    qDebug() << "AziendaDialog::open_add_citta()";
     allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016.1
 }
 
 void AziendaDialog::open_add_provincia(void)
 {
+    qDebug() << "AziendaDialog::open_add_provincia()";
     allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017.1
 }
 
 void AziendaDialog::open_add_cap(void)
 {
+    qDebug() << "AziendaDialog::open_add_cap()";
     allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018.1
 }
 
 void AziendaDialog::open_add_stato(void)
 {
+    qDebug() << "AziendaDialog::open_add_stato()";
     allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019.1
 }
 
 void AziendaDialog::setValue(QString id)
 {
+    qDebug() << "AziendaDialog::setValue()";
     QSqlQuery query;
     query.prepare(SELECT_QUERY);
     query.bindValue(":id", id);
@@ -123,6 +130,7 @@ void AziendaDialog::setValue(QString id)
 
 void AziendaDialog::prepareMap(void)
 {
+    qDebug() << "AziendaDialog::prepareMap()";
     azienda[keymap::KEY_RAGSOC] = ui->le_rag_sociale->text();
     azienda[keymap::KEY_NOME] = ui->le_nome->text();
     azienda[keymap::KEY_COGNOME] = ui->le_cognome->text();
@@ -142,6 +150,7 @@ void AziendaDialog::prepareMap(void)
 
 void AziendaDialog::save(void)
 {
+    qDebug() << "AziendaDialog::save()";
     prepareMap();    
 
     if (azienda[keymap::KEY_RAGSOC].isEmpty()) {
@@ -202,6 +211,7 @@ void AziendaDialog::save(void)
 
 void AziendaDialog::clearCombobox(void)
 {
+    qDebug() << "AziendaDialog::clearCombobox()";
     ui->cb_citta->setCurrentIndex(0);
     ui->cb_provincia->setCurrentIndex(0);
     ui->cb_cap->setCurrentIndex(0);
@@ -210,6 +220,7 @@ void AziendaDialog::clearCombobox(void)
 
 void AziendaDialog::copy_prt_iva(void)
 {
+    qDebug() << "AziendaDialog::copy_prt_iva()";
     QString prtiva = ui->le_prtiva->text();
     ui->le_codfisc->setText(prtiva);
 }

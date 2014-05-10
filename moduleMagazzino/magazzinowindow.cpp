@@ -5,7 +5,7 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MagazzinoWindow)
 {
-    qDebug() << "MagazzinoWindow";
+    qDebug() << "MagazzinoWindow()";
     ui->setupUi(this);
     this->move(parent->pos());
 
@@ -22,7 +22,7 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
 
 MagazzinoWindow::~MagazzinoWindow()
 {
-    qDebug() << "~MagazzinoWindow";
+    qDebug() << "~MagazzinoWindow()";
     delete ui;
 }
 

@@ -11,16 +11,19 @@ AgentiAddDialog::AgentiAddDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AgentiAddDialog)
 {
+    qDebug() << "AgentiAddDialog()";
     ui->setupUi(this);
 }
 
 AgentiAddDialog::~AgentiAddDialog()
 {
+    qDebug() << "~AgentiAddDialog()";
     delete ui;
 }
 
 void AgentiAddDialog::setValue(QString id)
 {
+    qDebug() << "AgentiAddDialog::setValue()";
     QSqlQuery query;
     query.prepare(SELECT_QUERY);
     query.bindValue(":id", id);
@@ -36,6 +39,7 @@ void AgentiAddDialog::setValue(QString id)
 
 void AgentiAddDialog::save(void)
 {
+    qDebug() << "AgentiAddDialog::save()";
     mapAgente[keymap::KEY_NOME] = ui->nomeLineEdit->text();
     mapAgente[keymap::KEY_COGNOME] = ui->cognomeLineEdit->text();
     mapAgente[keymap::KEY_TEL] = ui->telLineEdit->text();
