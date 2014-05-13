@@ -1,12 +1,6 @@
 #include "agentiadddialog.h"
 #include "ui_agentiadddialog.h"
 
-const QString ADD_QUERY = "INSERT INTO agenti(nome, cognome, tel, cel, email) VALUES(:nome, :cognome, :tel, :cel, :email)";
-const QString UPDATE_QUERY = "UPDATE agenti SET nome=:nome, cognome=:cognome, tel=:tel, cel=:cel, email=:email WHERE id=:id";
-const QString SELECT_QUERY = "SELECT * FROM agenti WHERE id=:id";
-
-const QString CSS_WARNING_STYLE = "background-color: yellow";
-
 AgentiAddDialog::AgentiAddDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AgentiAddDialog)
@@ -25,7 +19,7 @@ void AgentiAddDialog::setValue(QString id)
 {
     qDebug() << "AgentiAddDialog::setValue()";
     QSqlQuery query;
-    query.prepare(SELECT_QUERY);
+    query.prepare(agenti::SELECT_AGENTE);
     query.bindValue(":id", id);
     query.exec();
     query.first();
@@ -48,17 +42,17 @@ void AgentiAddDialog::save(void)
 
     if (mapAgente[keymap::KEY_COGNOME].isEmpty()) {
         showDialogError(this, ERR008, MSG021); //NOTE codice errore 008
-        ui->cognomeLineEdit->setStyleSheet(CSS_WARNING_STYLE);
+        ui->cognomeLineEdit->setStyleSheet(agenti::CSS_WARNING_STYLE);
         return;
     }
 
     QSqlQuery query;
     if (mapAgente.contains(keymap::KEY_ID)) {
-        query.prepare(UPDATE_QUERY);
+        query.prepare(agenti::UPDATE_AGENTE);
         query.bindValue(":id", mapAgente[keymap::KEY_ID]);
     }
     else {
-        query.prepare(ADD_QUERY);
+        query.prepare(agenti::ADD_AGENTE);
     }
 
     query.bindValue(":nome", mapAgente[keymap::KEY_NOME]);

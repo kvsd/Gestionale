@@ -45,7 +45,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     moduleMagazzino/codivaupdatedialog.h \
     moduleMagazzino/configprintdialog.h \
     moduleMagazzino/listinoprintlayout.h \
-    moduleMagazzino/inventarioprintlayout.h
+    moduleMagazzino/inventarioprintlayout.h \
+    moduleAgenti/agenti_const.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \

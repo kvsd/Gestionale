@@ -3,6 +3,7 @@
 
 #include "libs/error.h"
 #include "libs/gestionale_const.h"
+#include "agenti_const.h"
 
 #include <QDialog>
 #include <QMap>

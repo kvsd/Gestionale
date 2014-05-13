@@ -1,12 +1,6 @@
 #include "agentiviewdialog.h"
 #include "ui_agentiviewdialog.h"
 
-const QString ADD_QUERY = "INSERT INTO agenti(nome, cognome, tel, cel, email) VALUES(:nome, :cognome, :tel, :cel, :email)";
-const QString UPDATE_QUERY = "UPDATE agenti SET nome=:nome, cognome=:cognome, tel=:tel, cel=:cel, email=:email WHERE id=:id";
-const QString DELETEQUERY = "DELETE FROM agenti WHERE id=:id";
-const QString SELECT_QUERY = "SELECT * FROM agenti WHERE id>0 ORDER BY cognome";
-const QString STR_SEARCH = "SELECT * FROM agenti WHERE \"cognome\" ILIKE '\%%1\%' AND id>0 ORDER BY cognome";
-
 AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AgentiViewDialog)
@@ -14,7 +8,7 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     qDebug() << "AgentiViewDialog()";
     ui->setupUi(this);
     modelAgenti = new QSqlQueryModel(this);
-    modelAgenti->setQuery(SELECT_QUERY);
+    modelAgenti->setQuery(agenti::SELECT_AGENTI);
     modelAgenti->setHeaderData(agenti::COL_NOME, Qt::Horizontal, "Nome");
     modelAgenti->setHeaderData(agenti::COL_COGNOME, Qt::Horizontal, "Cognome");
     modelAgenti->setHeaderData(agenti::COL_TEL, Qt::Horizontal, "Telefono");
@@ -25,7 +19,7 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     ui->agentiView->hideColumn(agenti::COL_ID);
     ui->agentiView->resizeColumnsToContents();
 
-    this->setGeometry(settings.value("AgentiViewDlg.size", QRect(0, 0, 700, 500)).toRect());
+    this->setGeometry(settings.value(agenti::WINDOW_SIZE, QRect(0, 0, 700, 500)).toRect());
 }
 
 AgentiViewDialog::~AgentiViewDialog()
@@ -37,7 +31,7 @@ AgentiViewDialog::~AgentiViewDialog()
 void AgentiViewDialog::closeEvent(QCloseEvent *event)
 {
     qDebug() << "AgentiViewDialog::closeEvent()";
-    settings.setValue("AgentiViewDlg.size", this->geometry());
+    settings.setValue(agenti::WINDOW_SIZE, this->geometry());
     event->accept();
 }
 
@@ -45,7 +39,7 @@ void AgentiViewDialog::updateViewAgenti(void)
 {
     qDebug() << "AgentiViewDialog::updateViewAgenti()";
     ui->searchLineEdit->clear();
-    modelAgenti->setQuery(SELECT_QUERY);
+    modelAgenti->setQuery(agenti::SELECT_AGENTI);
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
 }
@@ -96,7 +90,7 @@ void AgentiViewDialog::removeRecord(void)
     }
 
     QSqlQuery query;
-    query.prepare(DELETEQUERY);
+    query.prepare(agenti::DELETE_AGENTE);
     query.bindValue(":id", id);
     if (!query.exec()) {
         showDialogError(this, ERR014, MSG003, query.lastError().text()); //NOTE codice errore 014
@@ -116,7 +110,7 @@ void AgentiViewDialog::searchRecord()
         return;
     }
 
-    QString query(STR_SEARCH);
+    QString query(agenti::SEARCH_AGENTI);
     modelAgenti->setQuery(query.arg(s));
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);

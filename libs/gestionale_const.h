@@ -3,15 +3,6 @@
 
 #include <QString>
 
-namespace agenti {
-    enum columns {COL_ID,
-                  COL_NOME,
-                  COL_COGNOME,
-                  COL_TEL,
-                  COL_CEL,
-                  COL_EMAIL};
-}
-
 namespace azienda {
     enum columns {COL_ID,
                   COL_RAG_SOC, COL_DESCR=1,
