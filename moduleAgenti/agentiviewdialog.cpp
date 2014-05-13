@@ -8,7 +8,7 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     qDebug() << "AgentiViewDialog()";
     ui->setupUi(this);
     modelAgenti = new QSqlQueryModel(this);
-    modelAgenti->setQuery(agenti::SELECT_AGENTI);
+    modelAgenti->setQuery(agenti::SQL_SELECT_AGENTI);
     modelAgenti->setHeaderData(agenti::COL_NOME, Qt::Horizontal, "Nome");
     modelAgenti->setHeaderData(agenti::COL_COGNOME, Qt::Horizontal, "Cognome");
     modelAgenti->setHeaderData(agenti::COL_TEL, Qt::Horizontal, "Telefono");
@@ -39,7 +39,7 @@ void AgentiViewDialog::updateViewAgenti(void)
 {
     qDebug() << "AgentiViewDialog::updateViewAgenti()";
     ui->searchLineEdit->clear();
-    modelAgenti->setQuery(agenti::SELECT_AGENTI);
+    modelAgenti->setQuery(agenti::SQL_SELECT_AGENTI);
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
 }
@@ -90,8 +90,8 @@ void AgentiViewDialog::removeRecord(void)
     }
 
     QSqlQuery query;
-    query.prepare(agenti::DELETE_AGENTE);
-    query.bindValue(":id", id);
+    query.prepare(agenti::SQL_DELETE_AGENTE);
+    query.bindValue(agenti::PH_ID, id);
     if (!query.exec()) {
         showDialogError(this, ERR014, MSG003, query.lastError().text()); //NOTE codice errore 014
         return;
@@ -110,7 +110,7 @@ void AgentiViewDialog::searchRecord()
         return;
     }
 
-    QString query(agenti::SEARCH_AGENTI);
+    QString query(agenti::SQL_SEARCH_AGENTI);
     modelAgenti->setQuery(query.arg(s));
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
