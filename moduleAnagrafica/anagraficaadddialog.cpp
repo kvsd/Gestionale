@@ -26,7 +26,7 @@ void AnagraficaAddDialog::setValue(QString id)
     qDebug() << "AnagraficaAddDialog::setValue()";
     QSqlQuery query;
     query.prepare(anagrafica::SELECT_FROM_ID);
-    query.bindValue(":id", id);
+    query.bindValue(anagrafica::PH_ID, id);
     query.exec();
     query.first();
 
@@ -183,38 +183,38 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
     QSqlQuery query;
     if (mapPersona.contains(keymap::KEY_ID)) {
         query.prepare(anagrafica::UPDATE_QUERY);
-        query.bindValue(":id", mapPersona[keymap::KEY_ID]);
+        query.bindValue(anagrafica::PH_ID, mapPersona[keymap::KEY_ID]);
     }
     else {
         query.prepare(anagrafica::INSERT_QUERY);
     }
 
-    query.bindValue(":fornitore",mapPersona[keymap::KEY_FORNITORE]);
-    query.bindValue(":cliente",mapPersona[keymap::KEY_CLIENTE]);
-    query.bindValue(":rag_sociale",mapPersona[keymap::KEY_RAGSOC]);
-    query.bindValue(":id_tipo_ditta",mapPersona[keymap::KEY_TIPO_DITTA]);
-    query.bindValue(":nome",mapPersona[keymap::KEY_NOME]);
-    query.bindValue(":cognome",mapPersona[keymap::KEY_COGNOME]);
-    query.bindValue(":indirizzo",mapPersona[keymap::KEY_INDIRIZZO]);
-    query.bindValue(":id_citta",mapPersona[keymap::KEY_ID_CITTA]);
-    query.bindValue(":id_provincia",mapPersona[keymap::KEY_ID_PROVINCIA]);
-    query.bindValue(":id_cap",mapPersona[keymap::KEY_ID_CAP]);
-    query.bindValue(":id_stato",mapPersona[keymap::KEY_ID_STATO]);
-    query.bindValue(":cod_fisc",mapPersona[keymap::KEY_COD_FISCALE]);
-    query.bindValue(":prt_iva",mapPersona[keymap::KEY_PRT_IVA]);
-    query.bindValue(":id_agente",mapPersona[keymap::KEY_AGENTE]);
-    query.bindValue(":tel",mapPersona[keymap::KEY_TEL]);
-    query.bindValue(":fax",mapPersona[keymap::KEY_FAX]);
-    query.bindValue(":cel",mapPersona[keymap::KEY_CEL]);
-    query.bindValue(":email",mapPersona[keymap::KEY_EMAIL]);
-    query.bindValue(":sito_web",mapPersona[keymap::KEY_WEB]);
-    query.bindValue(":banca",mapPersona[keymap::KEY_BANCA]);
-    query.bindValue(":agenzia",mapPersona[keymap::KEY_AGENZIA]);
-    query.bindValue(":conto",mapPersona[keymap::KEY_CONTO]);
-    query.bindValue(":swift",mapPersona[keymap::KEY_SWIFT]);
-    query.bindValue(":iban",mapPersona[keymap::KEY_IBAN]);
-    query.bindValue(":dest_merce",mapPersona[keymap::KEY_DESTMERCE]);
-    query.bindValue(":note",mapPersona[keymap::KEY_NOTE]);
+    query.bindValue(anagrafica::PH_FORNITORE, mapPersona[keymap::KEY_FORNITORE]);
+    query.bindValue(anagrafica::PH_CLIENTE, mapPersona[keymap::KEY_CLIENTE]);
+    query.bindValue(anagrafica::PH_RAG_SOCIALE, mapPersona[keymap::KEY_RAGSOC]);
+    query.bindValue(anagrafica::PH_TIPO_DITTA, mapPersona[keymap::KEY_TIPO_DITTA]);
+    query.bindValue(anagrafica::PH_NOME, mapPersona[keymap::KEY_NOME]);
+    query.bindValue(anagrafica::PH_COGNOME, mapPersona[keymap::KEY_COGNOME]);
+    query.bindValue(anagrafica::PH_INDIRIZZO, mapPersona[keymap::KEY_INDIRIZZO]);
+    query.bindValue(anagrafica::PH_CITTA, mapPersona[keymap::KEY_ID_CITTA]);
+    query.bindValue(anagrafica::PH_PROVINCIA, mapPersona[keymap::KEY_ID_PROVINCIA]);
+    query.bindValue(anagrafica::PH_CAP, mapPersona[keymap::KEY_ID_CAP]);
+    query.bindValue(anagrafica::PH_STATO, mapPersona[keymap::KEY_ID_STATO]);
+    query.bindValue(anagrafica::PH_COD_FISCALE, mapPersona[keymap::KEY_COD_FISCALE]);
+    query.bindValue(anagrafica::PH_PRT_IVA, mapPersona[keymap::KEY_PRT_IVA]);
+    query.bindValue(anagrafica::PH_AGENTE, mapPersona[keymap::KEY_AGENTE]);
+    query.bindValue(anagrafica::PH_TEL, mapPersona[keymap::KEY_TEL]);
+    query.bindValue(anagrafica::PH_FAX, mapPersona[keymap::KEY_FAX]);
+    query.bindValue(anagrafica::PH_CEL, mapPersona[keymap::KEY_CEL]);
+    query.bindValue(anagrafica::PH_EMAIL, mapPersona[keymap::KEY_EMAIL]);
+    query.bindValue(anagrafica::PH_SITO_WEB, mapPersona[keymap::KEY_WEB]);
+    query.bindValue(anagrafica::PH_BANCA, mapPersona[keymap::KEY_BANCA]);
+    query.bindValue(anagrafica::PH_AGENZIA, mapPersona[keymap::KEY_AGENZIA]);
+    query.bindValue(anagrafica::PH_CONTO, mapPersona[keymap::KEY_CONTO]);
+    query.bindValue(anagrafica::PH_SWIFT, mapPersona[keymap::KEY_SWIFT]);
+    query.bindValue(anagrafica::PH_IBAN, mapPersona[keymap::KEY_IBAN]);
+    query.bindValue(anagrafica::PH_DEST_MERCE, mapPersona[keymap::KEY_DESTMERCE]);
+    query.bindValue(anagrafica::PH_NOTE, mapPersona[keymap::KEY_NOTE]);
     return query;
 }
 

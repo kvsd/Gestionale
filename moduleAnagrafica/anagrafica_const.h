@@ -5,11 +5,18 @@
 
 namespace anagrafica {
 
+    //SETTINGS
     const QString SEARCH_RAGSOCL = "AnagraficaWindow.search.ragcociale";
     const QString SEARCH_COGNOME = "AnagraficaWindow.search.cognome";
     const QString SEARCH_CODFISC = "AnagraficaWindow.search.codfisc";
     const QString SEARCH_PIVA = "AnagraficaWindow.search.piva";
+    const QString CSS_WARNING_STYLE = "background-color:yellow";
+    const QString ANGRFC_STATUS ="AnagraficaColsStatus";
+    const QString ANGRFC_COLORS = "AnagraficaColsColors";
+    const QString ANGRFC_HEADER = "AnagraficaWindow.header";
+    const QString ANGRFC_SIZE = "AnagraficaWindow.size";
 
+    //SQL
     const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
     const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
     const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";
@@ -19,13 +26,36 @@ namespace anagrafica {
     const QString UPDATE_QUERY = "UPDATE anagrafica SET fornitore=:fornitore, cliente=:cliente, rag_sociale=:rag_sociale, id_tipo_ditta=:id_tipo_ditta, nome=:nome, cognome=:cognome, indirizzo=:indirizzo, id_citta=:id_citta, id_provincia=:id_provincia, id_cap=:id_cap, id_stato=:id_stato, cod_fisc=:cod_fisc, prt_iva=:prt_iva, id_agente=:id_agente, tel=:tel, fax=:fax, cel=:cel, email=:email, sito_web=:sito_web, banca=:banca, agenzia=:agenzia, conto=:conto, swift=:swift, iban=:iban, dest_merce=:dest_merce, note=:note WHERE id=:id";
     const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
 
-    const QString CSS_WARNING_STYLE = "background-color:yellow";
+    //PLACEHOLDERS SQL
+    const QString PH_ID = ":id";
+    const QString PH_FORNITORE = ":fornitore";
+    const QString PH_CLIENTE = ":cliente";
+    const QString PH_RAG_SOCIALE = ":rag_sociale";
+    const QString PH_TIPO_DITTA = ":id_tipo_ditta";
+    const QString PH_NOME = ":nome";
+    const QString PH_COGNOME = ":cognome";
+    const QString PH_INDIRIZZO = ":indirizzo";
+    const QString PH_CITTA = ":id_citta";
+    const QString PH_PROVINCIA = ":id_provincia";
+    const QString PH_CAP = ":id_cap";
+    const QString PH_STATO = ":id_stato";
+    const QString PH_COD_FISCALE = ":cod_fisc";
+    const QString PH_PRT_IVA = ":prt_iva";
+    const QString PH_AGENTE = ":id_agente";
+    const QString PH_TEL = ":tel";
+    const QString PH_FAX = ":fax";
+    const QString PH_CEL = ":cel";
+    const QString PH_EMAIL = ":email";
+    const QString PH_SITO_WEB = ":sito_web";
+    const QString PH_BANCA = "banca";
+    const QString PH_AGENZIA = ":agenzia";
+    const QString PH_CONTO = ":conto";
+    const QString PH_SWIFT = ":swift";
+    const QString PH_IBAN = ":iban";
+    const QString PH_DEST_MERCE = ":dest_merce";
+    const QString PH_NOTE = ":note";
 
-    const QString ANGRFC_STATUS ="AnagraficaColsStatus";
-    const QString ANGRFC_COLORS = "AnagraficaColsColors";
-    const QString ANGRFC_HEADER = "AnagraficaWindow.header";
-    const QString ANGRFC_SIZE = "AnagraficaWindow.size";
-
+    //COLS
     enum columns {COL_ID,
                   COL_FORNITORE, COL_MODEL_DESCR = 1,
                   COL_CLIENTE, COL_MODEL_COGNOME = 2,
