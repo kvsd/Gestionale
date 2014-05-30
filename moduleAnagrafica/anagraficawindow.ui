@@ -142,18 +142,13 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="frame_2">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QPushButton" name="addButton">
            <property name="text">
@@ -168,13 +163,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="updateButton">
-           <property name="text">
-            <string>&amp;Modifica</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="removeButton">
            <property name="text">
             <string>&amp;Rimuovi</string>
@@ -182,9 +170,16 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="updateButton">
+           <property name="text">
+            <string>&amp;Modifica</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="refreshButton">
            <property name="text">
-            <string>Aggiorna</string>
+            <string>A&amp;ggiorna</string>
            </property>
           </widget>
          </item>
@@ -235,7 +230,7 @@
    </widget>
    <widget class="QMenu" name="menuRicerca">
     <property name="title">
-     <string>Ricerca</string>
+     <string>R&amp;icerca</string>
     </property>
     <widget class="QMenu" name="menuRicerca_veloce">
      <property name="title">

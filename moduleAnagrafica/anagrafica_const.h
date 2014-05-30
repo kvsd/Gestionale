@@ -2,6 +2,7 @@
 #define ANAGRAFICA_CONST_H
 
 #include <QString>
+#include <QRect>
 
 namespace anagrafica {
 
@@ -15,6 +16,8 @@ namespace anagrafica {
     const QString ANGRFC_COLORS = "AnagraficaColsColors";
     const QString ANGRFC_HEADER = "AnagraficaWindow.header";
     const QString ANGRFC_SIZE = "AnagraficaWindow.size";
+
+    const QRect DEFAULT_SIZE = QRect(0, 0, 700, 500);
 
     //SQL
     const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";

@@ -14,8 +14,6 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
 
     this->move(parent->pos());
 
-    updateViewAnagrafica();
-
     str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
 
     ui->docView->setShown(false);
@@ -32,7 +30,7 @@ AnagraficaWindow::~AnagraficaWindow()
 void AnagraficaWindow::loadConfigSettings()
 {
     qDebug() << "AnagraficaWindow::loadConfigSettings()";
-    this->setGeometry(settings.value(anagrafica::ANGRFC_SIZE, QRect(0, 0, 700, 500)).toRect());
+    this->setGeometry(settings.value(anagrafica::ANGRFC_SIZE, anagrafica::DEFAULT_SIZE).toRect());
 
     //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
     //salva anche lo stato delle colonne (mostra/nascondi), quindi bisogna caricarle
@@ -136,7 +134,7 @@ void AnagraficaWindow::removeRecord(void)
 
     QSqlQuery query;
     query.prepare(anagrafica::DELETE_QUERY);
-    query.bindValue(":id", id);
+    query.bindValue(anagrafica::PH_ID, id);
     if (!query.exec()) {
         showDialogError(this, ERR028, MSG003, query.lastError().text()); //NOTE codice errore 028
     }
