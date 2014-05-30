@@ -9,9 +9,11 @@ namespace magazzino {
 
     const int TAB_MAGAZZINO = 0;
     const int TAB_STORICO = 1;
+    const QString CSV_VERSION = "CSV::1.0";
+    const QRect DEFAULT_WINDOW_SIZE = QRect(0, 0, 700, 500);
 
+    //SETTINGS
     const QString DEFAULT_IVA = "default.civa";
-
     const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
     const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
     const QString ARTICOLO_HEADER = "MagazzinoWindow.header.articolo";
@@ -21,7 +23,6 @@ namespace magazzino {
     const QString STORICO_HEADER = "MagazzinoWindow.header.storico";
 
     const QString WINDOW_SIZE = "MagazzinoWindow.size";
-    const QRect DEFAULT_WINDOW_SIZE = QRect(0, 0, 700, 500);
     const QString SPLITTER1_SIZE = "MagazzinoWindow.size.splitter1";
     const QString SPLITTER2_SIZE = "MagazzinoWindow.size.splitter2";
 
@@ -33,6 +34,7 @@ namespace magazzino {
     const QString LISTINO_COLS_ORDER = "Listino.columns.orders";
     const QString LISTINO_PAGE_LAYOUT = "Listino.page.layout";
 
+    //SQL
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
 
     const QString SELECT_FILTER = "SELECT id, descr FROM %1";
@@ -48,7 +50,6 @@ namespace magazzino {
     const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
     const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
 
-    const QString CSV_VERSION = "CSV::1.0";
     const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
     const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, ricarico, prezzo_acquisto, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :ricarico, :prezzo_acquisto, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
@@ -97,7 +98,7 @@ namespace magazzino {
     QMap<int,QString> prepareMapsNameColsArticolo();
     QMap<int,QString> prepareMapsNameColsStorico();
 
-    //PH PlaceHolder
+    //PH SQL PlaceHolder
     const QString PH_ID      = ":id";
     const QString PH_DESCR   = ":descr";
     const QString PH_ID_FORN = ":id_fornitore";
@@ -124,6 +125,7 @@ namespace magazzino {
     const QString PH_NOTE    = ":note";
     const QString PH_ID_ART  = ":id_articolo";
 
+    //CMP Nome Campo Tabella sql
     const QString CMP_ID      = "Id";
     const QString CMP_DESCR   = "Descrizione";
     const QString CMP_FORNIT  = "Fornitore";

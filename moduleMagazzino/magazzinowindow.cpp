@@ -15,9 +15,6 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
 
     ui->data1LineEdit->setDate(QDate::currentDate());
     ui->data2LineEdit->setDate(QDate::currentDate());
-
-//    importMagazzinoCvs();
-//    importStoricoCvs();
 }
 
 MagazzinoWindow::~MagazzinoWindow()
