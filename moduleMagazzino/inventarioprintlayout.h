@@ -12,6 +12,7 @@
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QDate>
+#include "magazzino_const.h"
 
 class InventarioPrintLayout
 {
@@ -27,9 +28,6 @@ private:
     QSqlQueryModel *articoloModel;
     int pageWidth;
     int pageHeight;
-    int titleHeight;
-    int colHeight;
-    int margin;
     float colWidth;
     QString titleStr;
 

@@ -3,10 +3,9 @@
 InventarioPrintLayout::InventarioPrintLayout(QWidget *parent)
 {
     qDebug() << "InventarioPrintLayout()";
-    const QString INVENTARIO_ROW = QString::fromUtf8("SELECT \"Quantità\", \"Descrizione\", \"Prezzo Acquisto\", \"Quantità\"*\"Imponibile\" As \"SubTotale\" FROM vw_magazzino WHERE \"Quantità\"!=0 ORDER BY \"Descrizione\" ");
 
     articoloModel = new QSqlQueryModel;
-    articoloModel->setQuery(INVENTARIO_ROW);
+    articoloModel->setQuery(magazzino::SELECT_INVENTARIO);
 
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
@@ -16,26 +15,25 @@ InventarioPrintLayout::InventarioPrintLayout(QWidget *parent)
         painter->begin(printer);
         initPainter();
 
-        titleStr = QString("%1 Inventario anno %2 pag.%3").arg("Fer.Ba.snc", QDate::currentDate().toString("yyyy"));
-        titleHeight = 500;
-        colHeight = 300;
-        margin = 50;
+        titleStr = QString("Inventario %1 anno %2 pag.%3").arg("Fer.Ba.snc", QDate::currentDate().toString("yyyy"));
         pageHeight = printer->height();
         pageWidth = printer->width();
         colWidth = pageWidth/6;
 
-        title = QRect(0, 0, pageWidth, titleHeight);
-        col1 = QRect(colWidth*0+margin, 0, (colWidth*1)-margin*2, colHeight);
-        col2 = QRect(colWidth*1+margin, 0, (colWidth*3)-margin*2, colHeight);
-        col3 = QRect(colWidth*4+margin, 0, (colWidth*1)-margin*2, colHeight);
-        col4 = QRect(colWidth*5+margin, 0, (colWidth*1)-margin*2, colHeight);
+        const int leftMargin = magazzino::PRINT_MARGINS;
+        const int rightMargin = magazzino::PRINT_MARGINS*2;
+
+        title = QRect(0, 0, pageWidth, magazzino::PRINT_TITLE_HEIGHT);
+        col1 = QRect(colWidth*0+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
+        col2 = QRect(colWidth*1+leftMargin, 0, (colWidth*3)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
+        col3 = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
+        col4 = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
 
         printHeader(titleStr.arg(1));
         printData();
         painter->end();
     }    
 }
-
 
 InventarioPrintLayout::~InventarioPrintLayout()
 {
@@ -53,17 +51,19 @@ void InventarioPrintLayout::printHeader(QString titleStr)
 
     //Stampo l'intestazione delle tabelle
     setRow(0);
-    painter->drawText(col1, Qt::AlignCenter, QString::fromUtf8("Quantità"));
-    painter->drawText(col2, Qt::AlignCenter, "Descrizione");
-    painter->drawText(col3, Qt::AlignCenter, "Prezzo Acquisto");
-    painter->drawText(col4, Qt::AlignCenter, "SubTotale");
+    painter->drawText(col1, Qt::AlignCenter, magazzino::CMP_QT);
+    painter->drawText(col2, Qt::AlignCenter, magazzino::CMP_DESCR);
+    painter->drawText(col3, Qt::AlignCenter, magazzino::CMP_PRZ_ACQ);
+    painter->drawText(col4, Qt::AlignCenter, magazzino::CMP_SUBTOT);
 
     //Stampo la cornice dell'intestazione
-    painter->drawLine(0, titleHeight, pageWidth, titleHeight);
-    painter->drawLine(0, titleHeight+colHeight, pageWidth, titleHeight+colHeight);
+    painter->drawLine(0, magazzino::PRINT_TITLE_HEIGHT, pageWidth, magazzino::PRINT_TITLE_HEIGHT);
+    painter->drawLine(0, magazzino::PRINT_TITLE_HEIGHT+magazzino::PRINT_COLS_HEIGHT,
+                      pageWidth, magazzino::PRINT_TITLE_HEIGHT+magazzino::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
         if (i==2 || i==3) continue;
-        painter->drawLine(colWidth*i, titleHeight, colWidth*i, titleHeight+colHeight);
+        painter->drawLine(colWidth*i, magazzino::PRINT_TITLE_HEIGHT,
+                          colWidth*i, magazzino::PRINT_TITLE_HEIGHT+magazzino::PRINT_COLS_HEIGHT);
     }
 }
 
@@ -72,27 +72,27 @@ void InventarioPrintLayout::printRow(int row, QSqlRecord record)
     qDebug() << "InventarioPrintLayout::printRow()";
     setRow(row);
 
-    QString quantita    = record.value(QString::fromUtf8("Quantità")).toString();
-    QString descrizione = record.value("Descrizione").toString();
-    QString imponibile  = record.value("Prezzo Acquisto").toString();
-    QString subtotale   = record.value("SubTotale").toString();
+    QString col1Value = record.value(magazzino::CMP_QT).toString();
+    QString col2Value = record.value(magazzino::CMP_DESCR).toString();
+    QString col3Value = record.value(magazzino::CMP_PRZ_ACQ).toString();
+    QString col4Value = record.value(magazzino::CMP_SUBTOT).toString();
 
-    painter->drawText(col1, Qt::AlignLeft, quantita);
-    painter->drawText(col2, Qt::AlignLeft, descrizione);
-    painter->drawText(col3, Qt::AlignRight, imponibile);
-    painter->drawText(col4, Qt::AlignRight, subtotale);
+    painter->drawText(col1, Qt::AlignLeft, col1Value);
+    painter->drawText(col2, Qt::AlignLeft, col2Value);
+    painter->drawText(col3, Qt::AlignRight, col3Value);
+    painter->drawText(col4, Qt::AlignRight, col4Value);
 
-    painter->drawLine(0, col1.y()+colHeight, pageWidth, col1.y()+colHeight);
+    painter->drawLine(0, col1.y()+magazzino::PRINT_COLS_HEIGHT, pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
         if (i==2 || i==3) continue;
-        painter->drawLine(colWidth*i, col1.y(), colWidth*i, col1.y()+colHeight);
+        painter->drawLine(colWidth*i, col1.y(), colWidth*i, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     }
 }
 
 void InventarioPrintLayout::printData()
 {
     qDebug() << "InventarioPrintLayout::printData()";
-    const int ROW_X_PAGE = (pageHeight-titleHeight)/colHeight;
+    const int ROW_X_PAGE = (pageHeight-magazzino::PRINT_TITLE_HEIGHT)/magazzino::PRINT_COLS_HEIGHT;
     int row = 0;
     for (int i=0, page=1; i<articoloModel->rowCount(); i++, row++) {
         if (i%ROW_X_PAGE == 0 && i!=0) {
@@ -116,27 +116,30 @@ void InventarioPrintLayout::initPainter()
 void InventarioPrintLayout::setRow(int row)
 {
     qDebug() << "InventarioPrintLayout::setRow()";
-    col1.moveTop(row*colHeight+titleHeight);
-    col2.moveTop(row*colHeight+titleHeight);
-    col3.moveTop(row*colHeight+titleHeight);
-    col4.moveTop(row*colHeight+titleHeight);
+    const int y = row*magazzino::PRINT_COLS_HEIGHT+magazzino::PRINT_TITLE_HEIGHT;
+    col1.moveTop(y);
+    col2.moveTop(y);
+    col3.moveTop(y);
+    col4.moveTop(y);
 }
 
 void InventarioPrintLayout::printTotale(int row)
 {
     qDebug() << "InventarioPrintLayout::printTotale()";
     setRow(row);
-    const QString INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
 
-    QSqlQuery query(INVENTARIO_TOT);
+    QSqlQuery query(magazzino::SQL_INVENTARIO_TOT);
     query.first();
     QString totale = query.record().value("Totale").toString();
     QString msg = "Totale: %1";
 
-    QRect coltot(colWidth*4+margin, col1.y(), (colWidth*2)-margin*2, colHeight);
+    const int leftMargin = magazzino::PRINT_MARGINS;
+    const int rightMargin = magazzino::PRINT_MARGINS*2;
+    QRect coltot(colWidth*4+leftMargin, col1.y(), (colWidth*2)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
 
     painter->drawText(coltot, Qt::AlignRight, msg.arg(totale));
-    painter->drawLine(col3.x()-margin, col1.y()+colHeight, pageWidth, col1.y()+colHeight);
-    painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+colHeight);
-    painter->drawLine(colWidth*6, col1.y(), colWidth*6, col1.y()+colHeight);
+    painter->drawLine(col3.x()-magazzino::PRINT_MARGINS, col1.y()+magazzino::PRINT_COLS_HEIGHT,
+                      pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
+    painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+magazzino::PRINT_COLS_HEIGHT);
+    painter->drawLine(colWidth*6, col1.y(), colWidth*6, col1.y()+magazzino::PRINT_COLS_HEIGHT);
 }
