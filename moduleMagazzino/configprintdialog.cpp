@@ -7,8 +7,7 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
 {
     qDebug() << "ConfigPrintDialog()";
     ui->setupUi(this);
-
-    populateList();
+    initComboBoxs();
     loadSettings();
 }
 
@@ -18,86 +17,51 @@ ConfigPrintDialog::~ConfigPrintDialog()
     delete ui;
 }
 
-void ConfigPrintDialog::populateList()
+void ConfigPrintDialog::initComboBoxs()
 {
-    qDebug() << "ConfigPrintDialog::populateList()";
-    nameCols = magazzino::prepareMapsNameColsArticolo();
-    for (QMap<int,QString>::Iterator i = nameCols.begin(); i!=nameCols.end(); i++) {
-        ui->columnListWidget->insertItem(i.key(), i.value());
-        QListWidgetItem *col = ui->columnListWidget->item(i.key());
-        col->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    }
+    qDebug() << "ConfigPrintDialog::initComboBoxs()";
+    using namespace magazzino;
+    QStringList cols;
+    cols << CMP_ID << CMP_DESCR << CMP_FORNIT << CMP_MARCA << CMP_MODELLO << CMP_COD_ART << CMP_COD_FOR <<
+            CMP_COD_EAN << CMP_MERCE << CMP_COD_IVA << CMP_UM << CMP_SCORTA << CMP_QT << CMP_PRZ_FAT <<
+            CMP_SCONTO << CMP_RICAR << CMP_PRZ_ACQ << CMP_IVA << CMP_PRZ_FIN << CMP_PRZ_VEN << CMP_FATTURA <<
+            CMP_DATA << CMP_SEDE << CMP_NOTE << CMP_ID_ART;
+
+    ui->col1ComboBox->addItems(cols);
+    ui->col2ComboBox->addItems(cols);
+    ui->col3ComboBox->addItems(cols);
+    ui->col4ComboBox->addItems(cols);
 }
 
 void ConfigPrintDialog::loadSettings()
 {
     qDebug() << "ConfigPrintDialog::loadSettings()";
-    QStringList default_list;
-    default_list.append(nameCols.value(5));
-    default_list.append(nameCols.value(1));
-    default_list.append(nameCols.value(16));
-    default_list.append(nameCols.value(18));
-    default_list.append(nameCols.value(19));
+    QString col1 = settings.value(magazzino::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
+    QString col2 = settings.value(magazzino::LISTINO_COL2, magazzino::CMP_DESCR).toString();
+    QString col3 = settings.value(magazzino::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();
+    QString col4 = settings.value(magazzino::LISTINO_COL4, magazzino::CMP_PRZ_FIN).toString();
 
-    QStringList cols_list = settings.value(magazzino::LISTINO_COLS_ORDER, default_list).toStringList();
-    int length = cols_list.length();
-    for (int i=0; i<length; i++) {
-        ui->layoutListWidget->addItem(cols_list[i]);
-    }
+    int idCol1 = ui->col1ComboBox->findText(col1);
+    int idCol2 = ui->col1ComboBox->findText(col2);
+    int idCol3 = ui->col1ComboBox->findText(col3);
+    int idCol4 = ui->col1ComboBox->findText(col4);
 
-    QString page_layout = settings.value(magazzino::LISTINO_PAGE_LAYOUT, "vertical").toString();
-    if (page_layout == "vertical")
-        ui->verticalPage->setChecked("true");
-    else
-        ui->horizontalPage->setChecked("true");
+    ui->col1ComboBox->setCurrentIndex(idCol1);
+    ui->col2ComboBox->setCurrentIndex(idCol2);
+    ui->col3ComboBox->setCurrentIndex(idCol3);
+    ui->col4ComboBox->setCurrentIndex(idCol4);
 }
 
-void ConfigPrintDialog::addColumn(void)
-{
-    qDebug() << "ConfigPrintDialog::addColumn()";
-    QListWidgetItem *col = ui->columnListWidget->currentItem();
-    if (!col) {
-        //TODO dialog error
-        return;
-    }
-    ui->layoutListWidget->addItem(col->text());
-
-    int length = ui->layoutListWidget->count();
-    if (length > 5)
-        ui->horizontalPage->setChecked(true);
-}
-
-void ConfigPrintDialog::removeColumn(void)
-{
-    qDebug() << "ConfigPrintDialog::removeColumn()";
-    int row = ui->layoutListWidget->currentRow();
-    if (row == -1) {
-        //TODO dialog error
-        return;
-    }
-    QListWidgetItem *col = ui->layoutListWidget->takeItem(row);
-    delete col;
-}
-
-void ConfigPrintDialog::save(void)
+void ConfigPrintDialog::save()
 {
     qDebug() << "ConfigPrintDialog::save()";
-    int rowCount = ui->layoutListWidget->count();
+    QString col1 = ui->col1ComboBox->currentText();
+    QString col2 = ui->col2ComboBox->currentText();
+    QString col3 = ui->col3ComboBox->currentText();
+    QString col4 = ui->col4ComboBox->currentText();
 
-    if (!rowCount) {
-        //TODO dialog error
-        return;
-    }
-
-    QStringList cols_listino;
-    for (int i=0; i<rowCount; i++) {
-        QString name = ui->layoutListWidget->item(i)->text();
-        cols_listino.append(name);
-    }
-
-    settings.setValue(magazzino::LISTINO_COLS_ORDER, cols_listino);
-    if (ui->verticalPage->isChecked())
-        settings.setValue(magazzino::LISTINO_PAGE_LAYOUT, "vertical");
-    else
-        settings.setValue(magazzino::LISTINO_PAGE_LAYOUT, "horizontal");
+    settings.setValue(magazzino::LISTINO_COL1, col1);
+    settings.setValue(magazzino::LISTINO_COL2, col2);
+    settings.setValue(magazzino::LISTINO_COL3, col3);
+    settings.setValue(magazzino::LISTINO_COL4, col4);
 }

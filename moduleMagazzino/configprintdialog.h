@@ -21,17 +21,13 @@ public:
 
 private:
     Ui::ConfigPrintDialog *ui;
-    QMap<int, QString> nameCols;
-    QMap<QString, int> sizeCols;
     QSettings settings;
-
-    void populateList(void);
-    void loadSettings(void);
+    void initComboBoxs();
+    void loadSettings();
 
 public slots:
-    void addColumn(void);
-    void removeColumn(void);
-    void save(void);
+    void save();
+
 };
 
 #endif // CONFIGPRINTDIALOG_H
