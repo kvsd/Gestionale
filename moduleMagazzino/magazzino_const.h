@@ -12,6 +12,10 @@ namespace magazzino {
     const QString CSV_VERSION = "CSV::1.0";
     const QRect DEFAULT_WINDOW_SIZE = QRect(0, 0, 700, 500);
 
+    const int PRINT_TITLE_HEIGHT = 500;
+    const int PRINT_COLS_HEIGHT = 300;
+    const int PRINT_MARGINS = 50;
+
     //SETTINGS
     const QString DEFAULT_IVA = "default.civa";
     const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
@@ -31,8 +35,11 @@ namespace magazzino {
     const QString SEARCH_COD_FRN = "MagazzinoWindow.search.codfornitore";
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
 
-    const QString LISTINO_COLS_ORDER = "Listino.columns.orders";
-    const QString LISTINO_PAGE_LAYOUT = "Listino.page.layout";
+    const QString LISTINO_COL1 = "Listino.col1";
+    const QString LISTINO_COL2 = "Listino.col2";
+    const QString LISTINO_COL3 = "Listino.col3";
+    const QString LISTINO_COL4 = "Listino.col4";
+
 
     //SQL
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
@@ -56,6 +63,10 @@ namespace magazzino {
 
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:id_cod_iva";
     const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:id_cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
+
+    const QString SELECT_INVENTARIO = QString::fromUtf8("SELECT \"Quantità\", \"Descrizione\", \"Prezzo Acquisto\", \"Quantità\"*\"Prezzo Acquisto\" As \"SubTotale\" FROM vw_magazzino WHERE \"Quantità\"!=0 ORDER BY \"Descrizione\" ");
+    const QString SQL_INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
+
 
     enum columns {COL_MG_ID = 0,            // Id
                   COL_MG_DESCR = 1,         // Descrizione
@@ -151,5 +162,6 @@ namespace magazzino {
     const QString CMP_SEDE    = "Sede Magazzino";
     const QString CMP_NOTE    = "Note";
     const QString CMP_ID_ART  = "Id Articolo";
+    const QString CMP_SUBTOT = "SubTotale";
 }
 #endif // MAGAZZINO_CONST_H
