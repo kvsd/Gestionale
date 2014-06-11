@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QPen>
 #include <QSqlRecord>
+#include <QSettings>
 #include "custommodel.h"
 #include "magazzino_const.h"
 
@@ -24,13 +25,16 @@ public:
 
 private:
     CustomModel *articoloModel;
+    QSettings settings;
     int pageWidth;
     int pageHeight;
-    int titleHeight;
-    int colHeight;
-    int margin;
     float colWidth;
-    QString titleStr;
+    QString titleStr;    
+    QString col1Name;
+    QString col2Name;
+    QString col3Name;
+    QString col4Name;
+
 
     QRect col1;
     QRect col2;
