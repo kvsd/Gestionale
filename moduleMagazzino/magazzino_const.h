@@ -40,6 +40,11 @@ namespace magazzino {
     const QString LISTINO_COL3 = "Listino.col3";
     const QString LISTINO_COL4 = "Listino.col4";
 
+    const QString ORDINE_COL1 = "Ordine.col1";
+    const QString ORDINE_COL2 = "Ordine.col2";
+    const QString ORDINE_COL3 = "Ordine.col3";
+    const QString ORDINE_COL4 = "Ordine.col4";
+
 
     //SQL
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
