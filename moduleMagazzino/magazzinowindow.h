@@ -10,6 +10,7 @@
 #include "configprintdialog.h"
 #include "listinoprintlayout.h"
 #include "inventarioprintlayout.h"
+#include "ordineprintlayout.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>

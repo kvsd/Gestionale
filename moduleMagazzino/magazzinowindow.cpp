@@ -443,7 +443,8 @@ void MagazzinoWindow::importMagazzinoCsv(void)
     QTextStream in(&file);
     QString version = in.readLine();
     if (version != magazzino::CSV_VERSION) {
-        qDebug() << "ERRORE"; //TODO definire codice errore per CVS
+        showDialogError(this, "ERRORE", "ERRORE"); //TODO definire codice errore per CVS
+        qDebug() << "ERRORE";
         return;
     }
 
@@ -478,7 +479,8 @@ void MagazzinoWindow::importStoricoCsv(void)
     QTextStream in(&file);
     QString version = in.readLine();
     if (version != magazzino::CSV_VERSION) {
-        qDebug() << "ERRORE"; //TODO definire codice errore per CVS
+        showDialogError(this, "ERRORE", "ERRORE"); //TODO definire codice errore x cvs
+        qDebug() << "ERRORE";
         return;
     }
 
@@ -517,6 +519,7 @@ void MagazzinoWindow::printListino(void)
     qDebug() << "MagazzinoWindow::printListino()";
     if (!ui->fornitoreComboBox->isEnabled()) {
         qDebug() << "ERRORE: devi selezionare il fornitore";
+        showDialogError(this, "ERRORE", "ERRORE", "ERRORE"); //TODO definire codice errore
         return;
     }
 
@@ -537,10 +540,12 @@ void MagazzinoWindow::printOrdine(void)
 {
     qDebug() << "MagazzinoWindow::printOrdine()";
     if (!ui->fornitoreComboBox->isEnabled()) {
-        qDebug() << "ERRORE: devi selezionare il fornitore";
+        showDialogError(this, "ERRORE", "ERRORE", "ERRORE");
+        qDebug() << "ERRORE: devi selezionare il fornitore"; //TODO definire codice errore
         return;
     }
 
     QString fornitore = ui->fornitoreComboBox->currentText();
+    OrdinePrintLayout ordineDlg(fornitore, this);
 }
 
