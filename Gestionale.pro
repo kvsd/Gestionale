@@ -47,7 +47,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     moduleMagazzino/listinoprintlayout.h \
     moduleMagazzino/inventarioprintlayout.h \
     moduleAgenti/agenti_const.h \
-    moduleMagazzino/ordineprintlayout.h
+    moduleMagazzino/ordineprintlayout.h \
+    moduleMagazzino/printreport.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -86,4 +87,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     moduleMagazzino/configprintdialog.cpp \
     moduleMagazzino/listinoprintlayout.cpp \
     moduleMagazzino/inventarioprintlayout.cpp \
-    moduleMagazzino/ordineprintlayout.cpp
+    moduleMagazzino/ordineprintlayout.cpp \
+    moduleMagazzino/printreport.cpp

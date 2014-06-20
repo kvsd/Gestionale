@@ -527,13 +527,15 @@ void MagazzinoWindow::printListino(void)
     QString data = QDate::currentDate().toString("dd/MM/yy");
     QString titleStr = "%1 del %2";
 
-    ListinoPrintLayout printDlg(articoloModel, titleStr.arg(fornitore).arg(data), this);
+    //ListinoPrintLayout printDlg(articoloModel, titleStr.arg(fornitore).arg(data), this);
+    PrintReport a(fornitore, magazzino::LISTINO, this);
 }
 
 void MagazzinoWindow::printInventario(void)
 {
     qDebug() << "MagazzinoWindow::printInventario()";
-    InventarioPrintLayout inventarioDlg(this);
+    //InventarioPrintLayout inventarioDlg(this);
+    PrintReport b("", magazzino::INVENTARIO, this);
 }
 
 void MagazzinoWindow::printOrdine(void)
@@ -546,6 +548,7 @@ void MagazzinoWindow::printOrdine(void)
     }
 
     QString fornitore = ui->fornitoreComboBox->currentText();
-    OrdinePrintLayout ordineDlg(fornitore, this);
+    //OrdinePrintLayout ordineDlg(fornitore, this);
+    PrintReport c(fornitore, magazzino::ORDINE, this);
 }
 

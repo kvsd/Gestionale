@@ -11,6 +11,7 @@
 #include "listinoprintlayout.h"
 #include "inventarioprintlayout.h"
 #include "ordineprintlayout.h"
+#include "printreport.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
