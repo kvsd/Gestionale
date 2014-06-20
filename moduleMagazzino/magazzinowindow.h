@@ -8,9 +8,6 @@
 #include "magazzino_const.h"
 #include "codivaupdatedialog.h"
 #include "configprintdialog.h"
-#include "listinoprintlayout.h"
-#include "inventarioprintlayout.h"
-#include "ordineprintlayout.h"
 #include "printreport.h"
 
 #include <QMainWindow>
