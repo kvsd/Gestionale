@@ -1,7 +1,9 @@
 #ifndef PRINTREPORT_H
 #define PRINTREPORT_H
 
-#include <QObject>
+#include "magazzino_const.h"
+
+#include <QDialog>
 #include <QDate>
 #include <QSettings>
 #include <QDebug>
@@ -11,16 +13,21 @@
 #include <QPainter>
 #include <QPrintDialog>
 #include <QSqlRecord>
-#include "magazzino_const.h"
 
-class PrintReport : public QObject
+namespace Ui {
+class PrintReport;
+}
+
+class PrintReport : public QDialog
 {
     Q_OBJECT
+
 public:
     explicit PrintReport(QString forn, magazzino::Documenti reportType, QWidget *parent = 0);
     ~PrintReport();
 
 private:
+    Ui::PrintReport *ui;
     QSqlQueryModel *printModel;
     QSettings settings;
     int pageWidth;

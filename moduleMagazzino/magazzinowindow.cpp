@@ -525,12 +525,14 @@ void MagazzinoWindow::printListino(void)
 
     QString fornitore = ui->fornitoreComboBox->currentText();
     PrintReport listino(fornitore, magazzino::LISTINO, this);
+    listino.exec();
 }
 
 void MagazzinoWindow::printInventario(void)
 {
     qDebug() << "MagazzinoWindow::printInventario()";
     PrintReport inventario("", magazzino::INVENTARIO, this);
+    inventario.exec();
 }
 
 void MagazzinoWindow::printOrdine(void)
@@ -544,5 +546,6 @@ void MagazzinoWindow::printOrdine(void)
 
     QString fornitore = ui->fornitoreComboBox->currentText();
     PrintReport ordine(fornitore, magazzino::ORDINE, this);
+    ordine.exec();
 }
 

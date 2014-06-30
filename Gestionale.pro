@@ -60,7 +60,8 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleMagazzino/magazzinowindow.ui \
          moduleMagazzino/optionsmagazzinodialog.ui \
     moduleMagazzino/codivaupdatedialog.ui \
-    moduleMagazzino/configprintdialog.ui
+    moduleMagazzino/configprintdialog.ui \
+    moduleMagazzino/printreport.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \

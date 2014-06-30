@@ -1,9 +1,12 @@
 #include "printreport.h"
+#include "ui_printreport.h"
 
 PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget *parent) :
-    QObject(parent)
+    QDialog(parent),
+    ui(new Ui::PrintReport)
 {
     qDebug() << "PrintReport::PrintReport()";
+    ui->setupUi(this);
 
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
@@ -36,6 +39,8 @@ PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget 
 PrintReport::~PrintReport()
 {
     qDebug() << "PrintReport::~PrintReport()";
+    delete ui;
+
     delete printModel;
     delete printer;
     delete painter;
@@ -130,6 +135,7 @@ void PrintReport::printData(magazzino::Documenti reportType)
     qDebug() << "PrintReport::printData()";
     const int MAX_ROW = (pageHeight-magazzino::PRINT_TITLE_HEIGHT)/magazzino::PRINT_COLS_HEIGHT;
     const int ROWS = printModel->rowCount();
+    ui->progressBar->setRange(0, ROWS);
     int row = 0;
     int page = 2;
     for (int i=0; i<ROWS; i++, row++) {
@@ -139,6 +145,7 @@ void PrintReport::printData(magazzino::Documenti reportType)
             printHeader(titleStr.arg(page++));
         }
         printRow(row+1, printModel->record(i));
+        ui->progressBar->setValue(i+1);
     }
     if (reportType == magazzino::INVENTARIO) {
         printTotale(row+1);
