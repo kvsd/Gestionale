@@ -40,6 +40,7 @@ private:
     QString col2Name;
     QString col3Name;
     QString col4Name;
+    magazzino::Documenti report;
 
     QRect col1;
     QRect col2;
@@ -50,6 +51,7 @@ private:
     QPrinter *printer;
     QPainter *painter;
 
+    void setupPrinter();
     void setReport(magazzino::Documenti reportType);
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);
@@ -61,6 +63,7 @@ private:
 signals:
 
 public slots:
+    void print();
 
 };
 

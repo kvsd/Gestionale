@@ -11,8 +11,22 @@ PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget 
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
     fornitore = forn;
+    report = reportType;
+    setReport(report);
+}
 
-    QPrintDialog printDialog(printer, parent);
+PrintReport::~PrintReport()
+{
+    qDebug() << "PrintReport::~PrintReport()";
+    delete ui;
+    delete printModel;
+    delete printer;
+    delete painter;
+}
+
+void PrintReport::setupPrinter()
+{
+    QPrintDialog printDialog(printer, this);
     if (printDialog.exec() == QDialog::Accepted) {
         painter->begin(printer);
         initPainter();
@@ -28,22 +42,7 @@ PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget 
         col2 = QRect(colWidth*1+leftMargin, 0, (colWidth*3)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
         col3 = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
         col4 = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
-
-        setReport(reportType);
-        printHeader(titleStr.arg(1));
-        printData(reportType);
-        painter->end();
     }
-}
-
-PrintReport::~PrintReport()
-{
-    qDebug() << "PrintReport::~PrintReport()";
-    delete ui;
-
-    delete printModel;
-    delete printer;
-    delete painter;
 }
 
 void PrintReport::setReport(magazzino::Documenti reportType)
@@ -189,4 +188,12 @@ void PrintReport::printTotale(int row)
                       pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     painter->drawLine(colWidth*6, col1.y(), colWidth*6, col1.y()+magazzino::PRINT_COLS_HEIGHT);
+}
+
+void PrintReport::print()
+{
+    setupPrinter();
+    printHeader(titleStr.arg(1));
+    printData(report);
+    painter->end();
 }
