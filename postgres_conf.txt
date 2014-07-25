@@ -1,0 +1,22 @@
+Configurazione db postgresql per app Gestionale
+
+Creare il database per il gestionale
+
+Lanciare lo script "DATABASE SCHEMA.sql" con il client psql 
+	psql -d nome_database -f DATABASE SCHEMA.sql
+
+Creare gli utenti neccessari per l'uso dell'applicazione
+	* CREATE USER nome_utente WITH PASSWORD 'password_fra_apici';
+
+Se l'utente esiste già ma la password non è impostata
+	* ALTER USER nome_utene PASSWORD 'password_fra_apici';
+
+Modificare il file postgresql.conf e modificare il valore del parametro listen_address, da
+'localhost' a '*'
+
+Modificare il file pg_hba.conf all'interno della directory /etc/postgresql e sostituire i metodi
+di accesso con il valore md5. Aggiungere una riga per l'accesso dei client presenti nella stessa
+rete.
+	host 	nome_database 	all	samenet		md5
+
+Riavviare il servizio postgresql
