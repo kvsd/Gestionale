@@ -117,10 +117,10 @@ void PrintReport::printRow(int row, QSqlRecord record)
     QString col3Value = record.value(col3Name).toString();
     QString col4Value = record.value(col4Name).toString();
 
-    painter->drawText(col1, Qt::AlignLeft, col1Value);
-    painter->drawText(col2, Qt::AlignLeft, col2Value);
-    painter->drawText(col3, Qt::AlignRight, col3Value);
-    painter->drawText(col4, Qt::AlignRight, col4Value);
+    painter->drawText(col1, Qt::AlignLeft|Qt::AlignVCenter, col1Value);
+    painter->drawText(col2, Qt::AlignLeft|Qt::AlignVCenter, col2Value);
+    painter->drawText(col3, Qt::AlignRight|Qt::AlignVCenter, col3Value);
+    painter->drawText(col4, Qt::AlignRight|Qt::AlignVCenter, col4Value);
 
     painter->drawLine(0, col1.y()+magazzino::PRINT_COLS_HEIGHT, pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
@@ -183,7 +183,7 @@ void PrintReport::printTotale(int row)
     const int rightMargin = magazzino::PRINT_MARGINS*2;
     QRect coltot(colWidth*4+leftMargin, col1.y(), (colWidth*2)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
 
-    painter->drawText(coltot, Qt::AlignRight, msg.arg(totale));
+    painter->drawText(coltot, Qt::AlignRight|Qt::AlignVCenter, msg.arg(totale));
     painter->drawLine(col3.x()-magazzino::PRINT_MARGINS, col1.y()+magazzino::PRINT_COLS_HEIGHT,
                       pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+magazzino::PRINT_COLS_HEIGHT);
