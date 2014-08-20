@@ -94,6 +94,7 @@ void AziendaDialog::open_add_logo(void)
     }
 
     logo.load(filename);
+    logo = logo.scaled(300, 200, Qt::KeepAspectRatio);
     ui->im_logo->setPixmap(logo);
 }
 
