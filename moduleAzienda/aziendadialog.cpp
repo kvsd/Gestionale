@@ -16,7 +16,8 @@ const QString UPDATE_QUERY = "UPDATE azienda SET rag_sociale=:rag_sociale, \
                                                  prt_iva=:prt_iva,\
                                                  cod_fisc=:cod_fisc,\
                                                  iscr_trib=:iscr_trib,\
-                                                 cciaa=:cciaa WHERE id=0";
+                                                 cciaa=:cciaa,\
+                                                 logo=:logo WHERE id=0";
 
 const QString CSS_WARNING_STYLE = "background-color:yellow";
 
@@ -84,6 +85,18 @@ void AziendaDialog::open_add_stato(void)
     allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019.1
 }
 
+void AziendaDialog::open_add_logo(void)
+{
+    qDebug() << "AziendaDialog::open_add_logo()";
+    QString filename = QFileDialog::getOpenFileName(this, "Seleziona un immagine", ".",  "Images (*.png *.xpm *.jpg *.jpeg)");
+    if (filename.isEmpty()) {
+        return;
+    }
+
+    logo.load(filename);
+    ui->im_logo->setPixmap(logo);
+}
+
 void AziendaDialog::setValue(QString id)
 {
     qDebug() << "AziendaDialog::setValue()";
@@ -126,6 +139,13 @@ void AziendaDialog::setValue(QString id)
 
     ui->le_cciaa->setText(query.value(azienda::COL_CCIAA).toString());
     ui->le_iscr_trib->setText(query.value(azienda::COL_TRIB).toString());
+
+    logo.loadFromData(query.value(azienda::COL_LOGO).toByteArray());
+    if (logo.isNull()) {
+        qDebug() << "NULLA";
+        return;
+    }
+    ui->im_logo->setPixmap(logo);
 }
 
 void AziendaDialog::prepareMap(void)
@@ -170,8 +190,6 @@ void AziendaDialog::save(void)
         return;
     }
 
-
-
     if (!controlloPartitaIva(azienda[keymap::KEY_PRT_IVA])) {
         if (!showDialogWarning(this, ERR032, MSG019)) //NOTE codice errore 032
             return;
@@ -201,6 +219,13 @@ void AziendaDialog::save(void)
     query.bindValue(":cod_fisc", azienda[keymap::KEY_COD_FISCALE]);
     query.bindValue(":iscr_trib", azienda[keymap::KEY_ISCR_TRIB]);
     query.bindValue(":cciaa", azienda[keymap::KEY_CCIAA]);
+
+    //Per Salvare logo all'interno del database
+    QByteArray array;
+    QBuffer buffer(&array);
+    buffer.open(QIODevice::WriteOnly);
+    logo.save(&buffer, "PNG");
+    query.bindValue(":logo", array);
 
     if (!query.exec()) {
         showDialogError(this, ERR012, MSG005, query.lastError().text()); //NOTE codice errore 012

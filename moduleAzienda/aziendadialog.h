@@ -7,10 +7,13 @@
 #include "libs/gestionale_const.h"
 
 #include <QDialog>
+#include <QFileDialog>
+#include <QBuffer>
 #include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMap>
+#include <QPixmap>
 
 namespace Ui {
 class AziendaDialog;
@@ -31,6 +34,7 @@ private:
     QSqlTableModel *modelCap;
     QSqlTableModel *modelStato;
     QMap <int, QString> azienda;
+    QPixmap logo;
 
     void setValue(QString id="0");
     void prepareMap(void);
@@ -40,6 +44,7 @@ public slots:
     void open_add_provincia(void);
     void open_add_cap(void);
     void open_add_stato(void);
+    void open_add_logo(void);
     void save(void);
     void clearCombobox(void);
     void copy_prt_iva(void);

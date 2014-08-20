@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>487</width>
-        <height>514</height>
+        <height>515</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -45,14 +45,14 @@
        <item row="3" column="2">
         <widget class="QLineEdit" name="le_indirizzo"/>
        </item>
-       <item row="5" column="2">
-        <widget class="QComboBox" name="cb_provincia"/>
+       <item row="16" column="2">
+        <widget class="QLineEdit" name="le_iscr_trib"/>
        </item>
        <item row="17" column="2">
         <widget class="QLineEdit" name="le_cciaa"/>
        </item>
-       <item row="16" column="2">
-        <widget class="QLineEdit" name="le_iscr_trib"/>
+       <item row="5" column="2">
+        <widget class="QComboBox" name="cb_provincia"/>
        </item>
        <item row="17" column="0">
         <widget class="QLabel" name="label_14">
@@ -124,6 +124,9 @@
          </property>
         </widget>
        </item>
+       <item row="14" column="2">
+        <widget class="QLineEdit" name="le_prtiva"/>
+       </item>
        <item row="14" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
@@ -137,8 +140,8 @@
        <item row="15" column="2">
         <widget class="QLineEdit" name="le_codfisc"/>
        </item>
-       <item row="14" column="2">
-        <widget class="QLineEdit" name="le_prtiva"/>
+       <item row="11" column="2">
+        <widget class="QLineEdit" name="le_tel"/>
        </item>
        <item row="7" column="2">
         <widget class="QComboBox" name="cb_stato"/>
@@ -149,9 +152,6 @@
           <string>...</string>
          </property>
         </widget>
-       </item>
-       <item row="11" column="2">
-        <widget class="QLineEdit" name="le_tel"/>
        </item>
        <item row="5" column="0">
         <widget class="QLabel" name="label_6">
@@ -209,15 +209,8 @@
        <item row="2" column="2">
         <widget class="QLineEdit" name="le_cognome"/>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Cognome:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_cognome</cstring>
-         </property>
-        </widget>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="le_nome"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
@@ -229,8 +222,15 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="le_nome"/>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Cognome:</string>
+         </property>
+         <property name="buddy">
+          <cstring>le_cognome</cstring>
+         </property>
+        </widget>
        </item>
        <item row="6" column="2">
         <widget class="QComboBox" name="cb_cap"/>
@@ -262,6 +262,32 @@
          </property>
          <property name="arrowType">
           <enum>Qt::DownArrow</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="0" colspan="3">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Logo</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="im_logo">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="18" column="3">
+        <widget class="QToolButton" name="pb_logo_dlg">
+         <property name="text">
+          <string>...</string>
          </property>
         </widget>
        </item>
@@ -640,6 +666,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pb_logo_dlg</sender>
+   <signal>clicked()</signal>
+   <receiver>AziendaDialog</receiver>
+   <slot>open_add_logo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>253</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open_add_citta()</slot>
@@ -649,5 +691,6 @@
   <slot>save()</slot>
   <slot>clearCombobox()</slot>
   <slot>copy_prt_iva()</slot>
+  <slot>open_add_logo()</slot>
  </slots>
 </ui>

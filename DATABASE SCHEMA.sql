@@ -132,11 +132,11 @@ INSERT INTO aspetto_beni(descr) VALUES ('Scatola');
 CREATE TABLE azienda (id INTEGER PRIMARY KEY, 
                       rag_sociale TEXT UNIQUE NOT NULL,
                       nome TEXT,
-		              cognome TEXT,
+		      cognome TEXT,
                       indirizzo TEXT NOT NULL,
                       id_citta INTEGER REFERENCES citta(id) DEFAULT 0,
                       id_provincia INTEGER REFERENCES provincia(id) DEFAULT 0,
-		              id_cap INTEGER REFERENCES cap(id) DEFAULT 0,
+		      id_cap INTEGER REFERENCES cap(id) DEFAULT 0,
                       id_stato INTEGER REFERENCES stato(id) DEFAULT 0,
                       tel TEXT,
                       fax TEXT,
@@ -144,7 +144,8 @@ CREATE TABLE azienda (id INTEGER PRIMARY KEY,
                       prt_iva TEXT UNIQUE NOT NULL,
                       cod_fisc TEXT UNIQUE NOT NULL,
                       iscr_trib TEXT NOT NULL, --iscrizione tribunale
-                      cciaa TEXT NOT NULL); --Camera di commercio, industria artigianato e agricoltura
+                      cciaa TEXT NOT NULL, --Camera di commercio, industria artigianato e agricoltura
+		      logo BYTEA);
 INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, iscr_trib, cciaa)
 			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '000000', '00000');
 --##############################################################################

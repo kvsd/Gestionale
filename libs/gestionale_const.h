@@ -19,7 +19,8 @@ namespace azienda {
                   COL_PRT_IVA,
                   COL_COD_FISC,
                   COL_TRIB,
-                  COL_CCIAA};
+                  COL_CCIAA,
+                  COL_LOGO};
 }
 
 namespace table {
