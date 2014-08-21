@@ -36,6 +36,7 @@ private:
     QMap <int, QString> azienda;
     QPixmap logo;
 
+    void initComboBox();
     void setValue(QString id="0");
     void prepareMap(void);
 
@@ -46,7 +47,7 @@ public slots:
     void open_add_stato(void);
     void open_add_logo(void);
     void save(void);
-    void clearCombobox(void);
+    void clearForm(void);
     void copy_prt_iva(void);
 };
 

@@ -638,7 +638,7 @@
    <sender>pb_clear</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>clearCombobox()</slot>
+   <slot>clearForm()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>392</x>
@@ -689,7 +689,7 @@
   <slot>open_add_cap()</slot>
   <slot>open_add_stato()</slot>
   <slot>save()</slot>
-  <slot>clearCombobox()</slot>
+  <slot>clearForm()</slot>
   <slot>copy_prt_iva()</slot>
   <slot>open_add_logo()</slot>
  </slots>

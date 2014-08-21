@@ -28,6 +28,19 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     qDebug() << "AziendaDialog()";
     ui->setupUi(this);
 
+    initComboBox();
+    setValue();
+}
+
+AziendaDialog::~AziendaDialog()
+{
+    qDebug() << "~AziendaDialog()";
+    delete ui;
+}
+
+void AziendaDialog::initComboBox()
+{
+    qDebug() << "AziendaDialog::initComboBox()";
     modelCitta = new QSqlTableModel(this);
     modelCitta->setTable(table::CITTA);
     modelCitta->select();
@@ -51,14 +64,6 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     modelStato->select();
     ui->cb_stato->setModel(modelStato);
     ui->cb_stato->setModelColumn(azienda::COL_DESCR);
-
-    setValue();
-}
-
-AziendaDialog::~AziendaDialog()
-{
-    qDebug() << "~AziendaDialog()";
-    delete ui;
 }
 
 void AziendaDialog::open_add_citta(void)
@@ -143,7 +148,6 @@ void AziendaDialog::setValue(QString id)
 
     logo.loadFromData(query.value(azienda::COL_LOGO).toByteArray());
     if (logo.isNull()) {
-        qDebug() << "NULLA";
         return;
     }
     ui->im_logo->setPixmap(logo);
@@ -235,13 +239,14 @@ void AziendaDialog::save(void)
     this->accept();
 }
 
-void AziendaDialog::clearCombobox(void)
+void AziendaDialog::clearForm(void)
 {
     qDebug() << "AziendaDialog::clearCombobox()";
     ui->cb_citta->setCurrentIndex(0);
     ui->cb_provincia->setCurrentIndex(0);
     ui->cb_cap->setCurrentIndex(0);
     ui->cb_stato->setCurrentIndex(0);
+    ui->im_logo->clear();
 }
 
 void AziendaDialog::copy_prt_iva(void)
