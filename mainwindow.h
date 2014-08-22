@@ -42,7 +42,7 @@ protected:
     void closeEvent(QCloseEvent *);
 
 private slots:
-    void launchLoginDlg(void);
+    int launchLoginDlg(void);
     void launchConnectionSetupDlg(void);
     void launchTableSetupDlg(void);
     void launchAgentiViewDlg(void);

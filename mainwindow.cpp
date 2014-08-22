@@ -12,9 +12,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     qDebug() << "MainWindow()";
     ui->setupUi(this);
-
     db = QSqlDatabase::addDatabase("QPSQL");
-    launchLoginDlg();
+    while (int exitCode = launchLoginDlg()) {
+        if (exitCode == 2) {
+            delete ui;
+            exit(0);
+        }
+    }
+
     this->setGeometry(settings.value("MainWindow.size", QRect(0, 0, 500, 350)).toRect());
     anagraficaMW = 0;
     magazzinoMW = 0;
@@ -33,7 +38,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     settings.setValue("MainWindow.size", this->geometry());
 }
 
-void MainWindow::launchLoginDlg(void)
+int MainWindow::launchLoginDlg(void)
 {
     qDebug() << "MainWindow::launchLoginDlg()";
     db.close();
@@ -41,16 +46,7 @@ void MainWindow::launchLoginDlg(void)
     LoginDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
-        ui->db_name->setText("Nessuno");
-        ui->db_status->setText("Non connesso");
-        ui->db_user->setText("Nessuno");
-        ui->agentiButton->setDisabled(true);
-        ui->clnFrnButton->setDisabled(true);
-        ui->magazzinoButton->setDisabled(true);
-        ui->actionSetup_Table->setDisabled(true);
-        ui->actionConfigura_Azienda->setDisabled(true);
-        this->setToolTip("Login non effettuato. E possibile effettuare il login dal menu Database");
-        return;
+        return 2;
     }
 
     QString dbname = settings.value("dbname", DEFAULT_USER).toString();
@@ -72,13 +68,19 @@ void MainWindow::launchLoginDlg(void)
         ui->magazzinoButton->setEnabled(true);
         ui->actionSetup_Table->setEnabled(true);
         ui->actionConfigura_Azienda->setEnabled(true);
-        this->setToolTip("");
+        return 0;
     }
     else {
         ui->db_user->setText("Nessuno");
         ui->db_name->setText("Nessuno");
         ui->db_status->setText("Non Connesso");
+        ui->agentiButton->setEnabled(false);
+        ui->clnFrnButton->setEnabled(false);
+        ui->magazzinoButton->setEnabled(false);
+        ui->actionSetup_Table->setEnabled(false);
+        ui->actionConfigura_Azienda->setEnabled(false);
         showDialogError(this, ERR000, MSG000, db.lastError().text()); //NOTE codice errore 000
+        return 1;
     }
 }
 
