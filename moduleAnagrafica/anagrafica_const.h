@@ -50,7 +50,7 @@ namespace anagrafica {
     const QString PH_CEL = ":cel";
     const QString PH_EMAIL = ":email";
     const QString PH_SITO_WEB = ":sito_web";
-    const QString PH_BANCA = "banca";
+    const QString PH_BANCA = ":banca";
     const QString PH_AGENZIA = ":agenzia";
     const QString PH_CONTO = ":conto";
     const QString PH_SWIFT = ":swift";

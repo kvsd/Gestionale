@@ -113,7 +113,6 @@ void AnagraficaAddDialog::initModel()
     modelCap->setTable(table::CAP);
     modelCap->select();
 
-
     modelStato = new QSqlTableModel(this);
     modelStato->setTable(table::STATO);
     modelStato->select();
