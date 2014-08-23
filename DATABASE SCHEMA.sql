@@ -145,9 +145,10 @@ CREATE TABLE azienda (id INTEGER PRIMARY KEY,
                       cod_fisc TEXT UNIQUE NOT NULL,
                       iscr_trib TEXT NOT NULL, --iscrizione tribunale
                       cciaa TEXT NOT NULL, --Camera di commercio, industria artigianato e agricoltura
+		      reg_imprese TEXT NOT NULL,
 		      logo BYTEA);
-INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, iscr_trib, cciaa)
-			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '000000', '00000');
+INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, iscr_trib, cciaa, reg_imprese)
+			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '000000', '00000', '00000');
 --##############################################################################
 CREATE TABLE agenti(id SERIAL PRIMARY KEY,
                     nome TEXT,

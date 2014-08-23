@@ -17,6 +17,7 @@ const QString UPDATE_QUERY = "UPDATE azienda SET rag_sociale=:rag_sociale, \
                                                  cod_fisc=:cod_fisc,\
                                                  iscr_trib=:iscr_trib,\
                                                  cciaa=:cciaa,\
+                                                 reg_imprese=:reg_imprese,\
                                                  logo=:logo WHERE id=0";
 
 const QString CSS_WARNING_STYLE = "background-color:yellow";
@@ -145,6 +146,7 @@ void AziendaDialog::setValue(QString id)
 
     ui->le_cciaa->setText(query.value(azienda::COL_CCIAA).toString());
     ui->le_iscr_trib->setText(query.value(azienda::COL_TRIB).toString());
+    ui->le_reg_imprese->setText(query.value(azienda::COL_REG_IMPRESE).toString());
 
     logo.loadFromData(query.value(azienda::COL_LOGO).toByteArray());
     if (logo.isNull()) {
@@ -171,6 +173,7 @@ void AziendaDialog::prepareMap(void)
     azienda[keymap::KEY_COD_FISCALE] = ui->le_codfisc->text();
     azienda[keymap::KEY_ISCR_TRIB] = ui->le_iscr_trib->text();
     azienda[keymap::KEY_CCIAA] = ui->le_cciaa->text();
+    azienda[keymap::KEY_REG_IMPRESE] = ui->le_reg_imprese->text();
 }
 
 void AziendaDialog::save(void)
@@ -224,6 +227,7 @@ void AziendaDialog::save(void)
     query.bindValue(":cod_fisc", azienda[keymap::KEY_COD_FISCALE]);
     query.bindValue(":iscr_trib", azienda[keymap::KEY_ISCR_TRIB]);
     query.bindValue(":cciaa", azienda[keymap::KEY_CCIAA]);
+    query.bindValue(":reg_imprese", azienda[keymap::KEY_REG_IMPRESE]);
 
     //Per Salvare logo all'interno del database
     QByteArray array;

@@ -20,6 +20,7 @@ namespace azienda {
                   COL_COD_FISC,
                   COL_TRIB,
                   COL_CCIAA,
+                  COL_REG_IMPRESE,
                   COL_LOGO};
 }
 
@@ -100,7 +101,8 @@ namespace keymap {
         KEY_UNITA,
         KEY_WEB,
         KEY_ISCR_TRIB,
-        KEY_CCIAA
+        KEY_CCIAA,
+        KEY_REG_IMPRESE
     };
 }
 
