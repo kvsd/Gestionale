@@ -148,7 +148,7 @@
      <x>0</x>
      <y>0</y>
      <width>501</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatabase">
@@ -213,7 +213,7 @@
   </connection>
   <connection>
    <sender>actionSetup_Connection</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>launchConnectionSetupDlg()</slot>
    <hints>
@@ -229,7 +229,7 @@
   </connection>
   <connection>
    <sender>actionSetup_Table</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>launchTableSetupDlg()</slot>
    <hints>

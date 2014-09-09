@@ -251,7 +251,7 @@ void AziendaDialog::clearForm(void)
     ui->cb_cap->setCurrentIndex(0);
     ui->cb_stato->setCurrentIndex(0);
     ui->im_logo->clear();
-    logo = 0;
+    logo = QPixmap();
 }
 
 void AziendaDialog::copy_prt_iva(void)

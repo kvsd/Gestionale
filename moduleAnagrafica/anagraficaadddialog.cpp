@@ -11,8 +11,10 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     initModel();
     initComboBox();
 
-    ui->lb_agente->setShown(false);
-    ui->pb_agenti_dlg->setShown(false);
+    //ui->lb_agente->setShown(false);
+    ui->lb_agente->hide();
+    //ui->pb_agenti_dlg->setShown(false);
+    ui->pb_agenti_dlg->hide();
 }
 
 AnagraficaAddDialog::~AnagraficaAddDialog()
@@ -142,7 +144,8 @@ void AnagraficaAddDialog::initComboBox()
 
     ui->cb_agente->setModel(modelAgente);
     ui->cb_agente->setModelColumn(anagrafica::COL_MODEL_COGNOME);
-    ui->cb_agente->setShown(false);
+    //ui->cb_agente->setShown(false);
+    ui->cb_agente->hide();
 }
 
 void AnagraficaAddDialog::prepareMap(void)

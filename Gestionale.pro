@@ -5,6 +5,7 @@
 TEMPLATE = app
 TARGET = Gestionale
 QT += core gui sql
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 DEPENDPATH += . \
               moduleAgenti \
@@ -39,13 +40,13 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            libs/simpledialogs.h \
            libs/custommodel.h \
            moduleMagazzino/optionsmagazzinodialog.h \
-    moduleMagazzino/magazzino_const.h \
-    moduleAnagrafica/anagrafica_const.h \
-    libs/gestionale_const.h \
-    moduleMagazzino/codivaupdatedialog.h \
-    moduleMagazzino/configprintdialog.h \
-    moduleAgenti/agenti_const.h \
-    moduleMagazzino/printreport.h
+           moduleMagazzino/magazzino_const.h \
+           moduleAnagrafica/anagrafica_const.h \
+           libs/gestionale_const.h \
+           moduleMagazzino/codivaupdatedialog.h \
+           moduleMagazzino/configprintdialog.h \
+           moduleAgenti/agenti_const.h \
+           moduleMagazzino/printreport.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -59,9 +60,9 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleMagazzino/articolodialog.ui \
          moduleMagazzino/magazzinowindow.ui \
          moduleMagazzino/optionsmagazzinodialog.ui \
-    moduleMagazzino/codivaupdatedialog.ui \
-    moduleMagazzino/configprintdialog.ui \
-    moduleMagazzino/printreport.ui
+         moduleMagazzino/codivaupdatedialog.ui \
+         moduleMagazzino/configprintdialog.ui \
+         moduleMagazzino/printreport.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \
@@ -80,7 +81,7 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/simpledialogs.cpp \
            libs/custommodel.cpp \
            moduleMagazzino/optionsmagazzinodialog.cpp \
-    moduleMagazzino/magazzino_const.cpp \
-    moduleMagazzino/codivaupdatedialog.cpp \
-    moduleMagazzino/configprintdialog.cpp \
-    moduleMagazzino/printreport.cpp
+           moduleMagazzino/magazzino_const.cpp \
+           moduleMagazzino/codivaupdatedialog.cpp \
+           moduleMagazzino/configprintdialog.cpp \
+           moduleMagazzino/printreport.cpp

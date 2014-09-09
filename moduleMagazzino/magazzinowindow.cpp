@@ -77,14 +77,16 @@ void MagazzinoWindow::loadConfigSettings()
     ui->splitter_2->restoreState(settings.value(magazzino::SPLITTER2_SIZE).toByteArray());
 
     //Carico la disposizione delle colonne della vista articolo
-    ui->articoloView->horizontalHeader()->setMovable(true);
+    //ui->articoloView->horizontalHeader()->setMovable(true);
+    ui->articoloView->horizontalHeader()->setSectionsMovable(true);
     if (settings.contains(magazzino::ARTICOLO_HEADER)) {
         QByteArray array = settings.value(magazzino::ARTICOLO_HEADER).toByteArray();
         ui->articoloView->horizontalHeader()->restoreState(array);
     }
 
     //Carico la disposizione delle colonne della vista storico
-    ui->storicoView->horizontalHeader()->setMovable(true);
+    //ui->storicoView->horizontalHeader()->setMovable(true);
+    ui->storicoView->horizontalHeader()->setSectionsMovable(true);
     if (settings.contains(magazzino::STORICO_HEADER)) {
         QByteArray array = settings.value(magazzino::STORICO_HEADER).toByteArray();
         ui->storicoView->horizontalHeader()->restoreState(array);

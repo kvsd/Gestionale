@@ -16,7 +16,8 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
 
     str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
 
-    ui->docView->setShown(false);
+    //ui->docView->setShown(false);
+    ui->docView->hide();
 
     loadConfigSettings();
 }
@@ -35,7 +36,8 @@ void AnagraficaWindow::loadConfigSettings()
     //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
     //salva anche lo stato delle colonne (mostra/nascondi), quindi bisogna caricarle
     //prima di leggere lo stato mostra nascondi.
-    ui->anagraficaView->horizontalHeader()->setMovable(true);
+    //ui->anagraficaView->horizontalHeader()->setMovable(true);
+    ui->anagraficaView->horizontalHeader()->setSectionsMovable(true);
     if (settings.contains(anagrafica::ANGRFC_HEADER)) {
         QByteArray array = settings.value(anagrafica::ANGRFC_HEADER).toByteArray();
         ui->anagraficaView->horizontalHeader()->restoreState(array);
