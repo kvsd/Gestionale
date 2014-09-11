@@ -36,6 +36,9 @@ bool showDialogWarning(QWidget *parent, QString title, QString informative, QStr
     if (dlg.clickedButton() == yesbtn) {
         return true;
     }
+    else if (dlg.clickedButton() == nobtn) {
+        return false;
+    }
 
     return false;
 }
