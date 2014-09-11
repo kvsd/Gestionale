@@ -3,27 +3,6 @@
 
 #include <QString>
 
-namespace azienda {
-    enum columns {COL_ID,
-                  COL_RAG_SOC, COL_DESCR=1,
-                  COL_NOME,
-                  COL_COGNOME,
-                  COL_INDIRIZZO,
-                  COL_CITTA,
-                  COL_PROVINCIA,
-                  COL_CAP,
-                  COL_STATO,
-                  COL_TEL,
-                  COL_FAX,
-                  COL_EMAIL,
-                  COL_PRT_IVA,
-                  COL_COD_FISC,
-                  COL_TRIB,
-                  COL_CCIAA,
-                  COL_REG_IMPRESE,
-                  COL_LOGO};
-}
-
 namespace table {
     const QString AGENTI = "agenti";
     const QString AGENZIA = "agenzia";

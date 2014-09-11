@@ -5,6 +5,7 @@
 #include "libs/simpledialogs.h"
 #include "libs/controllodati.h"
 #include "libs/gestionale_const.h"
+#include "azienda_const.h"
 
 #include <QDialog>
 #include <QFileDialog>
@@ -33,7 +34,7 @@ private:
     QSqlTableModel *modelProvincia;
     QSqlTableModel *modelCap;
     QSqlTableModel *modelStato;
-    QMap <int, QString> azienda;
+    QMap <int, QString> mapAzienda;
     QPixmap logo;
 
     void initComboBox();
