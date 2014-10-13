@@ -44,6 +44,7 @@ private:
     void prepareMap(void);
     QSqlQuery prepareQueryArticolo(void);
     QSqlQuery prepareQueryStorico(void);
+    double stringToDouble(QString string);
 
 public slots:
     void updatePrezzoFattura(void);

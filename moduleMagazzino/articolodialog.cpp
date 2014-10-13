@@ -149,29 +149,29 @@ void ArticoloDialog::prepareMap()
     articolo[keymap::KEY_UNITA] = modelUnita->index(ui->cb_unitamisura->currentIndex(), magazzino::COL_MG_ID).data().toString();
 
     //Per i tipi numeri devo usare il locale C. Maledetto postgresql
-    double scorta = ui->le_scorta->text().toDouble();
+    double scorta = stringToDouble(ui->le_scorta->text());
     articolo[keymap::KEY_SCORTA] = QString().setNum(scorta);
 
     articolo[keymap::KEY_ID_FORNITORE] = modelFornitore->index(ui->cb_fornitore->currentIndex(), magazzino::COL_MG_ID).data().toString();
     articolo[keymap::KEY_COD_FORNITORE] = ui->le_cod_fornitore->text();
 
-    double quantita = ui->le_quantita->text().toDouble();
+    double quantita = stringToDouble(ui->le_quantita->text());
     articolo[keymap::KEY_QUANTITA] = QString().setNum(quantita);
 
-    double prezzo_fattura = ui->le_prezzo_fattura->text().replace(locale().currencySymbol(),"").toDouble();
+    double prezzo_fattura = stringToDouble(ui->le_prezzo_fattura->text());
     articolo[keymap::KEY_PRZ_FATTURA] = QString().setNum(prezzo_fattura);
 
     articolo[keymap::KEY_SCONTO] =  ui->le_sconto->text();
     articolo[keymap::KEY_RICARICO] = ui->le_ricarico->text();
 
-    double prezzo_acquisto = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(),"").toDouble();
+    double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
     articolo[keymap::KEY_PRZ_ACQUISTO] = QString().setNum(prezzo_acquisto);
     articolo[keymap::KEY_COD_IVA] = modelCodIva->index(ui->cb_codiva->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    double iva = ui->le_iva->text().replace(locale().currencySymbol(),"").toDouble();
+    double iva = stringToDouble(ui->le_iva->text());
     articolo[keymap::KEY_IVA] = QString().setNum(iva);
-    double prezzo_vend = ui->le_prezzo_vendita->text().replace(locale().currencySymbol(),"").toDouble();
+    double prezzo_vend = stringToDouble(ui->le_prezzo_vendita->text());
     articolo[keymap::KEY_PRZ_VENDITA] = QString().setNum(prezzo_vend);
-    double prezzo_fin = ui->le_prezzo_finito->text().replace(locale().currencySymbol(),"").toDouble();
+    double prezzo_fin = stringToDouble(ui->le_prezzo_finito->text());
     articolo[keymap::KEY_PRZ_FINITO] = QString().setNum(prezzo_fin);
 
     articolo[keymap::KEY_SEDE] = modelSede->index(ui->cb_sede->currentIndex(), magazzino::COL_MG_ID).data().toString();
@@ -284,35 +284,65 @@ void ArticoloDialog::updatePrezzoFattura(void)
     QString prezzo_str = ui->le_prezzo_fattura->text();
 
     if (!prezzo_str.contains(locale().currencySymbol())) {
-            ui->le_prezzo_fattura->setText(locale().toCurrencyString(prezzo_str.toDouble()));
+            ui->le_prezzo_fattura->setText(locale().toCurrencyString(stringToDouble(prezzo_str)));
+    }
+    else {
+        prezzo_str = locale().toCurrencyString(stringToDouble(prezzo_str));
+        ui->le_prezzo_fattura->setText(prezzo_str);
     }
 
     updatePrezzoAcquisto();
 }
 
+double ArticoloDialog::stringToDouble(QString string)
+{
+    qDebug() << "ArticoloDialog::stringToDouble()";
+    if (string.isEmpty()) {
+        return 0;
+    }
+
+    QString symbol = locale().currencySymbol();
+    if (string.contains(symbol)) {
+        string = string.replace(symbol, "");
+    }
+
+    bool ok = 0;
+    double number = 0;
+    number = string.toDouble(&ok);
+    if (ok)
+        return number;
+
+    number = locale().toDouble(string, &ok);
+    if (ok)
+        return number;
+
+    showDialogError(this, "Errore", "Errore conversione", "Inserire un numero valido");
+    return -1;
+}
+
 void ArticoloDialog::updatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
-    QString prezzo_str = ui->le_prezzo_fattura->text().replace(locale().currencySymbol(),"");
+    QString prezzo_str = ui->le_prezzo_fattura->text();
     if (prezzo_str.isEmpty()) {
         return;
     }
 
     QString sconto_str = ui->le_sconto->text().replace("%", "");
 
-    double prezzo_acquisto = prezzo_str.toDouble();
+    double prezzo_acquisto = stringToDouble(prezzo_str);
     double sconto = 0;
 
     if (sconto_str.contains("+")) {
         QStringList sconti = sconto_str.split("+");
         QString s;
         foreach(s, sconti) {
-            sconto = s.toDouble()/100.0;
+            sconto = stringToDouble(s)/100.0;
             prezzo_acquisto -= prezzo_acquisto*sconto;
         }
     }
     else {
-        sconto = sconto_str.toDouble()/100.0;
+        sconto = stringToDouble(sconto_str)/100.0;
         prezzo_acquisto -= prezzo_acquisto*sconto;
     }
 
@@ -327,7 +357,7 @@ void ArticoloDialog::updateIva(void)
         return;
     }
 
-    double prezzo_acquisto = ui->le_prezzo_acquisto->text().replace(locale().currencySymbol(), "").toDouble();
+    double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
     double ricarico = 0;
 
     QString ricarico_str = ui->le_ricarico->text().replace("%","");
@@ -335,16 +365,16 @@ void ArticoloDialog::updateIva(void)
         QStringList ricarichi = ricarico_str.split("+");
         QString s;
         foreach(s, ricarichi) {
-            ricarico = s.toDouble()/100;
+            ricarico = stringToDouble(s)/100;
             prezzo_acquisto += prezzo_acquisto*ricarico;
         }
     }
     else {
-        ricarico = ricarico_str.toDouble()/100;
+        ricarico = stringToDouble(ricarico_str)/100;
         prezzo_acquisto += prezzo_acquisto*ricarico;
     }
 
-    double codiva = ui->cb_codiva->currentText().toDouble()/100.0;
+    double codiva = stringToDouble(ui->cb_codiva->currentText())/100.0;
     double iva = prezzo_acquisto*codiva;
     ui->le_iva->setText(locale().toCurrencyString(iva));
 
@@ -362,7 +392,7 @@ void ArticoloDialog::updatePrezzoFinito(void)
 
     QString prezzo = ui->le_prezzo_finito->text();
     if (!prezzo.contains(locale().currencySymbol())) {
-        ui->le_prezzo_finito->setText(locale().toCurrencyString(prezzo.toDouble()));
+        ui->le_prezzo_finito->setText(locale().toCurrencyString(stringToDouble(prezzo)));
     }
 }
 
@@ -372,7 +402,7 @@ void ArticoloDialog::updatePrezzoVendita(void)
     QString prezzo_str = ui->le_prezzo_vendita->text();
 
     if (!prezzo_str.contains(locale().currencySymbol())) {
-            ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_str.toDouble()));
+            ui->le_prezzo_vendita->setText(locale().toCurrencyString(stringToDouble(prezzo_str)));
     }
 }
 
