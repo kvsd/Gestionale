@@ -51,15 +51,15 @@ namespace magazzino {
 
     const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
 
-    const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, prezzo_fattura, sconto_fornitore, ricarico, prezzo_acquisto, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_fattura, :sconto_fornitore, :ricarico, :prezzo_acquisto, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
+    const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
     const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\" DESC, \"Prezzo Acquisto\" DESC";
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
 
-    const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, ricarico, prezzo_acquisto, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :ricarico, :prezzo_acquisto, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+    const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
     const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
     const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, id_cod_iva=:id_cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_fattura=:prezzo_fattura, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, prezzo_acquisto=:prezzo_acquisto, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
     const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
-    const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, ricarico, prezzo_acquisto, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :ricarico, :prezzo_acquisto, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+    const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
     const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:id_cod_iva";
     const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:id_cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
@@ -92,8 +92,8 @@ namespace magazzino {
                   COL_MG_QT = 12,           // Quantità
                   COL_MG_PRZ_FAT = 13,      // Prezzo Fattura
                   COL_MG_SCONTO = 14,       // Sconto
-                  COL_MG_RICARICO = 15,     // Ricarico
-                  COL_MG_PRZ_ACQ = 16,      // Prezzo Acquisto
+                  COL_MG_PRZ_ACQ = 15,      // Prezzo Acquisto
+                  COL_MG_RICARICO = 16,     // Ricarico
                   COL_MG_IVA = 17,          // Iva
                   COL_MG_PRZ_FIN = 18,      // Prezzo Finito
                   COL_MG_PRZ_VEN = 19,      // Prezzo Vendità
@@ -107,8 +107,8 @@ namespace magazzino {
                   COL_ST_QT = 2,            // Quantita
                   COL_ST_PRZ_FAT = 3,       // Prezzo Fattura
                   COL_ST_SCONTO = 4,        // Sconto
-                  COL_ST_RICARICO = 5,      // Ricarico
-                  COL_ST_PRZ_ACQ = 6,       // Prezzo Acquisto
+                  COL_ST_PRZ_ACQ = 5,       // Prezzo Acquisto
+                  COL_ST_RICARICO = 6,      // Ricarico
                   COL_ST_IVA = 7,           // IVA
                   COL_ST_PRZ_FIN = 8,       // Prezzo Finito
                   COL_ST_PRZ_VEN = 9,       // Prezzo Vendità
@@ -134,8 +134,8 @@ namespace magazzino {
     const QString PH_QUANTIT = ":quantita";
     const QString PH_PRZ_FAT = ":prezzo_fattura";
     const QString PH_SCONTO  = ":sconto_fornitore";
-    const QString PH_RICARIC = ":ricarico";
     const QString PH_PRZ_ACQ = ":prezzo_acquisto";
+    const QString PH_RICARIC = ":ricarico";
     const QString PH_IVA     = ":iva";
     const QString PH_PRZ_FIN = ":prezzo_finito";
     const QString PH_PRZ_VEN = ":prezzo_vendita";
@@ -161,8 +161,8 @@ namespace magazzino {
     const QString CMP_QT      = QString::fromUtf8("Quantità");
     const QString CMP_PRZ_FAT = "Prezzo Fattura";
     const QString CMP_SCONTO  = "Sconto";
-    const QString CMP_RICAR   = "Ricarico";
     const QString CMP_PRZ_ACQ = "Prezzo Acquisto";
+    const QString CMP_RICAR   = "Ricarico";
     const QString CMP_IVA     = "Iva";
     const QString CMP_PRZ_FIN = "Prezzo Finito";
     const QString CMP_PRZ_VEN = QString::fromUtf8("Prezzo Vendità");

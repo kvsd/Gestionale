@@ -280,8 +280,8 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         quantita DECIMAL NOT NULL,
                         prezzo_fattura DECIMAL NOT NULL,
                         sconto_fornitore TEXT,
-                        ricarico TEXT,
                         prezzo_acquisto DECIMAL,
+			ricarico TEXT,
                         iva DECIMAL,
                         prezzo_finito DECIMAL,
                         prezzo_vendita DECIMAL,
@@ -289,18 +289,18 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         data_arrivo DATE DEFAULT current_date,
                         id_sede_magazzino INTEGER references sede_magazzino(id) DEFAULT 0,
                         note TEXT);
-INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, 50, '7.50', '2.15',
+INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, '7.50', 50, '2.15',
                              '9.15', '9.20', '241', DEFAULT, 1, 'note');
-INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AAA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, 50, '7.50', '2.15',
+INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AAA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, '7.50', 50, '2.15',
                              '9.15', '9.20', '241', DEFAULT, 1, 'note');
 --######################################################################################
 CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", "Cod.Articolo", "Cod.Fornitore",
-                          "Cod.EAN", "Cat.Merce", "Cod.IVA", "UM", "Scorta Minima", "Quantità", "Prezzo Fattura", "Sconto", "Ricarico",
-                          "Prezzo Acquisto", "Iva", "Prezzo Finito", "Prezzo Vendità", "Nr.Fattura", "Data Arrivo", "Sede Magazzino",
+                          "Cod.EAN", "Cat.Merce", "Cod.IVA", "UM", "Scorta Minima", "Quantità", "Prezzo Fattura", "Sconto", 
+                          "Prezzo Acquisto", "Ricarico", "Iva", "Prezzo Finito", "Prezzo Vendità", "Nr.Fattura", "Data Arrivo", "Sede Magazzino",
                           "Note") AS
 SELECT mgz.id, mgz.descr, anag.rag_sociale, marca.descr, mgz.modello, mgz.cod_articolo, mgz.cod_fornitore, mgz.cod_barre,
        cat_merce.descr, cod_iva.descr, um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_fattura::money, mgz.sconto_fornitore,
-       mgz.ricarico, mgz.prezzo_acquisto::money, mgz.iva::money, mgz.prezzo_finito::money, mgz.prezzo_vendita::money, mgz.fattura, mgz.data_arrivo, sm.descr,
+       mgz.prezzo_acquisto::money, mgz.ricarico, mgz.iva::money, mgz.prezzo_finito::money, mgz.prezzo_vendita::money, mgz.fattura, mgz.data_arrivo, sm.descr,
        mgz.note FROM magazzino AS mgz, anagrafica AS anag, marca, cat_merce, cod_iva, unita_misura AS um, sede_magazzino AS sm
 WHERE anag.id = mgz.id_fornitore AND
       marca.id = mgz.id_marca AND
@@ -315,12 +315,12 @@ CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino
                               quantita DECIMAL NOT NULL,
                               prezzo_fattura DECIMAL NOT NULL,
                               sconto_fornitore TEXT,
-                              ricarico TEXT,
                               prezzo_acquisto DECIMAL,
+			      ricarico TEXT,
                               iva DECIMAL,
                               prezzo_finito DECIMAL,
                               prezzo_vendita DECIMAL,
                               fattura TEXT);
 --########################################################################################
-CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo Fattura", "Sconto", "Ricarico", "Prezzo Acquisto", "IVA", "Prezzo finito", "Prezzo Vendità", "Nr. Fattura") AS
-SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_fattura::money, ls.sconto_fornitore, ls.ricarico, ls.prezzo_acquisto::money, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura FROM listino_storico AS ls ORDER BY ls.id_articolo, ls.data_arrivo;
+CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo Fattura", "Sconto", "Prezzo Acquisto", "Ricarico", "IVA", "Prezzo finito", "Prezzo Vendità", "Nr. Fattura") AS
+SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_fattura::money, ls.sconto_fornitore, ls.prezzo_acquisto::money, ls.ricarico, ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura FROM listino_storico AS ls ORDER BY ls.id_articolo, ls.data_arrivo;

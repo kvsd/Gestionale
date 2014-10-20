@@ -81,6 +81,9 @@
            <property name="selectionBehavior">
             <enum>QAbstractItemView::SelectRows</enum>
            </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>true</bool>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -157,8 +160,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>324</width>
-             <height>506</height>
+             <width>336</width>
+             <height>490</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -444,7 +447,7 @@
      <x>0</x>
      <y>0</y>
      <width>845</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpzioni">
