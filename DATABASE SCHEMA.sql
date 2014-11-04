@@ -274,7 +274,7 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         cod_fornitore TEXT,
                         cod_barre TEXT,
                         id_merce INTEGER references cat_merce(id) DEFAULT 0,
-                        id_cod_iva INTEGER references cod_iva(id) DEFAULT 0,
+                        cod_iva NUMERIC references cod_iva(descr),
                         id_unita_misura INTEGER references unita_misura(id) DEFAULT 0,
                         scorta_minima DECIMAL,
                         quantita DECIMAL NOT NULL,
@@ -289,9 +289,9 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         data_arrivo DATE DEFAULT current_date,
                         id_sede_magazzino INTEGER references sede_magazzino(id) DEFAULT 0,
                         note TEXT);
-INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, '7.50', 50, '2.15',
+INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AA', 1, 1, 'extra', '0000','0000', '00000000', 1, 22, 1, 10, 10, '10.00', 50, '7.50', 50, '2.15',
                              '9.15', '9.20', '241', DEFAULT, 1, 'note');
-INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AAA', 1, 1, 'extra', '0000','0000', '00000000', 1, 1, 1, 10, 10, '10.00', 50, '7.50', 50, '2.15',
+INSERT INTO magazzino VALUES(DEFAULT, 'batteria alcalina AAA', 1, 1, 'extra', '0000','0000', '00000000', 1, 22, 1, 10, 10, '10.00', 50, '7.50', 50, '2.15',
                              '9.15', '9.20', '241', DEFAULT, 1, 'note');
 --######################################################################################
 CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", "Cod.Articolo", "Cod.Fornitore",
@@ -299,13 +299,12 @@ CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", 
                           "Prezzo Acquisto", "Ricarico", "Iva", "Prezzo Finito", "Prezzo Vendità", "Nr.Fattura", "Data Arrivo", "Sede Magazzino",
                           "Note") AS
 SELECT mgz.id, mgz.descr, anag.rag_sociale, marca.descr, mgz.modello, mgz.cod_articolo, mgz.cod_fornitore, mgz.cod_barre,
-       cat_merce.descr, cod_iva.descr, um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_fattura::money, mgz.sconto_fornitore,
+       cat_merce.descr, format('%s%%', mgz.cod_iva), um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_fattura::money, mgz.sconto_fornitore,
        mgz.prezzo_acquisto::money, mgz.ricarico, mgz.iva::money, mgz.prezzo_finito::money, mgz.prezzo_vendita::money, mgz.fattura, mgz.data_arrivo, sm.descr,
-       mgz.note FROM magazzino AS mgz, anagrafica AS anag, marca, cat_merce, cod_iva, unita_misura AS um, sede_magazzino AS sm
+       mgz.note FROM magazzino AS mgz, anagrafica AS anag, marca, cat_merce, unita_misura AS um, sede_magazzino AS sm
 WHERE anag.id = mgz.id_fornitore AND
       marca.id = mgz.id_marca AND
       cat_merce.id = mgz.id_merce AND
-      cod_iva.id = mgz.id_cod_iva AND
       um.id = mgz.id_unita_misura AND
       sm.id = id_sede_magazzino
 ORDER BY mgz.id;
