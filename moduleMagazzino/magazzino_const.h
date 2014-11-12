@@ -55,14 +55,14 @@ namespace magazzino {
     const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\" DESC, \"Prezzo Acquisto\" DESC";
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
 
-    const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+    const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce , cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
     const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
-    const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, id_cod_iva=:id_cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_fattura=:prezzo_fattura, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, prezzo_acquisto=:prezzo_acquisto, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
+    const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, cod_iva=:cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_fattura=:prezzo_fattura, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, prezzo_acquisto=:prezzo_acquisto, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
     const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
-    const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,id_cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :id_cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+    const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
     const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
-    const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE id_cod_iva=:id_cod_iva";
-    const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET id_cod_iva=:id_cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
+    const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE cod_iva=:cod_iva";
+    const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET cod_iva=:cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
 
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
     const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
@@ -86,7 +86,7 @@ namespace magazzino {
                   COL_MG_COD_FOR = 6,       // Cod.Fornitore
                   COL_MG_COD_EAN = 7,       // Cod.EAN
                   COL_MG_ID_MERCE = 8,      // Cat.Merce
-                  COL_MG_ID_COD_IVA = 9,    // Cod.IVA
+                  COL_MG_COD_IVA = 9,       // Cod.IVA
                   COL_MG_ID_UM = 10,        // UM
                   COL_MG_SCORTA = 11,       // Scorta Minima
                   COL_MG_QT = 12,           // Quantità
@@ -128,7 +128,7 @@ namespace magazzino {
     const QString PH_COD_FRN = ":cod_fornitore";
     const QString PH_COD_EAN = ":cod_barre";
     const QString PH_ID_MERC = ":id_merce";
-    const QString PH_COD_IVA = ":id_cod_iva";
+    const QString PH_COD_IVA = ":cod_iva";
     const QString PH_ID_UM   = ":id_unita_merce";
     const QString PH_SCORTA  = ":scorta_minima";
     const QString PH_QUANTIT = ":quantita";

@@ -14,7 +14,7 @@ QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
     magazzinoNameCols[COL_MG_COD_FOR] = CMP_COD_FOR;    //Cod.Fornitore;
     magazzinoNameCols[COL_MG_COD_EAN] = CMP_COD_EAN;    //Cod.EAN;
     magazzinoNameCols[COL_MG_ID_MERCE] = CMP_MERCE;     //Cat.Merce;
-    magazzinoNameCols[COL_MG_ID_COD_IVA] = CMP_COD_IVA; //Cod.IVA;
+    magazzinoNameCols[COL_MG_COD_IVA] = CMP_COD_IVA; //Cod.IVA;
     magazzinoNameCols[COL_MG_ID_UM] = CMP_UM;           //UM;
     magazzinoNameCols[COL_MG_SCORTA] = CMP_SCORTA;      //Scorta Minima;
     magazzinoNameCols[COL_MG_QT] = CMP_QT;              //Quantita;

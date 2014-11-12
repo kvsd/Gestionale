@@ -106,9 +106,8 @@ void ArticoloDialog::setValue(QString id)
     ui->cb_catmerce->setModelColumn(magazzino::COL_MG_DESCR);
     ui->cb_catmerce->setCurrentIndex(index);
 
-    ui->cb_codiva->setModelColumn(magazzino::COL_MG_ID);
-    index = ui->cb_codiva->findText(query.value(magazzino::COL_MG_ID_COD_IVA).toString());
     ui->cb_codiva->setModelColumn(magazzino::COL_MG_DESCR);
+    index = ui->cb_codiva->findText(query.value(magazzino::COL_MG_COD_IVA).toString());
     ui->cb_codiva->setCurrentIndex(index);
 
     ui->cb_unitamisura->setModelColumn(magazzino::COL_MG_ID);
@@ -166,7 +165,7 @@ void ArticoloDialog::prepareMap()
 
     double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
     articolo[keymap::KEY_PRZ_ACQUISTO] = QString().setNum(prezzo_acquisto);
-    articolo[keymap::KEY_COD_IVA] = modelCodIva->index(ui->cb_codiva->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articolo[keymap::KEY_COD_IVA] = ui->cb_codiva->currentText();
     double iva = stringToDouble(ui->le_iva->text());
     articolo[keymap::KEY_IVA] = QString().setNum(iva);
     double prezzo_vend = stringToDouble(ui->le_prezzo_vendita->text());
