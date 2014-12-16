@@ -43,8 +43,6 @@ void codIvaUpdateDialog::initComboBox(void)
 void codIvaUpdateDialog::updateIva(void)
 {
     qDebug() << "codIvaUpdateDialog::updateIva()";
-    QString oldIvaId = oldIvaModel->index(ui->oldCodIvaComboBox->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    QString newIvaId = oldIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_MG_ID).data().toString();
 
     int oldIvastr = oldIvaModel->index(ui->oldCodIvaComboBox->currentIndex(), magazzino::COL_MG_DESCR).data().toInt();
     int newIvastr = newIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_MG_DESCR).data().toInt();
@@ -55,7 +53,7 @@ void codIvaUpdateDialog::updateIva(void)
 
     QSqlQuery query;
     query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);
-    query.bindValue(magazzino::PH_COD_IVA, oldIvaId);
+    query.bindValue(magazzino::PH_COD_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
         QString id = query.value(magazzino::COL_MG_ID).toString();
@@ -78,12 +76,15 @@ void codIvaUpdateDialog::updateIva(void)
 
         double iva = prezzo_ricarico*newIvastr/100.0;
         double prezzo_finito = prezzo_ricarico+iva;
-        double prezzo_vendita = prezzo_finito;
+        double prezzo_vendita = query.value(magazzino::COL_MG_PRZ_VEN).toDouble();
+        if (prezzo_finito > prezzo_vendita) {
+            prezzo_vendita = prezzo_finito;
+        }
 
         QSqlQuery queryUpdateIva;
         queryUpdateIva.prepare(magazzino::UPDATE_ARTICOLI_FROM_IVA);
         queryUpdateIva.bindValue(magazzino::PH_ID, id);
-        queryUpdateIva.bindValue(magazzino::PH_COD_IVA, newIvaId);
+        queryUpdateIva.bindValue(magazzino::PH_COD_IVA, newIvastr);
         queryUpdateIva.bindValue(magazzino::PH_IVA, iva);
         queryUpdateIva.bindValue(magazzino::PH_PRZ_FIN, prezzo_finito);
         queryUpdateIva.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
