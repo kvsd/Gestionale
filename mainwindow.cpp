@@ -2,23 +2,14 @@
 #include "ui_mainwindow.h"
 #include <QSqlDriver>
 
-const QString DEFAULT_USER = "user";
-const QString DEFAULT_HOST = "localhost";
-const int DEFAULT_PORT = 5432;
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     qDebug() << "MainWindow()";
     ui->setupUi(this);
-    db = QSqlDatabase::addDatabase("QPSQL");
-    while (int exitCode = launchLoginDlg()) {
-        if (exitCode == 2) {
-            delete ui;
-            exit(0);
-        }
-    }
+    db = QSqlDatabase::database();
+    diplayInfo();
 
     this->setGeometry(settings.value("MainWindow.size", QRect(0, 0, 500, 350)).toRect());
     anagraficaMW = 0;
@@ -38,37 +29,28 @@ void MainWindow::closeEvent(QCloseEvent *event)
     settings.setValue("MainWindow.size", this->geometry());
 }
 
-int MainWindow::launchLoginDlg(void)
+void MainWindow::launchLoginDlg(void)
 {
     qDebug() << "MainWindow::launchLoginDlg()";
-    db.close();
 
     LoginDialog dlg(this);
-    bool ok = dlg.exec();
-    if (!ok) {
-        return 2;
-    }
+    dlg.exec();
+    diplayInfo();
+}
 
-    QString dbname = settings.value("dbname", DEFAULT_USER).toString();
-    QString hostname = settings.value("hostname", DEFAULT_HOST).toString();
-    qint16 port = settings.value("port", DEFAULT_PORT).toInt();
-
-    db.setHostName(hostname);
-    db.setPort(port);
-    db.setDatabaseName(dbname);
-    db.setUserName(dlg.getUsername());
-    db.setPassword(dlg.getPassword());
-    ui->db_user->setText(dlg.getUsername());
-    ui->db_name->setText(dbname);
+void MainWindow::diplayInfo(void)
+{
+    qDebug() << "MainWindow::diplayInfo()";
 
     if (db.open()) {
+        ui->db_user->setText(db.userName());
+        ui->db_name->setText(db.databaseName());
         ui->db_status->setText("Connesso");
         ui->agentiButton->setEnabled(true);
         ui->clnFrnButton->setEnabled(true);
         ui->magazzinoButton->setEnabled(true);
         ui->actionSetup_Table->setEnabled(true);
         ui->actionConfigura_Azienda->setEnabled(true);
-        return 0;
     }
     else {
         ui->db_user->setText("Nessuno");
@@ -79,8 +61,6 @@ int MainWindow::launchLoginDlg(void)
         ui->magazzinoButton->setEnabled(false);
         ui->actionSetup_Table->setEnabled(false);
         ui->actionConfigura_Azienda->setEnabled(false);
-        showDialogError(this, ERR000, MSG000, db.lastError().text()); //NOTE codice errore 000
-        return 1;
     }
 }
 

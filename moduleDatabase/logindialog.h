@@ -3,7 +3,11 @@
 
 #include <QDialog>
 #include <QDebug>
-#include <connectionsetupdialog.h>
+#include <QSqlDatabase>
+#include <QSettings>
+#include <QSqlError>
+#include "connectionsetupdialog.h"
+#include "libs/error.h"
 
 namespace Ui {
 class LoginDialog;
@@ -16,13 +20,13 @@ class LoginDialog : public QDialog
 public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
-    QString getUsername() const;
-    QString getPassword() const;
 
 private:
     Ui::LoginDialog *ui;
+    QSqlDatabase db;
     QString username;
     QString password;
+    QSettings settings;
 
 public slots:
     void connectToDatabase(void);

@@ -36,13 +36,13 @@ private:
     QSettings settings;
     AnagraficaWindow *anagraficaMW;
     MagazzinoWindow *magazzinoMW;
-
+    void diplayInfo(void);
 
 protected:
     void closeEvent(QCloseEvent *);
 
 private slots:
-    int launchLoginDlg(void);
+    void launchLoginDlg(void);
     void launchConnectionSetupDlg(void);
     void launchTableSetupDlg(void);
     void launchAgentiViewDlg(void);
