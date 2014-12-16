@@ -140,11 +140,13 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>searchLineEdit</tabstop>
+  <tabstop>agentiView</tabstop>
   <tabstop>addButton</tabstop>
   <tabstop>updateButton</tabstop>
   <tabstop>removeButton</tabstop>
+  <tabstop>refreshButton</tabstop>
   <tabstop>closeButton</tabstop>
-  <tabstop>agentiView</tabstop>
  </tabstops>
  <resources/>
  <connections>
