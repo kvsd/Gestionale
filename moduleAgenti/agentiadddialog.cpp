@@ -26,6 +26,7 @@ void AgentiAddDialog::setValue(QString id)
     ui->nomeLineEdit->setText(query.value(agenti::COL_NOME).toString());
     ui->cognomeLineEdit->setText(query.value(agenti::COL_COGNOME).toString());
     ui->telLineEdit->setText(query.value(agenti::COL_TEL).toString());
+    ui->faxLineEdit->setText(query.value(agenti::COL_FAX).toString());
     ui->celLineEdit->setText(query.value(agenti::COL_CEL).toString());
     ui->emailLineEdit->setText(query.value(agenti::COL_EMAIL).toString());
     mapAgente[keymap::KEY_ID] = id;
@@ -37,6 +38,7 @@ void AgentiAddDialog::save(void)
     mapAgente[keymap::KEY_NOME] = ui->nomeLineEdit->text();
     mapAgente[keymap::KEY_COGNOME] = ui->cognomeLineEdit->text();
     mapAgente[keymap::KEY_TEL] = ui->telLineEdit->text();
+    mapAgente[keymap::KEY_FAX] = ui->faxLineEdit->text();
     mapAgente[keymap::KEY_CEL] = ui->celLineEdit->text();
     mapAgente[keymap::KEY_EMAIL] = ui->emailLineEdit->text();
 
@@ -58,6 +60,7 @@ void AgentiAddDialog::save(void)
     query.bindValue(agenti::PH_NOME, mapAgente[keymap::KEY_NOME]);
     query.bindValue(agenti::PH_COGNOME, mapAgente[keymap::KEY_COGNOME]);
     query.bindValue(agenti::PH_TEL, mapAgente[keymap::KEY_TEL]);
+    query.bindValue(agenti::PH_FAX, mapAgente[keymap::KEY_FAX]);
     query.bindValue(agenti::PH_CEL, mapAgente[keymap::KEY_CEL]);
     query.bindValue(agenti::PH_EMAIL, mapAgente[keymap::KEY_EMAIL]);
 

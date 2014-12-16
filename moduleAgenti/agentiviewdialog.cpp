@@ -12,6 +12,7 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     modelAgenti->setHeaderData(agenti::COL_NOME, Qt::Horizontal, "Nome");
     modelAgenti->setHeaderData(agenti::COL_COGNOME, Qt::Horizontal, "Cognome");
     modelAgenti->setHeaderData(agenti::COL_TEL, Qt::Horizontal, "Telefono");
+    modelAgenti->setHeaderData(agenti::COL_FAX, Qt::Horizontal, "Fax");
     modelAgenti->setHeaderData(agenti::COL_CEL, Qt::Horizontal, "Cellulare");
     modelAgenti->setHeaderData(agenti::COL_EMAIL, Qt::Horizontal, "E-mail");
 

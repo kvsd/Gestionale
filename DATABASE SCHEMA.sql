@@ -154,6 +154,7 @@ CREATE TABLE agenti(id SERIAL PRIMARY KEY,
                     nome TEXT,
                     cognome TEXT NOT NULL,
                     tel TEXT,
+		    fax TEXT,
                     cel TEXT,
                     email TEXT);
 INSERT INTO agenti(id, nome, cognome) VALUES(0, '-----', '-----');

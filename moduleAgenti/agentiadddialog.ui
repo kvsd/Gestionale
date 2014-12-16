@@ -49,25 +49,35 @@
      <item row="2" column="1">
       <widget class="QLineEdit" name="telLineEdit"/>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Cellulare:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QLineEdit" name="celLineEdit"/>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>E-mail:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QLineEdit" name="emailLineEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Fax:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="faxLineEdit"/>
      </item>
     </layout>
    </item>
@@ -127,6 +137,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>nomeLineEdit</tabstop>
+  <tabstop>cognomeLineEdit</tabstop>
+  <tabstop>telLineEdit</tabstop>
+  <tabstop>faxLineEdit</tabstop>
+  <tabstop>celLineEdit</tabstop>
+  <tabstop>emailLineEdit</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>closeButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -152,8 +173,8 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>250</x>
-     <y>192</y>
+     <x>332</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel">
      <x>212</x>
@@ -168,12 +189,12 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>205</y>
+     <x>332</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel">
-     <x>191</x>
-     <y>90</y>
+     <x>273</x>
+     <y>85</y>
     </hint>
    </hints>
   </connection>
@@ -184,12 +205,12 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>226</x>
-     <y>193</y>
+     <x>332</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel">
-     <x>216</x>
-     <y>119</y>
+     <x>298</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>
@@ -200,8 +221,8 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>231</x>
-     <y>201</y>
+     <x>332</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel">
      <x>235</x>
@@ -238,6 +259,22 @@
     <hint type="destinationlabel">
      <x>49</x>
      <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>faxLineEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>224</x>
+     <y>112</y>
     </hint>
    </hints>
   </connection>
