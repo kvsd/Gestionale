@@ -66,7 +66,7 @@ namespace magazzino {
 
     const QString SELECT_ARTICOLI_ALL = "SELECT * FROM vw_magazzino";
     const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
-    const QString SELECT_INVENTARIO = QString::fromUtf8("SELECT \"Quantità\", \"Descrizione\", \"Prezzo Acquisto\", \"Quantità\"*\"Prezzo Acquisto\" As \"SubTotale\" FROM vw_magazzino WHERE \"Quantità\"!=0 ORDER BY \"Descrizione\" "); 
+    const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
     const QString SQL_INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
     const QString SELECT_ORDINE = QString::fromUtf8("SELECT * FROM vw_magazzino WHERE \"Quantità\" < \"Scorta Minima\" AND \"Fornitore\" = '%1'");
 
