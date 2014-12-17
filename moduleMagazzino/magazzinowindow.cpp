@@ -380,7 +380,7 @@ void MagazzinoWindow::openConfigDialog(void)
 void MagazzinoWindow::exportMagazzinoCsv(void)
 {
     qDebug() << "MagazzinoWindow::exportMagazzinoCsv()";
-    QString filename = QFileDialog::getSaveFileName();
+    QString filename = QFileDialog::getSaveFileName(this);
     if (filename.isEmpty())
         return;
 
@@ -407,7 +407,7 @@ void MagazzinoWindow::exportMagazzinoCsv(void)
 void MagazzinoWindow::exportStoricoCsv(void)
 {
     qDebug() << "MagazzinoWindow::exportStoricoCsv()";
-    QString filename = QFileDialog::getSaveFileName();
+    QString filename = QFileDialog::getSaveFileName(this);
     if (filename.isEmpty())
         return;
 
@@ -434,7 +434,7 @@ void MagazzinoWindow::exportStoricoCsv(void)
 void MagazzinoWindow::importMagazzinoCsv(void)
 {
     qDebug() << "MagazzinoWindow::importMagazzinoCvs()";
-    QString filename = QFileDialog::getOpenFileName();
+    QString filename = QFileDialog::getOpenFileName(this);
     if (filename.isEmpty())
         return;
 
@@ -470,7 +470,7 @@ void MagazzinoWindow::importMagazzinoCsv(void)
 void MagazzinoWindow::importStoricoCsv(void)
 {
     qDebug() << "MagazzinoWindow::importStoricoCvs()";
-    QString filename = QFileDialog::getOpenFileName();
+    QString filename = QFileDialog::getOpenFileName(this);
     if (filename.isEmpty())
         return;
 
