@@ -159,15 +159,15 @@ QString MagazzinoWindow::searchString(void) {
     }
 
     if (ui->actionCod_Fornitore->isChecked()) {
-        filter.append("\"Cod.Fornitore\" ILIKE '%%1%'");
+        filter.append("cod_fornitore ILIKE '%%1%'");
     }
 
     if (ui->actionCod_Articolo->isChecked()) {
-        filter.append("\"Cod.Articolo\" ILIKE '%%1%'");
+        filter.append("cod_articolo ILIKE '%%1%'");
     }
 
     if (ui->actionEAN->isChecked()) {
-        filter.append("\"Cod.EAN\" ILIKE '%%1%'");
+        filter.append("cod_barre ILIKE '%%1%'");
     }
 
     if (filter.isEmpty()) {
