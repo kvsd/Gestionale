@@ -5,30 +5,25 @@ QMap<int,QString> magazzino::prepareMapsNameColsArticolo()
     qDebug() << "magazzino::prepareMapsNameColsArticolo()";
     QMap <int,QString> magazzinoNameCols;
 
-    magazzinoNameCols[COL_MG_ID] = CMP_ID;              //Id
-    magazzinoNameCols[COL_MG_DESCR] = CMP_DESCR;        //Descrizione;
-    magazzinoNameCols[COL_MG_ID_FORN] = CMP_FORNIT;     //Fornitore;
-    magazzinoNameCols[COL_MG_ID_MARCA] = CMP_MARCA;     //Marca;
-    magazzinoNameCols[COL_MG_MODELLO] = CMP_MODELLO;    //Modello;
-    magazzinoNameCols[COL_MG_COD_ART] = CMP_COD_ART;    //Cod.Articolo;
-    magazzinoNameCols[COL_MG_COD_FOR] = CMP_COD_FOR;    //Cod.Fornitore;
-    magazzinoNameCols[COL_MG_COD_EAN] = CMP_COD_EAN;    //Cod.EAN;
-    magazzinoNameCols[COL_MG_ID_MERCE] = CMP_MERCE;     //Cat.Merce;
-    magazzinoNameCols[COL_MG_COD_IVA] = CMP_COD_IVA; //Cod.IVA;
-    magazzinoNameCols[COL_MG_ID_UM] = CMP_UM;           //UM;
-    magazzinoNameCols[COL_MG_SCORTA] = CMP_SCORTA;      //Scorta Minima;
-    magazzinoNameCols[COL_MG_QT] = CMP_QT;              //Quantita;
-    magazzinoNameCols[COL_MG_PRZ_FAT] = CMP_PRZ_FAT;    //Prezzo Fattura;
-    magazzinoNameCols[COL_MG_SCONTO] = CMP_SCONTO;      //Sconto;
-    magazzinoNameCols[COL_MG_RICARICO] = CMP_RICAR;     //Ricarico;
-    magazzinoNameCols[COL_MG_PRZ_ACQ] = CMP_PRZ_ACQ;    //Prezzo Acquisto;
-    magazzinoNameCols[COL_MG_IVA] = CMP_IVA;            //Iva;
-    magazzinoNameCols[COL_MG_PRZ_FIN] = CMP_PRZ_FIN;    //Prezzo Finito;
-    magazzinoNameCols[COL_MG_PRZ_VEN] = CMP_PRZ_VEN;    //Prezzo Vendita;
-    magazzinoNameCols[COL_MG_FATTURA] = CMP_FATTURA;    //Nr.Fattura;
-    magazzinoNameCols[COL_MG_DATA] = CMP_DATA;          //Data Arrivo;
-    magazzinoNameCols[COL_MG_ID_SEDE] = CMP_SEDE;       //Sede Magazzino";
-    magazzinoNameCols[COL_MG_NOTE] = CMP_NOTE;          //Note
+    magazzinoNameCols[0] = CMP_ID;         //Id
+    magazzinoNameCols[1] = CMP_DESCR;      //Descrizione;
+    magazzinoNameCols[2] = CMP_MODELLO;    //Modello;
+    magazzinoNameCols[3] = CMP_COD_ART;    //Cod.Articolo;
+    magazzinoNameCols[4] = CMP_COD_FOR;    //Cod.Fornitore;
+    magazzinoNameCols[5] = CMP_COD_EAN;    //Cod.EAN;
+    magazzinoNameCols[6] = CMP_COD_IVA;    //Cod.IVA;
+    magazzinoNameCols[7] = CMP_SCORTA;     //Scorta Minima;
+    magazzinoNameCols[8] = CMP_QT;         //Quantita;
+    magazzinoNameCols[9] = CMP_PRZ_FAT;    //Prezzo Fattura;
+    magazzinoNameCols[10] = CMP_SCONTO;    //Sconto;
+    magazzinoNameCols[11] = CMP_RICAR;     //Ricarico;
+    magazzinoNameCols[12] = CMP_PRZ_ACQ;   //Prezzo Acquisto;
+    magazzinoNameCols[13] = CMP_IVA;       //Iva;
+    magazzinoNameCols[14] = CMP_PRZ_FIN;   //Prezzo Finito;
+    magazzinoNameCols[15] = CMP_PRZ_VEN;   //Prezzo Vendita;
+    magazzinoNameCols[16] = CMP_FATTURA;   //Nr.Fattura;
+    magazzinoNameCols[17] = CMP_DATA;      //Data Arrivo;
+    magazzinoNameCols[18] = CMP_NOTE;      //Note
 
     return magazzinoNameCols;
 }

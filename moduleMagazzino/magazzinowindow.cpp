@@ -155,7 +155,7 @@ QString MagazzinoWindow::searchString(void) {
 
     QStringList filter;
     if (ui->actionDescrizione->isChecked()) {
-        filter.append("\"Descrizione\" ILIKE '%%1%'");
+        filter.append("descr ILIKE '%%1%'");
     }
 
     if (ui->actionCod_Fornitore->isChecked()) {
@@ -183,34 +183,42 @@ QString MagazzinoWindow::filterString(void) {
     qDebug() << "MagazzinoWindow::filterString()";
     QStringList filter;
     if (ui->fornitoreComboBox->isEnabled()) {
-        QString fornitore = "\"Fornitore\" = '%1'";
-        filter.append(fornitore.arg(ui->fornitoreComboBox->currentText()));
+        QString fornitore = "id_fornitore = '%1'";
+        int index = ui->fornitoreComboBox->currentIndex();
+        QString id = fornitoreModel->index(index, 0).data().toString();
+        filter.append(fornitore.arg(id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
-        QString catmerce = "\"Cat.Merce\" = '%1'";
-        filter.append(catmerce.arg(ui->categoriaComboBox->currentText()));
+        QString catmerce = "id_merce = '%1'";
+        int index = ui->categoriaComboBox->currentIndex();
+        QString id = categoriaModel->index(index, 0).data().toString();
+        filter.append(catmerce.arg(id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
-        QString marca = "\"Marca\" = '%1'";
-        filter.append(marca.arg(ui->marcaComboBox->currentText()));
+        QString marca = "id_marca = '%1'";
+        int index = ui->marcaComboBox->currentIndex();
+        QString id = marcaModel->index(index, 0).data().toString();
+        filter.append(marca.arg(id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
-        QString sede = "\"Sede Magazzino\" = '%1'";
-        filter.append(sede.arg(ui->sedeComboBox->currentText()));
+        QString sede = "id_sede_magazzino = '%1'";
+        int index = ui->sedeComboBox->currentIndex();
+        QString id = sedeModel->index(index, 0).data().toString();
+        filter.append(sede.arg(id));
     }
 
     if (ui->currentDateEnabler->isChecked()) {
-        QString data = "\"Data Arrivo\" = '%1'";
+        QString data = "data_arrivo = '%1'";
         QString currentDate = QDate::currentDate().toString("dd/MM/yy");
         filter.append(data.arg(currentDate));
     }
     else if (ui->rangeDateEnabler->isChecked()) {
         QString data1 = ui->data1LineEdit->text();
         QString data2 = ui->data2LineEdit->text();
-        QString data = "\"Data Arrivo\" > '%1' AND \"Data Arrivo\" < '%2'";
+        QString data = "data_arrivo >= '%1' AND data_arrivo <= '%2'";
         filter.append(data.arg(data1, data2));
     }
 
@@ -228,11 +236,11 @@ QString MagazzinoWindow::giacenzaString(void)
     QString result = "";
 
     if (ui->radioGiacenzaPos->isChecked())
-        result = QString::fromUtf8("\"Quantità\" >= \"Scorta Minima\"");
+        result = "quantita >= scorta_minima";
     else if (ui->radioGiacenzaNeg->isChecked())
-        result = QString::fromUtf8("\"Quantità\" < \"Scorta Minima\"");
+        result = "quantita < scorta_minima";
     else if (ui->radioGiacenza0->isChecked())
-        result = QString::fromUtf8("\"Quantità\" = 0");
+        result = "quantita = 0";
 
     return result;
 }
