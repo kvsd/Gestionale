@@ -4,6 +4,7 @@
 #include <QString>
 #include <QRect>
 #include <QMap>
+#include <QSqlQueryModel>
 
 namespace magazzino {
 
@@ -115,8 +116,7 @@ namespace magazzino {
                   COL_ST_FATTURA = 10       // FATTURA
                  };
 
-    QMap<int,QString> prepareMapsNameColsArticolo();
-    QMap<int,QString> prepareMapsNameColsStorico();
+    QMap<int,QString> prepareMapsFromModel(QSqlQueryModel *model);
 
     //PH SQL PlaceHolder
     const QString PH_ID      = ":id";
