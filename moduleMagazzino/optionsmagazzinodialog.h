@@ -11,6 +11,7 @@
 #include <QColorDialog>
 #include <QModelIndex>
 #include <QSqlTableModel>
+#include <QSqlQueryModel>
 
 namespace Ui {
 class OptionsMagazzinoDialog;
@@ -27,6 +28,8 @@ public:
 private:
     Ui::OptionsMagazzinoDialog *ui;
     QSqlTableModel *codIvaModel;
+    QSqlQueryModel *articoloModel;
+    QSqlQueryModel *storicoModel;
     QMap <int, QString> magazzinoNameCols;
     QMap <int, QString> storicoNameCols;
     QSettings settings;

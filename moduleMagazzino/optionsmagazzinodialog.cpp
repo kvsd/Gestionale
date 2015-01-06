@@ -11,6 +11,13 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     codIvaModel = new QSqlTableModel(this);
     codIvaModel->setTable(table::CODICE_IVA);
     codIvaModel->select();
+
+    articoloModel = new QSqlQueryModel(this);
+    articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+
+    storicoModel = new QSqlQueryModel(this);
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
+
     ui->codIvaComboBox->setModel(codIvaModel);
     ui->codIvaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
 
@@ -28,8 +35,10 @@ OptionsMagazzinoDialog::~OptionsMagazzinoDialog()
 void OptionsMagazzinoDialog::prepareMaps()
 {
     qDebug() << "OptionsMagazzinoDialog::prepareMaps()";
-    magazzinoNameCols = magazzino::prepareMapsNameColsArticolo();
-    storicoNameCols = magazzino::prepareMapsNameColsStorico();
+//    magazzinoNameCols = magazzino::prepareMapsNameColsArticolo();
+//    storicoNameCols = magazzino::prepareMapsNameColsStorico();
+    magazzinoNameCols = magazzino::prepareMapsFromModel(articoloModel);
+    storicoNameCols = magazzino::prepareMapsFromModel(storicoModel);
 }
 
 void OptionsMagazzinoDialog::populateList(void)

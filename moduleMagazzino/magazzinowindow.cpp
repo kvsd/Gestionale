@@ -57,8 +57,6 @@ void MagazzinoWindow::initComboBox()
 
     ui->sedeComboBox->setModel(sedeModel);
     ui->sedeComboBox->setModelColumn(magazzino::COL_MG_DESCR);
-
-    ui->orderbyComboBox->addItems(magazzino::prepareMapsNameColsArticolo().values());
 }
 
 void MagazzinoWindow::updateModel()
@@ -352,6 +350,12 @@ void MagazzinoWindow::updateViewMagazzino(void)
 
     ui->articoloView->resizeColumnsToContents();
     ui->articoloView->horizontalHeader()->setStretchLastSection(true);
+
+    /* Per creare l'elenco dinamico delle colonne devo prima impostare il model
+    ** per questo viene settato in updateViewMagazzino e non in initComboBox */
+    if (!ui->orderbyComboBox->count()) {
+        ui->orderbyComboBox->addItems(magazzino::prepareMapsFromModel(articoloModel).values());
+    }
 
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
        corrotto il file di configurazione. Questa impostazione permette di avere
