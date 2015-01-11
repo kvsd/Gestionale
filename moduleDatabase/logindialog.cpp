@@ -12,8 +12,13 @@ LoginDialog::LoginDialog(QWidget *parent) :
     qDebug() << "LoginDialog()";
     ui->setupUi(this);
 
-    db = QSqlDatabase::database();
-    db.close();
+    if (db.contains()) {
+        db = QSqlDatabase::database();
+    }
+    else {
+        db = QSqlDatabase::addDatabase("QPSQL");
+    }
+
 }
 
 LoginDialog::~LoginDialog()
