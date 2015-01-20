@@ -65,7 +65,31 @@ namespace magazzino {
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE cod_iva=:cod_iva";
     const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET cod_iva=:cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
 
-    const QString SELECT_ARTICOLI_ALL = QString::fromUtf8("SELECT id As \"Id\", descr As \"Descrizione\", modello As \"Modello\", cod_articolo AS \"Cod.Articolo\", cod_fornitore AS \"Cod.Fornitore\", cod_barre AS \"Cod.EAN\", format('%s%%', cod_iva) AS \"Cod.IVA\", scorta_minima As \"Scorta Minima\", quantita AS \"Quantità\", prezzo_fattura::money As \"Prezzo Fattura\", format('%s%%', sconto_fornitore) As \"Sconto Fornitore\", prezzo_acquisto::money As \"Prezzo Acquisto\", format('%s%%', ricarico) As \"Ricarico\", iva::money As \"Iva\", prezzo_finito::money As \"Prezzo Finito\", prezzo_vendita::money As \"Prezzo Vendità\", fattura As \"Nr.Fattura\", data_arrivo As \"Data Arrivo\", note As \"Note\" FROM magazzino");
+    //Select utilizzata in MagazzinoWindow, elenca tutti gli articoli in magazzino
+    //sostituisce vw_magazzino
+    const QString SELECT_ARTICOLI_ALL = QString::fromUtf8("SELECT mg.id As \"Id\", "
+                                                          "mg.descr As \"Descrizione\", "
+                                                          "an.rag_sociale AS \"Fornitore\", "
+                                                          "mg.modello As \"Modello\", "
+                                                          "mg.cod_articolo AS \"Cod.Articolo\", "
+                                                          "mg.cod_fornitore AS \"Cod.Fornitore\", "
+                                                          "mg.cod_barre AS \"Cod.EAN\", "
+                                                          "format('%s%%', mg.cod_iva) AS \"Cod.IVA\", "
+                                                          "mg.scorta_minima As \"Scorta Minima\", "
+                                                          "mg.quantita AS \"Quantità\", "
+                                                          "mg.prezzo_fattura::money As \"Prezzo Fattura\", "
+                                                          "format('%s%%', mg.sconto_fornitore) As \"Sconto Fornitore\", "
+                                                          "mg.prezzo_acquisto::money As \"Prezzo Acquisto\", "
+                                                          "format('%s%%', mg.ricarico) As \"Ricarico\", "
+                                                          "mg.iva::money As \"Iva\", "
+                                                          "mg.prezzo_finito::money As \"Prezzo Finito\", "
+                                                          "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
+                                                          "mg.fattura As \"Nr.Fattura\", "
+                                                          "mg.data_arrivo As \"Data Arrivo\", "
+                                                          "mg.note As \"Note\" "
+                                                          "FROM magazzino AS mg, anagrafica AS an "
+                                                          "WHERE mg.id_fornitore=an.id ");
+
     const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
     const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
     const QString SQL_INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");

@@ -339,7 +339,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
         filterList.append(filter3);
 
     if (filterList.length())
-        query.append(" WHERE " + filterList.join(" AND "));
+        query.append(" AND " + filterList.join(" AND "));
 
     if (!order.isEmpty()) {
         query.append(order);
