@@ -1,13 +1,14 @@
 #include "optionsanagraficadialog.h"
 #include "ui_optionsanagraficadialog.h"
 
-OptionsAnagraficaDialog::OptionsAnagraficaDialog(QWidget *parent) :
+OptionsAnagraficaDialog::OptionsAnagraficaDialog(CustomModel *model, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OptionsAnagraficaDialog)
 {
     qDebug() << "OptionsAnagraficaDialog()";
     ui->setupUi(this);
 
+    anagraficaModel = model;
     prepareMap();
     populateAnagraficaList();
     loadConfig();
@@ -22,31 +23,7 @@ OptionsAnagraficaDialog::~OptionsAnagraficaDialog()
 void OptionsAnagraficaDialog::prepareMap()
 {
     qDebug() << "OptionsAnagraficaDialog::prepareMap()";
-    anagraficaNameCols[0] = "Id";
-    anagraficaNameCols[1] = "Ragione sociale";
-    anagraficaNameCols[2] = "Tipo di ditta";
-    anagraficaNameCols[3] = "Nome";
-    anagraficaNameCols[4] = "Cognome";
-    anagraficaNameCols[5] = "Indirizzo";
-    anagraficaNameCols[6] = "Citta";
-    anagraficaNameCols[7] = "Provincia";
-    anagraficaNameCols[8] = "CAP";
-    anagraficaNameCols[9] = "Stato";
-    anagraficaNameCols[10] = "Codice fiscale";
-    anagraficaNameCols[11] = "Partita iva";
-    anagraficaNameCols[12] = "Agente";
-    anagraficaNameCols[13] = "Telefono";
-    anagraficaNameCols[14] = "Fax";
-    anagraficaNameCols[15] = "Cellulare";
-    anagraficaNameCols[16] = "Email";
-    anagraficaNameCols[17] = "Sito web";
-    anagraficaNameCols[18] = "Banca";
-    anagraficaNameCols[19] = "Agenzia";
-    anagraficaNameCols[20] = "Conto";
-    anagraficaNameCols[21] = "Swift";
-    anagraficaNameCols[22] = "Iban";
-    anagraficaNameCols[23] = "Destinazione merce";
-    anagraficaNameCols[24] = "Note";
+    anagraficaNameCols = prepareMapsFromModel(anagraficaModel);
 }
 
 void OptionsAnagraficaDialog::populateAnagraficaList(void)
