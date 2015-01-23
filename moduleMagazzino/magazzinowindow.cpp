@@ -354,7 +354,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
     /* Per creare l'elenco dinamico delle colonne devo prima impostare il model
     ** per questo viene settato in updateViewMagazzino e non in initComboBox */
     if (!ui->orderbyComboBox->count()) {
-        ui->orderbyComboBox->addItems(magazzino::prepareMapsFromModel(articoloModel).values());
+        ui->orderbyComboBox->addItems(prepareMapsFromModel(articoloModel).values());
     }
 
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene

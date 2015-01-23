@@ -3,6 +3,7 @@
 
 #include "magazzino_const.h"
 #include "libs/gestionale_const.h"
+#include "libs/utils.h"
 
 #include <QDialog>
 #include <QMap>

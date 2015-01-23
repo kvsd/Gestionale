@@ -3,6 +3,7 @@
 
 #include "libs/custommodel.h"
 #include "libs/gestionale_const.h"
+#include "libs/utils.h"
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
 #include "magazzino_const.h"

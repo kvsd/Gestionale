@@ -35,10 +35,9 @@ OptionsMagazzinoDialog::~OptionsMagazzinoDialog()
 void OptionsMagazzinoDialog::prepareMaps()
 {
     qDebug() << "OptionsMagazzinoDialog::prepareMaps()";
-//    magazzinoNameCols = magazzino::prepareMapsNameColsArticolo();
-//    storicoNameCols = magazzino::prepareMapsNameColsStorico();
-    magazzinoNameCols = magazzino::prepareMapsFromModel(articoloModel);
-    storicoNameCols = magazzino::prepareMapsFromModel(storicoModel);
+
+    magazzinoNameCols = prepareMapsFromModel(articoloModel);
+    storicoNameCols = prepareMapsFromModel(storicoModel);
 }
 
 void OptionsMagazzinoDialog::populateList(void)
