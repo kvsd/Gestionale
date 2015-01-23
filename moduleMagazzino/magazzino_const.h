@@ -48,52 +48,159 @@ namespace magazzino {
 
 
     //SQL
-    const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, \"Ragione sociale\" as descr FROM vw_anagrafica_fornitori";
+    //Select usata nel combobox in MagazzinoWindow per il filtro fornitore.
+    const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, "
+                                                   "\"Ragione sociale\" as descr "
+                                            "FROM vw_anagrafica_fornitori";
 
-    const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" from vw_anagrafica_fornitori ORDER BY \"Ragione sociale\"";
+    //Select usate in ArticoloDialog per il combobox del fornitore
+    const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" "
+                                     "FROM vw_anagrafica_fornitori "
+                                     "ORDER BY \"Ragione sociale\"";
 
-    const QString INSERT_STORICO = "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura) VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura)";
-    const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico WHERE \"Id Articolo\"='%1' ORDER BY \"Data\" DESC, \"Prezzo Acquisto\" DESC";
+    //Insert utilizzata per aggiungere un record in listino_storico
+    //Viene utilizzata in ArticoloDialog, MagazzinoWindows(cvs) e CodIvaUpdateDialog
+    const QString INSERT_STORICO =
+            "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, "
+                                         "prezzo_fattura, sconto_fornitore, "
+                                         "prezzo_acquisto, ricarico, iva, "
+                                         "prezzo_finito, prezzo_vendita, fattura) "
+            "VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_fattura, "
+                    ":sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, "
+                    ":prezzo_finito, :prezzo_vendita, :fattura)";
+
+    //Select utilizzata in MagazzinoWindow per visualizzare lo storico
+    //del'articolo selezionato
+    const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico "
+                                   "WHERE \"Id Articolo\"='%1' "
+                                   "ORDER BY \"Data\" DESC, "
+                                            "\"Prezzo Acquisto\" DESC";
+
+
+    //Select utilizzata in MagazzinoWindows per l'esportazione dello
+    //storico in csv
     const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
 
-    const QString INSERT_ARTICOLO = "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce , cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+    //Insert utilizzata in ArticoloDialog per l'inserimento di nuovi articoli
+    const QString INSERT_ARTICOLO =
+            "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, "
+                                   "cod_articolo, cod_fornitore, cod_barre ,"
+                                   "id_merce, cod_iva, id_unita_misura, "
+                                   "scorta_minima, quantita, prezzo_fattura, "
+                                   "sconto_fornitore, prezzo_acquisto, ricarico, "
+                                   "iva, prezzo_finito, prezzo_vendita, fattura, "
+                                   "data_arrivo, id_sede_magazzino, note) "
+            "VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, "
+                    ":cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, "
+                    ":scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, "
+                    ":prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, "
+                    ":fattura, :data_arrivo, :id_sede_magazzino, :note)";
+
+    //Delete usata in MagazzinoWindow per eliminare l'articolo selezionato
     const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
-    const QString UPDATE_ARTICOLO = "UPDATE magazzino SET descr=:descr, id_fornitore=:id_fornitore, id_marca=:id_marca, modello=:modello, cod_articolo=:cod_articolo, cod_fornitore=:cod_fornitore, cod_barre=:cod_barre, id_merce=:id_merce, cod_iva=:cod_iva, id_unita_misura=:id_unita_merce, scorta_minima=:scorta_minima, quantita=:quantita, prezzo_fattura=:prezzo_fattura, sconto_fornitore=:sconto_fornitore, ricarico=:ricarico, prezzo_acquisto=:prezzo_acquisto, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita, fattura=:fattura, data_arrivo=:data_arrivo, id_sede_magazzino=:id_sede_magazzino, note=:note WHERE id=:id";
+
+    //Update usata in ArticoloDialog per aggiornare l'articolo selezionato
+    const QString UPDATE_ARTICOLO =
+            "UPDATE magazzino SET descr=:descr, "
+                                 "id_fornitore=:id_fornitore, "
+                                 "id_marca=:id_marca, modello=:modello, "
+                                 "cod_articolo=:cod_articolo, "
+                                 "cod_fornitore=:cod_fornitore, "
+                                 "cod_barre=:cod_barre, "
+                                 "id_merce=:id_merce, "
+                                 "cod_iva=:cod_iva, "
+                                 "id_unita_misura=:id_unita_merce, "
+                                 "scorta_minima=:scorta_minima, "
+                                 "quantita=:quantita, "
+                                 "prezzo_fattura=:prezzo_fattura, "
+                                 "sconto_fornitore=:sconto_fornitore, "
+                                 "ricarico=:ricarico, "
+                                 "prezzo_acquisto=:prezzo_acquisto, "
+                                 "iva=:iva, "
+                                 "prezzo_finito=:prezzo_finito, "
+                                 "prezzo_vendita=:prezzo_vendita, "
+                                 "fattura=:fattura, "
+                                 "data_arrivo=:data_arrivo, "
+                                 "id_sede_magazzino=:id_sede_magazzino, "
+                                 "note=:note "
+            "WHERE id=:id";
+
+    //Select usata in ArticoloDialog per caricare tutti i dati per la modifica
+    //di un articolo
     const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
-    const QString INSERT_CSV_ARTICOLO = "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, modello, cod_articolo, cod_fornitore, cod_barre ,id_merce ,cod_iva, id_unita_misura, scorta_minima, quantita, prezzo_fattura, sconto_fornitore, prezzo_acquisto, ricarico, iva, prezzo_finito, prezzo_vendita, fattura, data_arrivo, id_sede_magazzino, note) VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, :cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, :scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, :fattura, :data_arrivo, :id_sede_magazzino, :note)";
+
+    //Insert utilizzata in MagazzinoWindow per l'importazione degli articoli
+    //nel formato CSV
+    const QString INSERT_CSV_ARTICOLO =
+            "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, "
+                                   "modello, cod_articolo, cod_fornitore, "
+                                   "cod_barre ,id_merce ,cod_iva, id_unita_misura, "
+                                   "scorta_minima, quantita, prezzo_fattura, "
+                                   "sconto_fornitore, prezzo_acquisto, "
+                                   "ricarico, iva, prezzo_finito, prezzo_vendita, "
+                                   "fattura, data_arrivo, id_sede_magazzino, note) "
+            "VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, "
+                    ":cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, "
+                    ":scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, "
+                    ":prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, "
+                    ":fattura, :data_arrivo, :id_sede_magazzino, :note)";
+
+    //Select utilizzata in MagazzinoWindow per l'esportazione in CSV
     const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
+
+    //Select utilizzata in CodIvaUpdateDialog
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE cod_iva=:cod_iva";
-    const QString UPDATE_ARTICOLI_FROM_IVA = "UPDATE magazzino SET cod_iva=:cod_iva, iva=:iva, prezzo_finito=:prezzo_finito, prezzo_vendita=:prezzo_vendita WHERE id=:id";
+
+    //Update utilizzata in CodIvaUpdateDialog
+    const QString UPDATE_ARTICOLI_FROM_IVA =
+            "UPDATE magazzino SET cod_iva=:cod_iva, "
+                                 "iva=:iva, "
+                                 "prezzo_finito=:prezzo_finito, "
+                                 "prezzo_vendita=:prezzo_vendita "
+            "WHERE id=:id";
 
     //Select utilizzata in MagazzinoWindow, elenca tutti gli articoli in magazzino
     //sostituisce vw_magazzino
-    const QString SELECT_ARTICOLI_ALL = QString::fromUtf8("SELECT mg.id As \"Id\", "
-                                                          "mg.descr As \"Descrizione\", "
-                                                          "an.rag_sociale AS \"Fornitore\", "
-                                                          "mg.modello As \"Modello\", "
-                                                          "mg.cod_articolo AS \"Cod.Articolo\", "
-                                                          "mg.cod_fornitore AS \"Cod.Fornitore\", "
-                                                          "mg.cod_barre AS \"Cod.EAN\", "
-                                                          "format('%s%%', mg.cod_iva) AS \"Cod.IVA\", "
-                                                          "mg.scorta_minima As \"Scorta Minima\", "
-                                                          "mg.quantita AS \"Quantità\", "
-                                                          "mg.prezzo_fattura::money As \"Prezzo Fattura\", "
-                                                          "format('%s%%', mg.sconto_fornitore) As \"Sconto Fornitore\", "
-                                                          "mg.prezzo_acquisto::money As \"Prezzo Acquisto\", "
-                                                          "format('%s%%', mg.ricarico) As \"Ricarico\", "
-                                                          "mg.iva::money As \"Iva\", "
-                                                          "mg.prezzo_finito::money As \"Prezzo Finito\", "
-                                                          "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
-                                                          "mg.fattura As \"Nr.Fattura\", "
-                                                          "mg.data_arrivo As \"Data Arrivo\", "
-                                                          "mg.note As \"Note\" "
-                                                          "FROM magazzino AS mg, anagrafica AS an "
-                                                          "WHERE mg.id_fornitore=an.id ");
+    const QString SELECT_ARTICOLI_ALL =
+            QString::fromUtf8("SELECT mg.id As \"Id\", "
+                                     "mg.descr As \"Descrizione\", "
+                                     "an.rag_sociale AS \"Fornitore\", "
+                                     "mg.modello As \"Modello\", "
+                                     "mg.cod_articolo AS \"Cod.Articolo\", "
+                                     "mg.cod_fornitore AS \"Cod.Fornitore\", "
+                                     "mg.cod_barre AS \"Cod.EAN\", "
+                                     "format('%s%%', mg.cod_iva) AS \"Cod.IVA\", "
+                                     "mg.scorta_minima As \"Scorta Minima\", "
+                                     "mg.quantita AS \"Quantità\", "
+                                     "mg.prezzo_fattura::money As \"Prezzo Fattura\", "
+                                     "format('%s%%', mg.sconto_fornitore) As \"Sconto Fornitore\", "
+                                     "mg.prezzo_acquisto::money As \"Prezzo Acquisto\", "
+                                     "format('%s%%', mg.ricarico) As \"Ricarico\", "
+                                     "mg.iva::money As \"Iva\", "
+                                     "mg.prezzo_finito::money As \"Prezzo Finito\", "
+                                     "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
+                                     "mg.fattura As \"Nr.Fattura\", "
+                                     "mg.data_arrivo As \"Data Arrivo\", "
+                                     "mg.note As \"Note\" "
+                              "FROM magazzino AS mg, anagrafica AS an "
+                              "WHERE mg.id_fornitore=an.id ");
 
+    //Select utilizzata per la stampa dei listini
     const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
+
+    //Select utilizzata per la stampa dell'inventario
     const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
-    const QString SQL_INVENTARIO_TOT = QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" FROM vw_magazzino WHERE \"Quantità\"!=0");
-    const QString SELECT_ORDINE = QString::fromUtf8("SELECT * FROM vw_magazzino WHERE \"Quantità\" < \"Scorta Minima\" AND \"Fornitore\" = '%1'");
+
+    //Select che ritorna il totale dell'inventario, usato insieme alla query SELECT_INVENTARIO
+    const QString SQL_INVENTARIO_TOT =
+            QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" "
+                              "FROM vw_magazzino WHERE \"Quantità\"!=0");
+
+    //Select utilizzata per la stampa degli ordini
+    const QString SELECT_ORDINE =
+            QString::fromUtf8("SELECT * FROM vw_magazzino "
+                              "WHERE \"Quantità\" < \"Scorta Minima\" "
+                              "AND \"Fornitore\" = '%1'");
 
     enum Documenti {
         FATTURA,
@@ -139,8 +246,6 @@ namespace magazzino {
                   COL_ST_PRZ_VEN = 9,       // Prezzo Vendità
                   COL_ST_FATTURA = 10       // FATTURA
                  };
-
-    QMap<int,QString> prepareMapsFromModel(QSqlQueryModel *model);
 
     //PH SQL PlaceHolder
     const QString PH_ID      = ":id";
