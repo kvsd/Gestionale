@@ -22,9 +22,9 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lb_info">
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

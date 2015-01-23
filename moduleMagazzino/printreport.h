@@ -51,7 +51,6 @@ private:
     QPrinter *printer;
     QPainter *painter;
 
-    void setupPrinter();
     void setReport(magazzino::Documenti reportType);
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);

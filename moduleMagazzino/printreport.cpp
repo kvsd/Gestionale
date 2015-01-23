@@ -13,6 +13,8 @@ PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget 
     fornitore = forn;
     report = reportType;
     setReport(report);
+    setWindowTitle("Stampa");
+    ui->lb_info->setText("In attesa di conferma\nCliccare su Stampa per avviare il setup");
 }
 
 PrintReport::~PrintReport()
@@ -24,9 +26,12 @@ PrintReport::~PrintReport()
     delete painter;
 }
 
-void PrintReport::setupPrinter()
+void PrintReport::print()
 {
+    ui->lb_info->setText("In attesa...");
+
     QPrintDialog printDialog(printer, this);
+    printDialog.setWindowTitle("Impostazioni di stampa");
     if (printDialog.exec() == QDialog::Accepted) {
         painter->begin(printer);
         initPainter();
@@ -42,6 +47,13 @@ void PrintReport::setupPrinter()
         col2 = QRect(colWidth*1+leftMargin, 0, (colWidth*3)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
         col3 = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
         col4 = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
+
+        printHeader(titleStr.arg(1));
+        printData(report);
+        painter->end();
+
+        ui->lb_info->setText("Stampa eseguita\n"
+                             "Avviare nuova stampa o uscire");
     }
 }
 
@@ -149,6 +161,9 @@ void PrintReport::printData(magazzino::Documenti reportType)
     if (reportType == magazzino::INVENTARIO) {
         printTotale(row+1);
     }
+
+    ui->lb_info->setText("Stampa eseguita\n"
+                         "In attesa dell'utente\n");
 }
 
 void PrintReport::initPainter()
@@ -188,12 +203,4 @@ void PrintReport::printTotale(int row)
                       pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+magazzino::PRINT_COLS_HEIGHT);
     painter->drawLine(colWidth*6, col1.y(), colWidth*6, col1.y()+magazzino::PRINT_COLS_HEIGHT);
-}
-
-void PrintReport::print()
-{
-    setupPrinter();
-    printHeader(titleStr.arg(1));
-    printData(report);
-    painter->end();
 }
