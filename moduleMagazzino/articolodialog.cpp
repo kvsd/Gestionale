@@ -54,10 +54,15 @@ void ArticoloDialog::initComboBox(void)
     ui->cb_catmerce->setModel(modelCatMerce);
     ui->cb_catmerce->setModelColumn(magazzino::COL_MG_DESCR);
 
+    //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
+    //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
+    //genera un segnale.
+    ui->cb_codiva->blockSignals(true);
     ui->cb_codiva->setModel(modelCodIva);
     ui->cb_codiva->setModelColumn(magazzino::COL_MG_DESCR);
     int index = ui->cb_codiva->findText(settings.value(magazzino::DEFAULT_IVA).toString());
     ui->cb_codiva->setCurrentIndex(index);
+    ui->cb_codiva->blockSignals(false);
 
     ui->cb_fornitore->setModel(modelFornitore);
     ui->cb_fornitore->setModelColumn(magazzino::COL_MG_DESCR);
