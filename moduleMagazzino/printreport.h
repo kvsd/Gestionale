@@ -13,6 +13,7 @@
 #include <QPainter>
 #include <QPrintDialog>
 #include <QSqlRecord>
+#include "custommodel.h"
 
 namespace Ui {
 class PrintReport;
@@ -24,6 +25,8 @@ class PrintReport : public QDialog
 
 public:
     explicit PrintReport(QString forn, magazzino::Documenti reportType, QWidget *parent = 0);
+    explicit PrintReport(CustomModel *model, QString forn, magazzino::Documenti reportType, QWidget *parent = 0);
+
     ~PrintReport();
 
 private:

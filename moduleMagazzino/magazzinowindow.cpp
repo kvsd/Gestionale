@@ -538,7 +538,7 @@ void MagazzinoWindow::printListino(void)
     }
 
     QString fornitore = ui->fornitoreComboBox->currentText();
-    PrintReport listino(fornitore, magazzino::LISTINO, this);
+    PrintReport listino(articoloModel, fornitore, magazzino::LISTINO, this);
     listino.exec();
 }
 

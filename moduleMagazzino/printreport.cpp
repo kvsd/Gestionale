@@ -10,18 +10,36 @@ PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget 
 
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
+    printModel = new QSqlQueryModel(this);
+
     fornitore = forn;
     report = reportType;
     setReport(report);
-    setWindowTitle("Stampa");
     ui->lb_info->setText("In attesa di conferma\nCliccare su Stampa per avviare il setup");
 }
+
+PrintReport::PrintReport(CustomModel *model, QString forn, magazzino::Documenti reportType, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::PrintReport)
+{
+    qDebug() << "PrintReport::PrintReport()";
+    ui->setupUi(this);
+
+    printer = new QPrinter(QPrinter::HighResolution);
+    painter = new QPainter;
+    printModel = model;
+
+    fornitore = forn;
+    report = reportType;
+    setReport(report);
+    ui->lb_info->setText("In attesa di conferma\nCliccare su Stampa per avviare il setup");
+}
+
 
 PrintReport::~PrintReport()
 {
     qDebug() << "PrintReport::~PrintReport()";
     delete ui;
-    delete printModel;
     delete printer;
     delete painter;
 }
@@ -63,12 +81,9 @@ void PrintReport::setReport(magazzino::Documenti reportType)
 
     QString CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
     QString CURRENT_YEARS = QDate::currentDate().toString("yyyy");
-    printModel = new QSqlQueryModel;
 
     if (reportType == magazzino::LISTINO) {
         titleStr = QString("Listino %1 del %2 pag. %3").arg(fornitore).arg(CURRENT_DATE);
-        QString query = magazzino::SELECT_ARTICOLI_FROM_FORN.arg(fornitore);
-        printModel->setQuery(query);
         col1Name = settings.value(magazzino::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
         col2Name = settings.value(magazzino::LISTINO_COL2, magazzino::CMP_DESCR).toString();
         col3Name = settings.value(magazzino::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();

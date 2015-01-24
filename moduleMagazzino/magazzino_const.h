@@ -186,7 +186,7 @@ namespace magazzino {
                               "WHERE mg.id_fornitore=an.id ");
 
     //Select utilizzata per la stampa dei listini
-    const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
+    //const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
 
     //Select utilizzata per la stampa dell'inventario
     const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
@@ -199,7 +199,7 @@ namespace magazzino {
     //Select utilizzata per la stampa degli ordini
     const QString SELECT_ORDINE =
             QString::fromUtf8("SELECT * FROM vw_magazzino "
-                              "WHERE \"Quantità\" < \"Scorta Minima\" "
+                              "WHERE \"Quantità\" <= \"Scorta Minima\" "
                               "AND \"Fornitore\" = '%1'");
 
     enum Documenti {
