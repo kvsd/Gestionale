@@ -51,6 +51,7 @@ void LoginDialog::connectToDatabase(void)
         showDialogError(this, "ERRORE", "errore di autentificazione", db.lastError().text());
         ui->le_username->clear();
         ui->le_password->clear();
+        ui->le_username->setFocus();
     }
 }
 
