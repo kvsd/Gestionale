@@ -4,7 +4,7 @@ QMap<int,QString> prepareMapsFromModel(QSqlQueryModel *model)
 {
     /* Ritorna una mappa <int,QString> con la posizione e il nome delle colonne
     ** del model passato come argomento */
-    qDebug() << "magazzino::prepapreMapsFromModel()";
+    qDebug() << "prepapreMapsFromModel()";
 
     QMap <int,QString> mapNameCols;
 
