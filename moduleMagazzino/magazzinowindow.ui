@@ -160,8 +160,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>336</width>
-             <height>490</height>
+             <width>371</width>
+             <height>518</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -226,7 +226,7 @@
                 </property>
                </widget>
               </item>
-              <item row="6" column="0" colspan="2">
+              <item row="7" column="0" colspan="2">
                <widget class="QGroupBox" name="groupBox_4">
                 <property name="title">
                  <string>Data Arrivo:</string>
@@ -292,21 +292,21 @@
                 </layout>
                </widget>
               </item>
-              <item row="4" column="0">
+              <item row="5" column="0">
                <widget class="QCheckBox" name="orderEnabler">
                 <property name="text">
                  <string>Ordina per</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
+              <item row="5" column="1">
                <widget class="QComboBox" name="orderbyComboBox">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
                </widget>
               </item>
-              <item row="5" column="0" colspan="2">
+              <item row="6" column="0" colspan="2">
                <widget class="QGroupBox" name="groupBox_5">
                 <property name="title">
                  <string>Giacenza</string>
@@ -356,6 +356,20 @@
                   </widget>
                  </item>
                 </layout>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QCheckBox" name="fatturaEnabler">
+                <property name="text">
+                 <string>Fattura</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="fatturaLineEdit">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
              </layout>
@@ -629,7 +643,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>151</y>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
      <x>384</x>
@@ -692,8 +706,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>359</x>
-     <y>52</y>
+     <x>450</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
      <x>785</x>
@@ -756,12 +770,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>581</x>
-     <y>121</y>
+     <x>584</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>122</y>
+     <y>118</y>
     </hint>
    </hints>
   </connection>
@@ -772,12 +786,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>581</x>
-     <y>150</y>
+     <x>584</x>
+     <y>145</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>151</y>
+     <y>146</y>
     </hint>
    </hints>
   </connection>
@@ -788,12 +802,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>581</x>
-     <y>179</y>
+     <x>584</x>
+     <y>173</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>180</y>
+     <y>174</y>
     </hint>
    </hints>
   </connection>
@@ -804,12 +818,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>581</x>
-     <y>208</y>
+     <x>584</x>
+     <y>201</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>209</y>
+     <y>202</y>
     </hint>
    </hints>
   </connection>
@@ -837,7 +851,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>209</y>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
      <x>844</x>
@@ -853,7 +867,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>180</y>
+     <y>174</y>
     </hint>
     <hint type="destinationlabel">
      <x>842</x>
@@ -900,8 +914,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>553</x>
-     <y>505</y>
+     <x>544</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>787</x>
@@ -916,8 +930,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>553</x>
-     <y>505</y>
+     <x>544</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>787</x>
@@ -932,12 +946,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>628</x>
-     <y>229</y>
+     <x>584</x>
+     <y>257</y>
     </hint>
     <hint type="destinationlabel">
-     <x>673</x>
-     <y>229</y>
+     <x>799</x>
+     <y>258</y>
     </hint>
    </hints>
   </connection>
@@ -948,8 +962,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>735</x>
-     <y>227</y>
+     <x>799</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1044,8 +1058,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>339</y>
+     <x>787</x>
+     <y>365</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1060,8 +1074,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>285</y>
+     <x>787</x>
+     <y>313</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1076,8 +1090,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>312</y>
+     <x>787</x>
+     <y>339</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1092,8 +1106,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>366</y>
+     <x>787</x>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1156,8 +1170,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>227</y>
+     <x>584</x>
+     <y>257</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1188,8 +1202,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>441</y>
+     <x>787</x>
+     <y>464</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1204,8 +1218,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>468</y>
+     <x>787</x>
+     <y>490</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1220,12 +1234,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>530</x>
-     <y>438</y>
+     <x>544</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
-     <x>673</x>
-     <y>499</y>
+     <x>787</x>
+     <y>576</y>
     </hint>
    </hints>
   </connection>
@@ -1236,8 +1250,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>673</x>
-     <y>499</y>
+     <x>787</x>
+     <y>576</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1254,6 +1268,54 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fatturaEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>fatturaLineEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>526</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fatturaEnabler</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>499</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fatturaLineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>updateViewMagazzino()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>677</x>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>

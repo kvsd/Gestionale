@@ -208,6 +208,12 @@ QString MagazzinoWindow::filterString(void) {
         filter.append(sede.arg(id));
     }
 
+    if (ui->fatturaLineEdit->isEnabled()) {
+        QString fattura_str = "fattura = '%1'";
+        QString numero_fattura = ui->fatturaLineEdit->text();
+        filter.append(fattura_str.arg(numero_fattura));
+    }
+
     if (ui->currentDateEnabler->isChecked()) {
         QString data = "data_arrivo = '%1'";
         QString currentDate = QDate::currentDate().toString("dd/MM/yy");
