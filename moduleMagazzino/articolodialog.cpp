@@ -252,7 +252,7 @@ void ArticoloDialog::save(void)
     prepareMap();
 
     if (articolo[keymap::KEY_DESCRIZIONE].isEmpty()) {
-        showDialogError(this, ERR050, MSG013);
+        showDialogError(this, ERR050, MSG013); //NOTE codice errore 050
         ui->le_descrizione->setStyleSheet(magazzino::CSS_WARNING_STYLE);
         return;
     }
@@ -327,7 +327,7 @@ double ArticoloDialog::stringToDouble(QString string)
     if (ok)
         return number;
 
-    showDialogError(this, "Errore", "Errore conversione", "Inserire un numero valido");
+    showDialogError(this, ERR051, MSG024); //NOTE codice errore 051
     return -1;
 }
 

@@ -290,7 +290,7 @@ void MagazzinoWindow::updateRecord(void)
     qDebug() << "MagazzinoWindow::updateRecord()";
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        showDialogError(this, ERR047, MSG011, ""); //NOTE codice errore 047
+        showDialogError(this, ERR047, MSG011); //NOTE codice errore 047
         return;
     }
 
@@ -312,7 +312,7 @@ void MagazzinoWindow::removeRecord(void)
     qDebug() << "MagazzinoWindow::removeRecord()";
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        showDialogError(this, ERR036, MSG009, ""); //NOTE codice errore 036
+        showDialogError(this, ERR036, MSG009); //NOTE codice errore 036
         return;
     }
     QString id = articoloModel->index(index.row(), magazzino::COL_MG_ID).data().toString();
@@ -540,7 +540,7 @@ void MagazzinoWindow::printListino(void)
     qDebug() << "MagazzinoWindow::printListino()";
     if (!ui->fornitoreComboBox->isEnabled()) {
         qDebug() << "ERRORE: devi selezionare il fornitore";
-        showDialogError(this, ERR035, MSG008, ""); //NOTE codice errore 035
+        showDialogError(this, ERR035, MSG008); //NOTE codice errore 035
         return;
     }
 
@@ -560,7 +560,7 @@ void MagazzinoWindow::printOrdine(void)
 {
     qDebug() << "MagazzinoWindow::printOrdine()";
     if (!ui->fornitoreComboBox->isEnabled()) {
-        showDialogError(this, ERR034, MSG008, ""); //NOTE codice errore 034
+        showDialogError(this, ERR034, MSG008); //NOTE codice errore 034
         return;
     }
 

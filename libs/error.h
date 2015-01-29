@@ -56,6 +56,7 @@
 #define ERR048 "Codice Errore 048"
 #define ERR049 "Codice Errore 049"
 #define ERR050 "Codice Errore 050"
+#define ERR051 "Codice Errore 051"
 
 const QString MSG000 = QString::fromUtf8("Si è verificato un errore nella connessione al database.");
 const QString MSG001 = QString::fromUtf8("Non è possibile inserire stringhe di testo vuote.");
@@ -81,6 +82,7 @@ const QString MSG020 = QString::fromUtf8("Il codice fiscale immesso potrebbe ess
 const QString MSG021 = QString::fromUtf8("Il cognome dell'agente è obbligatorio.");
 const QString MSG022 = QString::fromUtf8("Si è verificato un errore nell'inserimento del record.");
 const QString MSG023 = QString::fromUtf8("Sto per aggiornare gli articoli con iva al %1% al %2%.");
+const QString MSG024 = QString::fromUtf8("Errore conversione.\nInserire un numero valido");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");
