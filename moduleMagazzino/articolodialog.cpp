@@ -413,19 +413,28 @@ void ArticoloDialog::updatePrezzoVendita(void)
 void ArticoloDialog::openAddMarca()
 {
     qDebug() << "ArticoloDialog::openAddMarca()";
-    allDlg(this, modelMarca, ADD_MARCA_QUERY, "Marca", ERR042); //NOTE codice errore 042
+    QString newValue = allDlg(this, modelMarca, ADD_MARCA_QUERY, "Marca", ERR042); //NOTE codice errore 042
+    if (!newValue.isEmpty()) {
+        ui->cb_marca->setCurrentText(newValue);
+    }
 }
 
 void ArticoloDialog::openAddCategoria()
 {
     qDebug() << "ArticoloDialog::openAddCategoria()";
-    allDlg(this, modelCatMerce, ADD_CAT_MERCE_QUERY, "Categoria merce", ERR043); //NOTE codice errore 043
+    QString newValue = allDlg(this, modelCatMerce, ADD_CAT_MERCE_QUERY, "Categoria merce", ERR043); //NOTE codice errore 043
+    if (!newValue.isEmpty()) {
+        ui->cb_catmerce->setCurrentText(newValue);
+    }
 }
 
 void ArticoloDialog::openAddMisura()
 {
     qDebug() << "ArticoloDialog::openAddMisura()";
-    allDlg(this, modelUnita, ADD_UM_QUERY, "Unita di misura", ERR044); //NOTE codice errore 044
+    QString newValue = allDlg(this, modelUnita, ADD_UM_QUERY, "Unita di misura", ERR044); //NOTE codice errore 044
+    if (!newValue.isEmpty()) {
+        ui->cb_unitamisura->setCurrentText(newValue);
+    }
 }
 
 void ArticoloDialog::openAddFornitore()
@@ -437,11 +446,17 @@ void ArticoloDialog::openAddFornitore()
 void ArticoloDialog::openAddIVA()
 {
     qDebug() << "ArticoloDialog::openAddIVA()";
-    allDlg(this, modelCodIva, ADD_IVA_QUERY, "Codice IVA", ERR045); //NOTE codice errore 045
+    QString newValue = allDlg(this, modelCodIva, ADD_IVA_QUERY, "Codice IVA", ERR045); //NOTE codice errore 045
+    if (!newValue.isEmpty()) {
+        ui->cb_codiva->setCurrentText(newValue);
+    }
 }
 
 void ArticoloDialog::openAddSede()
 {
     qDebug() << "ArticoloDialog::openAddSede()";
-    allDlg(this, modelSede, ADD_SEDE_QUERY, "Sede magazzino", ERR046); //NOTE codice errore 046
+    QString newValue = allDlg(this, modelSede, ADD_SEDE_QUERY, "Sede magazzino", ERR046); //NOTE codice errore 046
+    if (!newValue.isEmpty()) {
+        ui->cb_sede->setCurrentText(newValue);
+    }
 }
