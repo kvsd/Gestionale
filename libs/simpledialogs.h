@@ -20,6 +20,6 @@ const QString ADD_UM_QUERY = "INSERT INTO unita_misura(descr) VALUES(:value)";
 const QString ADD_IVA_QUERY = "INSERT INTO cod_iva(descr) VALUES(:value)";
 const QString ADD_SEDE_QUERY = "INSERT INTO sede_magazzino(descr) VALUES(:value)";
 
-void allDlg(QWidget *parent=0, QSqlTableModel *model=0, QString strquery="", const char *title="", QString error_nr="");
+QString allDlg(QWidget *parent=0, QSqlTableModel *model=0, QString strquery="", const char *title="", QString error_nr="");
 
 #endif // SIMPLEDIALOGS_H

@@ -1,6 +1,6 @@
 #include "simpledialogs.h"
 
-void allDlg(QWidget *parent, QSqlTableModel *model, QString strquery, const char *title, QString error_nr)
+QString allDlg(QWidget *parent, QSqlTableModel *model, QString strquery, const char *title, QString error_nr)
 {
     qDebug() << "allDlg()";
     bool ok;
@@ -13,5 +13,7 @@ void allDlg(QWidget *parent, QSqlTableModel *model, QString strquery, const char
             showDialogError(parent, error_nr, MSG015, query.lastError().text());
         }
         model->select();
+        return value;
     }
+    return "";
 }
