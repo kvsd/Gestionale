@@ -84,7 +84,7 @@ void ArticoloDialog::setValue(QString id)
     query.prepare(magazzino::SELECT_FROM_ID);
     query.bindValue(magazzino::PH_ID, id);
     if (!query.exec()) {
-        qDebug() << "ERRORE: " << query.lastError().text(); //TODO definire codice errore
+        showDialogError(this, ERR038, MSG010, query.lastError().text()); //NOTE codice errore 038
     }
 
     query.first();
@@ -252,7 +252,7 @@ void ArticoloDialog::save(void)
     prepareMap();
     QSqlQuery query_articolo = prepareQueryArticolo();
     if (!query_articolo.exec()) {
-        qDebug() << "errore: " << query_articolo.lastError(); //TODO definire codice errore
+        showDialogError(this, ERR039, MSG010, query_articolo.lastError().text()); //NOTE codice errore 039
         db.rollback();
         return;
     }
@@ -261,7 +261,7 @@ void ArticoloDialog::save(void)
             QSqlQuery query_id;
             query_id.prepare("SELECT * FROM lastval();");
             if (!query_id.exec()) {
-                qDebug() << "errore: " << query_id.lastError(); //TODO definire codice errore
+                showDialogError(this, ERR040, MSG010, query_id.lastError().text()); //NOTE codice errore 040
                 db.rollback();
                 return;
             }
@@ -272,7 +272,7 @@ void ArticoloDialog::save(void)
         QSqlQuery query_storico = prepareQueryStorico();
         query_storico.bindValue(magazzino::PH_ID_ART, articolo[keymap::KEY_ID]);
         if (!query_storico.exec()) {
-            qDebug() << "errore storico: " << articolo[keymap::KEY_ID] << query_storico.lastError(); //TODO definire codice errore
+            showDialogError(this, ERR041, MSG010, query_storico.lastError().text()); //NOTE codice errore 041
             db.rollback();
             return;
         }
@@ -413,19 +413,19 @@ void ArticoloDialog::updatePrezzoVendita(void)
 void ArticoloDialog::openAddMarca()
 {
     qDebug() << "ArticoloDialog::openAddMarca()";
-    allDlg(this, modelMarca, ADD_MARCA_QUERY, "Marca", ""); //TODO definire codice errore
+    allDlg(this, modelMarca, ADD_MARCA_QUERY, "Marca", ERR042); //NOTE codice errore 042
 }
 
 void ArticoloDialog::openAddCategoria()
 {
     qDebug() << "ArticoloDialog::openAddCategoria()";
-    allDlg(this, modelCatMerce, ADD_CAT_MERCE_QUERY, "Categoria merce", ""); //TODO definire codice errore
+    allDlg(this, modelCatMerce, ADD_CAT_MERCE_QUERY, "Categoria merce", ERR043); //NOTE codice errore 043
 }
 
 void ArticoloDialog::openAddMisura()
 {
     qDebug() << "ArticoloDialog::openAddMisura()";
-    allDlg(this, modelUnita, ADD_UM_QUERY, "Unita di misura", ""); //TODO definire codice errore
+    allDlg(this, modelUnita, ADD_UM_QUERY, "Unita di misura", ERR044); //NOTE codice errore 044
 }
 
 void ArticoloDialog::openAddFornitore()
@@ -437,11 +437,11 @@ void ArticoloDialog::openAddFornitore()
 void ArticoloDialog::openAddIVA()
 {
     qDebug() << "ArticoloDialog::openAddIVA()";
-    allDlg(this, modelCodIva, ADD_IVA_QUERY, "Codice IVA", ""); //TODO definire codice errore
+    allDlg(this, modelCodIva, ADD_IVA_QUERY, "Codice IVA", ERR045); //NOTE codice errore 045
 }
 
 void ArticoloDialog::openAddSede()
 {
     qDebug() << "ArticoloDialog::openAddSede()";
-    allDlg(this, modelSede, ADD_SEDE_QUERY, "Sede magazzino", ""); //TODO definire codice errore
+    allDlg(this, modelSede, ADD_SEDE_QUERY, "Sede magazzino", ERR046); //NOTE codice errore 046
 }

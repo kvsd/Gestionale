@@ -284,7 +284,7 @@ void MagazzinoWindow::updateRecord(void)
     qDebug() << "MagazzinoWindow::updateRecord()";
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
+        showDialogError(this, ERR047, MSG011, ""); //NOTE codice errore 047
         return;
     }
 
@@ -306,7 +306,7 @@ void MagazzinoWindow::removeRecord(void)
     qDebug() << "MagazzinoWindow::removeRecord()";
     QModelIndex index = ui->articoloView->currentIndex();
     if (!index.isValid()) {
-        showDialogError(this, "Errore 1", "Errore 2", "Errore 3"); //TODO definire codice errore
+        showDialogError(this, ERR036, MSG009, ""); //NOTE codice errore 036
         return;
     }
     QString id = articoloModel->index(index.row(), magazzino::COL_MG_ID).data().toString();
@@ -314,7 +314,7 @@ void MagazzinoWindow::removeRecord(void)
     query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(":id", id);
     if (!query.exec()) {
-        showDialogError(this, "Errore 1", "Errore 2", query.lastError().text()); //TODO definire codice errore
+        showDialogError(this, ERR037, MSG003, query.lastError().text()); //NOTE codice errore 037
     }
     updateViewMagazzino();
 }
@@ -392,6 +392,7 @@ void MagazzinoWindow::openConfigDialog(void)
 void MagazzinoWindow::exportMagazzinoCsv(void)
 {
     qDebug() << "MagazzinoWindow::exportMagazzinoCsv()";
+    //TODO riscrivere le funzioni csv
     QString filename = QFileDialog::getSaveFileName(this);
     if (filename.isEmpty())
         return;
@@ -457,7 +458,7 @@ void MagazzinoWindow::importMagazzinoCsv(void)
     QTextStream in(&file);
     QString version = in.readLine();
     if (version != magazzino::CSV_VERSION) {
-        showDialogError(this, "ERRORE", "ERRORE"); //TODO definire codice errore per CVS
+        showDialogError(this, ERR048, MSG012); //NOTE codice errore 048
         qDebug() << "ERRORE";
         return;
     }
@@ -493,7 +494,7 @@ void MagazzinoWindow::importStoricoCsv(void)
     QTextStream in(&file);
     QString version = in.readLine();
     if (version != magazzino::CSV_VERSION) {
-        showDialogError(this, "ERRORE", "ERRORE"); //TODO definire codice errore x cvs
+        showDialogError(this, ERR049, MSG012); //NOTE codice errore 049
         qDebug() << "ERRORE";
         return;
     }
@@ -533,7 +534,7 @@ void MagazzinoWindow::printListino(void)
     qDebug() << "MagazzinoWindow::printListino()";
     if (!ui->fornitoreComboBox->isEnabled()) {
         qDebug() << "ERRORE: devi selezionare il fornitore";
-        showDialogError(this, "ERRORE", "ERRORE", "ERRORE"); //TODO definire codice errore
+        showDialogError(this, ERR035, MSG008, ""); //NOTE codice errore 035
         return;
     }
 
@@ -553,8 +554,7 @@ void MagazzinoWindow::printOrdine(void)
 {
     qDebug() << "MagazzinoWindow::printOrdine()";
     if (!ui->fornitoreComboBox->isEnabled()) {
-        showDialogError(this, "ERRORE", "ERRORE", "ERRORE");
-        qDebug() << "ERRORE: devi selezionare il fornitore"; //TODO definire codice errore
+        showDialogError(this, ERR034, MSG008, ""); //NOTE codice errore 034
         return;
     }
 
