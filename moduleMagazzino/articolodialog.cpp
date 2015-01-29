@@ -250,6 +250,13 @@ void ArticoloDialog::save(void)
     QSqlDatabase db = QSqlDatabase::database();
     db.transaction();
     prepareMap();
+
+    if (articolo[keymap::KEY_DESCRIZIONE].isEmpty()) {
+        showDialogError(this, ERR050, MSG013);
+        ui->le_descrizione->setStyleSheet(magazzino::CSS_WARNING_STYLE);
+        return;
+    }
+
     QSqlQuery query_articolo = prepareQueryArticolo();
     if (!query_articolo.exec()) {
         showDialogError(this, ERR039, MSG010, query_articolo.lastError().text()); //NOTE codice errore 039

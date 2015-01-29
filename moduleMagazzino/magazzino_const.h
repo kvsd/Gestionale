@@ -17,6 +17,8 @@ namespace magazzino {
     const int PRINT_COLS_HEIGHT = 300;
     const int PRINT_MARGINS = 50;
 
+    const QString CSS_WARNING_STYLE = "background-color:yellow";
+
     //SETTINGS
     const QString DEFAULT_IVA = "default.civa";
     const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
