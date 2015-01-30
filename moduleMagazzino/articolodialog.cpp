@@ -92,14 +92,12 @@ void ArticoloDialog::setValue(QString id)
     ui->le_descrizione->setText(query.value(magazzino::COL_MG_DESCR).toString());
 
     ui->cb_fornitore->setModelColumn(magazzino::COL_MG_ID);
-    int index = ui->cb_fornitore->findText(query.value(magazzino::COL_MG_ID_FORN).toString());
+    ui->cb_fornitore->setCurrentText(query.value(magazzino::COL_MG_ID_FORN).toString());
     ui->cb_fornitore->setModelColumn(magazzino::COL_MG_DESCR);
-    ui->cb_fornitore->setCurrentIndex(index);
 
     ui->cb_marca->setModelColumn(magazzino::COL_MG_ID);
-    index = ui->cb_marca->findText(query.value(magazzino::COL_MG_ID_MARCA).toString());
+    ui->cb_marca->setCurrentText(query.value(magazzino::COL_MG_ID_MARCA).toString());
     ui->cb_marca->setModelColumn(magazzino::COL_MG_DESCR);
-    ui->cb_marca->setCurrentIndex(index);
 
     ui->le_modello->setText(query.value(magazzino::COL_MG_MODELLO).toString());
     ui->le_cod_articolo->setText(query.value(magazzino::COL_MG_COD_ART).toString());
@@ -107,18 +105,15 @@ void ArticoloDialog::setValue(QString id)
     ui->le_cod_barre->setText(query.value(magazzino::COL_MG_COD_EAN).toString());
 
     ui->cb_catmerce->setModelColumn(magazzino::COL_MG_ID);
-    index = ui->cb_catmerce->findText(query.value(magazzino::COL_MG_ID_MERCE).toString());
+    ui->cb_catmerce->setCurrentText(query.value(magazzino::COL_MG_ID_MERCE).toString());
     ui->cb_catmerce->setModelColumn(magazzino::COL_MG_DESCR);
-    ui->cb_catmerce->setCurrentIndex(index);
 
     ui->cb_codiva->setModelColumn(magazzino::COL_MG_DESCR);
-    index = ui->cb_codiva->findText(query.value(magazzino::COL_MG_COD_IVA).toString());
-    ui->cb_codiva->setCurrentIndex(index);
+    ui->cb_codiva->setCurrentText(query.value(magazzino::COL_MG_COD_IVA).toString());
 
     ui->cb_unitamisura->setModelColumn(magazzino::COL_MG_ID);
-    index = ui->cb_unitamisura->findText(query.value(magazzino::COL_MG_ID_UM).toString());
+    ui->cb_unitamisura->setCurrentText(query.value(magazzino::COL_MG_ID_UM).toString());
     ui->cb_unitamisura->setModelColumn(magazzino::COL_MG_DESCR);
-    ui->cb_unitamisura->setCurrentIndex(index);
 
     ui->le_scorta->setText(query.value(magazzino::COL_MG_SCORTA).toString());
     ui->le_quantita->setText(query.value(magazzino::COL_MG_QT).toString());
@@ -134,9 +129,8 @@ void ArticoloDialog::setValue(QString id)
     ui->le_data->setDate(QDate::currentDate());
 
     ui->cb_sede->setModelColumn(magazzino::COL_MG_ID);
-    index = ui->cb_sede->findText(query.value(magazzino::COL_MG_ID_SEDE).toString());
+    ui->cb_sede->setCurrentText(query.value(magazzino::COL_MG_ID_SEDE).toString());
     ui->cb_sede->setModelColumn(magazzino::COL_MG_DESCR);
-    ui->cb_sede->setCurrentIndex(index);
 
     ui->te_note->setText(query.value(magazzino::COL_MG_NOTE).toString());
 }
