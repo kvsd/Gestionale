@@ -3,6 +3,7 @@
 
 #include "libs/simpledialogs.h"
 #include "libs/gestionale_const.h"
+#include "libs/utils.h"
 #include "magazzino_const.h"
 
 #include <QDialog>
@@ -44,7 +45,6 @@ private:
     void prepareMap(void);
     QSqlQuery prepareQueryArticolo(void);
     QSqlQuery prepareQueryStorico(void);
-    double stringToDouble(QString string);
 
 public slots:
     void updatePrezzoFattura(void);

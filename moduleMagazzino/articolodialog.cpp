@@ -305,32 +305,6 @@ void ArticoloDialog::updatePrezzoFattura(void)
     updatePrezzoAcquisto();
 }
 
-double ArticoloDialog::stringToDouble(QString string)
-{
-    qDebug() << "ArticoloDialog::stringToDouble()";
-    if (string.isEmpty()) {
-        return 0;
-    }
-
-    QString symbol = locale().currencySymbol();
-    if (string.contains(symbol)) {
-        string = string.replace(symbol, "");
-    }
-
-    bool ok = 0;
-    double number = 0;
-    number = string.toDouble(&ok);
-    if (ok)
-        return number;
-
-    number = locale().toDouble(string, &ok);
-    if (ok)
-        return number;
-
-    showDialogError(this, ERR051, MSG024); //NOTE codice errore 051
-    return -1;
-}
-
 void ArticoloDialog::updatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
