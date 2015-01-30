@@ -232,7 +232,8 @@ CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino
                               iva DECIMAL,
                               prezzo_finito DECIMAL,
                               prezzo_vendita DECIMAL,
-                              fattura TEXT);
+                              fattura TEXT,
+			      UNIQUE(id_articolo, data_arrivo));
 --########################################################################################
 CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo Fattura", 
 				"Sconto", "Prezzo Acquisto", "Ricarico", "IVA", 

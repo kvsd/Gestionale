@@ -71,6 +71,27 @@ namespace magazzino {
                     ":sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, "
                     ":prezzo_finito, :prezzo_vendita, :fattura)";
 
+    //Update utilizzata per aggiornare un record in listino_storico
+    //Viene utilizzata in ArticoloDialog al posto della insert se
+    //viene trovata una coppia id_articolo, data_arrivo in listino_storico
+    const QString UPDATE_STORICO =
+            "UPDATE listino_storico SET quantita=:quantita, "
+                                        "prezzo_fattura=:prezzo_fattura, "
+                                        "sconto_fornitore=:sconto_fornitore, "
+                                        "prezzo_acquisto=:prezzo_acquisto, "
+                                        "ricarico=:ricarico, "
+                                        "iva=:iva, "
+                                        "prezzo_finito=:prezzo_finito, "
+                                        "prezzo_vendita=:prezzo_vendita, "
+                                        "fattura=:fattura "
+            "WHERE id_articolo=:id_articolo AND data_arrivo=:data_arrivo";
+
+    //Check utilizzata per cercare se all'interno della tabella listino_storico
+    //sono presenti la coppia id_articolo,data_arrivo.
+    const QString CHECK_STORICO =
+            "SELECT * FROM listino_storico WHERE id_articolo=:id_articolo AND "
+                                                 "data_arrivo=:data_arrivo";
+
     //Select utilizzata in MagazzinoWindow per visualizzare lo storico
     //del'articolo selezionato
     const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico "

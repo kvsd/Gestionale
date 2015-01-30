@@ -221,9 +221,26 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 {
     qDebug() << "ArticoloDialog::prepareQueryStorico()";
-    QSqlQuery query_storico;
-    query_storico.prepare(magazzino::INSERT_STORICO);
+    QString id_articolo = articolo[keymap::KEY_ID];
+    QString data_articolo = articolo[keymap::KEY_DATA];
 
+    QSqlQuery query_storico;
+
+    QSqlQuery query_check_storico;
+    query_check_storico.prepare(magazzino::CHECK_STORICO);
+    query_check_storico.bindValue(magazzino::PH_ID_ART, id_articolo);
+    query_check_storico.bindValue(magazzino::PH_DATA, data_articolo);
+    query_check_storico.exec();
+    if (query_check_storico.first()) {
+        qDebug() << "run update;";
+        query_storico.prepare(magazzino::UPDATE_STORICO);
+    }
+    else {
+        query_storico.prepare(magazzino::INSERT_STORICO);
+        qDebug() << "run insert;";
+    }
+
+    query_storico.bindValue(magazzino::PH_ID_ART, articolo[keymap::KEY_ID]);
     query_storico.bindValue(magazzino::PH_DATA, articolo[keymap::KEY_DATA]);
     query_storico.bindValue(magazzino::PH_QUANTIT, articolo[keymap::KEY_QUANTITA]);
     query_storico.bindValue(magazzino::PH_PRZ_FAT, articolo[keymap::KEY_PRZ_FATTURA]);
@@ -271,7 +288,7 @@ void ArticoloDialog::save(void)
         }
 
         QSqlQuery query_storico = prepareQueryStorico();
-        query_storico.bindValue(magazzino::PH_ID_ART, articolo[keymap::KEY_ID]);
+
         if (!query_storico.exec()) {
             showDialogError(this, ERR041, MSG010, query_storico.lastError().text()); //NOTE codice errore 041
             db.rollback();
