@@ -5,6 +5,7 @@
 #include "libs/gestionale_const.h"
 #include "libs/utils.h"
 #include "magazzino_const.h"
+#include "moduleAnagrafica/anagraficaadddialog.h"
 
 #include <QDialog>
 #include <QSqlTableModel>

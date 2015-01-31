@@ -62,6 +62,7 @@ void MagazzinoWindow::initComboBox()
 void MagazzinoWindow::updateModel()
 {
     qDebug() << "MagazzinoWindow::updateModel()";
+    fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();

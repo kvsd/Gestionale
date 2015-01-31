@@ -432,7 +432,24 @@ void ArticoloDialog::openAddMisura()
 void ArticoloDialog::openAddFornitore()
 {
     qDebug() << "ArticoloDialog::openAddFornitore()";
-    qDebug() << "open fornitore dialog";  //TODO richiamare dialog fornitore
+    AnagraficaAddDialog dlg(this);
+    bool ok = dlg.exec();
+    if (!ok) {
+        return;
+    }
+
+    //Trovo l'ultimo id inserito nel database
+    QSqlQuery query;
+    query.prepare("select * from lastval();");
+    query.exec();
+    query.first();
+    QString id = query.value(0).toString();
+
+    //Ricarico la query e seleziono il valore immesso
+    modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
+    ui->cb_fornitore->setModelColumn(0);
+    ui->cb_fornitore->setCurrentText(id);
+    ui->cb_fornitore->setModelColumn(1);
 }
 
 void ArticoloDialog::openAddIVA()
