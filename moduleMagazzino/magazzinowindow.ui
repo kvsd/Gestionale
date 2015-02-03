@@ -489,13 +489,6 @@
     </widget>
     <addaction name="menuRicerca_per"/>
    </widget>
-   <widget class="QMenu" name="menuEsporta">
-    <property name="title">
-     <string>Esporta</string>
-    </property>
-    <addaction name="actionExportMagazzinoCSV"/>
-    <addaction name="actionExportStoricoCSV"/>
-   </widget>
    <widget class="QMenu" name="menuStampa">
     <property name="title">
      <string>Stampa</string>
@@ -505,16 +498,8 @@
     <addaction name="actionInventario"/>
     <addaction name="actionOrdine"/>
    </widget>
-   <widget class="QMenu" name="menuImporta">
-    <property name="title">
-     <string>Importa</string>
-    </property>
-    <addaction name="actionImportMagazzinoCSV"/>
-   </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
-   <addaction name="menuEsporta"/>
-   <addaction name="menuImporta"/>
    <addaction name="menuStampa"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -555,9 +540,9 @@
     <string>Configura...</string>
    </property>
   </action>
-  <action name="actionExportMagazzinoCSV">
+  <action name="actionExportMagazzino">
    <property name="text">
-    <string>Magazzino in CSV</string>
+    <string>Magazzino</string>
    </property>
   </action>
   <action name="actionExportStoricoCSV">
@@ -595,9 +580,9 @@
     <string>Ordine</string>
    </property>
   </action>
-  <action name="actionImportMagazzinoCSV">
+  <action name="actionImportMagazzino">
    <property name="text">
-    <string>Magazzino in CSV</string>
+    <string>Magazzino</string>
    </property>
   </action>
  </widget>
@@ -872,38 +857,6 @@
     <hint type="destinationlabel">
      <x>842</x>
      <y>172</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionExportMagazzinoCSV</sender>
-   <signal>triggered()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>exportMagazzinoCsv()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionExportStoricoCSV</sender>
-   <signal>triggered()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>exportStoricoCsv()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
     </hint>
    </hints>
   </connection>
@@ -1260,22 +1213,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionImportMagazzinoCSV</sender>
-   <signal>triggered()</signal>
-   <receiver>MagazzinoWindow</receiver>
-   <slot>importMagazzinoCsv()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>fatturaEnabler</sender>
    <signal>clicked(bool)</signal>
    <receiver>fatturaLineEdit</receiver>
@@ -1332,14 +1269,13 @@
   <slot>updateRecord()</slot>
   <slot>searchRecord()</slot>
   <slot>openConfigDialog()</slot>
-  <slot>exportMagazzinoCsv()</slot>
-  <slot>exportStoricoCsv()</slot>
+  <slot>exportMagazzino()</slot>
   <slot>changeCodIva()</slot>
   <slot>showArticoliEsauriti()</slot>
   <slot>launchConfigPrintDlg()</slot>
   <slot>printInventario()</slot>
   <slot>printListino()</slot>
   <slot>printOrdine()</slot>
-  <slot>importMagazzinoCsv()</slot>
+  <slot>importMagazzino()</slot>
  </slots>
 </ui>

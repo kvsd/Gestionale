@@ -63,10 +63,6 @@ public slots:
     void updateViewMagazzino(void);
     void updateViewStorico(QModelIndex index);
     void openConfigDialog(void);
-    void exportMagazzinoCsv(void);
-    void exportStoricoCsv(void);
-    void importMagazzinoCsv(void);
-    void importStoricoCsv(void);
     void changeCodIva(void);
     void launchConfigPrintDlg(void);
     void printListino(void);
