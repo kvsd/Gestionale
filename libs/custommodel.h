@@ -16,7 +16,7 @@ public:
     void loadSettings();
 
 private:
-    QMap<int, QBrush>colors;
+    QMap<int, QBrush>colorsMaps;
     QString group;
     QSettings settings;
 
