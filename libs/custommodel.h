@@ -17,8 +17,11 @@ public:
 
 private:
     QMap<int, QBrush>colorsMaps;
+    QMap<QString, int>alignMaps;
     QString group;
     QSettings settings;
+    int leftAlign;
+    int rightAlign;
 
     void prepareMap(void);
 

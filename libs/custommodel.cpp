@@ -6,11 +6,18 @@ CustomModel::CustomModel(QString colsGroup, QObject *parent) :
     group = colsGroup;
     prepareMap();
     loadSettings();
+    leftAlign = Qt::AlignLeft+Qt::AlignVCenter;
+    rightAlign = Qt::AlignRight+Qt::AlignVCenter;
 }
 
 QVariant CustomModel::data(const QModelIndex &item, int role) const
 {
     QVariant value = QSqlQueryModel::data(item, role);
+
+    if (role == Qt::TextAlignmentRole) {
+        QString headerName = headerData(item.column(), Qt::Horizontal).toString();
+        return alignMaps.value(headerName, rightAlign);
+    }
 
     if (role == Qt::BackgroundRole) {
         return colorsMaps.value(item.column(), Qt::transparent);
@@ -25,6 +32,10 @@ void CustomModel::prepareMap(void)
     for (int i=0; i<=MAX_COLUMNS; i++) {
         colorsMaps[i] = QBrush(Qt::transparent);
     }
+    //Campi che hanno l'allineamento del testo a sinistra
+    alignMaps["Descrizione"] = leftAlign;
+    alignMaps["Note"] = leftAlign;
+    alignMaps["Ragione sociale"] = leftAlign;
 }
 
 void CustomModel::loadSettings(void)
