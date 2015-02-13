@@ -251,7 +251,24 @@ SELECT quantita AS "Quantità",
        (quantita*prezzo_acquisto)::money As "SubTotale"
 FROM magazzino WHERE quantita!=0 ORDER BY "Descrizione";
 --###########################################################################################
-
+CREATE TABLE prima_nota (id SERIAL,
+			 data DATE DEFAULT current_date,
+			 descr TEXT,
+			 entrata_cassa DECIMAL DEFAULT 0,
+			 uscita_cassa DECIMAL DEFAULT 0,
+			 entrata_banca DECIMAL DEFAULT 0,
+			 uscita_banca DECIMAL DEFAULT 0);
+--###########################################################################################
+CREATE VIEW vw_prima_nota AS
+SELECT id AS "Id",
+       data AS "Data",
+       descr AS "Descrizione",
+       entrata_cassa::money AS "Entrata Cassa",
+       uscita_cassa::money AS "Uscita Cassa",
+       entrata_banca::money AS "Entrata Banca",
+       uscita_banca::money AS "Uscita Banca"
+FROM prima_nota
+ORDER BY data;
 
 --PERMISSION#################################################################################
 GRANT ALL ON ALL TABLES IN SCHEMA public TO gestionale_user;
