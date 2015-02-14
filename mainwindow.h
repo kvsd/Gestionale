@@ -9,6 +9,7 @@
 #include "moduleAnagrafica/anagraficawindow.h"
 #include "moduleAzienda/aziendadialog.h"
 #include "moduleMagazzino/magazzinowindow.h"
+#include "modulePrimaNota/primanotawindow.h"
 
 #include <QMainWindow>
 #include <QSqlDatabase>
@@ -36,6 +37,7 @@ private:
     QSettings settings;
     AnagraficaWindow *anagraficaMW;
     MagazzinoWindow *magazzinoMW;
+    PrimaNotaWindow *primaNotaMW;
     void diplayInfo(void);
 
 protected:
@@ -49,6 +51,7 @@ private slots:
     void launchAnagraficaDlg(void);
     void launchAziendaDlg(void);
     void launchMagazzinoDlg(void);
+    void launchPrimaNotaDlg(void);
 };
 
 #endif // MAINWINDOW_H

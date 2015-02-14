@@ -39,6 +39,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="primaNotaButton">
+        <property name="text">
+         <string>Prima Nota</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -299,6 +306,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>primaNotaButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>launchPrimaNotaDlg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>123</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>launchLoginDlg()</slot>
@@ -308,5 +331,6 @@
   <slot>launchAnagraficaDlg()</slot>
   <slot>launchAziendaDlg()</slot>
   <slot>launchMagazzinoDlg()</slot>
+  <slot>launchPrimaNotaDlg()</slot>
  </slots>
 </ui>

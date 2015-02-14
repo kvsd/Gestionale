@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setGeometry(settings.value("MainWindow.size", QRect(0, 0, 500, 350)).toRect());
     anagraficaMW = 0;
     magazzinoMW = 0;
+    primaNotaMW = 0;
 }
 
 MainWindow::~MainWindow()
@@ -117,4 +118,16 @@ void MainWindow::launchMagazzinoDlg(void)
     this->hide();
     magazzinoMW->move(this->pos());
     magazzinoMW->show();
+}
+
+void MainWindow::launchPrimaNotaDlg(void)
+{
+    qDebug() << "MainWindow::launchPrimaNotaDlg()";
+
+    if (primaNotaMW == 0) {
+        primaNotaMW = new PrimaNotaWindow(this);
+    }
+    this->hide();
+    primaNotaMW->move(this->pos());
+    primaNotaMW->show();
 }
