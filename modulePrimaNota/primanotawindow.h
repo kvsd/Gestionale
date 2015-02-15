@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 #include <QCloseEvent>
+#include <QShowEvent>
 #include <QSqlQueryModel>
 #include <QDebug>
+#include <QSettings>
 
 #include "primanota_const.h"
 
@@ -22,10 +24,14 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
 
 private:
     Ui::PrimaNotaWindow *ui;
+    QSettings settings;
     QSqlQueryModel *primaNotaModel;
+
+    void initModel();
 
 public slots:
     void addNote();

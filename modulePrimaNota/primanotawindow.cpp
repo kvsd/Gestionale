@@ -6,9 +6,7 @@ PrimaNotaWindow::PrimaNotaWindow(QWidget *parent) :
     ui(new Ui::PrimaNotaWindow)
 {
     ui->setupUi(this);
-    primaNotaModel = new QSqlQueryModel(this);
-    primaNotaModel->setQuery(primanota::SELECT_ALL);
-    ui->noteTableView->setModel(primaNotaModel);
+    initModel();
 }
 
 PrimaNotaWindow::~PrimaNotaWindow()
@@ -20,7 +18,26 @@ void PrimaNotaWindow::closeEvent(QCloseEvent *event)
 {
     qDebug() << "PrimaNotaWindow::closeEvent()";
     this->parentWidget()->show();
+    //TODO SALVARE LE IMPOSTAZIONI
+    settings.setValue(primanota::SPLITTER_SIZE, ui->splitter->saveState());
     event->accept();
+}
+
+void PrimaNotaWindow::showEvent(QShowEvent *event)
+{
+    qDebug() << "PrimaNotaWindow::showEvent()";
+    Q_UNUSED(event)
+    //TODO CARICARE LE IMPOSTAZIONI
+    ui->splitter->restoreState(settings.value(primanota::SPLITTER_SIZE).toByteArray());
+}
+
+void PrimaNotaWindow::initModel()
+{
+    qDebug() << "PrimaNotaWindow::initModel()";
+    primaNotaModel = new QSqlQueryModel(this);
+    primaNotaModel->setQuery(primanota::SELECT_ALL);
+    ui->noteTableView->setModel(primaNotaModel);
+    ui->noteTableView->hideColumn(primanota::COL_ID);
 }
 
 void PrimaNotaWindow::addNote()
