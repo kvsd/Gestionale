@@ -34,10 +34,11 @@ void PrimaNotaWindow::showEvent(QShowEvent *event)
 void PrimaNotaWindow::initModel()
 {
     qDebug() << "PrimaNotaWindow::initModel()";
-    primaNotaModel = new QSqlQueryModel(this);
+    primaNotaModel = new PrimaNotaModel(this);
     primaNotaModel->setQuery(primanota::SELECT_ALL);
     ui->noteTableView->setModel(primaNotaModel);
     ui->noteTableView->hideColumn(primanota::COL_ID);
+    ui->noteTableView->resizeColumnsToContents();
 }
 
 void PrimaNotaWindow::addNote()

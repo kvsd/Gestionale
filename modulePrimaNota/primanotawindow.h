@@ -9,6 +9,7 @@
 #include <QSettings>
 
 #include "primanota_const.h"
+#include "primanotamodel.h"
 
 namespace Ui {
 class PrimaNotaWindow;
@@ -29,7 +30,8 @@ protected:
 private:
     Ui::PrimaNotaWindow *ui;
     QSettings settings;
-    QSqlQueryModel *primaNotaModel;
+    //QSqlQueryModel *primaNotaModel;
+    PrimaNotaModel *primaNotaModel;
 
     void initModel();
 

@@ -224,8 +224,8 @@
    <slot>addNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>44</x>
-     <y>554</y>
+     <x>54</x>
+     <y>590</y>
     </hint>
     <hint type="destinationlabel">
      <x>44</x>
@@ -240,8 +240,8 @@
    <slot>updateNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>559</y>
+     <x>185</x>
+     <y>590</y>
     </hint>
     <hint type="destinationlabel">
      <x>132</x>
@@ -256,8 +256,8 @@
    <slot>removeNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>230</x>
-     <y>555</y>
+     <x>276</x>
+     <y>590</y>
     </hint>
     <hint type="destinationlabel">
      <x>232</x>
@@ -272,12 +272,28 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>757</x>
-     <y>551</y>
+     <x>974</x>
+     <y>590</y>
     </hint>
     <hint type="destinationlabel">
      <x>758</x>
      <y>570</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noteTableView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>PrimaNotaWindow</receiver>
+   <slot>updateNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>315</x>
+     <y>379</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>445</x>
+     <y>557</y>
     </hint>
    </hints>
   </connection>

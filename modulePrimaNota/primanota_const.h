@@ -13,11 +13,12 @@ namespace primanota {
 
     enum Column {
         COL_ID = 0,
-        COL_DESCR = 1,
-        COL_ENT_CASSA = 2,
-        COL_USC_CASSA = 3,
-        COL_ENT_BANCA = 4,
-        COL_USC_BANCA = 5
+        COL_DATA = 1,
+        COL_DESCR = 2,
+        COL_ENT_CASSA = 3,
+        COL_USC_CASSA = 4,
+        COL_ENT_BANCA = 5,
+        COL_USC_BANCA = 6
     };
 }
 
