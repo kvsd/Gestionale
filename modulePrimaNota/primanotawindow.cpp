@@ -7,6 +7,8 @@ PrimaNotaWindow::PrimaNotaWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     initModel();
+    initComboBox();
+    getInfoLabel();
 }
 
 PrimaNotaWindow::~PrimaNotaWindow()
@@ -39,6 +41,41 @@ void PrimaNotaWindow::initModel()
     ui->noteTableView->setModel(primaNotaModel);
     ui->noteTableView->hideColumn(primanota::COL_ID);
     ui->noteTableView->resizeColumnsToContents();
+}
+
+void PrimaNotaWindow::initComboBox()
+{
+    //Imposta le date nei combobox
+    qDebug() << "PrimaNotaWindow::initComboBox()";
+    QDate date = QDate::currentDate();
+    ui->monthDateEdit->setDate(date);
+    ui->yearDateEdit->setDate(date);
+    ui->fromDateEdit->setDate(date);
+    ui->toDateEdit->setDate(date);
+}
+
+void PrimaNotaWindow::getInfoLabel()
+{
+    //Imposta le label dei totali nel pannello a destra
+    qDebug() << "PrimaNotaWindow::getInfoLabel()";
+    QSqlQuery query;
+    query.prepare(primanota::SELECT_SUM);
+    query.exec();
+    query.next();
+
+    QString entrate_cassa = query.value(0).toString();
+    QString entrate_banca = query.value(1).toString();
+    QString uscite_cassa = query.value(2).toString();
+    QString uscite_banca = query.value(3).toString();
+
+    ui->ecLabel->setText(QString("%1").arg(entrate_cassa));
+    ui->ecLabel->setStyleSheet(primanota::positive_css);
+    ui->ebLabel->setText(QString("%1").arg(entrate_banca));
+    ui->ebLabel->setStyleSheet(primanota::positive_css);
+    ui->ucLabel->setText(QString("%1").arg(uscite_cassa));
+    ui->ucLabel->setStyleSheet(primanota::negative_css);
+    ui->ubLabel->setText(QString("%1").arg(uscite_banca));
+    ui->ubLabel->setStyleSheet(primanota::negative_css);
 }
 
 void PrimaNotaWindow::addNote()

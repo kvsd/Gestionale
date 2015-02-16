@@ -5,6 +5,9 @@
 #include <QCloseEvent>
 #include <QShowEvent>
 #include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QSqlResult>
 #include <QDebug>
 #include <QSettings>
 
@@ -34,6 +37,8 @@ private:
     PrimaNotaModel *primaNotaModel;
 
     void initModel();
+    void initComboBox();
+    void getInfoLabel();
 
 public slots:
     void addNote();
