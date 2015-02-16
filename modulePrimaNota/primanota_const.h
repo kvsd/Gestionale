@@ -11,15 +11,21 @@ namespace primanota {
     //Costanti di configurazione
     const QString SPLITTER_SIZE = "primanota.splitter";
 
-    //Select principale per la table view
+    //SQL
+    //Select tabella prima nota per la table view
     const QString SELECT_ALL = "SELECT * FROM vw_prima_nota";
 
     //Effettua la somma delle colonne entrate e uscite
+    //utilizzata nelle label della finestra principale
     const QString SELECT_SUM = "SELECT sum(entrata_cassa)::money, "
                                       "sum(entrata_banca)::money,"
                                       "sum(uscita_cassa)::money,"
                                       "sum(uscita_banca)::money "
                                "FROM prima_nota";
+
+    //DELETE per tabella prima_nota
+    const QString DELETE_NOTE = "DELETE FROM prima_nota WHERE id = :id";
+
 
     enum Column {
         COL_ID = 0,
@@ -30,6 +36,9 @@ namespace primanota {
         COL_ENT_BANCA = 5,
         COL_USC_BANCA = 6
     };
+
+    //PLACEHOLDER SQL
+    const QString PH_ID = ":id";
 }
 
 #endif // PRIMANOTA_CONST

@@ -6,13 +6,13 @@
 #include <QShowEvent>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
-#include <QSqlRecord>
-#include <QSqlResult>
+#include <QSqlError>
 #include <QDebug>
 #include <QSettings>
 
 #include "primanota_const.h"
 #include "primanotamodel.h"
+#include "libs/error.h"
 
 namespace Ui {
 class PrimaNotaWindow;
@@ -33,12 +33,12 @@ protected:
 private:
     Ui::PrimaNotaWindow *ui;
     QSettings settings;
-    //QSqlQueryModel *primaNotaModel;
     PrimaNotaModel *primaNotaModel;
 
     void initModel();
     void initComboBox();
     void getInfoLabel();
+    void updateViewNote();
 
 public slots:
     void addNote();

@@ -8,7 +8,6 @@ PrimaNotaWindow::PrimaNotaWindow(QWidget *parent) :
     ui->setupUi(this);
     initModel();
     initComboBox();
-    getInfoLabel();
 }
 
 PrimaNotaWindow::~PrimaNotaWindow()
@@ -31,16 +30,14 @@ void PrimaNotaWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
     //TODO CARICARE LE IMPOSTAZIONI
     ui->splitter->restoreState(settings.value(primanota::SPLITTER_SIZE).toByteArray());
+    updateViewNote();
 }
 
 void PrimaNotaWindow::initModel()
 {
     qDebug() << "PrimaNotaWindow::initModel()";
     primaNotaModel = new PrimaNotaModel(this);
-    primaNotaModel->setQuery(primanota::SELECT_ALL);
     ui->noteTableView->setModel(primaNotaModel);
-    ui->noteTableView->hideColumn(primanota::COL_ID);
-    ui->noteTableView->resizeColumnsToContents();
 }
 
 void PrimaNotaWindow::initComboBox()
@@ -78,6 +75,16 @@ void PrimaNotaWindow::getInfoLabel()
     ui->ubLabel->setStyleSheet(primanota::negative_css);
 }
 
+void PrimaNotaWindow::updateViewNote()
+{
+    qDebug() << "PrimaNotaWindow::updateViewNote()";
+    primaNotaModel->setQuery(primanota::SELECT_ALL);
+    ui->noteTableView->hideColumn(primanota::COL_ID);
+    ui->noteTableView->resizeColumnsToContents();
+    ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
+    getInfoLabel();
+}
+
 void PrimaNotaWindow::addNote()
 {
     qDebug() << "PrimaNotaWindow::addNote()";
@@ -91,5 +98,18 @@ void PrimaNotaWindow::updateNote()
 void PrimaNotaWindow::removeNote()
 {
     qDebug() << "PrimaNotaWindow::removeNote()";
+    QModelIndex index = ui->noteTableView->currentIndex();
+    if (!index.isValid()) {
+        showDialogError(this, ERR048, MSG012); //NOTE codice errore 048
+        return;
+    }
+    QString id = primaNotaModel->index(index.row(), primanota::COL_ID).data().toString();
+    QSqlQuery query;
+    query.prepare(primanota::DELETE_NOTE);
+    query.bindValue(primanota::PH_ID, id);
+    if (!query.exec()) {
+        showDialogError(this, ERR049, MSG003, query.lastError().text()); //NOTE codice errore 049
+    }
+    updateViewNote();
 }
 

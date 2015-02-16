@@ -46,7 +46,7 @@
 #define ERR038 "Codice Errore 038"
 #define ERR039 "Codice Errore 039"
 #define ERR040 "Codice Errore 040"
-#define ERR041 "Codice Errore 041" //ultimo codice usato
+#define ERR041 "Codice Errore 041"
 #define ERR042 "Codice Errore 042"
 #define ERR043 "Codice Errore 043"
 #define ERR044 "Codice Errore 044"
@@ -55,8 +55,10 @@
 #define ERR047 "Codice Errore 047"
 #define ERR048 "Codice Errore 048"
 #define ERR049 "Codice Errore 049"
-#define ERR050 "Codice Errore 050"
+#define ERR050 "Codice Errore 050" //ultimo codice usato
 #define ERR051 "Codice Errore 051"
+#define ERR052 "Codice Errore 052"
+#define ERR053 "Codice Errore 053"
 
 const QString MSG000 = QString::fromUtf8("Si è verificato un errore nella connessione al database.");
 const QString MSG001 = QString::fromUtf8("Non è possibile inserire stringhe di testo vuote.");
@@ -70,7 +72,7 @@ const QString MSG008 = QString::fromUtf8("Devi selezionare il fornitore dal filt
 const QString MSG009 = QString::fromUtf8("Per poter cancellare un articolo bisogna prima selezionarlo dalla lista articoli.");
 const QString MSG010 = QString::fromUtf8("Si è verificato un errore imprevisto.");
 const QString MSG011 = QString::fromUtf8("Per poter aggiornare un articolo bisogna prima selezionarlo dalla lista articoli.");
-const QString MSG012 = QString::fromUtf8("");
+const QString MSG012 = QString::fromUtf8("Prima di cancellare una nota bisogna selezionarla dalla lista in alto");
 const QString MSG013 = QString::fromUtf8("Il campo descrizione è obbligatorio");
 const QString MSG014 = QString::fromUtf8("L'indirizzo è un campo obbligatorio, deve essere specificato.");
 const QString MSG015 = QString::fromUtf8("Il record è già presente.");
