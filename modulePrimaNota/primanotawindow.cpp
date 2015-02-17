@@ -88,6 +88,12 @@ void PrimaNotaWindow::updateViewNote()
 void PrimaNotaWindow::addNote()
 {
     qDebug() << "PrimaNotaWindow::addNote()";
+    PrimaNotaAddDlg dlg(this);
+    bool ok = dlg.exec();
+    if (!ok) {
+        return;
+    }
+    updateViewNote();
 }
 
 void PrimaNotaWindow::updateNote()

@@ -51,7 +51,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     libs/utils.h \
     modulePrimaNota/primanotawindow.h \
     modulePrimaNota/primanota_const.h \
-    modulePrimaNota/primanotamodel.h
+    modulePrimaNota/primanotamodel.h \
+	modulePrimaNota/primanotaadddlg.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -68,7 +69,8 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleMagazzino/codivaupdatedialog.ui \
          moduleMagazzino/configprintdialog.ui \
          moduleMagazzino/printreport.ui \
-    modulePrimaNota/primanotawindow.ui
+    modulePrimaNota/primanotawindow.ui \
+    modulePrimaNota/primanotaadddlg.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \
@@ -92,4 +94,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            moduleMagazzino/printreport.cpp \
     libs/utils.cpp \
     modulePrimaNota/primanotawindow.cpp \
-    modulePrimaNota/primanotamodel.cpp
+    modulePrimaNota/primanotamodel.cpp \
+    modulePrimaNota/primanotaadddlg.cpp

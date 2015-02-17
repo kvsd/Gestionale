@@ -12,6 +12,7 @@
 
 #include "primanota_const.h"
 #include "primanotamodel.h"
+#include "primanotaadddlg.h"
 #include "libs/error.h"
 
 namespace Ui {
