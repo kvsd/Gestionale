@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
@@ -28,10 +28,33 @@
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
+       <property name="currentSection">
+        <enum>QDateTimeEdit::DaySection</enum>
+       </property>
        <property name="calendarPopup">
         <bool>true</bool>
        </property>
+       <property name="date">
+        <date>
+         <year>2000</year>
+         <month>1</month>
+         <day>10</day>
+        </date>
+       </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -155,12 +178,18 @@
        <property name="text">
         <string>Cancella</string>
        </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="saveButton">
        <property name="text">
         <string>Salva</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -169,7 +198,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>dateEdit</tabstop>
   <tabstop>entCassaLineEdit</tabstop>
   <tabstop>entBancaLineEdit</tabstop>
   <tabstop>uscCassaLineEdit</tabstop>
@@ -182,24 +210,8 @@
   <connection>
    <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>dateEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>324</x>
-     <y>198</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>218</x>
-     <y>25</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
    <receiver>comboBox</receiver>
-   <slot>clear()</slot>
+   <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>313</x>

@@ -99,6 +99,21 @@ void PrimaNotaWindow::addNote()
 void PrimaNotaWindow::updateNote()
 {
     qDebug() << "PrimaNotaWindow::updateNote()";
+
+    QModelIndex index = ui->noteTableView->currentIndex();
+    if (!index.isValid()) {
+        showDialogError(this, 0, 0);
+        return;
+    }
+
+    QString id = primaNotaModel->index(index.row(), primanota::COL_ID).data().toString();
+    PrimaNotaAddDlg dlg(this);
+    dlg.setValue(id);
+    bool ok = dlg.exec();
+    if (!ok) {
+        return;
+    }
+    updateViewNote();
 }
 
 void PrimaNotaWindow::removeNote()

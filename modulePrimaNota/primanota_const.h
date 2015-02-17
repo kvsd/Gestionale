@@ -13,7 +13,8 @@ namespace primanota {
 
     //SQL
     //Select tabella prima nota per la table view
-    const QString SELECT_ALL = "SELECT * FROM vw_prima_nota ORDER BY \"Data\"";
+    const QString SELECT_ALL = "SELECT * FROM vw_prima_nota "
+                               "ORDER BY \"Data\", \"Descrizione\"";
 
     //Effettua la somma delle colonne entrate e uscite
     //utilizzata nelle label della finestra principale
@@ -40,10 +41,21 @@ namespace primanota {
                                        ":usc_cassa,"
                                        ":usc_banca)";
 
+    //UPDATE utilizzata in PrimaNotaAddDialog
+    const QString UPDATE_NOTE = "UPDATE prima_nota SET data=:date,"
+                                                      "descr=:descr,"
+                                                      "entrata_cassa=:ent_cassa,"
+                                                      "entrata_banca=:ent_banca,"
+                                                      "uscita_cassa=:usc_cassa,"
+                                                      "uscita_banca=:usc_banca "
+                                "WHERE id=:id";
+
     //SELECT utilizzata nel combobox in PrimaNotaAddDialog
     const QString SELECT_DESCR = "SELECT DISTINCT descr FROM prima_nota ORDER BY descr";
 
-
+    //SELECT utilizzata in PrimaNotaAddDialog per recuperare i
+    //valori della nota selezionata
+    const QString SELECT_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
 
     enum Column {
         COL_ID = 0,

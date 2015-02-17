@@ -21,6 +21,36 @@ PrimaNotaAddDlg::~PrimaNotaAddDlg()
     delete ui;
 }
 
+void PrimaNotaAddDlg::setValue(QString id)
+{
+    qDebug() << "PrimaNotaAddDlg::setValue()";
+    QSqlQuery query;
+    query.prepare(primanota::SELECT_FROM_ID);
+    query.bindValue(primanota::PH_ID, id);
+    if (!query.exec()) {
+        showDialogError(this, ERR052, MSG010, query.lastError().text());
+    }
+
+    query.first();
+    mapQuery[primanota::PH_ID] = id;
+
+    QDate data = query.value(primanota::COL_DATA).toDate();
+    QString descr = query.value(primanota::COL_DESCR).toString();
+    QString entCassa = query.value(primanota::COL_ENT_CASSA).toString();
+    QString entBanca = query.value(primanota::COL_ENT_BANCA).toString();
+    QString uscCassa = query.value(primanota::COL_USC_CASSA).toString();
+    QString uscBanca = query.value(primanota::COL_USC_BANCA).toString();
+
+    ui->dateEdit->setDate(data);
+    ui->comboBox->setCurrentText(descr);
+    ui->entCassaLineEdit->setText(entCassa);
+    ui->entBancaLineEdit->setText(entBanca);
+    ui->uscCassaLineEdit->setText(uscCassa);
+    ui->uscBancaLineEdit->setText(uscBanca);
+
+    updateLineEdit();
+}
+
 void PrimaNotaAddDlg::prepareMap()
 {
     qDebug() << "PrimaNotaAddDlg::prepareMap()";
@@ -47,7 +77,14 @@ QSqlQuery PrimaNotaAddDlg::prepareQuery()
     prepareMap();
 
     QSqlQuery query;
-    query.prepare(primanota::INSERT_NOTE);
+    if (mapQuery.contains(primanota::PH_ID)) {
+        query.prepare(primanota::UPDATE_NOTE);
+        query.bindValue(primanota::PH_ID, mapQuery[primanota::PH_ID]);
+    }
+    else {
+        query.prepare(primanota::INSERT_NOTE);
+    }
+
 
     query.bindValue(primanota::PH_DATE, mapQuery[primanota::PH_DATE]);
     query.bindValue(primanota::PH_DESCR, mapQuery[primanota::PH_DESCR]);

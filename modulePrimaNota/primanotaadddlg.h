@@ -21,6 +21,8 @@ class PrimaNotaAddDlg : public QDialog
 public:
     explicit PrimaNotaAddDlg(QWidget *parent = 0);
     ~PrimaNotaAddDlg();
+    void setValue(QString id);
+
 
 private:
     Ui::PrimaNotaAddDlg *ui;
