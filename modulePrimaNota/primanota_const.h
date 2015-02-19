@@ -13,8 +13,22 @@ namespace primanota {
 
     //SQL
     //Select tabella prima nota per la table view
-    const QString SELECT_ALL = "SELECT * FROM vw_prima_nota "
-                               "ORDER BY \"Data\", \"Descrizione\"";
+    const QString SELECT_ALL = "SELECT * FROM vw_prima_nota";
+
+    //ORDER FILTER usato per ordinare la table view
+    const QString ORDER_BY = " ORDER BY \"Data\", \"Descrizione\"";
+
+    //SEARCH FILTER usato per la ricerca nella table view
+    const QString SEARCH_STR = "\"Descrizione\" ILIKE '%%1%'";
+
+    //MONTH FILTER
+    const QString MONTH_STR = "EXTRACT (MONTH FROM \"Data\") = '%1' AND EXTRACT (YEARS FROM \"Data\") = '%2'";
+
+    //YEARS FILTER
+    const QString YEARS_STR = "EXTRACT (YEARS FROM \"Data\") = '%1'";
+
+    //RANGE FILTER
+    const QString RANGE_STR = "\"Data\" >= '%1' AND \"Data\" <= '%2'";
 
     //Effettua la somma delle colonne entrate e uscite
     //utilizzata nelle label della finestra principale

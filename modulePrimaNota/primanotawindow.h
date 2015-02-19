@@ -39,12 +39,13 @@ private:
     void initModel();
     void initComboBox();
     void getInfoLabel();
-    void updateViewNote();
+    QString prepareFilterQuery();
 
 public slots:
     void addNote();
     void updateNote();
     void removeNote();
+    void updateViewNote();
 };
 
 #endif // PRIMANOTAWINDOW_H

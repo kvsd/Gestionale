@@ -44,11 +44,24 @@ void PrimaNotaWindow::initComboBox()
 {
     //Imposta le date nei combobox
     qDebug() << "PrimaNotaWindow::initComboBox()";
+    ui->allRadioButton->blockSignals(true);
+    ui->monthDateEdit->blockSignals(true);
+    ui->yearDateEdit->blockSignals(true);
+    ui->fromDateEdit->blockSignals(true);
+    ui->toDateEdit->blockSignals(true);
+
     QDate date = QDate::currentDate();
     ui->monthDateEdit->setDate(date);
     ui->yearDateEdit->setDate(date);
-    ui->fromDateEdit->setDate(date);
+    QDate startOfMonth(date.year(), date.month(), 1);
+    ui->fromDateEdit->setDate(startOfMonth);
     ui->toDateEdit->setDate(date);
+
+    ui->allRadioButton->blockSignals(false);
+    ui->monthDateEdit->blockSignals(false);
+    ui->yearDateEdit->blockSignals(false);
+    ui->fromDateEdit->blockSignals(false);
+    ui->toDateEdit->blockSignals(false);
 }
 
 void PrimaNotaWindow::getInfoLabel()
@@ -78,11 +91,51 @@ void PrimaNotaWindow::getInfoLabel()
 void PrimaNotaWindow::updateViewNote()
 {
     qDebug() << "PrimaNotaWindow::updateViewNote()";
-    primaNotaModel->setQuery(primanota::SELECT_ALL);
+    QString query = primanota::SELECT_ALL + prepareFilterQuery();
+    qDebug() << query;
+    primaNotaModel->setQuery(query);
     ui->noteTableView->hideColumn(primanota::COL_ID);
     ui->noteTableView->resizeColumnsToContents();
     ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
     getInfoLabel();
+}
+
+QString PrimaNotaWindow::prepareFilterQuery()
+{
+    qDebug() << "PrimaNotaWindow::prepareFilterQuery()";
+    QStringList list;
+
+    QString searchString = ui->searchLineEdit->text();
+    if (!searchString.isEmpty()) {
+        list.append(primanota::SEARCH_STR.arg(searchString));
+    }
+
+    if (ui->monthRadioButton->isChecked()) {
+        QDate data = ui->monthDateEdit->date();
+        QString month = QString().setNum(data.month());
+        QString years = QString().setNum(data.year());
+        list.append(primanota::MONTH_STR.arg(month).arg(years));
+    }
+    else if (ui->yearRadioButton->isChecked()) {
+        QString years = ui->yearDateEdit->text();
+        list.append(primanota::YEARS_STR.arg(years));
+
+    }
+    else if (ui->rangeRadioButton->isChecked()) {
+        QString fromDate = ui->fromDateEdit->text();
+        QString toDate = ui->toDateEdit->text();
+        list.append(primanota::RANGE_STR.arg(fromDate).arg(toDate));
+    }
+
+    QString str("");
+    if (list.length() == 1) {
+        str = " WHERE " + list[0];
+    }
+    else if (list.length() > 1) {
+        str = " WHERE " + list.join(" AND ");
+    }
+
+    return str+primanota::ORDER_BY;
 }
 
 void PrimaNotaWindow::addNote()
