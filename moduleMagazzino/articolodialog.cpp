@@ -88,7 +88,7 @@ void ArticoloDialog::setValue(QString id)
     }
 
     query.first();
-    articolo[keymap::KEY_ID] = id;
+    articoloMap[magazzino::PH_ID] = id;
     ui->le_descrizione->setText(query.value(magazzino::COL_MG_DESCR).toString());
 
     ui->cb_fornitore->setModelColumn(magazzino::COL_MG_ID);
@@ -138,91 +138,91 @@ void ArticoloDialog::setValue(QString id)
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
-    articolo[keymap::KEY_DESCRIZIONE] = ui->le_descrizione->text();
-    articolo[keymap::KEY_MARCA] = modelMarca->index(ui->cb_marca->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    articolo[keymap::KEY_MODELLO] = ui->le_modello->text();
-    articolo[keymap::KEY_COD_ARTICOLO] = ui->le_cod_articolo->text();
-    articolo[keymap::KEY_COD_BARRE] = ui->le_cod_barre->text();
-    articolo[keymap::KEY_CATMERCE] = modelCatMerce->index(ui->cb_catmerce->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    articolo[keymap::KEY_UNITA] = modelUnita->index(ui->cb_unitamisura->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_DESCR] = ui->le_descrizione->text();
+    articoloMap[magazzino::PH_ID_MARC] = modelMarca->index(ui->cb_marca->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_MODELLO] = ui->le_modello->text();
+    articoloMap[magazzino::PH_COD_ART] = ui->le_cod_articolo->text();
+    articoloMap[magazzino::PH_COD_EAN] = ui->le_cod_barre->text();
+    articoloMap[magazzino::PH_ID_MERC] = modelCatMerce->index(ui->cb_catmerce->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_ID_UM] = modelUnita->index(ui->cb_unitamisura->currentIndex(), magazzino::COL_MG_ID).data().toString();
 
     //Per i tipi numeri devo usare il locale C. Maledetto postgresql
     double scorta = stringToDouble(ui->le_scorta->text());
-    articolo[keymap::KEY_SCORTA] = QString().setNum(scorta);
+    articoloMap[magazzino::PH_SCORTA] = QString().setNum(scorta);
 
-    articolo[keymap::KEY_ID_FORNITORE] = modelFornitore->index(ui->cb_fornitore->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    articolo[keymap::KEY_COD_FORNITORE] = ui->le_cod_fornitore->text();
+    articoloMap[magazzino::PH_ID_FORN] = modelFornitore->index(ui->cb_fornitore->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_COD_FRN] = ui->le_cod_fornitore->text();
 
     double quantita = stringToDouble(ui->le_quantita->text());
-    articolo[keymap::KEY_QUANTITA] = QString().setNum(quantita);
+    articoloMap[magazzino::PH_QUANTIT] = QString().setNum(quantita);
 
     double prezzo_fattura = stringToDouble(ui->le_prezzo_fattura->text());
-    articolo[keymap::KEY_PRZ_FATTURA] = QString().setNum(prezzo_fattura);
+    articoloMap[magazzino::PH_PRZ_FAT] = QString().setNum(prezzo_fattura);
 
-    articolo[keymap::KEY_SCONTO] =  ui->le_sconto->text();
-    articolo[keymap::KEY_RICARICO] = ui->le_ricarico->text();
+    articoloMap[magazzino::PH_SCONTO] =  ui->le_sconto->text();
+    articoloMap[magazzino::PH_RICARIC] = ui->le_ricarico->text();
 
     double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
-    articolo[keymap::KEY_PRZ_ACQUISTO] = QString().setNum(prezzo_acquisto);
-    articolo[keymap::KEY_COD_IVA] = ui->cb_codiva->currentText();
+    articoloMap[magazzino::PH_PRZ_ACQ] = QString().setNum(prezzo_acquisto);
+    articoloMap[magazzino::PH_COD_IVA] = ui->cb_codiva->currentText();
     double iva = stringToDouble(ui->le_iva->text());
-    articolo[keymap::KEY_IVA] = QString().setNum(iva);
+    articoloMap[magazzino::PH_IVA] = QString().setNum(iva);
     double prezzo_vend = stringToDouble(ui->le_prezzo_vendita->text());
-    articolo[keymap::KEY_PRZ_VENDITA] = QString().setNum(prezzo_vend);
+    articoloMap[magazzino::PH_PRZ_VEN] = QString().setNum(prezzo_vend);
     double prezzo_fin = stringToDouble(ui->le_prezzo_finito->text());
-    articolo[keymap::KEY_PRZ_FINITO] = QString().setNum(prezzo_fin);
+    articoloMap[magazzino::PH_PRZ_FIN] = QString().setNum(prezzo_fin);
 
-    articolo[keymap::KEY_SEDE] = modelSede->index(ui->cb_sede->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    articolo[keymap::KEY_DATA] = ui->le_data->date().toString("dd/MM/yyyy");
-    articolo[keymap::KEY_NR_FATTURA] = ui->le_fattura->text();
-    articolo[keymap::KEY_NOTE] = ui->te_note->toPlainText();
+    articoloMap[magazzino::PH_ID_SEDE] = modelSede->index(ui->cb_sede->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_DATA] = ui->le_data->date().toString("dd/MM/yyyy");
+    articoloMap[magazzino::PH_FATTURA] = ui->le_fattura->text();
+    articoloMap[magazzino::PH_NOTE] = ui->te_note->toPlainText();
 }
 
 QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
 {
     qDebug() << "ArticoloDialog::prepareQueryArticolo()";
     QSqlQuery query_articolo;
-    if (articolo.contains(keymap::KEY_ID)) {
+    if (articoloMap.contains(magazzino::PH_ID)) {
         query_articolo.prepare(magazzino::UPDATE_ARTICOLO);
-        query_articolo.bindValue(magazzino::PH_ID, articolo[keymap::KEY_ID]);
+        query_articolo.bindValue(magazzino::PH_ID, articoloMap[magazzino::PH_ID]);
     }
     else {
         query_articolo.prepare(magazzino::INSERT_ARTICOLO);
     }
 
-    query_articolo.bindValue(magazzino::PH_DESCR, articolo[keymap::KEY_DESCRIZIONE]);
-    query_articolo.bindValue(magazzino::PH_ID_MARC, articolo[keymap::KEY_MARCA]);
-    query_articolo.bindValue(magazzino::PH_MODELLO, articolo[keymap::KEY_MODELLO]);
-    query_articolo.bindValue(magazzino::PH_COD_ART, articolo[keymap::KEY_COD_ARTICOLO]);
-    query_articolo.bindValue(magazzino::PH_COD_EAN, articolo[keymap::KEY_COD_BARRE]);
-    query_articolo.bindValue(magazzino::PH_ID_MERC, articolo[keymap::KEY_CATMERCE]);
-    query_articolo.bindValue(magazzino::PH_ID_UM, articolo[keymap::KEY_UNITA]);
-    query_articolo.bindValue(magazzino::PH_SCORTA, articolo[keymap::KEY_SCORTA]);
+    query_articolo.bindValue(magazzino::PH_DESCR, articoloMap[magazzino::PH_DESCR]);
+    query_articolo.bindValue(magazzino::PH_ID_MARC, articoloMap[magazzino::PH_ID_MARC]);
+    query_articolo.bindValue(magazzino::PH_MODELLO, articoloMap[magazzino::PH_MODELLO]);
+    query_articolo.bindValue(magazzino::PH_COD_ART, articoloMap[magazzino::PH_COD_ART]);
+    query_articolo.bindValue(magazzino::PH_COD_EAN, articoloMap[magazzino::PH_COD_EAN]);
+    query_articolo.bindValue(magazzino::PH_ID_MERC, articoloMap[magazzino::PH_ID_MERC]);
+    query_articolo.bindValue(magazzino::PH_ID_UM, articoloMap[magazzino::PH_ID_UM]);
+    query_articolo.bindValue(magazzino::PH_SCORTA, articoloMap[magazzino::PH_SCORTA]);
 
-    query_articolo.bindValue(magazzino::PH_ID_FORN, articolo[keymap::KEY_ID_FORNITORE]);
-    query_articolo.bindValue(magazzino::PH_COD_FRN, articolo[keymap::KEY_COD_FORNITORE]);
-    query_articolo.bindValue(magazzino::PH_QUANTIT, articolo[keymap::KEY_QUANTITA]);
-    query_articolo.bindValue(magazzino::PH_PRZ_FAT, articolo[keymap::KEY_PRZ_FATTURA]);
-    query_articolo.bindValue(magazzino::PH_SCONTO, articolo[keymap::KEY_SCONTO]);
-    query_articolo.bindValue(magazzino::PH_PRZ_ACQ, articolo[keymap::KEY_PRZ_ACQUISTO]);
-    query_articolo.bindValue(magazzino::PH_RICARIC, articolo[keymap::KEY_RICARICO]);
-    query_articolo.bindValue(magazzino::PH_COD_IVA, articolo[keymap::KEY_COD_IVA]);
-    query_articolo.bindValue(magazzino::PH_IVA, articolo[keymap::KEY_IVA]);
-    query_articolo.bindValue(magazzino::PH_PRZ_FIN, articolo[keymap::KEY_PRZ_FINITO]);
-    query_articolo.bindValue(magazzino::PH_PRZ_VEN, articolo[keymap::KEY_PRZ_VENDITA]);
+    query_articolo.bindValue(magazzino::PH_ID_FORN, articoloMap[magazzino::PH_ID_FORN]);
+    query_articolo.bindValue(magazzino::PH_COD_FRN, articoloMap[magazzino::PH_COD_FRN]);
+    query_articolo.bindValue(magazzino::PH_QUANTIT, articoloMap[magazzino::PH_QUANTIT]);
+    query_articolo.bindValue(magazzino::PH_PRZ_FAT, articoloMap[magazzino::PH_PRZ_FAT]);
+    query_articolo.bindValue(magazzino::PH_SCONTO, articoloMap[magazzino::PH_SCONTO]);
+    query_articolo.bindValue(magazzino::PH_PRZ_ACQ, articoloMap[magazzino::PH_PRZ_ACQ]);
+    query_articolo.bindValue(magazzino::PH_RICARIC, articoloMap[magazzino::PH_RICARIC]);
+    query_articolo.bindValue(magazzino::PH_COD_IVA, articoloMap[magazzino::PH_COD_IVA]);
+    query_articolo.bindValue(magazzino::PH_IVA, articoloMap[magazzino::PH_IVA]);
+    query_articolo.bindValue(magazzino::PH_PRZ_FIN, articoloMap[magazzino::PH_PRZ_FIN]);
+    query_articolo.bindValue(magazzino::PH_PRZ_VEN, articoloMap[magazzino::PH_PRZ_VEN]);
 
-    query_articolo.bindValue(magazzino::PH_ID_SEDE, articolo[keymap::KEY_SEDE]);
-    query_articolo.bindValue(magazzino::PH_DATA, articolo[keymap::KEY_DATA]);
-    query_articolo.bindValue(magazzino::PH_FATTURA, articolo[keymap::KEY_NR_FATTURA]);
-    query_articolo.bindValue(magazzino::PH_NOTE, articolo[keymap::KEY_NOTE]);
+    query_articolo.bindValue(magazzino::PH_ID_SEDE, articoloMap[magazzino::PH_ID_SEDE]);
+    query_articolo.bindValue(magazzino::PH_DATA, articoloMap[magazzino::PH_DATA]);
+    query_articolo.bindValue(magazzino::PH_FATTURA, articoloMap[magazzino::PH_FATTURA]);
+    query_articolo.bindValue(magazzino::PH_NOTE, articoloMap[magazzino::PH_NOTE]);
     return query_articolo;
 }
 
 QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 {
     qDebug() << "ArticoloDialog::prepareQueryStorico()";
-    QString id_articolo = articolo[keymap::KEY_ID];
-    QString data_articolo = articolo[keymap::KEY_DATA];
+    QString id_articolo = articoloMap[magazzino::PH_ID];
+    QString data_articolo = articoloMap[magazzino::PH_DATA];
 
     QSqlQuery query_storico;
 
@@ -240,17 +240,17 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
         qDebug() << "run insert;";
     }
 
-    query_storico.bindValue(magazzino::PH_ID_ART, articolo[keymap::KEY_ID]);
-    query_storico.bindValue(magazzino::PH_DATA, articolo[keymap::KEY_DATA]);
-    query_storico.bindValue(magazzino::PH_QUANTIT, articolo[keymap::KEY_QUANTITA]);
-    query_storico.bindValue(magazzino::PH_PRZ_FAT, articolo[keymap::KEY_PRZ_FATTURA]);
-    query_storico.bindValue(magazzino::PH_SCONTO, articolo[keymap::KEY_SCONTO]);
-    query_storico.bindValue(magazzino::PH_RICARIC, articolo[keymap::KEY_RICARICO]);
-    query_storico.bindValue(magazzino::PH_PRZ_ACQ, articolo[keymap::KEY_PRZ_ACQUISTO]);
-    query_storico.bindValue(magazzino::PH_IVA, articolo[keymap::KEY_IVA]);
-    query_storico.bindValue(magazzino::PH_PRZ_FIN, articolo[keymap::KEY_PRZ_FINITO]);
-    query_storico.bindValue(magazzino::PH_PRZ_VEN, articolo[keymap::KEY_PRZ_VENDITA]);
-    query_storico.bindValue(magazzino::PH_FATTURA, articolo[keymap::KEY_NR_FATTURA]);
+    query_storico.bindValue(magazzino::PH_ID_ART, id_articolo);
+    query_storico.bindValue(magazzino::PH_DATA, data_articolo);
+    query_storico.bindValue(magazzino::PH_QUANTIT, articoloMap[magazzino::PH_QUANTIT]);
+    query_storico.bindValue(magazzino::PH_PRZ_FAT, articoloMap[magazzino::PH_PRZ_FAT]);
+    query_storico.bindValue(magazzino::PH_SCONTO, articoloMap[magazzino::PH_SCONTO]);
+    query_storico.bindValue(magazzino::PH_RICARIC, articoloMap[magazzino::PH_RICARIC]);
+    query_storico.bindValue(magazzino::PH_PRZ_ACQ, articoloMap[magazzino::PH_PRZ_ACQ]);
+    query_storico.bindValue(magazzino::PH_IVA, articoloMap[magazzino::PH_IVA]);
+    query_storico.bindValue(magazzino::PH_PRZ_FIN, articoloMap[magazzino::PH_PRZ_FIN]);
+    query_storico.bindValue(magazzino::PH_PRZ_VEN, articoloMap[magazzino::PH_PRZ_VEN]);
+    query_storico.bindValue(magazzino::PH_FATTURA, articoloMap[magazzino::PH_FATTURA]);
 
     return query_storico;
 }
@@ -262,7 +262,7 @@ void ArticoloDialog::save(void)
     db.transaction();
     prepareMap();
 
-    if (articolo[keymap::KEY_DESCRIZIONE].isEmpty()) {
+    if (articoloMap[magazzino::PH_DESCR].isEmpty()) {
         showDialogError(this, ERR050, MSG013); //NOTE codice errore 050
         ui->le_descrizione->setStyleSheet(magazzino::CSS_WARNING_STYLE);
         return;
@@ -275,7 +275,7 @@ void ArticoloDialog::save(void)
         return;
     }
     if (ui->updateStoricoCheckBox->isChecked()) {
-        if (!articolo.contains(keymap::KEY_ID)) {
+        if (!articoloMap.contains(magazzino::PH_ID)) {
             QSqlQuery query_id;
             query_id.prepare("SELECT * FROM lastval();");
             if (!query_id.exec()) {
@@ -284,7 +284,7 @@ void ArticoloDialog::save(void)
                 return;
             }
             query_id.first();
-            articolo[keymap::KEY_ID] = query_id.value(0).toString();
+            articoloMap[magazzino::PH_ID] = query_id.value(0).toString();
         }
 
         QSqlQuery query_storico = prepareQueryStorico();
