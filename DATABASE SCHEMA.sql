@@ -239,8 +239,8 @@ CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo Fatt
 				"Sconto", "Prezzo Acquisto", "Ricarico", "IVA", 
 				"Prezzo finito", "Prezzo Vendità", "Nr. Fattura") AS 
 SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_fattura::money, 
-	ls.sconto_fornitore, ls.prezzo_acquisto::money, ls.ricarico, ls.iva::money, 
-	ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura 
+        format('%s%%',ls.sconto_fornitore), ls.prezzo_acquisto::money, format('%s%%',ls.ricarico),
+        ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
 FROM listino_storico AS ls 
 ORDER BY ls.id_articolo, ls.data_arrivo;
 --##########################################################################################
