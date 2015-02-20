@@ -137,22 +137,22 @@ void AziendaDialog::setValue(QString id)
 void AziendaDialog::prepareMap(void)
 {
     qDebug() << "AziendaDialog::prepareMap()";
-    mapAzienda[keymap::KEY_RAGSOC] = ui->le_rag_sociale->text();
-    mapAzienda[keymap::KEY_NOME] = ui->le_nome->text();
-    mapAzienda[keymap::KEY_COGNOME] = ui->le_cognome->text();
-    mapAzienda[keymap::KEY_INDIRIZZO] = ui->le_indirizzo->text();
-    mapAzienda[keymap::KEY_ID_CITTA] = modelCitta->index(ui->cb_citta->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[keymap::KEY_ID_PROVINCIA] = modelProvincia->index(ui->cb_provincia->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[keymap::KEY_ID_CAP] = modelCap->index(ui->cb_cap->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[keymap::KEY_ID_STATO] = modelStato->index(ui->cb_stato->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[keymap::KEY_TEL] = ui->le_tel->text();
-    mapAzienda[keymap::KEY_FAX] = ui->le_fax->text();
-    mapAzienda[keymap::KEY_EMAIL] = ui->le_email->text();
-    mapAzienda[keymap::KEY_PRT_IVA] = ui->le_prtiva->text();
-    mapAzienda[keymap::KEY_COD_FISCALE] = ui->le_codfisc->text();
-    mapAzienda[keymap::KEY_ISCR_TRIB] = ui->le_iscr_trib->text();
-    mapAzienda[keymap::KEY_CCIAA] = ui->le_cciaa->text();
-    mapAzienda[keymap::KEY_REG_IMPRESE] = ui->le_reg_imprese->text();
+    mapAzienda[azienda::PH_RAG_SOCIALE] = ui->le_rag_sociale->text();
+    mapAzienda[azienda::PH_NOME] = ui->le_nome->text();
+    mapAzienda[azienda::PH_COGNOME] = ui->le_cognome->text();
+    mapAzienda[azienda::PH_INDIRIZZO] = ui->le_indirizzo->text();
+    mapAzienda[azienda::PH_CITTA] = modelCitta->index(ui->cb_citta->currentIndex(), azienda::COL_ID).data().toString();
+    mapAzienda[azienda::PH_PROVINCIA] = modelProvincia->index(ui->cb_provincia->currentIndex(), azienda::COL_ID).data().toString();
+    mapAzienda[azienda::PH_CAP] = modelCap->index(ui->cb_cap->currentIndex(), azienda::COL_ID).data().toString();
+    mapAzienda[azienda::PH_STATO] = modelStato->index(ui->cb_stato->currentIndex(), azienda::COL_ID).data().toString();
+    mapAzienda[azienda::PH_TEL] = ui->le_tel->text();
+    mapAzienda[azienda::PH_FAX] = ui->le_fax->text();
+    mapAzienda[azienda::PH_EMAIL] = ui->le_email->text();
+    mapAzienda[azienda::PH_PRT_IVA] = ui->le_prtiva->text();
+    mapAzienda[azienda::PH_COD_FISC] = ui->le_codfisc->text();
+    mapAzienda[azienda::PH_ISCR_TRIB] = ui->le_iscr_trib->text();
+    mapAzienda[azienda::PH_CCIAA] = ui->le_cciaa->text();
+    mapAzienda[azienda::PH_REG_IMPRESE] = ui->le_reg_imprese->text();
 }
 
 void AziendaDialog::save(void)
@@ -160,30 +160,31 @@ void AziendaDialog::save(void)
     qDebug() << "AziendaDialog::save()";
     prepareMap();    
 
-    if (mapAzienda[keymap::KEY_RAGSOC].isEmpty()) {
+    if (mapAzienda[azienda::PH_RAG_SOCIALE].isEmpty()) {
         showDialogError(this, ERR029, MSG016); //NOTE codice errore 029
         ui->le_rag_sociale->setStyleSheet(azienda::CSS_WARNING_STYLE);
         return;
     }
-    else if (mapAzienda[keymap::KEY_INDIRIZZO].isEmpty()) {
+    else if (mapAzienda[azienda::PH_INDIRIZZO].isEmpty()) {
         showDialogError(this, ERR030, MSG014); //NOTE codice errore 030
         ui->le_indirizzo->setStyleSheet(azienda::CSS_WARNING_STYLE);
         return;
     }
-    else if (mapAzienda[keymap::KEY_PRT_IVA].isEmpty() || mapAzienda[keymap::KEY_COD_FISCALE].isEmpty()) {
+    else if (mapAzienda[azienda::PH_PRT_IVA].isEmpty() ||
+             mapAzienda[azienda::PH_COD_FISC].isEmpty()) {
         showDialogError(this, ERR031, MSG018); //NOTE codice errore 031
         ui->le_prtiva->setStyleSheet(azienda::CSS_WARNING_STYLE);
         ui->le_codfisc->setStyleSheet(azienda::CSS_WARNING_STYLE);
         return;
     }
 
-    if (!controlloPartitaIva(mapAzienda[keymap::KEY_PRT_IVA])) {
+    if (!controlloPartitaIva(mapAzienda[azienda::PH_PRT_IVA])) {
         if (!showDialogWarning(this, ERR032, MSG019)) //NOTE codice errore 032
             return;
     }
 
-    if (mapAzienda[keymap::KEY_COD_FISCALE] != mapAzienda[keymap::KEY_PRT_IVA]) {
-        if (!controlloCodiceFiscale(mapAzienda[keymap::KEY_COD_FISCALE])) {
+    if (mapAzienda[azienda::PH_COD_FISC] != mapAzienda[azienda::PH_PRT_IVA]) {
+        if (!controlloCodiceFiscale(mapAzienda[azienda::PH_COD_FISC])) {
             if (!showDialogWarning(this, ERR033, MSG020)) //NOTE codice errore 033
                 return;
         }
@@ -191,22 +192,22 @@ void AziendaDialog::save(void)
 
     QSqlQuery query;
     query.prepare(azienda::UPDATE_QUERY);
-    query.bindValue(azienda::PH_RAG_SOCIALE, mapAzienda[keymap::KEY_RAGSOC]);
-    query.bindValue(azienda::PH_NOME, mapAzienda[keymap::KEY_NOME]);
-    query.bindValue(azienda::PH_COGNOME, mapAzienda[keymap::KEY_COGNOME]);
-    query.bindValue(azienda::PH_INDIRIZZO, mapAzienda[keymap::KEY_INDIRIZZO]);
-    query.bindValue(azienda::PH_CITTA, mapAzienda[keymap::KEY_ID_CITTA]);
-    query.bindValue(azienda::PH_PROVINCIA, mapAzienda[keymap::KEY_ID_PROVINCIA]);
-    query.bindValue(azienda::PH_CAP, mapAzienda[keymap::KEY_ID_CAP]);
-    query.bindValue(azienda::PH_STATO, mapAzienda[keymap::KEY_ID_STATO]);
-    query.bindValue(azienda::PH_TEL, mapAzienda[keymap::KEY_TEL]);
-    query.bindValue(azienda::PH_FAX, mapAzienda[keymap::KEY_FAX]);
-    query.bindValue(azienda::PH_EMAIL, mapAzienda[keymap::KEY_EMAIL]);
-    query.bindValue(azienda::PH_PRT_IVA, mapAzienda[keymap::KEY_PRT_IVA]);
-    query.bindValue(azienda::PH_COD_FISC, mapAzienda[keymap::KEY_COD_FISCALE]);
-    query.bindValue(azienda::PH_ISCR_TRIB, mapAzienda[keymap::KEY_ISCR_TRIB]);
-    query.bindValue(azienda::PH_CCIAA, mapAzienda[keymap::KEY_CCIAA]);
-    query.bindValue(azienda::PH_REG_IMPRESE, mapAzienda[keymap::KEY_REG_IMPRESE]);
+    query.bindValue(azienda::PH_RAG_SOCIALE, mapAzienda[azienda::PH_RAG_SOCIALE]);
+    query.bindValue(azienda::PH_NOME, mapAzienda[azienda::PH_NOME]);
+    query.bindValue(azienda::PH_COGNOME, mapAzienda[azienda::PH_COGNOME]);
+    query.bindValue(azienda::PH_INDIRIZZO, mapAzienda[azienda::PH_INDIRIZZO]);
+    query.bindValue(azienda::PH_CITTA, mapAzienda[azienda::PH_CITTA]);
+    query.bindValue(azienda::PH_PROVINCIA, mapAzienda[azienda::PH_PROVINCIA]);
+    query.bindValue(azienda::PH_CAP, mapAzienda[azienda::PH_CAP]);
+    query.bindValue(azienda::PH_STATO, mapAzienda[azienda::PH_STATO]);
+    query.bindValue(azienda::PH_TEL, mapAzienda[azienda::PH_TEL]);
+    query.bindValue(azienda::PH_FAX, mapAzienda[azienda::PH_FAX]);
+    query.bindValue(azienda::PH_EMAIL, mapAzienda[azienda::PH_EMAIL]);
+    query.bindValue(azienda::PH_PRT_IVA, mapAzienda[azienda::PH_PRT_IVA]);
+    query.bindValue(azienda::PH_COD_FISC, mapAzienda[azienda::PH_COD_FISC]);
+    query.bindValue(azienda::PH_ISCR_TRIB, mapAzienda[azienda::PH_ISCR_TRIB]);
+    query.bindValue(azienda::PH_CCIAA, mapAzienda[azienda::PH_CCIAA]);
+    query.bindValue(azienda::PH_REG_IMPRESE, mapAzienda[azienda::PH_REG_IMPRESE]);
 
     //Per Salvare logo all'interno del database
     QByteArray array;

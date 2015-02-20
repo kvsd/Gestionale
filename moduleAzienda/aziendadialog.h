@@ -34,7 +34,7 @@ private:
     QSqlTableModel *modelProvincia;
     QSqlTableModel *modelCap;
     QSqlTableModel *modelStato;
-    QMap <int, QString> mapAzienda;
+    QMap <QString, QString> mapAzienda;
     QPixmap logo;
 
     void initComboBox();
