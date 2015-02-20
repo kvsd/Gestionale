@@ -3,11 +3,11 @@
 CustomModel::CustomModel(QString colsGroup, QObject *parent) :
     QSqlQueryModel(parent)
 {
+    leftAlign = Qt::AlignLeft+Qt::AlignVCenter;
+    rightAlign = Qt::AlignRight+Qt::AlignVCenter;
     group = colsGroup;
     prepareMap();
     loadSettings();
-    leftAlign = Qt::AlignLeft+Qt::AlignVCenter;
-    rightAlign = Qt::AlignRight+Qt::AlignVCenter;
 }
 
 QVariant CustomModel::data(const QModelIndex &item, int role) const
@@ -16,6 +16,7 @@ QVariant CustomModel::data(const QModelIndex &item, int role) const
 
     if (role == Qt::TextAlignmentRole) {
         QString headerName = headerData(item.column(), Qt::Horizontal).toString();
+
         return alignMaps.value(headerName, rightAlign);
     }
 
@@ -36,6 +37,7 @@ void CustomModel::prepareMap(void)
     alignMaps["Descrizione"] = leftAlign;
     alignMaps["Note"] = leftAlign;
     alignMaps["Ragione sociale"] = leftAlign;
+    alignMaps["Id Articolo"] = leftAlign;
 }
 
 void CustomModel::loadSettings(void)
