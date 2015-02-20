@@ -159,8 +159,10 @@ void ArticoloDialog::prepareMap()
     double prezzo_fattura = stringToDouble(ui->le_prezzo_fattura->text());
     articoloMap[magazzino::PH_PRZ_FAT] = QString().setNum(prezzo_fattura);
 
-    articoloMap[magazzino::PH_SCONTO] =  ui->le_sconto->text();
-    articoloMap[magazzino::PH_RICARIC] = ui->le_ricarico->text();
+    QString sconto = ui->le_sconto->text();
+    articoloMap[magazzino::PH_SCONTO] = sconto.isEmpty() ? "0" : sconto;
+    QString ricarico = ui->le_ricarico->text();
+    articoloMap[magazzino::PH_RICARIC] = ricarico.isEmpty() ? "0" : ricarico;
 
     double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
     articoloMap[magazzino::PH_PRZ_ACQ] = QString().setNum(prezzo_acquisto);
