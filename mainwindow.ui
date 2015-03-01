@@ -34,14 +34,14 @@
       <item>
        <widget class="QPushButton" name="magazzinoButton">
         <property name="text">
-         <string>Magazzino</string>
+         <string>&amp;Magazzino</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="primaNotaButton">
         <property name="text">
-         <string>Prima Nota</string>
+         <string>&amp;Prima Nota</string>
         </property>
        </widget>
       </item>
@@ -155,7 +155,7 @@
      <x>0</x>
      <y>0</y>
      <width>501</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatabase">
@@ -169,7 +169,6 @@
    </widget>
    <addaction name="menuDatabase"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLogin">
    <property name="text">
     <string>&amp;Login</string>
@@ -187,7 +186,7 @@
   </action>
   <action name="actionConfigura_Azienda">
    <property name="text">
-    <string>Configura Azienda</string>
+    <string>Configura &amp;Azienda</string>
    </property>
   </action>
  </widget>
