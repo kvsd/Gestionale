@@ -216,7 +216,7 @@
      <x>0</x>
      <y>0</y>
      <width>708</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpzioni">
@@ -246,7 +246,6 @@
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionConfigura">
    <property name="text">
     <string>&amp;Configura...</string>
