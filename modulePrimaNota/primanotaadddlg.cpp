@@ -28,7 +28,7 @@ void PrimaNotaAddDlg::setValue(QString id)
     query.prepare(primanota::SELECT_FROM_ID);
     query.bindValue(primanota::PH_ID, id);
     if (!query.exec()) {
-        showDialogError(this, ERR052, MSG010, query.lastError().text());
+        showDialogError(this, ERR053, MSG010, query.lastError().text()); // NOTE codice errore 053
     }
 
     query.first();

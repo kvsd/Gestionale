@@ -92,7 +92,6 @@ void PrimaNotaWindow::updateViewNote()
 {
     qDebug() << "PrimaNotaWindow::updateViewNote()";
     QString query = primanota::SELECT_ALL + prepareFilterQuery();
-    qDebug() << query;
     primaNotaModel->setQuery(query);
     ui->noteTableView->hideColumn(primanota::COL_ID);
     ui->noteTableView->resizeColumnsToContents();
@@ -155,7 +154,7 @@ void PrimaNotaWindow::updateNote()
 
     QModelIndex index = ui->noteTableView->currentIndex();
     if (!index.isValid()) {
-        showDialogError(this, 0, 0);
+        showDialogError(this, ERR054, MSG025); //Note Codice errore 054
         return;
     }
 
