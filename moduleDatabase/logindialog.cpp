@@ -1,10 +1,6 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
 
-const QString DEFAULT_USER = "user";
-const QString DEFAULT_HOST = "localhost";
-const int DEFAULT_PORT = 5432;
-
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginDialog)
@@ -18,7 +14,6 @@ LoginDialog::LoginDialog(QWidget *parent) :
     else {
         db = QSqlDatabase::addDatabase("QPSQL");
     }
-
 }
 
 LoginDialog::~LoginDialog()
@@ -27,16 +22,15 @@ LoginDialog::~LoginDialog()
     delete ui;
 }
 
-
 void LoginDialog::connectToDatabase(void)
 {
     qDebug() << "LoginDialog::connectToDatabase()";
 
     username = ui->le_username->text();
     password = ui->le_password->text();
-    QString dbname = settings.value("dbname", DEFAULT_USER).toString();
-    QString hostname = settings.value("hostname", DEFAULT_HOST).toString();
-    qint16 port = settings.value("port", DEFAULT_PORT).toInt();
+    QString dbname = settings.value(dbconst::dbname, dbconst::DEFAULT_DB).toString();
+    QString hostname = settings.value(dbconst::hostname, dbconst::DEFAULT_HOST).toString();
+    qint16 port = settings.value(dbconst::port, dbconst::DEFAULT_PORT).toInt();
 
     db.setHostName(hostname);
     db.setPort(port);
@@ -45,7 +39,17 @@ void LoginDialog::connectToDatabase(void)
     db.setPassword(password);
 
     if (db.open()) {
-        this->accept();
+        QSqlQuery query;
+        query.prepare(dbconst::SELECT_USERS);
+        query.exec();
+        while (query.next()) {
+            if (username == query.value("name").toString()) {
+                this->accept();
+                return;
+            }
+        }
+        db.close();
+        showDialogError(this, "ERRORE", "l'untente non è autorizzato");
     }
     else {
         showDialogError(this, "ERRORE", "errore di autentificazione", db.lastError().text());

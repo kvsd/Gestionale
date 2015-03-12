@@ -6,8 +6,11 @@
 #include <QSqlDatabase>
 #include <QSettings>
 #include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlRecord>
 #include "connectionsetupdialog.h"
 #include "libs/error.h"
+#include "db_const.h"
 
 namespace Ui {
 class LoginDialog;

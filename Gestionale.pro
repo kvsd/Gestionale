@@ -52,7 +52,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     modulePrimaNota/primanotawindow.h \
     modulePrimaNota/primanota_const.h \
     modulePrimaNota/primanotamodel.h \
-	modulePrimaNota/primanotaadddlg.h
+	modulePrimaNota/primanotaadddlg.h \
+    moduleDatabase/db_const.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
