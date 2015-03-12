@@ -42,13 +42,14 @@ void MainWindow::diplayInfo(void)
 {
     qDebug() << "MainWindow::diplayInfo()";
 
-    if (db.open()) {
+    if (db.isOpen()) {
         ui->db_user->setText(db.userName());
         ui->db_name->setText(db.databaseName());
         ui->db_status->setText("Connesso");
         ui->agentiButton->setEnabled(true);
         ui->clnFrnButton->setEnabled(true);
         ui->magazzinoButton->setEnabled(true);
+        ui->primaNotaButton->setEnabled(true);
         ui->actionSetup_Table->setEnabled(true);
         ui->actionConfigura_Azienda->setEnabled(true);
     }
@@ -59,6 +60,7 @@ void MainWindow::diplayInfo(void)
         ui->agentiButton->setEnabled(false);
         ui->clnFrnButton->setEnabled(false);
         ui->magazzinoButton->setEnabled(false);
+        ui->primaNotaButton->setEnabled(false);
         ui->actionSetup_Table->setEnabled(false);
         ui->actionConfigura_Azienda->setEnabled(false);
     }
