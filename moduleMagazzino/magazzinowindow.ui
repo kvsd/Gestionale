@@ -160,8 +160,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>371</width>
-             <height>518</height>
+             <width>388</width>
+             <height>534</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -461,7 +461,7 @@
      <x>0</x>
      <y>0</y>
      <width>845</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpzioni">
@@ -502,7 +502,6 @@
    <addaction name="menuRicerca"/>
    <addaction name="menuStampa"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCod_Articolo">
    <property name="checkable">
     <bool>true</bool>
