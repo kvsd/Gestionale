@@ -1,10 +1,6 @@
 #include "connectionsetupdialog.h"
 #include "ui_connectionsetupdialog.h"
 
-const QString DEFAULT_DBNAME = "user";
-const QString DEFAULT_HOSTNAME = "localhost";
-const int DEFAULT_PORT = 5432;
-
 ConnectionSetupDialog::ConnectionSetupDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConnectionSetupDialog)
@@ -23,9 +19,9 @@ ConnectionSetupDialog::~ConnectionSetupDialog()
 void ConnectionSetupDialog::loadSettings(void)
 {
     qDebug() << "ConnectionSetupDialog::loadSettings()";
-    QString dbname = settings.value("dbname", DEFAULT_DBNAME).toString();
-    QString hostname = settings.value("hostname", DEFAULT_HOSTNAME).toString();
-    qint16 port = settings.value("port", DEFAULT_PORT).toInt();
+    QString dbname = settings.value(dbconst::dbname, dbconst::DEFAULT_DB).toString();
+    QString hostname = settings.value(dbconst::hostname, dbconst::DEFAULT_HOST).toString();
+    qint16 port = settings.value(dbconst::port, dbconst::DEFAULT_PORT).toInt();
 
     ui->le_dbname->setText(dbname);
     ui->le_hostname->setText(hostname);
@@ -39,7 +35,7 @@ void ConnectionSetupDialog::saveSettings(void)
     QString hostname = ui->le_hostname->text();
     qint16 port = ui->le_port->value();
 
-    settings.setValue("dbname", dbname);
-    settings.setValue("hostname", hostname);
-    settings.setValue("port", port);
+    settings.setValue(dbconst::dbname, dbname);
+    settings.setValue(dbconst::hostname, hostname);
+    settings.setValue(dbconst::port, port);
 }

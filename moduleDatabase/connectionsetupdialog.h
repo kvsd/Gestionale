@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QSettings>
 #include <QDebug>
+#include "db_const.h"
 
 namespace Ui {
 class ConnectionSetupDialog;
