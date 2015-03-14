@@ -39,6 +39,7 @@ private:
     MagazzinoWindow *magazzinoMW;
     PrimaNotaWindow *primaNotaMW;
     void diplayInfo(void);
+    void setEnabledControl(bool value);
 
 protected:
     void closeEvent(QCloseEvent *);

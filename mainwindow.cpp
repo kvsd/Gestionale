@@ -40,30 +40,36 @@ void MainWindow::launchLoginDlg(void)
 
 void MainWindow::diplayInfo(void)
 {
+    //Visualizza nelle label del groupbox Info i dati della connessione. E in
+    //base allo stato del database abilita/disabilita i controlli dell'interfaccia
+
     qDebug() << "MainWindow::diplayInfo()";
 
     if (db.isOpen()) {
         ui->db_user->setText(db.userName());
         ui->db_name->setText(db.databaseName());
         ui->db_status->setText("Connesso");
-        ui->agentiButton->setEnabled(true);
-        ui->clnFrnButton->setEnabled(true);
-        ui->magazzinoButton->setEnabled(true);
-        ui->primaNotaButton->setEnabled(true);
-        ui->actionSetup_Table->setEnabled(true);
-        ui->actionConfigura_Azienda->setEnabled(true);
+        setEnabledControl(true);
     }
     else {
         ui->db_user->setText("Nessuno");
         ui->db_name->setText("Nessuno");
         ui->db_status->setText("Non Connesso");
-        ui->agentiButton->setEnabled(false);
-        ui->clnFrnButton->setEnabled(false);
-        ui->magazzinoButton->setEnabled(false);
-        ui->primaNotaButton->setEnabled(false);
-        ui->actionSetup_Table->setEnabled(false);
-        ui->actionConfigura_Azienda->setEnabled(false);
+        setEnabledControl(false);
     }
+}
+
+void MainWindow::setEnabledControl(bool value)
+{
+    //Abilita o disabilita tutti i controlli dell'interfaccia.
+    qDebug() << "MainWindow::setEnabledControl()";
+
+    ui->agentiButton->setEnabled(value);
+    ui->clnFrnButton->setEnabled(value);
+    ui->magazzinoButton->setEnabled(value);
+    ui->primaNotaButton->setEnabled(value);
+    ui->actionSetup_Table->setEnabled(value);
+    ui->actionConfigura_Azienda->setEnabled(value);
 }
 
 void MainWindow::launchConnectionSetupDlg(void)
