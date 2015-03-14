@@ -30,6 +30,7 @@ private:
     QString username;
     QString password;
     QSettings settings;
+    bool isAuthorizedUser(QString user) const;
 
 public slots:
     void connectToDatabase(void);

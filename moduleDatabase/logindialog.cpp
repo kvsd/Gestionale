@@ -22,6 +22,22 @@ LoginDialog::~LoginDialog()
     delete ui;
 }
 
+bool LoginDialog::isAuthorizedUser(QString user) const
+{
+    //Controlla se user e' presente nella tabella user_db
+    qDebug() << "LoginDialog::isAuthorizedUser()";
+
+    QSqlQuery query;
+    query.prepare(dbconst::SELECT_USERS);
+    query.exec();
+    while (query.next()) {
+        if (user == query.value("name").toString()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void LoginDialog::connectToDatabase(void)
 {
     qDebug() << "LoginDialog::connectToDatabase()";
@@ -39,17 +55,13 @@ void LoginDialog::connectToDatabase(void)
     db.setPassword(password);
 
     if (db.open()) {
-        QSqlQuery query;
-        query.prepare(dbconst::SELECT_USERS);
-        query.exec();
-        while (query.next()) {
-            if (username == query.value("name").toString()) {
-                this->accept();
-                return;
-            }
+        if (isAuthorizedUser(username)) {
+            this->accept();
         }
-        db.close();
-        showDialogError(this, "ERRORE", "l'untente non è autorizzato");
+        else {
+            db.close();
+            showDialogError(this, "ERRORE", "l'untente non è autorizzato");
+        }
     }
     else {
         showDialogError(this, "ERRORE", "errore di autentificazione", db.lastError().text());
