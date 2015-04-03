@@ -166,6 +166,7 @@
     <addaction name="actionSetup_Connection"/>
     <addaction name="actionSetup_Table"/>
     <addaction name="actionConfigura_Azienda"/>
+    <addaction name="actionConfigura_Utenti"/>
    </widget>
    <addaction name="menuDatabase"/>
   </widget>
@@ -187,6 +188,11 @@
   <action name="actionConfigura_Azienda">
    <property name="text">
     <string>Configura &amp;Azienda</string>
+   </property>
+  </action>
+  <action name="actionConfigura_Utenti">
+   <property name="text">
+    <string>Configura &amp;Utenti</string>
    </property>
   </action>
  </widget>
@@ -321,6 +327,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionConfigura_Utenti</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>launchUserDlg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>launchLoginDlg()</slot>
@@ -331,5 +353,6 @@
   <slot>launchAziendaDlg()</slot>
   <slot>launchMagazzinoDlg()</slot>
   <slot>launchPrimaNotaDlg()</slot>
+  <slot>launchUserDlg()</slot>
  </slots>
 </ui>

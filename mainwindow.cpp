@@ -49,7 +49,10 @@ void MainWindow::diplayInfo(void)
         ui->db_user->setText(db.userName());
         ui->db_name->setText(db.databaseName());
         ui->db_status->setText("Connesso");
-        setEnabledControl(true);
+        if (db.userName() == "postgres")
+            setEnabledControl(false);
+        else
+            setEnabledControl(true);
     }
     else {
         ui->db_user->setText("Nessuno");
@@ -138,4 +141,22 @@ void MainWindow::launchPrimaNotaDlg(void)
     this->hide();
     primaNotaMW->move(this->pos());
     primaNotaMW->show();
+}
+
+void MainWindow::launchUserDlg(void)
+{
+    qDebug() << "MainWindow::launchUserDlg()";
+
+    if (!db.isOpen()) {
+        showDialogError(this, ERR054, MSG026); //NOTE codice errore 054
+        return;
+    }
+
+    if (db.userName()!= "postgres") {
+        showDialogError(this, ERR055, MSG027); //NOTE codice errore 055
+        return;
+    }
+
+    UserDbDialog dlg(this);
+    dlg.exec();
 }

@@ -10,6 +10,7 @@
 #include "moduleAzienda/aziendadialog.h"
 #include "moduleMagazzino/magazzinowindow.h"
 #include "modulePrimaNota/primanotawindow.h"
+#include "moduleDatabase/userdbdialog.h"
 
 #include <QMainWindow>
 #include <QSqlDatabase>
@@ -53,6 +54,7 @@ private slots:
     void launchAziendaDlg(void);
     void launchMagazzinoDlg(void);
     void launchPrimaNotaDlg(void);
+    void launchUserDlg(void);
 };
 
 #endif // MAINWINDOW_H

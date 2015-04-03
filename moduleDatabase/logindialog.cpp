@@ -31,7 +31,7 @@ bool LoginDialog::isAuthorizedUser(QString user) const
     query.prepare(dbconst::SELECT_USERS);
     query.exec();
     while (query.next()) {
-        if (user == query.value("name").toString()) {
+        if (user == query.value("name").toString() || user == "postgres") {
             return true;
         }
     }

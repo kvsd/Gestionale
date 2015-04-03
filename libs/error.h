@@ -60,6 +60,7 @@
 #define ERR052 "Codice Errore 052"
 #define ERR053 "Codice Errore 053"
 #define ERR054 "Codice Errore 054"
+#define ERR055 "Codice Errore 055"
 
 
 const QString MSG000 = QString::fromUtf8("Si è verificato un errore nella connessione al database.");
@@ -88,6 +89,8 @@ const QString MSG022 = QString::fromUtf8("Si è verificato un errore nell'inseri
 const QString MSG023 = QString::fromUtf8("Sto per aggiornare gli articoli con iva al %1% al %2%.");
 const QString MSG024 = QString::fromUtf8("Errore conversione.\nInserire un numero valido");
 const QString MSG025 = QString::fromUtf8("Prima di modificare una nota bisogna selezionarla dalla lista in alto");
+const QString MSG026 = QString::fromUtf8("Non è stata effettuata la connessione al database");
+const QString MSG027 = QString::fromUtf8("Per poter gestire gli utenti devi usare l'utente postgres");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");
