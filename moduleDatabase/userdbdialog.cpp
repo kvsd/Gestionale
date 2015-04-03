@@ -47,25 +47,42 @@ void UserDbDialog::userAdd()
         return;
     }
 
+    QString query_str = QString("CREATE USER %1 WITH PASSWORD '%2' IN GROUP gestionale_user").arg(username, password);
+    QSqlQuery query;
+    if (!query.exec(query_str)) {
+        showDialogError(this, "ERRORE", "ERRORE", query.lastError().text());
+    }
+
     updateModel();
 }
 
 void UserDbDialog::userMod()
 {
     qDebug() << "UserDbDialog::userMod()";
+
+    if (!ui->UserListView->currentIndex().isValid()) {
+        showDialogError(this, "ERRORE", "ERRORE");
+    }
+
+    QString username = ui->UserListView->currentIndex().data().toString();
     return;
 }
 
 void UserDbDialog::userDel()
 {
     qDebug() << "UserDbDialog::userDel()";
+    if (!ui->UserListView->currentIndex().isValid()) {
+        showDialogError(this, "ERRORE", "ERRORE");
+    }
+
+
+    QString username = ui->UserListView->currentIndex().data().toString();
     return;
 }
 
 void UserDbDialog::userAddAuth()
 {
     qDebug() << "UserDbDialog::userAddAuth()";
-    return;
 }
 
 void UserDbDialog::userRemoveAuth()

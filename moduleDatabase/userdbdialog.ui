@@ -23,7 +23,11 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QListView" name="UserListView"/>
+         <widget class="QListView" name="UserListView">
+          <property name="focusPolicy">
+           <enum>Qt::ClickFocus</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -35,7 +39,11 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QListView" name="AuthListView"/>
+         <widget class="QListView" name="AuthListView">
+          <property name="focusPolicy">
+           <enum>Qt::ClickFocus</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -48,6 +56,9 @@
       <widget class="QPushButton" name="addUserButton">
        <property name="text">
         <string>Crea utente</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -121,8 +132,58 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>delUserButton</sender>
+   <signal>clicked()</signal>
+   <receiver>UserDbDialog</receiver>
+   <slot>userDel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>301</x>
+     <y>51</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>modUserButton</sender>
+   <signal>clicked()</signal>
+   <receiver>UserDbDialog</receiver>
+   <slot>userMod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>321</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>96</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>UserDbDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>455</x>
+     <y>436</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>userAdd()</slot>
+  <slot>userMod()</slot>
+  <slot>userDel()</slot>
  </slots>
 </ui>
