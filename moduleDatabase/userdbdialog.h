@@ -25,17 +25,19 @@ public:
 private:
     Ui::UserDbDialog *ui;
     QSqlQueryModel *modelUserList;
-    QSqlQueryModel *modelUserAuth;
     void initModel();
     void updateModel();
+    bool isUserExists(QString username);
+    bool isUserInGroup(QString username);
+    bool isUserIsAuth(QString username);
+
+    bool createUser(QString username, QString password);
+    bool authorizedUser(QString username);
 
 public slots:
     void userAdd(void);
     void userMod(void);
     void userDel(void);
-
-    void userAddAuth(void);
-    void userRemoveAuth(void);
 };
 
 #endif // USERDBDIALOG_H
