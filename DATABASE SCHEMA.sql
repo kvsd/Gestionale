@@ -1,5 +1,6 @@
 CREATE TABLE user_db (id SERIAL PRIMARY KEY, 
                       name TEXT UNIQUE NOT NULL);
+INSERT INTO user_db(name) VALUES('postgres');
 --##############################################################################
 CREATE TABLE cat_merce (id SERIAL PRIMARY KEY, 
                         descr TEXT UNIQUE NOT NULL);
