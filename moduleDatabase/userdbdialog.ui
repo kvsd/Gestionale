@@ -17,29 +17,13 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="title">
-        <string>Utenti postgresql:</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QListView" name="UserListView">
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string>Utenti gestionale:</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QListView" name="AuthListView">
+         <widget class="QListView" name="userListView">
           <property name="focusPolicy">
            <enum>Qt::ClickFocus</enum>
           </property>
@@ -73,20 +57,6 @@
       <widget class="QPushButton" name="modUserButton">
        <property name="text">
         <string>Modifica password</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="addAuthButton">
-       <property name="text">
-        <string>Autorizza utente</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="delAuthButton">
-       <property name="text">
-        <string>Elimina autorizzazione</string>
        </property>
       </widget>
      </item>
