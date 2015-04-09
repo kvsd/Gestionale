@@ -43,7 +43,14 @@ void UserDbDialog::userAdd()
 void UserDbDialog::userMod()
 {
     qDebug() << "UserDbDialog::userMod()";
-    QString username = ui->userListView->currentIndex().data().toString();
+    QModelIndex index = ui->userListView->currentIndex();
+    if (!index.isValid()) {
+        showDialogError(this, "ERRORE", "Selezione un utente a lato");
+        return;
+    }
+
+    QString username = index.data().toString();
+
     bool dm = showDialogWarning(this, "<b>Attenzione</b>",
                                 QString("Stai per modificare la password dell'utente <b>%1</b>. "
                                         "Continuare?").arg(username));
@@ -52,19 +59,32 @@ void UserDbDialog::userMod()
     }
 
     QString password = QInputDialog::getText(this, "Password", "Immettere la password:", QLineEdit::Password);
+    QString password2 = QInputDialog::getText(this, "Password", "Reimmettere la password(verifica):", QLineEdit::Password);
+
+    if (password != password2) {
+        showDialogError(this, "Errore", "Le password non corrispondo");
+        return;
+    }
 
     QString str = QString("ALTER USER %1 WITH PASSWORD '%2'").arg(username, password);
     QSqlQuery query;
     bool ok = query.exec(str);
     if (!ok) {
-        showDialogError(this, "Errore", "Errore", query.lastError().text());
-    }
+        showDialogError(this, "Errore", "Si e' verificato un errore imprevisto", query.lastError().text());
+        return;    }
+
+    QMessageBox::information(this, "info", "La password utente è stata cambiata");
 }
 
 void UserDbDialog::userDel()
 {
     qDebug() << "UserDbDialog::userDel()";
-    QString username = ui->userListView->currentIndex().data().toString();
+    QModelIndex index = ui->userListView->currentIndex();
+    if (!index.isValid()) {
+        showDialogError(this, "Errore", "Selezionare un utente a lato");
+        return;
+    }
+    QString username = index.data().toString();
     bool ok = showDialogWarning(this, "<b>Attenzione</b>",
                                 QString("Stai per eliminare l'utente <b>%1</b>. "
                                         "Continuare?").arg(username));
@@ -82,8 +102,10 @@ void UserDbDialog::userDel()
     }
     updateModel();
 
-    if (!isUserExists(username))
+    if (!isUserExists(username)) {
+        showDialogError(this, "Errore", "L'utente non è presente nel database, è stato rimosso solo dal db magazzino");
         return;
+    }
 
     QString str = QString("DROP USER %1").arg(username);
     ok = query.exec(str);
