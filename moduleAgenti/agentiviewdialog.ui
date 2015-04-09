@@ -6,69 +6,77 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>406</width>
-    <height>337</height>
+    <width>819</width>
+    <height>583</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Gestione Agenti</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="title">
-        <string>Ricerca &amp;Veloce (Cognome):</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLineEdit" name="searchLineEdit"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>A&amp;genti:</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QTableView" name="agentiView">
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="tabKeyNavigation">
-           <bool>false</bool>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
-          </property>
-          <property name="textElideMode">
-           <enum>Qt::ElideRight</enum>
-          </property>
-          <property name="sortingEnabled">
-           <bool>false</bool>
-          </property>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Ricerca &amp;Veloce (Cognome):</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="searchLineEdit"/>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>A&amp;genti:</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <item>
+       <widget class="QTableView" name="agentiView">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="textElideMode">
+         <enum>Qt::ElideRight</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>false</bool>
+        </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="addButton">
        <property name="text">
@@ -113,14 +121,14 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Vertical</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>40</height>
+         <width>40</width>
+         <height>20</height>
         </size>
        </property>
       </spacer>
@@ -139,15 +147,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>searchLineEdit</tabstop>
-  <tabstop>agentiView</tabstop>
-  <tabstop>addButton</tabstop>
-  <tabstop>updateButton</tabstop>
-  <tabstop>removeButton</tabstop>
-  <tabstop>refreshButton</tabstop>
-  <tabstop>closeButton</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -211,38 +210,6 @@
     <hint type="destinationlabel">
      <x>361</x>
      <y>173</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>agentiView</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>AgentiViewDialog</receiver>
-   <slot>updateRecord()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>149</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>346</x>
-     <y>213</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>searchLineEdit</sender>
-   <signal>returnPressed()</signal>
-   <receiver>AgentiViewDialog</receiver>
-   <slot>searchRecord()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>40</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>8</x>
-     <y>47</y>
     </hint>
    </hints>
   </connection>
