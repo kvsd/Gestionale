@@ -39,7 +39,7 @@
      <item>
       <widget class="QPushButton" name="addUserButton">
        <property name="text">
-        <string>Crea utente</string>
+        <string>&amp;Crea utente</string>
        </property>
        <property name="default">
         <bool>true</bool>
@@ -49,14 +49,14 @@
      <item>
       <widget class="QPushButton" name="delUserButton">
        <property name="text">
-        <string>Elimina utente</string>
+        <string>&amp;Elimina utente</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="modUserButton">
        <property name="text">
-        <string>Modifica password</string>
+        <string>&amp;Modifica password</string>
        </property>
       </widget>
      </item>
@@ -76,7 +76,7 @@
      <item>
       <widget class="QPushButton" name="closeButton">
        <property name="text">
-        <string>Chiudi</string>
+        <string>C&amp;hiudi</string>
        </property>
       </widget>
      </item>

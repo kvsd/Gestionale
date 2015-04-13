@@ -35,7 +35,28 @@ void UserDbDialog::userAdd()
     qDebug() << "UserDbDialog::userAdd()";
 
     QString username = QInputDialog::getText(this, "Nome utente", "Immettere il nome utente:");
-    QString password = QInputDialog::getText(this, "Password", "Immettere la password:", QLineEdit::Password);
+    QString password_1 = QInputDialog::getText(this, "Password", "Immettere la password:", QLineEdit::Password);
+    QString password_2 = QInputDialog::getText(this, "Password", "Reimmettere la password(verifica):", QLineEdit::Password);
+
+    if (password_1 != password_2) {
+        showDialogError(this, "ERRORE", "le password non coincidono");
+        return;
+    }
+
+    if (isUserExists(username)) {
+        bool ok = showDialogWarning(this, "<b>Attenzione</b>", "L'utente è presente nel database, vuoi modificarlo per poterlo usare nel gestionale?");
+        if (!ok)
+            return;
+
+        changeUserPassword(username, password_1);
+        qDebug() << "DA COMPLETARE......";
+    }
+    else {
+        if (!createUser(username, password_1))
+            return;
+        if (!authorizedUser(username))
+            return;
+    }
 
     updateModel();
 }
@@ -66,14 +87,7 @@ void UserDbDialog::userMod()
         return;
     }
 
-    QString str = QString("ALTER USER %1 WITH PASSWORD '%2'").arg(username, password);
-    QSqlQuery query;
-    bool ok = query.exec(str);
-    if (!ok) {
-        showDialogError(this, "Errore", "Si e' verificato un errore imprevisto", query.lastError().text());
-        return;    }
-
-    QMessageBox::information(this, "info", "La password utente è stata cambiata");
+    changeUserPassword(username, password);
 }
 
 void UserDbDialog::userDel()
@@ -176,4 +190,19 @@ bool UserDbDialog::authorizedUser(QString username)
     }
 
     return true;
+}
+
+void UserDbDialog::changeUserPassword(QString username, QString password)
+{
+    qDebug() << "UserDbDialog::changeUserPassword()";
+
+    QString str = QString("ALTER USER %1 WITH PASSWORD '%2'").arg(username, password);
+    QSqlQuery query;
+    bool ok = query.exec(str);
+    if (!ok) {
+        showDialogError(this, "Errore", "Si e' verificato un errore imprevisto", query.lastError().text());
+        return;
+    }
+
+    QMessageBox::information(this, "info", "La password utente è stata cambiata");
 }
