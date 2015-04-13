@@ -113,7 +113,7 @@
      <item>
       <widget class="QPushButton" name="refreshButton">
        <property name="text">
-        <string>Aggiorna</string>
+        <string>A&amp;ggiorna</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
@@ -156,8 +156,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>395</x>
-     <y>326</y>
+     <x>808</x>
+     <y>572</y>
     </hint>
     <hint type="destinationlabel">
      <x>394</x>
@@ -172,8 +172,8 @@
    <slot>addRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>395</x>
-     <y>32</y>
+     <x>94</x>
+     <y>572</y>
     </hint>
     <hint type="destinationlabel">
      <x>321</x>
@@ -188,8 +188,8 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>395</x>
-     <y>61</y>
+     <x>185</x>
+     <y>572</y>
     </hint>
     <hint type="destinationlabel">
      <x>342</x>
@@ -204,8 +204,8 @@
    <slot>removeRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>395</x>
-     <y>90</y>
+     <x>276</x>
+     <y>572</y>
     </hint>
     <hint type="destinationlabel">
      <x>361</x>
@@ -220,12 +220,44 @@
    <slot>updateViewAgenti()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>364</x>
-     <y>113</y>
+     <x>367</x>
+     <y>572</y>
     </hint>
     <hint type="destinationlabel">
      <x>326</x>
      <y>241</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchLineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>AgentiViewDialog</receiver>
+   <slot>searchRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>735</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>811</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>agentiView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>AgentiViewDialog</receiver>
+   <slot>updateRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>663</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>813</x>
+     <y>175</y>
     </hint>
    </hints>
   </connection>
