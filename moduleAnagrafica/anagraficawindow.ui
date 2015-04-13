@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>708</width>
+    <width>846</width>
     <height>519</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QGroupBox" name="groupBox_2">
@@ -223,7 +223,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>708</width>
+     <width>846</width>
      <height>21</height>
     </rect>
    </property>
@@ -332,8 +332,8 @@
    <slot>addRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>651</x>
-     <y>123</y>
+     <x>94</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>320</x>
@@ -348,8 +348,8 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>616</x>
-     <y>156</y>
+     <x>276</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>592</x>
@@ -364,8 +364,8 @@
    <slot>removeRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>609</x>
-     <y>185</y>
+     <x>185</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>593</x>
@@ -380,8 +380,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>641</x>
-     <y>461</y>
+     <x>835</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>621</x>
@@ -416,8 +416,8 @@
      <y>344</y>
     </hint>
     <hint type="destinationlabel">
-     <x>22</x>
-     <y>403</y>
+     <x>49</x>
+     <y>463</y>
     </hint>
    </hints>
   </connection>
@@ -460,8 +460,8 @@
    <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>211</y>
+     <x>367</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>593</x>
@@ -530,6 +530,38 @@
     <hint type="destinationlabel">
      <x>353</x>
      <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clientiCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>searchRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>790</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>704</x>
+     <y>138</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fornitoriCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>searchRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>790</x>
+     <y>162</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>703</x>
+     <y>165</y>
     </hint>
    </hints>
   </connection>
