@@ -16,6 +16,7 @@ namespace anagrafica {
     const QString ANGRFC_COLORS = "AnagraficaColsColors";
     const QString ANGRFC_HEADER = "AnagraficaWindow.header";
     const QString ANGRFC_SIZE = "AnagraficaWindow.size";
+    const QString ANGRFC_SPLITTER_FLT = "AnagraficaWindow.splitter_filtri";
 
     const QRect DEFAULT_SIZE = QRect(0, 0, 700, 500);
 
