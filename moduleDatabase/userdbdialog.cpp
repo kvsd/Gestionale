@@ -49,7 +49,8 @@ void UserDbDialog::userAdd()
             return;
 
         changeUserPassword(username, password_1);
-        qDebug() << "DA COMPLETARE......";
+        grantUser(username);
+        authorizedUser(username);
     }
     else {
         if (!createUser(username, password_1))
@@ -192,7 +193,7 @@ bool UserDbDialog::authorizedUser(QString username)
     return true;
 }
 
-void UserDbDialog::changeUserPassword(QString username, QString password)
+bool UserDbDialog::changeUserPassword(QString username, QString password)
 {
     qDebug() << "UserDbDialog::changeUserPassword()";
 
@@ -201,8 +202,25 @@ void UserDbDialog::changeUserPassword(QString username, QString password)
     bool ok = query.exec(str);
     if (!ok) {
         showDialogError(this, "Errore", "Si e' verificato un errore imprevisto", query.lastError().text());
-        return;
+        return false;
     }
 
     QMessageBox::information(this, "info", "La password utente è stata cambiata");
+    return true;
+}
+
+bool UserDbDialog::grantUser(QString username)
+{
+    qDebug() << "UserDbDialog::grantUser()";
+
+    QString str = QString("GRANT gestionale_user TO %1").arg(username);
+    QSqlQuery query;
+    bool ok = query.exec(str);
+    if (!ok) {
+        showDialogError(this, "ERRORE", "Impossibile aggiungere l'utente al gruppo gestionale_user");
+        return false;
+    }
+
+    QMessageBox::information(this, "info", "L'utente è stato aggiunto al gruppo gestionale");
+    return true;
 }

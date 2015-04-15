@@ -33,7 +33,8 @@ private:
 
     bool createUser(QString username, QString password);
     bool authorizedUser(QString username);
-    void changeUserPassword(QString username, QString password);
+    bool changeUserPassword(QString username, QString password);
+    bool grantUser(QString username);
 
 public slots:
     void userAdd(void);
