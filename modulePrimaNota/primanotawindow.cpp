@@ -19,8 +19,8 @@ void PrimaNotaWindow::closeEvent(QCloseEvent *event)
 {
     qDebug() << "PrimaNotaWindow::closeEvent()";
     this->parentWidget()->show();
-    //TODO SALVARE LE IMPOSTAZIONI
     settings.setValue(primanota::SPLITTER_SIZE, ui->splitter->saveState());
+    settings.setValue(primanota::WINDOW_SIZE, this->saveGeometry());
     event->accept();
 }
 
@@ -28,8 +28,8 @@ void PrimaNotaWindow::showEvent(QShowEvent *event)
 {
     qDebug() << "PrimaNotaWindow::showEvent()";
     Q_UNUSED(event)
-    //TODO CARICARE LE IMPOSTAZIONI
     ui->splitter->restoreState(settings.value(primanota::SPLITTER_SIZE).toByteArray());
+    restoreGeometry(settings.value(primanota::WINDOW_SIZE).toByteArray());
     updateViewNote();
 }
 

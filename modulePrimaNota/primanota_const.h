@@ -10,6 +10,7 @@ namespace primanota {
 
     //Costanti di configurazione
     const QString SPLITTER_SIZE = "primanota.splitter";
+    const QString WINDOW_SIZE = "primanota.window.size";
 
     //SQL
     //Select tabella prima nota per la table view
