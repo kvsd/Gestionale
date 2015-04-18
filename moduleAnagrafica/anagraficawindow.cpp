@@ -16,9 +16,6 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
 
     str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
 
-    //ui->docView->setShown(false);
-    ui->docView->hide();
-
     loadConfigSettings();
 }
 
@@ -31,8 +28,9 @@ AnagraficaWindow::~AnagraficaWindow()
 void AnagraficaWindow::loadConfigSettings()
 {
     qDebug() << "AnagraficaWindow::loadConfigSettings()";
-    this->setGeometry(settings.value(anagrafica::ANGRFC_SIZE, anagrafica::DEFAULT_SIZE).toRect());
-    ui->splitter_filtri->restoreState(settings.value(anagrafica::ANGRFC_SPLITTER_FLT).toByteArray());
+    this->setGeometry(settings.value(anagrafica::GEOMETRY, anagrafica::DEFAULT_GEOMETRY).toRect());
+    ui->splitter_filtri->restoreState(settings.value(anagrafica::SPLITTER_FILTRI_STATE).toByteArray());
+    ui->splitter_docs->restoreState(settings.value(anagrafica::SPLITTER_DOCS_STATE).toByteArray());
     //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
     //salva anche lo stato delle colonne (mostra/nascondi), quindi bisogna caricarle
     //prima di leggere lo stato mostra nascondi.
@@ -70,9 +68,11 @@ void AnagraficaWindow::loadConfigSettings()
 void AnagraficaWindow::saveConfigSettings()
 {
     qDebug() << "AnagraficaWindow::saveConfigSettings()";
-    settings.setValue(anagrafica::ANGRFC_SIZE, this->geometry());
+    settings.setValue(anagrafica::GEOMETRY, this->geometry());
     settings.setValue(anagrafica::ANGRFC_HEADER, ui->anagraficaView->horizontalHeader()->saveState());
-    settings.setValue(anagrafica::ANGRFC_SPLITTER_FLT, ui->splitter_filtri->saveState());
+    settings.setValue(anagrafica::SPLITTER_FILTRI_STATE, ui->splitter_filtri->saveState());
+    settings.setValue(anagrafica::SPLITTER_DOCS_STATE, ui->splitter_docs->saveState());
+
     //Salvo le impostazioni del menu ricerca
     settings.setValue(anagrafica::SEARCH_RAGSOCL, ui->actionRagioneSociale->isChecked());
     settings.setValue(anagrafica::SEARCH_COGNOME, ui->actionCognome->isChecked());

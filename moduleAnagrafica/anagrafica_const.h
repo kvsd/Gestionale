@@ -15,10 +15,11 @@ namespace anagrafica {
     const QString ANGRFC_STATUS ="AnagraficaColsStatus";
     const QString ANGRFC_COLORS = "AnagraficaColsColors";
     const QString ANGRFC_HEADER = "AnagraficaWindow.header";
-    const QString ANGRFC_SIZE = "AnagraficaWindow.size";
-    const QString ANGRFC_SPLITTER_FLT = "AnagraficaWindow.splitter_filtri";
+    const QString GEOMETRY = "AnagraficaWindow.size";
+    const QString SPLITTER_FILTRI_STATE = "AnagraficaWindow.splitter_filtri";
+    const QString SPLITTER_DOCS_STATE = "AnagraficaWindow.splitter_docs";
 
-    const QRect DEFAULT_SIZE = QRect(0, 0, 700, 500);
+    const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
 
     //SQL
     const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
