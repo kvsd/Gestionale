@@ -36,7 +36,6 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleAzienda/aziendadialog.h \
            moduleMagazzino/articolodialog.h \
            moduleMagazzino/magazzinowindow.h \
-           libs/controllodati.h \
            libs/simpledialogs.h \
            libs/custommodel.h \
            moduleMagazzino/optionsmagazzinodialog.h \
@@ -88,7 +87,6 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            moduleAzienda/aziendadialog.cpp \
            moduleMagazzino/articolodialog.cpp \
            moduleMagazzino/magazzinowindow.cpp \
-           libs/controllodati.cpp \
            libs/simpledialogs.cpp \
            libs/custommodel.cpp \
            moduleMagazzino/optionsmagazzinodialog.cpp \
