@@ -169,6 +169,7 @@ void AnagraficaWindow::searchRecord(void)
     }
 
     query.append(str_search);
+    qDebug() << query.arg(s);
     anagraficaModel->setQuery(query.arg(s));
 }
 
@@ -212,7 +213,7 @@ void AnagraficaWindow::updateStringSearch(void)
     if (!ui->actionRagioneSociale->isChecked() && !ui->actionCognome->isChecked() &&
         !ui->actionPartitaIVA->isChecked() && !ui->actionCodiceFiscale->isChecked()) {
         //Niente selezionato Ragione sociale di default;
-        str_search = " WHERE \"Ragione sociale\" ILIKE '\%%1\%'";
+        str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
         ui->actionRagioneSociale->setChecked(true);
     }
     else {
@@ -233,6 +234,6 @@ void AnagraficaWindow::updateStringSearch(void)
             test.append(QString("\"Partita Iva\" ILIKE '\%%1\%'"));
         }
 
-        str_search = " WHERE " + test.join(" OR ");
+        str_search = " AND " + test.join(" OR ");
     }
 }
