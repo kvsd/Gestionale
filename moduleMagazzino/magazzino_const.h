@@ -8,10 +8,7 @@
 
 namespace magazzino {
 
-    const int TAB_MAGAZZINO = 0;
-    const int TAB_STORICO = 1;
-    const QString CSV_VERSION = "CSV::1.0";
-    const QRect DEFAULT_WINDOW_SIZE = QRect(0, 0, 700, 500);
+    const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
 
     const int PRINT_TITLE_HEIGHT = 500;
     const int PRINT_COLS_HEIGHT = 300;
@@ -29,7 +26,7 @@ namespace magazzino {
     const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
     const QString STORICO_HEADER = "MagazzinoWindow.header.storico";
 
-    const QString WINDOW_SIZE = "MagazzinoWindow.size";
+    const QString GEOMETRY = "MagazzinoWindow.size";
     const QString SPLITTER1_SIZE = "MagazzinoWindow.size.splitter1";
     const QString SPLITTER2_SIZE = "MagazzinoWindow.size.splitter2";
 
