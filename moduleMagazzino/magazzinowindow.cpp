@@ -71,7 +71,7 @@ void MagazzinoWindow::updateModel()
 void MagazzinoWindow::loadConfigSettings()
 {
     qDebug() << "MagazzinoWindow::loadConfigSettings()";
-    this->setGeometry(settings.value(magazzino::WINDOW_SIZE, magazzino::DEFAULT_WINDOW_SIZE).toRect());
+    this->setGeometry(settings.value(magazzino::GEOMETRY, magazzino::DEFAULT_GEOMETRY).toRect());
     ui->splitter_1->restoreState(settings.value(magazzino::SPLITTER1_SIZE).toByteArray());
     ui->splitter_2->restoreState(settings.value(magazzino::SPLITTER2_SIZE).toByteArray());
 
@@ -129,7 +129,7 @@ void MagazzinoWindow::loadConfigSettings()
 void MagazzinoWindow::saveConfigSettings()
 {
     qDebug() << "MagazzinoWindow::saveConfigSettings()";
-    settings.setValue(magazzino::WINDOW_SIZE, this->geometry());
+    settings.setValue(magazzino::GEOMETRY, this->geometry());
     settings.setValue(magazzino::SPLITTER1_SIZE, ui->splitter_1->saveState());
     settings.setValue(magazzino::SPLITTER2_SIZE, ui->splitter_2->saveState());
     //Salvo la disposizione delle colonne delle viste BUGGATA si corrompe e non ne capisco il motivo
