@@ -13,6 +13,7 @@ DEPENDPATH += . \
               moduleAzienda \
               moduleMagazzino \
               moduleDatabase \
+			  moduleReport \
               libs
 INCLUDEPATH += . \
                moduleAgenti \
@@ -20,6 +21,7 @@ INCLUDEPATH += . \
                libs \
                moduleAzienda \
                moduleMagazzino \
+			   moduleReport \
                moduleDatabase
 
 # Input
@@ -43,9 +45,10 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleAnagrafica/anagrafica_const.h \
            libs/gestionale_const.h \
            moduleMagazzino/codivaupdatedialog.h \
-           moduleMagazzino/configprintdialog.h \
+           moduleReport/configprintdialog.h \
            moduleAgenti/agenti_const.h \
-           moduleMagazzino/printreport.h \
+           moduleReport/printreport.h \
+		   moduleReport/report_const.h \
     moduleAzienda/azienda_const.h \
     libs/utils.h \
     modulePrimaNota/primanotawindow.h \
@@ -68,8 +71,8 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleMagazzino/magazzinowindow.ui \
          moduleMagazzino/optionsmagazzinodialog.ui \
          moduleMagazzino/codivaupdatedialog.ui \
-         moduleMagazzino/configprintdialog.ui \
-         moduleMagazzino/printreport.ui \
+         moduleReport/configprintdialog.ui \
+         moduleReport/printreport.ui \
     modulePrimaNota/primanotawindow.ui \
     modulePrimaNota/primanotaadddlg.ui \
     moduleDatabase/userdbdialog.ui
@@ -91,8 +94,8 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/custommodel.cpp \
            moduleMagazzino/optionsmagazzinodialog.cpp \
            moduleMagazzino/codivaupdatedialog.cpp \
-           moduleMagazzino/configprintdialog.cpp \
-           moduleMagazzino/printreport.cpp \
+           moduleReport/configprintdialog.cpp \
+           moduleReport/printreport.cpp \
     libs/utils.cpp \
     modulePrimaNota/primanotawindow.cpp \
     modulePrimaNota/primanotamodel.cpp \

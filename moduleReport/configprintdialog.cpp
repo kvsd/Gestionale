@@ -42,10 +42,10 @@ void ConfigPrintDialog::loadSettings()
 {
     qDebug() << "ConfigPrintDialog::loadSettings()";
     //Configura listino
-    QString col1 = settings.value(magazzino::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
-    QString col2 = settings.value(magazzino::LISTINO_COL2, magazzino::CMP_DESCR).toString();
-    QString col3 = settings.value(magazzino::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();
-    QString col4 = settings.value(magazzino::LISTINO_COL4, magazzino::CMP_PRZ_FIN).toString();
+    QString col1 = settings.value(report::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
+    QString col2 = settings.value(report::LISTINO_COL2, magazzino::CMP_DESCR).toString();
+    QString col3 = settings.value(report::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();
+    QString col4 = settings.value(report::LISTINO_COL4, magazzino::CMP_PRZ_FIN).toString();
 
     int idCol1 = ui->col1ComboBox->findText(col1);
     int idCol2 = ui->col1ComboBox->findText(col2);
@@ -58,10 +58,10 @@ void ConfigPrintDialog::loadSettings()
     ui->col4ComboBox->setCurrentIndex(idCol4);
 
     //Configura ordine
-    QString ordineCol1 = settings.value(magazzino::ORDINE_COL1, magazzino::CMP_COD_ART).toString();
-    QString ordineCol2 = settings.value(magazzino::ORDINE_COL2, magazzino::CMP_DESCR).toString();
-    QString ordineCol3 = settings.value(magazzino::ORDINE_COL3, magazzino::CMP_QT).toString();
-    QString ordineCol4 = settings.value(magazzino::ORDINE_COL4, magazzino::CMP_SCORTA).toString();
+    QString ordineCol1 = settings.value(report::ORDINE_COL1, magazzino::CMP_COD_ART).toString();
+    QString ordineCol2 = settings.value(report::ORDINE_COL2, magazzino::CMP_DESCR).toString();
+    QString ordineCol3 = settings.value(report::ORDINE_COL3, magazzino::CMP_QT).toString();
+    QString ordineCol4 = settings.value(report::ORDINE_COL4, magazzino::CMP_SCORTA).toString();
 
     idCol1 = ui->ordineCol1ComboBox->findText(ordineCol1);
     idCol2 = ui->ordineCol2ComboBox->findText(ordineCol2);
@@ -83,10 +83,10 @@ void ConfigPrintDialog::save()
     QString col3 = ui->col3ComboBox->currentText();
     QString col4 = ui->col4ComboBox->currentText();
 
-    settings.setValue(magazzino::LISTINO_COL1, col1);
-    settings.setValue(magazzino::LISTINO_COL2, col2);
-    settings.setValue(magazzino::LISTINO_COL3, col3);
-    settings.setValue(magazzino::LISTINO_COL4, col4);
+    settings.setValue(report::LISTINO_COL1, col1);
+    settings.setValue(report::LISTINO_COL2, col2);
+    settings.setValue(report::LISTINO_COL3, col3);
+    settings.setValue(report::LISTINO_COL4, col4);
 
     //Configura ordine
     QString ordineCol1 = ui->ordineCol1ComboBox->currentText();
@@ -94,8 +94,8 @@ void ConfigPrintDialog::save()
     QString ordineCol3 = ui->ordineCol3ComboBox->currentText();
     QString ordineCol4 = ui->ordineCol4ComboBox->currentText();
 
-    settings.setValue(magazzino::ORDINE_COL1, ordineCol1);
-    settings.setValue(magazzino::ORDINE_COL2, ordineCol2);
-    settings.setValue(magazzino::ORDINE_COL3, ordineCol3);
-    settings.setValue(magazzino::ORDINE_COL4, ordineCol4);
+    settings.setValue(report::ORDINE_COL1, ordineCol1);
+    settings.setValue(report::ORDINE_COL2, ordineCol2);
+    settings.setValue(report::ORDINE_COL3, ordineCol3);
+    settings.setValue(report::ORDINE_COL4, ordineCol4);
 }

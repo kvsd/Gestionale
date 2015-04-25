@@ -1,7 +1,7 @@
 #include "printreport.h"
 #include "ui_printreport.h"
 
-PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget *parent) :
+PrintReport::PrintReport(QString forn, report::Documenti reportType, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PrintReport)
 {
@@ -18,7 +18,7 @@ PrintReport::PrintReport(QString forn, magazzino::Documenti reportType, QWidget 
     ui->lb_info->setText("In attesa di conferma\nCliccare su Stampa per avviare il setup");
 }
 
-PrintReport::PrintReport(CustomModel *model, QString forn, magazzino::Documenti reportType, QWidget *parent) :
+PrintReport::PrintReport(CustomModel *model, QString forn, report::Documenti reportType, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PrintReport)
 {
@@ -58,13 +58,13 @@ void PrintReport::print()
         pageWidth = printer->width();
         colWidth = pageWidth/6;
 
-        title = QRect(0, 0, pageWidth, magazzino::PRINT_TITLE_HEIGHT);
-        const int leftMargin = magazzino::PRINT_MARGINS;
-        const int rightMargin = magazzino::PRINT_MARGINS*2;
-        col1 = QRect(colWidth*0+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
-        col2 = QRect(colWidth*1+leftMargin, 0, (colWidth*3)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
-        col3 = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
-        col4 = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
+        title = QRect(0, 0, pageWidth, report::PRINT_TITLE_HEIGHT);
+        const int leftMargin = report::PRINT_MARGINS;
+        const int rightMargin = report::PRINT_MARGINS*2;
+        col1 = QRect(colWidth*0+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
+        col2 = QRect(colWidth*1+leftMargin, 0, (colWidth*3)-rightMargin, report::PRINT_COLS_HEIGHT);
+        col3 = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
+        col4 = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
 
         printHeader(titleStr.arg(1));
         printData(report);
@@ -75,21 +75,21 @@ void PrintReport::print()
     }
 }
 
-void PrintReport::setReport(magazzino::Documenti reportType)
+void PrintReport::setReport(report::Documenti reportType)
 {
     qDebug() << "PrintReport::setReport()";
 
     QString CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
     QString CURRENT_YEARS = QDate::currentDate().toString("yyyy");
 
-    if (reportType == magazzino::LISTINO) {
+    if (reportType == report::LISTINO) {
         titleStr = QString("Listino %1 del %2 pag. %3").arg(fornitore).arg(CURRENT_DATE);
-        col1Name = settings.value(magazzino::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
-        col2Name = settings.value(magazzino::LISTINO_COL2, magazzino::CMP_DESCR).toString();
-        col3Name = settings.value(magazzino::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();
-        col4Name = settings.value(magazzino::LISTINO_COL4, magazzino::CMP_PRZ_VEN).toString();
+        col1Name = settings.value(report::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
+        col2Name = settings.value(report::LISTINO_COL2, magazzino::CMP_DESCR).toString();
+        col3Name = settings.value(report::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();
+        col4Name = settings.value(report::LISTINO_COL4, magazzino::CMP_PRZ_VEN).toString();
     }
-    else if (reportType == magazzino::INVENTARIO) {
+    else if (reportType == report::INVENTARIO) {
         titleStr = QString("Inventario %1 pag. %2").arg(CURRENT_YEARS);
         printModel->setQuery(magazzino::SELECT_INVENTARIO);
         col1Name = magazzino::CMP_QT;
@@ -97,14 +97,14 @@ void PrintReport::setReport(magazzino::Documenti reportType)
         col3Name = magazzino::CMP_PRZ_ACQ;
         col4Name = magazzino::CMP_SUBTOT;
     }
-    else if  (reportType == magazzino::ORDINE) {
+    else if  (reportType == report::ORDINE) {
         titleStr = QString("Ordine %1 del %2 pag.%3").arg(fornitore).arg(CURRENT_DATE);
         QString query = magazzino::SELECT_ORDINE.arg(fornitore);
         printModel->setQuery(query);
-        col1Name = settings.value(magazzino::ORDINE_COL1, magazzino::CMP_COD_ART).toString();
-        col2Name = settings.value(magazzino::ORDINE_COL2, magazzino::CMP_DESCR).toString();
-        col3Name = settings.value(magazzino::ORDINE_COL3, magazzino::CMP_QT).toString();
-        col4Name = settings.value(magazzino::ORDINE_COL4, magazzino::CMP_SCORTA).toString();
+        col1Name = settings.value(report::ORDINE_COL1, magazzino::CMP_COD_ART).toString();
+        col2Name = settings.value(report::ORDINE_COL2, magazzino::CMP_DESCR).toString();
+        col3Name = settings.value(report::ORDINE_COL3, magazzino::CMP_QT).toString();
+        col4Name = settings.value(report::ORDINE_COL4, magazzino::CMP_SCORTA).toString();
     }
     else {
         return;
@@ -126,11 +126,11 @@ void PrintReport::printHeader(QString titleStr)
     painter->drawText(col4, Qt::AlignCenter, col4Name);
 
     //Stampo la cornice dell'intestazione
-    painter->drawLine(0, magazzino::PRINT_TITLE_HEIGHT, pageWidth, magazzino::PRINT_TITLE_HEIGHT);
-    painter->drawLine(0, magazzino::PRINT_TITLE_HEIGHT+magazzino::PRINT_COLS_HEIGHT, pageWidth, magazzino::PRINT_TITLE_HEIGHT+magazzino::PRINT_COLS_HEIGHT);
+    painter->drawLine(0, report::PRINT_TITLE_HEIGHT, pageWidth, report::PRINT_TITLE_HEIGHT);
+    painter->drawLine(0, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT, pageWidth, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
         if (i==2 || i==3) continue;
-        painter->drawLine(colWidth*i, magazzino::PRINT_TITLE_HEIGHT, colWidth*i, magazzino::PRINT_TITLE_HEIGHT+magazzino::PRINT_COLS_HEIGHT );
+        painter->drawLine(colWidth*i, report::PRINT_TITLE_HEIGHT, colWidth*i, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT );
     }
 }
 
@@ -149,17 +149,17 @@ void PrintReport::printRow(int row, QSqlRecord record)
     painter->drawText(col3, Qt::AlignRight|Qt::AlignVCenter, col3Value);
     painter->drawText(col4, Qt::AlignRight|Qt::AlignVCenter, col4Value);
 
-    painter->drawLine(0, col1.y()+magazzino::PRINT_COLS_HEIGHT, pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
+    painter->drawLine(0, col1.y()+report::PRINT_COLS_HEIGHT, pageWidth, col1.y()+report::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
         if (i==2 || i==3) continue;
-        painter->drawLine(colWidth*i, col1.y(), colWidth*i, col1.y()+magazzino::PRINT_COLS_HEIGHT);
+        painter->drawLine(colWidth*i, col1.y(), colWidth*i, col1.y()+report::PRINT_COLS_HEIGHT);
     }
 }
 
-void PrintReport::printData(magazzino::Documenti reportType)
+void PrintReport::printData(report::Documenti reportType)
 {
     qDebug() << "PrintReport::printData()";
-    const int MAX_ROW = (pageHeight-magazzino::PRINT_TITLE_HEIGHT)/magazzino::PRINT_COLS_HEIGHT;
+    const int MAX_ROW = (pageHeight-report::PRINT_TITLE_HEIGHT)/report::PRINT_COLS_HEIGHT;
     const int ROWS = printModel->rowCount();
     ui->progressBar->setRange(0, ROWS);
     int row = 0;
@@ -173,7 +173,7 @@ void PrintReport::printData(magazzino::Documenti reportType)
         printRow(row+1, printModel->record(i));
         ui->progressBar->setValue(i+1);
     }
-    if (reportType == magazzino::INVENTARIO) {
+    if (reportType == report::INVENTARIO) {
         printTotale(row+1);
     }
 
@@ -192,7 +192,7 @@ void PrintReport::initPainter()
 void PrintReport::setRow(int row)
 {
     qDebug() << "PrintReport::setRow()";
-    const int y = (row*magazzino::PRINT_COLS_HEIGHT)+magazzino::PRINT_TITLE_HEIGHT;
+    const int y = (row*report::PRINT_COLS_HEIGHT)+report::PRINT_TITLE_HEIGHT;
     col1.moveTop(y);
     col2.moveTop(y);
     col3.moveTop(y);
@@ -204,18 +204,18 @@ void PrintReport::printTotale(int row)
     qDebug() << "PrintReport::printTotale()";
     setRow(row);
 
-    QSqlQuery query(magazzino::SQL_INVENTARIO_TOT);
+    QSqlQuery query(report::SQL_INVENTARIO_TOT);
     query.first();
     QString totale = query.record().value("Totale").toString();
     QString msg = "Totale: %1";
 
-    const int leftMargin = magazzino::PRINT_MARGINS;
-    const int rightMargin = magazzino::PRINT_MARGINS*2;
-    QRect coltot(colWidth*4+leftMargin, col1.y(), (colWidth*2)-rightMargin, magazzino::PRINT_COLS_HEIGHT);
+    const int leftMargin = report::PRINT_MARGINS;
+    const int rightMargin = report::PRINT_MARGINS*2;
+    QRect coltot(colWidth*4+leftMargin, col1.y(), (colWidth*2)-rightMargin, report::PRINT_COLS_HEIGHT);
 
     painter->drawText(coltot, Qt::AlignRight|Qt::AlignVCenter, msg.arg(totale));
-    painter->drawLine(col3.x()-magazzino::PRINT_MARGINS, col1.y()+magazzino::PRINT_COLS_HEIGHT,
-                      pageWidth, col1.y()+magazzino::PRINT_COLS_HEIGHT);
-    painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+magazzino::PRINT_COLS_HEIGHT);
-    painter->drawLine(colWidth*6, col1.y(), colWidth*6, col1.y()+magazzino::PRINT_COLS_HEIGHT);
+    painter->drawLine(col3.x()-report::PRINT_MARGINS, col1.y()+report::PRINT_COLS_HEIGHT,
+                      pageWidth, col1.y()+report::PRINT_COLS_HEIGHT);
+    painter->drawLine(colWidth*4, col1.y(), colWidth*4, col1.y()+report::PRINT_COLS_HEIGHT);
+    painter->drawLine(colWidth*6, col1.y(), colWidth*6, col1.y()+report::PRINT_COLS_HEIGHT);
 }

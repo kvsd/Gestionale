@@ -5,7 +5,8 @@
 #include <QSettings>
 #include <QDebug>
 
-#include "magazzino_const.h"
+#include "moduleMagazzino/magazzino_const.h"
+#include "report_const.h"
 
 namespace Ui {
 class ConfigPrintDialog;

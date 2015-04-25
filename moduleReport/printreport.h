@@ -1,7 +1,8 @@
 #ifndef PRINTREPORT_H
 #define PRINTREPORT_H
 
-#include "magazzino_const.h"
+#include "moduleMagazzino/magazzino_const.h"
+#include "report_const.h"
 
 #include <QDialog>
 #include <QDate>
@@ -24,8 +25,8 @@ class PrintReport : public QDialog
     Q_OBJECT
 
 public:
-    explicit PrintReport(QString forn, magazzino::Documenti reportType, QWidget *parent = 0);
-    explicit PrintReport(CustomModel *model, QString forn, magazzino::Documenti reportType, QWidget *parent = 0);
+    explicit PrintReport(QString forn, report::Documenti reportType, QWidget *parent = 0);
+    explicit PrintReport(CustomModel *model, QString forn, report::Documenti reportType, QWidget *parent = 0);
 
     ~PrintReport();
 
@@ -43,7 +44,7 @@ private:
     QString col2Name;
     QString col3Name;
     QString col4Name;
-    magazzino::Documenti report;
+    report::Documenti report;
 
     QRect col1;
     QRect col2;
@@ -54,10 +55,10 @@ private:
     QPrinter *printer;
     QPainter *painter;
 
-    void setReport(magazzino::Documenti reportType);
+    void setReport(report::Documenti reportType);
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);
-    void printData(magazzino::Documenti reportType);
+    void printData(report::Documenti reportType);
     void initPainter();
     void setRow(int row);
     void printTotale(int row);
