@@ -57,5 +57,33 @@ namespace report {
         LISTINO
     };
 
+        //CMP Nome Campo Tabella sql
+        const QString CMP_ID      = "Id";
+        const QString CMP_DESCR   = "Descrizione";
+        const QString CMP_FORNIT  = "Fornitore";
+        const QString CMP_MARCA   = "Marca";
+        const QString CMP_MODELLO = "Modello";
+        const QString CMP_COD_ART = "Cod.Articolo";
+        const QString CMP_COD_FOR = "Cod.Fornitore";
+        const QString CMP_COD_EAN = "Cod.EAN";
+        const QString CMP_MERCE   = "Cat.Merce";
+        const QString CMP_COD_IVA = "Cod.IVA";
+        const QString CMP_UM      = "UM";
+        const QString CMP_SCORTA  = "Scorta Minima";
+        const QString CMP_QT      = QString::fromUtf8("Quantità");
+        const QString CMP_PRZ_FAT = "Prezzo Fattura";
+        const QString CMP_SCONTO  = "Sconto Fornitore";
+        const QString CMP_PRZ_ACQ = "Prezzo Acquisto";
+        const QString CMP_RICAR   = "Ricarico";
+        const QString CMP_IVA     = "Iva";
+        const QString CMP_PRZ_FIN = "Prezzo Finito";
+        const QString CMP_PRZ_VEN = QString::fromUtf8("Prezzo Vendità");
+        const QString CMP_FATTURA = "Nr.Fattura";
+        const QString CMP_DATA    = "Data Arrivo";
+        const QString CMP_SEDE    = "Sede Magazzino";
+        const QString CMP_NOTE    = "Note";
+        const QString CMP_ID_ART  = "Id Articolo";
+        const QString CMP_SUBTOT = "SubTotale";
+
 }
 #endif // REPORT_CONST_H

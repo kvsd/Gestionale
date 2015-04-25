@@ -9,7 +9,7 @@
 #include "magazzino_const.h"
 #include "codivaupdatedialog.h"
 #include "configprintdialog.h"
-#include "printreport.h"
+#include "reportdlg.h"
 
 #include <QMainWindow>
 #include <QSqlQueryModel>

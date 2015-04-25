@@ -1,7 +1,6 @@
-#ifndef PRINTREPORT_H
-#define PRINTREPORT_H
+#ifndef REPORTDLG_H
+#define REPORTDLG_H
 
-#include "moduleMagazzino/magazzino_const.h"
 #include "report_const.h"
 
 #include <QDialog>
@@ -14,24 +13,22 @@
 #include <QPainter>
 #include <QPrintDialog>
 #include <QSqlRecord>
-#include "custommodel.h"
 
 namespace Ui {
-class PrintReport;
+class ReportDlg;
 }
 
-class PrintReport : public QDialog
+class ReportDlg : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit PrintReport(QString forn, report::Documenti reportType, QWidget *parent = 0);
-    explicit PrintReport(CustomModel *model, QString forn, report::Documenti reportType, QWidget *parent = 0);
+    explicit ReportDlg(QWidget *parent = 0);
 
-    ~PrintReport();
+    ~ReportDlg();
 
 private:
-    Ui::PrintReport *ui;
+    Ui::ReportDlg *ui;
     QSqlQueryModel *printModel;
     QSettings settings;
     int pageWidth;
@@ -70,4 +67,4 @@ public slots:
 
 };
 
-#endif // PRINTREPORT_H
+#endif // REPORTDLG_H

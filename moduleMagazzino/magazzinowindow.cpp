@@ -407,4 +407,6 @@ void MagazzinoWindow::changeCodIva(void)
 void MagazzinoWindow::launchReportDlg()
 {
     qDebug() << "MagazzinoWindow::launchReportDlg()";
+    ReportDlg dlg(this);
+    dlg.exec();
 }

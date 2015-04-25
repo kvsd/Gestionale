@@ -1,50 +1,32 @@
-#include "printreport.h"
-#include "ui_printreport.h"
+#include "reportdlg.h"
+#include "ui_reportdlg.h"
 
-PrintReport::PrintReport(QString forn, report::Documenti reportType, QWidget *parent) :
+ReportDlg::ReportDlg(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::PrintReport)
+    ui(new Ui::ReportDlg)
 {
-    qDebug() << "PrintReport::PrintReport()";
+    qDebug() << "ReportDlg::PrintReport()";
     ui->setupUi(this);
 
     printer = new QPrinter(QPrinter::HighResolution);
     painter = new QPainter;
     printModel = new QSqlQueryModel(this);
 
-    fornitore = forn;
-    report = reportType;
+    fornitore = "";
+    report = report::LISTINO;
     setReport(report);
     ui->lb_info->setText("In attesa di conferma\nCliccare su Stampa per avviare il setup");
 }
 
-PrintReport::PrintReport(CustomModel *model, QString forn, report::Documenti reportType, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::PrintReport)
+ReportDlg::~ReportDlg()
 {
-    qDebug() << "PrintReport::PrintReport()";
-    ui->setupUi(this);
-
-    printer = new QPrinter(QPrinter::HighResolution);
-    painter = new QPainter;
-    printModel = model;
-
-    fornitore = forn;
-    report = reportType;
-    setReport(report);
-    ui->lb_info->setText("In attesa di conferma\nCliccare su Stampa per avviare il setup");
-}
-
-
-PrintReport::~PrintReport()
-{
-    qDebug() << "PrintReport::~PrintReport()";
+    qDebug() << "ReportDlg::~PrintReport()";
     delete ui;
     delete printer;
     delete painter;
 }
 
-void PrintReport::print()
+void ReportDlg::print()
 {
     ui->lb_info->setText("In attesa...");
 
@@ -75,45 +57,45 @@ void PrintReport::print()
     }
 }
 
-void PrintReport::setReport(report::Documenti reportType)
+void ReportDlg::setReport(report::Documenti reportType)
 {
-    qDebug() << "PrintReport::setReport()";
+    qDebug() << "ReportDlg::setReport()";
 
     QString CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
     QString CURRENT_YEARS = QDate::currentDate().toString("yyyy");
 
     if (reportType == report::LISTINO) {
         titleStr = QString("Listino %1 del %2 pag. %3").arg(fornitore).arg(CURRENT_DATE);
-        col1Name = settings.value(report::LISTINO_COL1, magazzino::CMP_COD_ART).toString();
-        col2Name = settings.value(report::LISTINO_COL2, magazzino::CMP_DESCR).toString();
-        col3Name = settings.value(report::LISTINO_COL3, magazzino::CMP_PRZ_ACQ).toString();
-        col4Name = settings.value(report::LISTINO_COL4, magazzino::CMP_PRZ_VEN).toString();
+        col1Name = settings.value(report::LISTINO_COL1, report::CMP_COD_ART).toString();
+        col2Name = settings.value(report::LISTINO_COL2, report::CMP_DESCR).toString();
+        col3Name = settings.value(report::LISTINO_COL3, report::CMP_PRZ_ACQ).toString();
+        col4Name = settings.value(report::LISTINO_COL4, report::CMP_PRZ_VEN).toString();
     }
     else if (reportType == report::INVENTARIO) {
         titleStr = QString("Inventario %1 pag. %2").arg(CURRENT_YEARS);
-        printModel->setQuery(magazzino::SELECT_INVENTARIO);
-        col1Name = magazzino::CMP_QT;
-        col2Name = magazzino::CMP_DESCR;
-        col3Name = magazzino::CMP_PRZ_ACQ;
-        col4Name = magazzino::CMP_SUBTOT;
+        printModel->setQuery(report::SELECT_INVENTARIO);
+        col1Name = report::CMP_QT;
+        col2Name = report::CMP_DESCR;
+        col3Name = report::CMP_PRZ_ACQ;
+        col4Name = report::CMP_SUBTOT;
     }
     else if  (reportType == report::ORDINE) {
         titleStr = QString("Ordine %1 del %2 pag.%3").arg(fornitore).arg(CURRENT_DATE);
-        QString query = magazzino::SELECT_ORDINE.arg(fornitore);
+        QString query = report::SELECT_ORDINE.arg(fornitore);
         printModel->setQuery(query);
-        col1Name = settings.value(report::ORDINE_COL1, magazzino::CMP_COD_ART).toString();
-        col2Name = settings.value(report::ORDINE_COL2, magazzino::CMP_DESCR).toString();
-        col3Name = settings.value(report::ORDINE_COL3, magazzino::CMP_QT).toString();
-        col4Name = settings.value(report::ORDINE_COL4, magazzino::CMP_SCORTA).toString();
+        col1Name = settings.value(report::ORDINE_COL1, report::CMP_COD_ART).toString();
+        col2Name = settings.value(report::ORDINE_COL2, report::CMP_DESCR).toString();
+        col3Name = settings.value(report::ORDINE_COL3, report::CMP_QT).toString();
+        col4Name = settings.value(report::ORDINE_COL4, report::CMP_SCORTA).toString();
     }
     else {
         return;
     }
 }
 
-void PrintReport::printHeader(QString titleStr)
+void ReportDlg::printHeader(QString titleStr)
 {
-    qDebug() << "PrintReport::printHeader()";
+    qDebug() << "ReportDlg::printHeader()";
     //Stampo titolo
     painter->drawText(title, Qt::AlignLeft|Qt::AlignVCenter, titleStr, &title);
 
@@ -134,9 +116,9 @@ void PrintReport::printHeader(QString titleStr)
     }
 }
 
-void PrintReport::printRow(int row, QSqlRecord record)
+void ReportDlg::printRow(int row, QSqlRecord record)
 {
-    qDebug() << "PrintReport::printRow()";
+    qDebug() << "ReportDlg::printRow()";
     setRow(row);
 
     QString col1Value = record.value(col1Name).toString();
@@ -156,9 +138,9 @@ void PrintReport::printRow(int row, QSqlRecord record)
     }
 }
 
-void PrintReport::printData(report::Documenti reportType)
+void ReportDlg::printData(report::Documenti reportType)
 {
-    qDebug() << "PrintReport::printData()";
+    qDebug() << "ReportDlg::printData()";
     const int MAX_ROW = (pageHeight-report::PRINT_TITLE_HEIGHT)/report::PRINT_COLS_HEIGHT;
     const int ROWS = printModel->rowCount();
     ui->progressBar->setRange(0, ROWS);
@@ -181,17 +163,17 @@ void PrintReport::printData(report::Documenti reportType)
                          "In attesa dell'utente\n");
 }
 
-void PrintReport::initPainter()
+void ReportDlg::initPainter()
 {
-    qDebug() << "PrintReport::initPainter()";
+    qDebug() << "ReportDlg::initPainter()";
     QPen pen;
     pen.setWidth(10);
     painter->setPen(pen);
 }
 
-void PrintReport::setRow(int row)
+void ReportDlg::setRow(int row)
 {
-    qDebug() << "PrintReport::setRow()";
+    qDebug() << "ReportDlg::setRow()";
     const int y = (row*report::PRINT_COLS_HEIGHT)+report::PRINT_TITLE_HEIGHT;
     col1.moveTop(y);
     col2.moveTop(y);
@@ -199,9 +181,9 @@ void PrintReport::setRow(int row)
     col4.moveTop(y);
 }
 
-void PrintReport::printTotale(int row)
+void ReportDlg::printTotale(int row)
 {
-    qDebug() << "PrintReport::printTotale()";
+    qDebug() << "ReportDlg::printTotale()";
     setRow(row);
 
     QSqlQuery query(report::SQL_INVENTARIO_TOT);
