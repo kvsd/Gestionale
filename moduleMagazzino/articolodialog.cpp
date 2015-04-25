@@ -186,7 +186,6 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
     QSqlQuery query_articolo;
     if (articoloMap.contains(magazzino::PH_ID)) {
         query_articolo.prepare(magazzino::UPDATE_ARTICOLO);
-        query_articolo.bindValue(magazzino::PH_ID, articoloMap[magazzino::PH_ID]);
     }
     else {
         query_articolo.prepare(magazzino::INSERT_ARTICOLO);
