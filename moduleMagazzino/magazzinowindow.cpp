@@ -404,44 +404,7 @@ void MagazzinoWindow::changeCodIva(void)
         updateViewMagazzino();
 }
 
-void MagazzinoWindow::launchConfigPrintDlg(void)
+void MagazzinoWindow::launchReportDlg()
 {
-    qDebug() << "MagazzinoWindow::launchConfigPrintDlg()";
-    ConfigPrintDialog dlg(this);
-    dlg.exec();
+    qDebug() << "MagazzinoWindow::launchReportDlg()";
 }
-
-void MagazzinoWindow::printListino(void)
-{
-    qDebug() << "MagazzinoWindow::printListino()";
-    if (!ui->fornitoreComboBox->isEnabled()) {
-        qDebug() << "ERRORE: devi selezionare il fornitore";
-        showDialogError(this, ERR035, MSG008); //NOTE codice errore 035
-        return;
-    }
-
-    QString fornitore = ui->fornitoreComboBox->currentText();
-    PrintReport listino(articoloModel, fornitore, report::LISTINO, this);
-    listino.exec();
-}
-
-void MagazzinoWindow::printInventario(void)
-{
-    qDebug() << "MagazzinoWindow::printInventario()";
-    PrintReport inventario("", report::INVENTARIO, this);
-    inventario.exec();
-}
-
-void MagazzinoWindow::printOrdine(void)
-{
-    qDebug() << "MagazzinoWindow::printOrdine()";
-    if (!ui->fornitoreComboBox->isEnabled()) {
-        showDialogError(this, ERR034, MSG008); //NOTE codice errore 034
-        return;
-    }
-
-    QString fornitore = ui->fornitoreComboBox->currentText();
-    PrintReport ordine(fornitore, report::ORDINE, this);
-    ordine.exec();
-}
-

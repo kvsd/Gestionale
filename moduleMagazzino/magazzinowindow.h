@@ -64,10 +64,7 @@ public slots:
     void updateViewStorico(QModelIndex index);
     void openConfigDialog(void);
     void changeCodIva(void);
-    void launchConfigPrintDlg(void);
-    void printListino(void);
-    void printInventario(void);
-    void printOrdine(void);
+    void launchReportDlg(void);
 };
 
 #endif // MAGAZZINOWINDOW_H

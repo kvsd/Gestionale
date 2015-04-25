@@ -10,10 +10,6 @@ namespace magazzino {
 
     const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
 
-    const int PRINT_TITLE_HEIGHT = 500;
-    const int PRINT_COLS_HEIGHT = 300;
-    const int PRINT_MARGINS = 50;
-
     const QString CSS_WARNING_STYLE = "background-color:yellow";
 
     //SETTINGS
@@ -34,16 +30,6 @@ namespace magazzino {
     const QString SEARCH_COD_ART = "MagazzinoWindow.search.codarticolo";
     const QString SEARCH_COD_FRN = "MagazzinoWindow.search.codfornitore";
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
-
-    const QString LISTINO_COL1 = "Listino.col1";
-    const QString LISTINO_COL2 = "Listino.col2";
-    const QString LISTINO_COL3 = "Listino.col3";
-    const QString LISTINO_COL4 = "Listino.col4";
-
-    const QString ORDINE_COL1 = "Ordine.col1";
-    const QString ORDINE_COL2 = "Ordine.col2";
-    const QString ORDINE_COL3 = "Ordine.col3";
-    const QString ORDINE_COL4 = "Ordine.col4";
 
 
     //SQL
@@ -96,11 +82,6 @@ namespace magazzino {
                                    "ORDER BY \"Data\" DESC, "
                                             "\"Prezzo Acquisto\" DESC";
 
-
-    //Select utilizzata in MagazzinoWindows per l'esportazione dello
-    //storico in csv
-    const QString SELECT_CSV_STORICO = "SELECT * FROM listino_storico";
-
     //Insert utilizzata in ArticoloDialog per l'inserimento di nuovi articoli
     const QString INSERT_ARTICOLO =
             "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, "
@@ -149,25 +130,6 @@ namespace magazzino {
     //di un articolo
     const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
 
-    //Insert utilizzata in MagazzinoWindow per l'importazione degli articoli
-    //nel formato CSV
-    const QString INSERT_CSV_ARTICOLO =
-            "INSERT INTO magazzino (id, descr, id_fornitore, id_marca, "
-                                   "modello, cod_articolo, cod_fornitore, "
-                                   "cod_barre ,id_merce ,cod_iva, id_unita_misura, "
-                                   "scorta_minima, quantita, prezzo_fattura, "
-                                   "sconto_fornitore, prezzo_acquisto, "
-                                   "ricarico, iva, prezzo_finito, prezzo_vendita, "
-                                   "fattura, data_arrivo, id_sede_magazzino, note) "
-            "VALUES (:id, :descr, :id_fornitore, :id_marca, :modello, :cod_articolo, "
-                    ":cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, "
-                    ":scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, "
-                    ":prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, "
-                    ":fattura, :data_arrivo, :id_sede_magazzino, :note)";
-
-    //Select utilizzata in MagazzinoWindow per l'esportazione in CSV
-    const QString SELECT_CSV_MAGAZZINO = "SELECT * FROM magazzino";
-
     //Select utilizzata in CodIvaUpdateDialog
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE cod_iva=:cod_iva";
 
@@ -205,29 +167,6 @@ namespace magazzino {
                               "FROM magazzino AS mg, anagrafica AS an "
                               "WHERE mg.id_fornitore=an.id ");
 
-    //Select utilizzata per la stampa dei listini
-    //const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
-
-    //Select utilizzata per la stampa dell'inventario
-    const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
-
-    //Select che ritorna il totale dell'inventario, usato insieme alla query SELECT_INVENTARIO
-    const QString SQL_INVENTARIO_TOT =
-            QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" "
-                              "FROM vw_magazzino WHERE \"Quantità\"!=0");
-
-    //Select utilizzata per la stampa degli ordini
-    const QString SELECT_ORDINE =
-            QString::fromUtf8("SELECT * FROM vw_magazzino "
-                              "WHERE \"Quantità\" <= \"Scorta Minima\" "
-                              "AND \"Fornitore\" = '%1'");
-
-    enum Documenti {
-        FATTURA,
-        INVENTARIO,
-        ORDINE,
-        LISTINO
-    };
 
     enum Columns {COL_MG_ID = 0,            // Id
                   COL_MG_DESCR = 1,         // Descrizione
@@ -293,33 +232,5 @@ namespace magazzino {
     const QString PH_ID_SEDE = ":id_sede_magazzino";
     const QString PH_NOTE    = ":note";
     const QString PH_ID_ART  = ":id_articolo";
-
-    //CMP Nome Campo Tabella sql
-    const QString CMP_ID      = "Id";
-    const QString CMP_DESCR   = "Descrizione";
-    const QString CMP_FORNIT  = "Fornitore";
-    const QString CMP_MARCA   = "Marca";
-    const QString CMP_MODELLO = "Modello";
-    const QString CMP_COD_ART = "Cod.Articolo";
-    const QString CMP_COD_FOR = "Cod.Fornitore";
-    const QString CMP_COD_EAN = "Cod.EAN";
-    const QString CMP_MERCE   = "Cat.Merce";
-    const QString CMP_COD_IVA = "Cod.IVA";
-    const QString CMP_UM      = "UM";
-    const QString CMP_SCORTA  = "Scorta Minima";
-    const QString CMP_QT      = QString::fromUtf8("Quantità");
-    const QString CMP_PRZ_FAT = "Prezzo Fattura";
-    const QString CMP_SCONTO  = "Sconto Fornitore";
-    const QString CMP_PRZ_ACQ = "Prezzo Acquisto";
-    const QString CMP_RICAR   = "Ricarico";
-    const QString CMP_IVA     = "Iva";
-    const QString CMP_PRZ_FIN = "Prezzo Finito";
-    const QString CMP_PRZ_VEN = QString::fromUtf8("Prezzo Vendità");
-    const QString CMP_FATTURA = "Nr.Fattura";
-    const QString CMP_DATA    = "Data Arrivo";
-    const QString CMP_SEDE    = "Sede Magazzino";
-    const QString CMP_NOTE    = "Note";
-    const QString CMP_ID_ART  = "Id Articolo";
-    const QString CMP_SUBTOT = "SubTotale";
 }
 #endif // MAGAZZINO_CONST_H
