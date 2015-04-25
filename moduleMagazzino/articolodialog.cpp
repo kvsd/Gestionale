@@ -192,67 +192,39 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
         query_articolo.prepare(magazzino::INSERT_ARTICOLO);
     }
 
-    query_articolo.bindValue(magazzino::PH_DESCR, articoloMap[magazzino::PH_DESCR]);
-    query_articolo.bindValue(magazzino::PH_ID_MARC, articoloMap[magazzino::PH_ID_MARC]);
-    query_articolo.bindValue(magazzino::PH_MODELLO, articoloMap[magazzino::PH_MODELLO]);
-    query_articolo.bindValue(magazzino::PH_COD_ART, articoloMap[magazzino::PH_COD_ART]);
-    query_articolo.bindValue(magazzino::PH_COD_EAN, articoloMap[magazzino::PH_COD_EAN]);
-    query_articolo.bindValue(magazzino::PH_ID_MERC, articoloMap[magazzino::PH_ID_MERC]);
-    query_articolo.bindValue(magazzino::PH_ID_UM, articoloMap[magazzino::PH_ID_UM]);
-    query_articolo.bindValue(magazzino::PH_SCORTA, articoloMap[magazzino::PH_SCORTA]);
+    QMapIterator <QString, QString> it(articoloMap);
+    while(it.hasNext()) {
+        it.next();
+        query_articolo.bindValue(it.key(), it.value());
+    }
 
-    query_articolo.bindValue(magazzino::PH_ID_FORN, articoloMap[magazzino::PH_ID_FORN]);
-    query_articolo.bindValue(magazzino::PH_COD_FRN, articoloMap[magazzino::PH_COD_FRN]);
-    query_articolo.bindValue(magazzino::PH_QUANTIT, articoloMap[magazzino::PH_QUANTIT]);
-    query_articolo.bindValue(magazzino::PH_PRZ_FAT, articoloMap[magazzino::PH_PRZ_FAT]);
-    query_articolo.bindValue(magazzino::PH_SCONTO, articoloMap[magazzino::PH_SCONTO]);
-    query_articolo.bindValue(magazzino::PH_PRZ_ACQ, articoloMap[magazzino::PH_PRZ_ACQ]);
-    query_articolo.bindValue(magazzino::PH_RICARIC, articoloMap[magazzino::PH_RICARIC]);
-    query_articolo.bindValue(magazzino::PH_COD_IVA, articoloMap[magazzino::PH_COD_IVA]);
-    query_articolo.bindValue(magazzino::PH_IVA, articoloMap[magazzino::PH_IVA]);
-    query_articolo.bindValue(magazzino::PH_PRZ_FIN, articoloMap[magazzino::PH_PRZ_FIN]);
-    query_articolo.bindValue(magazzino::PH_PRZ_VEN, articoloMap[magazzino::PH_PRZ_VEN]);
-
-    query_articolo.bindValue(magazzino::PH_ID_SEDE, articoloMap[magazzino::PH_ID_SEDE]);
-    query_articolo.bindValue(magazzino::PH_DATA, articoloMap[magazzino::PH_DATA]);
-    query_articolo.bindValue(magazzino::PH_FATTURA, articoloMap[magazzino::PH_FATTURA]);
-    query_articolo.bindValue(magazzino::PH_NOTE, articoloMap[magazzino::PH_NOTE]);
     return query_articolo;
 }
 
 QSqlQuery ArticoloDialog::prepareQueryStorico(void)
 {
     qDebug() << "ArticoloDialog::prepareQueryStorico()";
-    QString id_articolo = articoloMap[magazzino::PH_ID];
-    QString data_articolo = articoloMap[magazzino::PH_DATA];
-
-    QSqlQuery query_storico;
+    articoloMap[magazzino::PH_ID_ART] = articoloMap[magazzino::PH_ID];
 
     QSqlQuery query_check_storico;
     query_check_storico.prepare(magazzino::CHECK_STORICO);
-    query_check_storico.bindValue(magazzino::PH_ID_ART, id_articolo);
-    query_check_storico.bindValue(magazzino::PH_DATA, data_articolo);
+    query_check_storico.bindValue(magazzino::PH_ID_ART, articoloMap[magazzino::PH_ID_ART]);
+    query_check_storico.bindValue(magazzino::PH_DATA, articoloMap[magazzino::PH_DATA]);
     query_check_storico.exec();
+
+    QSqlQuery query_storico;
     if (query_check_storico.first()) {
-        qDebug() << "run update;";
         query_storico.prepare(magazzino::UPDATE_STORICO);
     }
     else {
         query_storico.prepare(magazzino::INSERT_STORICO);
-        qDebug() << "run insert;";
     }
 
-    query_storico.bindValue(magazzino::PH_ID_ART, id_articolo);
-    query_storico.bindValue(magazzino::PH_DATA, data_articolo);
-    query_storico.bindValue(magazzino::PH_QUANTIT, articoloMap[magazzino::PH_QUANTIT]);
-    query_storico.bindValue(magazzino::PH_PRZ_FAT, articoloMap[magazzino::PH_PRZ_FAT]);
-    query_storico.bindValue(magazzino::PH_SCONTO, articoloMap[magazzino::PH_SCONTO]);
-    query_storico.bindValue(magazzino::PH_RICARIC, articoloMap[magazzino::PH_RICARIC]);
-    query_storico.bindValue(magazzino::PH_PRZ_ACQ, articoloMap[magazzino::PH_PRZ_ACQ]);
-    query_storico.bindValue(magazzino::PH_IVA, articoloMap[magazzino::PH_IVA]);
-    query_storico.bindValue(magazzino::PH_PRZ_FIN, articoloMap[magazzino::PH_PRZ_FIN]);
-    query_storico.bindValue(magazzino::PH_PRZ_VEN, articoloMap[magazzino::PH_PRZ_VEN]);
-    query_storico.bindValue(magazzino::PH_FATTURA, articoloMap[magazzino::PH_FATTURA]);
+    QMapIterator <QString, QString> it(articoloMap);
+    while (it.hasNext()) {
+        it.next();
+        query_storico.bindValue(it.key(), it.value());
+    }
 
     return query_storico;
 }
