@@ -171,16 +171,16 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="removeButton">
+       <widget class="QPushButton" name="updateButton">
         <property name="text">
-         <string>&amp;Rimuovi</string>
+         <string>&amp;Modifica</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="updateButton">
+       <widget class="QPushButton" name="removeButton">
         <property name="text">
-         <string>&amp;Modifica</string>
+         <string>&amp;Rimuovi</string>
         </property>
        </widget>
       </item>
@@ -239,7 +239,7 @@
     </property>
     <widget class="QMenu" name="menuRicerca_veloce">
      <property name="title">
-      <string>Ricerca per</string>
+      <string>&amp;Ricerca per</string>
      </property>
      <addaction name="actionRagioneSociale"/>
      <addaction name="actionCognome"/>
@@ -264,7 +264,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Ragione Sociale</string>
+    <string>&amp;Ragione Sociale</string>
    </property>
    <property name="toolTip">
     <string>ricerca per Ragione Sociale</string>
@@ -286,7 +286,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Cognome</string>
+    <string>&amp;Cognome</string>
    </property>
    <property name="toolTip">
     <string>ricerca per Cognome</string>
@@ -297,7 +297,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Partita IVA</string>
+    <string>&amp;Partita IVA</string>
    </property>
    <property name="toolTip">
     <string>ricerca per Partita IVA</string>
@@ -308,7 +308,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Codice Fiscale</string>
+    <string>Codice &amp;Fiscale</string>
    </property>
    <property name="toolTip">
     <string>ricerca per Codice Fiscale</string>

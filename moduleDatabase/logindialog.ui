@@ -56,7 +56,7 @@
      <item>
       <widget class="QPushButton" name="pb_configure">
        <property name="text">
-        <string>Configura...</string>
+        <string>C&amp;onfigura...</string>
        </property>
       </widget>
      </item>

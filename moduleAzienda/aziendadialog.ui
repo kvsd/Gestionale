@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>473</width>
-        <height>522</height>
+        <width>474</width>
+        <height>565</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -310,7 +310,7 @@
      <item>
       <widget class="QPushButton" name="pb_close">
        <property name="text">
-        <string>Chiudi</string>
+        <string>&amp;Chiudi</string>
        </property>
       </widget>
      </item>
@@ -330,14 +330,14 @@
      <item>
       <widget class="QPushButton" name="pb_clear">
        <property name="text">
-        <string>Cancella</string>
+        <string>C&amp;ancella</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pb_save">
        <property name="text">
-        <string>Salva</string>
+        <string>&amp;Salva</string>
        </property>
       </widget>
      </item>

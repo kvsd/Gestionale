@@ -274,7 +274,7 @@
       <item>
        <widget class="QPushButton" name="deleteButton">
         <property name="text">
-         <string>&amp;Elimina</string>
+         <string>&amp;Rimuovi</string>
         </property>
        </widget>
       </item>
@@ -294,7 +294,7 @@
       <item>
        <widget class="QPushButton" name="closeButton">
         <property name="text">
-         <string>Chiudi</string>
+         <string>&amp;Chiudi</string>
         </property>
        </widget>
       </item>

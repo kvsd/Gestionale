@@ -400,28 +400,28 @@
       <item>
        <widget class="QPushButton" name="addButton">
         <property name="text">
-         <string>Aggiungi</string>
+         <string>&amp;Aggiungi</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="updateButton">
         <property name="text">
-         <string>Modifica</string>
+         <string>&amp;Modifica</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="removeButton">
         <property name="text">
-         <string>Rimuovi</string>
+         <string>&amp;Rimuovi</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="filterButton">
         <property name="text">
-         <string>Filtri</string>
+         <string>&amp;Filtri</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -447,7 +447,7 @@
       <item>
        <widget class="QPushButton" name="closeButton">
         <property name="text">
-         <string>Chiudi</string>
+         <string>&amp;Chiudi</string>
         </property>
        </widget>
       </item>
@@ -473,7 +473,7 @@
    </widget>
    <widget class="QMenu" name="menuRicerca">
     <property name="title">
-     <string>Ricerca</string>
+     <string>R&amp;icerca</string>
     </property>
     <widget class="QMenu" name="menuRicerca_per">
      <property name="tearOffEnabled">
@@ -491,7 +491,7 @@
    </widget>
    <widget class="QMenu" name="menuStampa">
     <property name="title">
-     <string>Stampa</string>
+     <string>&amp;Stampa</string>
     </property>
     <addaction name="actionStampa"/>
    </widget>
