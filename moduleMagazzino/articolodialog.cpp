@@ -52,29 +52,29 @@ void ArticoloDialog::initComboBox(void)
 {
     qDebug() << "ArticoloDialog::initComboBox()";
     ui->cb_catmerce->setModel(modelCatMerce);
-    ui->cb_catmerce->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_catmerce->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
     //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
     //genera un segnale.
     ui->cb_codiva->blockSignals(true);
     ui->cb_codiva->setModel(modelCodIva);
-    ui->cb_codiva->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_codiva->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
     int index = ui->cb_codiva->findText(settings.value(magazzino::DEFAULT_IVA).toString());
     ui->cb_codiva->setCurrentIndex(index);
     ui->cb_codiva->blockSignals(false);
 
     ui->cb_fornitore->setModel(modelFornitore);
-    ui->cb_fornitore->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     ui->cb_marca->setModel(modelMarca);
-    ui->cb_marca->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_marca->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     ui->cb_sede->setModel(modelSede);
-    ui->cb_sede->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_sede->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     ui->cb_unitamisura->setModel(modelUnita);
-    ui->cb_unitamisura->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_unitamisura->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 }
 
 void ArticoloDialog::setValue(QString id)
@@ -89,68 +89,68 @@ void ArticoloDialog::setValue(QString id)
 
     query.first();
     articoloMap[magazzino::PH_ID] = id;
-    ui->le_descrizione->setText(query.value(magazzino::COL_MG_DESCR).toString());
+    ui->le_descrizione->setText(query.value(magazzino::COL_DESCRIZIONE).toString());
 
-    ui->cb_fornitore->setModelColumn(magazzino::COL_MG_ID);
-    ui->cb_fornitore->setCurrentText(query.value(magazzino::COL_MG_ID_FORN).toString());
-    ui->cb_fornitore->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_ID);
+    ui->cb_fornitore->setCurrentText(query.value(magazzino::COL_ID_FORNITORE).toString());
+    ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_marca->setModelColumn(magazzino::COL_MG_ID);
-    ui->cb_marca->setCurrentText(query.value(magazzino::COL_MG_ID_MARCA).toString());
-    ui->cb_marca->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_marca->setModelColumn(magazzino::COL_TABLE_ID);
+    ui->cb_marca->setCurrentText(query.value(magazzino::COL_ID_MARCA).toString());
+    ui->cb_marca->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->le_modello->setText(query.value(magazzino::COL_MG_MODELLO).toString());
-    ui->le_cod_articolo->setText(query.value(magazzino::COL_MG_COD_ART).toString());
-    ui->le_cod_fornitore->setText(query.value(magazzino::COL_MG_COD_FOR).toString());
-    ui->le_cod_barre->setText(query.value(magazzino::COL_MG_COD_EAN).toString());
+    ui->le_modello->setText(query.value(magazzino::COL_MODELLO).toString());
+    ui->le_cod_articolo->setText(query.value(magazzino::COL_CODICE_ARTICOLO).toString());
+    ui->le_cod_fornitore->setText(query.value(magazzino::COL_CODICE_FORNITORE).toString());
+    ui->le_cod_barre->setText(query.value(magazzino::COL_CODICE_BARRE).toString());
 
-    ui->cb_catmerce->setModelColumn(magazzino::COL_MG_ID);
-    ui->cb_catmerce->setCurrentText(query.value(magazzino::COL_MG_ID_MERCE).toString());
-    ui->cb_catmerce->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_catmerce->setModelColumn(magazzino::COL_TABLE_ID);
+    ui->cb_catmerce->setCurrentText(query.value(magazzino::COL_ID_MERCE).toString());
+    ui->cb_catmerce->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_codiva->setModelColumn(magazzino::COL_MG_DESCR);
-    ui->cb_codiva->setCurrentText(query.value(magazzino::COL_MG_COD_IVA).toString());
+    ui->cb_codiva->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->cb_codiva->setCurrentText(query.value(magazzino::COL_CODICE_IVA).toString());
 
-    ui->cb_unitamisura->setModelColumn(magazzino::COL_MG_ID);
-    ui->cb_unitamisura->setCurrentText(query.value(magazzino::COL_MG_ID_UM).toString());
-    ui->cb_unitamisura->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_unitamisura->setModelColumn(magazzino::COL_TABLE_ID);
+    ui->cb_unitamisura->setCurrentText(query.value(magazzino::COL_ID_UNITA).toString());
+    ui->cb_unitamisura->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->le_scorta->setText(query.value(magazzino::COL_MG_SCORTA).toString());
-    ui->le_quantita->setText(query.value(magazzino::COL_MG_QT).toString());
-    ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(magazzino::COL_MG_PRZ_FAT).toDouble()));
-    ui->le_sconto->setText(query.value(magazzino::COL_MG_SCONTO).toString());
-    ui->le_ricarico->setText(query.value(magazzino::COL_MG_RICARICO).toString());
-    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(magazzino::COL_MG_PRZ_ACQ).toDouble()));
-    ui->le_iva->setText(locale().toCurrencyString(query.value(magazzino::COL_MG_IVA).toDouble()));
+    ui->le_scorta->setText(query.value(magazzino::COL_SCORTA_MINIMA).toString());
+    ui->le_quantita->setText(query.value(magazzino::COL_QUANTITA).toString());
+    ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_FATTURA).toDouble()));
+    ui->le_sconto->setText(query.value(magazzino::COL_SCONTO_FORNITORE).toString());
+    ui->le_ricarico->setText(query.value(magazzino::COL_RICARICO).toString());
+    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_ACQUISTO).toDouble()));
+    ui->le_iva->setText(locale().toCurrencyString(query.value(magazzino::COL_IVA).toDouble()));
 
-    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(magazzino::COL_MG_PRZ_FIN).toDouble()));
-    ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(magazzino::COL_MG_PRZ_VEN).toDouble()));
-    ui->le_fattura->setText(query.value(magazzino::COL_MG_FATTURA).toString());
+    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_FINITO).toDouble()));
+    ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(magazzino::COL_PREZZO_VENDITA).toDouble()));
+    ui->le_fattura->setText(query.value(magazzino::COL_FATTURA).toString());
     ui->le_data->setDate(QDate::currentDate());
 
-    ui->cb_sede->setModelColumn(magazzino::COL_MG_ID);
-    ui->cb_sede->setCurrentText(query.value(magazzino::COL_MG_ID_SEDE).toString());
-    ui->cb_sede->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->cb_sede->setModelColumn(magazzino::COL_TABLE_ID);
+    ui->cb_sede->setCurrentText(query.value(magazzino::COL_ID_SEDE_MAGAZZINO).toString());
+    ui->cb_sede->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->te_note->setText(query.value(magazzino::COL_MG_NOTE).toString());
+    ui->te_note->setText(query.value(magazzino::COL_NOTE).toString());
 }
 
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
     articoloMap[magazzino::PH_DESCR] = ui->le_descrizione->text();
-    articoloMap[magazzino::PH_ID_MARC] = modelMarca->index(ui->cb_marca->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_ID_MARC] = modelMarca->index(ui->cb_marca->currentIndex(), magazzino::COL_TABLE_ID).data().toString();
     articoloMap[magazzino::PH_MODELLO] = ui->le_modello->text();
     articoloMap[magazzino::PH_COD_ART] = ui->le_cod_articolo->text();
     articoloMap[magazzino::PH_COD_EAN] = ui->le_cod_barre->text();
-    articoloMap[magazzino::PH_ID_MERC] = modelCatMerce->index(ui->cb_catmerce->currentIndex(), magazzino::COL_MG_ID).data().toString();
-    articoloMap[magazzino::PH_ID_UM] = modelUnita->index(ui->cb_unitamisura->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_ID_MERC] = modelCatMerce->index(ui->cb_catmerce->currentIndex(), magazzino::COL_TABLE_ID).data().toString();
+    articoloMap[magazzino::PH_ID_UM] = modelUnita->index(ui->cb_unitamisura->currentIndex(), magazzino::COL_TABLE_ID).data().toString();
 
     //Per i tipi numeri devo usare il locale C. Maledetto postgresql
     double scorta = stringToDouble(ui->le_scorta->text());
     articoloMap[magazzino::PH_SCORTA] = QString().setNum(scorta);
 
-    articoloMap[magazzino::PH_ID_FORN] = modelFornitore->index(ui->cb_fornitore->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_ID_FORN] = modelFornitore->index(ui->cb_fornitore->currentIndex(), magazzino::COL_TABLE_ID).data().toString();
     articoloMap[magazzino::PH_COD_FRN] = ui->le_cod_fornitore->text();
 
     double quantita = stringToDouble(ui->le_quantita->text());
@@ -174,7 +174,7 @@ void ArticoloDialog::prepareMap()
     double prezzo_fin = stringToDouble(ui->le_prezzo_finito->text());
     articoloMap[magazzino::PH_PRZ_FIN] = QString().setNum(prezzo_fin);
 
-    articoloMap[magazzino::PH_ID_SEDE] = modelSede->index(ui->cb_sede->currentIndex(), magazzino::COL_MG_ID).data().toString();
+    articoloMap[magazzino::PH_ID_SEDE] = modelSede->index(ui->cb_sede->currentIndex(), magazzino::COL_TABLE_ID).data().toString();
     articoloMap[magazzino::PH_DATA] = ui->le_data->date().toString("dd/MM/yyyy");
     articoloMap[magazzino::PH_FATTURA] = ui->le_fattura->text();
     articoloMap[magazzino::PH_NOTE] = ui->te_note->toPlainText();
@@ -420,9 +420,9 @@ void ArticoloDialog::openAddFornitore()
 
     //Ricarico la query e seleziono il valore immesso
     modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
-    ui->cb_fornitore->setModelColumn(0);
+    ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_ID);
     ui->cb_fornitore->setCurrentText(id);
-    ui->cb_fornitore->setModelColumn(1);
+    ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 }
 
 void ArticoloDialog::openAddIVA()

@@ -168,45 +168,14 @@ namespace magazzino {
                               "WHERE mg.id_fornitore=an.id ");
 
 
-    enum Columns {COL_MG_ID = 0,            // Id
-                  COL_MG_DESCR = 1,         // Descrizione
-                  COL_MG_ID_FORN = 2,       // Fornitore
-                  COL_MG_ID_MARCA = 3,      // Marca
-                  COL_MG_MODELLO = 4,       // Modello
-                  COL_MG_COD_ART = 5,       // Cod.Articolo
-                  COL_MG_COD_FOR = 6,       // Cod.Fornitore
-                  COL_MG_COD_EAN = 7,       // Cod.EAN
-                  COL_MG_ID_MERCE = 8,      // Cat.Merce
-                  COL_MG_COD_IVA = 9,       // Cod.IVA
-                  COL_MG_ID_UM = 10,        // UM
-                  COL_MG_SCORTA = 11,       // Scorta Minima
-                  COL_MG_QT = 12,           // Quantità
-                  COL_MG_PRZ_FAT = 13,      // Prezzo Fattura
-                  COL_MG_SCONTO = 14,       // Sconto
-                  COL_MG_PRZ_ACQ = 15,      // Prezzo Acquisto
-                  COL_MG_RICARICO = 16,     // Ricarico
-                  COL_MG_IVA = 17,          // Iva
-                  COL_MG_PRZ_FIN = 18,      // Prezzo Finito
-                  COL_MG_PRZ_VEN = 19,      // Prezzo Vendità
-                  COL_MG_FATTURA = 20,      // Nr.Fattura
-                  COL_MG_DATA = 21,         // Data Arrivo
-                  COL_MG_ID_SEDE = 22,      // Sede Magazzino
-                  COL_MG_NOTE = 23,         // Note
-
-                  COL_ST_ID_ARTICOLO = 0,   // Id Articolo
-                  COL_ST_DATA = 1,          // Data
-                  COL_ST_QT = 2,            // Quantita
-                  COL_ST_PRZ_FAT = 3,       // Prezzo Fattura
-                  COL_ST_SCONTO = 4,        // Sconto
-                  COL_ST_PRZ_ACQ = 5,       // Prezzo Acquisto
-                  COL_ST_RICARICO = 6,      // Ricarico
-                  COL_ST_IVA = 7,           // IVA
-                  COL_ST_PRZ_FIN = 8,       // Prezzo Finito
-                  COL_ST_PRZ_VEN = 9,       // Prezzo Vendità
-                  COL_ST_FATTURA = 10       // FATTURA
+    //Queste sono le colonne dei model di selezione dei combobox,
+    //solitamente sono piccole tabelle di due colonne id e descrizione.
+    enum Columns {
+        COL_TABLE_ID = 0,
+        COL_TABLE_DESCRIZIONE = 1
                  };
 
-    //PH SQL PlaceHolder
+    //PH SQL PlaceHolder vengono utilizzate nella preparazione delle query
     const QString PH_ID      = ":id";
     const QString PH_DESCR   = ":descr";
     const QString PH_ID_FORN = ":id_fornitore";
@@ -232,5 +201,34 @@ namespace magazzino {
     const QString PH_ID_SEDE = ":id_sede_magazzino";
     const QString PH_NOTE    = ":note";
     const QString PH_ID_ART  = ":id_articolo";
+
+    //Nome delle colonne della tabella magazzino e storico, vengono usate per
+    //recupera i dati dalle query.
+    const QString COL_ID = "id";
+    const QString COL_DESCRIZIONE = "descr";
+    const QString COL_ID_FORNITORE = "id_fornitore";
+    const QString COL_ID_MARCA = "id_marca";
+    const QString COL_MODELLO = "modello";
+    const QString COL_CODICE_ARTICOLO = "cod_articolo";
+    const QString COL_CODICE_FORNITORE = "cod_fornitore";
+    const QString COL_CODICE_BARRE = "cod_barre";
+    const QString COL_ID_MERCE = "id_merce";
+    const QString COL_CODICE_IVA = "cod_iva";
+    const QString COL_ID_UNITA = "id_unita_misura";
+    const QString COL_SCORTA_MINIMA = "scorta_minima";
+    const QString COL_QUANTITA = "quantita";
+    const QString COL_PREZZO_FATTURA = "prezzo_fattura";
+    const QString COL_SCONTO_FORNITORE = "sconto_fornitore";
+    const QString COL_PREZZO_ACQUISTO = "prezzo_acquisto";
+    const QString COL_RICARICO = "ricarico";
+    const QString COL_IVA = "iva";
+    const QString COL_PREZZO_FINITO = "prezzo_finito";
+    const QString COL_PREZZO_VENDITA = "prezzo_vendita";
+    const QString COL_FATTURA = "fattura";
+    const QString COL_DATA_ARRIVO = "data_arrivo";
+    const QString COL_ID_SEDE_MAGAZZINO = "id_sede_magazzino";
+    const QString COL_NOTE = "note";
+    const QString COL_ID_ARTICOLO = "id_articolo";
+
 }
 #endif // MAGAZZINO_CONST_H

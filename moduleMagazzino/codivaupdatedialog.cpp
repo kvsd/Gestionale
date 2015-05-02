@@ -34,18 +34,20 @@ void codIvaUpdateDialog::initComboBox(void)
 {
     qDebug() << "codIvaUpdateDialog::initComboBox()";
     ui->oldCodIvaComboBox->setModel(oldIvaModel);
-    ui->oldCodIvaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->oldCodIvaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     ui->newCodIvaComboBox->setModel(newIvaModel);
-    ui->newCodIvaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->newCodIvaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 }
 
 void codIvaUpdateDialog::updateIva(void)
 {
     qDebug() << "codIvaUpdateDialog::updateIva()";
+    int oldIvaIndex = ui->oldCodIvaComboBox->currentIndex();
+    int newIvaIndex = ui->newCodIvaComboBox->currentIndex();
 
-    int oldIvastr = oldIvaModel->index(ui->oldCodIvaComboBox->currentIndex(), magazzino::COL_MG_DESCR).data().toInt();
-    int newIvastr = newIvaModel->index(ui->newCodIvaComboBox->currentIndex(), magazzino::COL_MG_DESCR).data().toInt();
+    int oldIvastr = oldIvaModel->record(oldIvaIndex).value(magazzino::COL_TABLE_DESCRIZIONE).toInt();
+    int newIvastr = newIvaModel->record(newIvaIndex).value(magazzino::COL_TABLE_DESCRIZIONE).toInt();
 
     if (!showDialogWarning(this, "Attenzione", MSG023.arg(oldIvastr).arg(newIvastr))) {
         return;
@@ -56,14 +58,14 @@ void codIvaUpdateDialog::updateIva(void)
     query.bindValue(magazzino::PH_COD_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
-        QString id = query.value(magazzino::COL_MG_ID).toString();
+        QString id = query.value(magazzino::COL_ID).toString();
         QString data = QDate::currentDate().toString("dd/MM/yyyy");
-        QString quantita = query.value(magazzino::COL_MG_QT).toString();
-        QString prezzo_fattura = query.value(magazzino::COL_MG_PRZ_FAT).toString();
-        QString sconto = query.value(magazzino::COL_MG_SCONTO).toString();
-        QString ricarico = query.value(magazzino::COL_MG_RICARICO).toString();
-        QString fattura = query.value(magazzino::COL_MG_FATTURA).toString();
-        double prezzo_acquisto = query.value(magazzino::COL_MG_PRZ_ACQ).toDouble();
+        QString quantita = query.value(magazzino::COL_QUANTITA).toString();
+        QString prezzo_fattura = query.value(magazzino::COL_PREZZO_FATTURA).toString();
+        QString sconto = query.value(magazzino::COL_SCONTO_FORNITORE).toString();
+        QString ricarico = query.value(magazzino::COL_RICARICO).toString();
+        QString fattura = query.value(magazzino::COL_FATTURA).toString();
+        double prezzo_acquisto = query.value(magazzino::COL_PREZZO_ACQUISTO).toDouble();
         double prezzo_ricarico = 0;
         if (ricarico.contains("+")) {
             QStringList ricarichi = ricarico.split("+");
@@ -76,7 +78,7 @@ void codIvaUpdateDialog::updateIva(void)
 
         double iva = prezzo_ricarico*newIvastr/100.0;
         double prezzo_finito = prezzo_ricarico+iva;
-        double prezzo_vendita = query.value(magazzino::COL_MG_PRZ_VEN).toDouble();
+        double prezzo_vendita = query.value(magazzino::COL_PREZZO_VENDITA).toDouble();
         if (prezzo_finito > prezzo_vendita) {
             prezzo_vendita = prezzo_finito;
         }
@@ -90,7 +92,7 @@ void codIvaUpdateDialog::updateIva(void)
         queryUpdateIva.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
         queryUpdateIva.exec();
 
-        QSqlQuery queryInsertStorico;
+        QSqlQuery queryInsertStorico; //WARNING SISTEMARE, non aggiorna i record con la stessa data
         queryInsertStorico.prepare(magazzino::INSERT_STORICO);
         queryInsertStorico.bindValue(magazzino::PH_ID_ART, id);
         queryInsertStorico.bindValue(magazzino::PH_DATA, data);

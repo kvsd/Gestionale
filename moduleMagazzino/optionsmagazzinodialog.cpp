@@ -19,7 +19,7 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 
     ui->codIvaComboBox->setModel(codIvaModel);
-    ui->codIvaComboBox->setModelColumn(magazzino::COL_MG_DESCR);
+    ui->codIvaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     prepareMaps();
     populateList();
