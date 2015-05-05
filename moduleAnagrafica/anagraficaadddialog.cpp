@@ -277,7 +277,10 @@ void AnagraficaAddDialog::save(void)
 void AnagraficaAddDialog::openAddTipoditta(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddTipoDitta()";
-    allDlg(this, modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
+    QString value = allDlg(this, modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
+    if (!value.isEmpty()) {
+        ui->cb_tipo_ditta->setCurrentText(value);
+    }
 }
 
 void AnagraficaAddDialog::openAddCitta(void)

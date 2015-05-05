@@ -9,7 +9,7 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
     qDebug() << "AnagraficaWindow()";
     ui->setupUi(this);
 
-    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS);
+    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS, Qt::AlignLeft);
     ui->anagraficaView->setModel(anagraficaModel);
 
     this->move(parent->pos());

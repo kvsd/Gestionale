@@ -11,17 +11,17 @@ class CustomModel : public QSqlQueryModel
 {
     Q_OBJECT
 public:
-    explicit CustomModel(QString colsGroup, QObject *parent = 0);
+    explicit CustomModel(QString colsGroup, Qt::AlignmentFlag textAlignment, QObject *parent = 0);
     QVariant data(const QModelIndex &item, int role) const;
     void loadSettings();
+    void setAlignMap(QMap <QString, Qt::AlignmentFlag> map);
 
 private:
     QMap<int, QBrush>colorsMaps;
-    QMap<QString, int>alignMaps;
+    QMap<QString, Qt::AlignmentFlag>alignMaps;
     QString group;
     QSettings settings;
-    int leftAlign;
-    int rightAlign;
+    Qt::AlignmentFlag defaulTextAlign;
 
     void prepareMap(void);
 
