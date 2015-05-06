@@ -26,8 +26,15 @@ MagazzinoWindow::~MagazzinoWindow()
 void MagazzinoWindow::initModel()
 {
     qDebug() << "MagazzinoWindow::initModel()";
-    articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, this);
-    storicoModel = new CustomModel(magazzino::STORICO_COLORS, this);
+
+    QMap <QString, Qt::AlignmentFlag> map;
+    map["Descrizione"] = Qt::AlignLeft;
+    map["Fornitore"] = Qt::AlignLeft;
+    map["Note"] = Qt::AlignLeft;
+    articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, Qt::AlignRight, this);
+    articoloModel->setAlignMap(map);
+
+    storicoModel = new CustomModel(magazzino::STORICO_COLORS, Qt::AlignRight, this);
     fornitoreModel = new QSqlQueryModel(this);
     categoriaModel = new QSqlTableModel(this);
     marcaModel = new QSqlTableModel(this);

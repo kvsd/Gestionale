@@ -25,7 +25,7 @@ void AnagraficaWindow::initModel()
 {
     //Configura i model che verrano usati nei combobox (pannello dei filtri)
     qDebug() << "AnagraficaWindow::initModel()";
-    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS, this);
+    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS, Qt::AlignLeft, this);
     ui->anagraficaView->setModel(anagraficaModel);
 
     cittaModel = new QSqlTableModel(this);
