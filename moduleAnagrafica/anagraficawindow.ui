@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>846</width>
-    <height>519</height>
+    <width>933</width>
+    <height>698</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Anagrafica Clienti Fornitori</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1,0">
+   <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,1,0">
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
@@ -113,29 +113,104 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QGroupBox" name="groupBox_4">
-       <property name="title">
-        <string>Filtri</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+      <widget class="QWidget" name="">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QCheckBox" name="clientiCheckBox">
-          <property name="text">
-           <string>Cli&amp;enti</string>
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>Visualizza</string>
           </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QCheckBox" name="clientiCheckBox">
+             <property name="text">
+              <string>Cli&amp;enti</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="fornitoriCheckBox">
+             <property name="text">
+              <string>&amp;Fornitori</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="fornitoriCheckBox">
-          <property name="text">
-           <string>&amp;Fornitori</string>
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="title">
+           <string>Filtri</string>
           </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="cittaEnabler">
+               <property name="text">
+                <string>Citta:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="agenteComboBox">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="agenteEnabler">
+               <property name="text">
+                <string>Agente:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="cittaComboBox">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QCheckBox" name="provinciaEnabler">
+               <property name="text">
+                <string>Provincia:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="provinciaComboBox">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QCheckBox" name="statoEnabler">
+               <property name="text">
+                <string>Stato:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="statoComboBox">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -220,7 +295,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>846</width>
+     <width>933</width>
      <height>21</height>
     </rect>
    </property>
@@ -345,7 +420,7 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>276</x>
+     <x>185</x>
      <y>508</y>
     </hint>
     <hint type="destinationlabel">
@@ -361,7 +436,7 @@
    <slot>removeRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
+     <x>276</x>
      <y>508</y>
     </hint>
     <hint type="destinationlabel">
@@ -390,7 +465,7 @@
    <sender>searchLineEdit</sender>
    <signal>returnPressed()</signal>
    <receiver>AnagraficaWindow</receiver>
-   <slot>searchRecord()</slot>
+   <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>249</x>
@@ -467,74 +542,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionRagioneSociale</sender>
-   <signal>changed()</signal>
-   <receiver>AnagraficaWindow</receiver>
-   <slot>updateStringSearch()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>353</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionCognome</sender>
-   <signal>changed()</signal>
-   <receiver>AnagraficaWindow</receiver>
-   <slot>updateStringSearch()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>353</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionPartitaIVA</sender>
-   <signal>changed()</signal>
-   <receiver>AnagraficaWindow</receiver>
-   <slot>updateStringSearch()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>353</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionCodiceFiscale</sender>
-   <signal>changed()</signal>
-   <receiver>AnagraficaWindow</receiver>
-   <slot>updateStringSearch()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>353</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>clientiCheckBox</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaWindow</receiver>
-   <slot>searchRecord()</slot>
+   <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>790</x>
@@ -550,7 +561,7 @@
    <sender>fornitoriCheckBox</sender>
    <signal>clicked()</signal>
    <receiver>AnagraficaWindow</receiver>
-   <slot>searchRecord()</slot>
+   <slot>updateViewAnagrafica()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>790</x>
@@ -562,11 +573,202 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>agenteEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>agenteComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>554</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>679</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cittaEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>cittaComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>562</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>698</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>provinciaEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>provinciaComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>576</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>674</x>
+     <y>252</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>statoEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>statoComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>562</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>731</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>agenteEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>519</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>498</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cittaEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>534</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>provinciaEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>582</x>
+     <y>251</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>560</x>
+     <y>96</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>statoEnabler</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>562</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>92</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>agenteComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>843</x>
+     <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cittaComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>821</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>842</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>provinciaComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>804</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>845</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>statoComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>AnagraficaWindow</receiver>
+   <slot>updateViewAnagrafica()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>817</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
   <slot>removeRecord()</slot>
-  <slot>searchRecord()</slot>
   <slot>updateRecord()</slot>
   <slot>updateViewAnagrafica()</slot>
   <slot>openConfigDialog()</slot>

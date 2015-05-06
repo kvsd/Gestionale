@@ -22,16 +22,75 @@ namespace anagrafica {
     const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
 
     //SQL
-    const QString SELECT_ALL = "SELECT * FROM vw_anagrafica WHERE \"Id\">0";
-    const QString SELECT_CLNT = "SELECT * FROM vw_anagrafica_clienti WHERE \"Id\">0";
-    const QString SELECT_FORN = "SELECT * FROM vw_anagrafica_fornitori WHERE \"Id\">0";
+
+    //Query utilizzata nella view di AnagraficaWindow, elenca tutti i fornitori e i clienti.
+    const QString SELECT_ALL =
+    "SELECT anagrafica.id AS \"Id\", "
+           "anagrafica.rag_sociale AS \"Ragione sociale\", "
+           "anagrafica.nome AS \"Nome\", "
+           "anagrafica.cognome AS \"Cognome\", "
+           "anagrafica.indirizzo AS \"Indirizzo\", "
+           "anagrafica.cod_fisc AS \"Codice fiscale\", "
+           "anagrafica.prt_iva AS \"Partita Iva\", "
+           "agenti.cognome AS \"Agente\", "
+           "anagrafica.tel AS \"Telefono\", "
+           "anagrafica.fax AS \"Fax\", "
+           "anagrafica.cel AS \"Cellulare\", "
+           "anagrafica.email AS \"Email\", "
+           "anagrafica.sito_web AS \"Sito web\", "
+           "anagrafica.banca AS \"Banca\", "
+           "anagrafica.agenzia AS \"Agenzia\", "
+           "anagrafica.conto AS \"Conto\", "
+           "anagrafica.swift AS \"Swift\", "
+           "anagrafica.iban AS \"Iban\", "
+           "anagrafica.dest_merce AS \"Destinazione merce\", "
+           "anagrafica.note AS \"Note\" "
+    "FROM anagrafica, agenti "
+    "WHERE anagrafica.id > 0 AND id_agente=agenti.id ";
+
+    const QString FILTER_CLIENTE = "anagrafica.cliente=TRUE ";
+    const QString FILTER_FORNITORE = "anagrafica.fornitore=TRUE ";
+    const QString ORDER_CLAUSE = " ORDER BY anagrafica.rag_sociale";
+
     const QString SELECT_FROM_ID = "SELECT * FROM anagrafica WHERE id=:id";
 
-    const QString INSERT_QUERY = "INSERT INTO anagrafica(fornitore, cliente, rag_sociale, id_tipo_ditta, nome, cognome, indirizzo, id_citta, id_provincia, id_cap, id_stato, cod_fisc, prt_iva, id_agente, tel, fax, cel, email, sito_web, banca, agenzia, conto, swift, iban, dest_merce, note) VALUES(:fornitore, :cliente, :rag_sociale, :id_tipo_ditta, :nome, :cognome, :indirizzo, :id_citta, :id_provincia, :id_cap, :id_stato, :cod_fisc, :prt_iva, :id_agente, :tel, :fax, :cel, :email, :sito_web, :banca, :agenzia, :conto, :swift, :iban, :dest_merce, :note)";
-    const QString UPDATE_QUERY = "UPDATE anagrafica SET fornitore=:fornitore, cliente=:cliente, rag_sociale=:rag_sociale, id_tipo_ditta=:id_tipo_ditta, nome=:nome, cognome=:cognome, indirizzo=:indirizzo, id_citta=:id_citta, id_provincia=:id_provincia, id_cap=:id_cap, id_stato=:id_stato, cod_fisc=:cod_fisc, prt_iva=:prt_iva, id_agente=:id_agente, tel=:tel, fax=:fax, cel=:cel, email=:email, sito_web=:sito_web, banca=:banca, agenzia=:agenzia, conto=:conto, swift=:swift, iban=:iban, dest_merce=:dest_merce, note=:note WHERE id=:id";
+    //Insert utilizzata in AnagraficaAddDialog per aggiungere un nuovo cliente/fornitore
+    const QString INSERT_QUERY = "INSERT INTO anagrafica(fornitore, cliente, "
+                                                        "rag_sociale, id_tipo_ditta, "
+                                                        "nome, cognome, indirizzo, "
+                                                        "id_citta, id_provincia, "
+                                                        "id_cap, id_stato, cod_fisc, "
+                                                        "prt_iva, id_agente, tel, "
+                                                        "fax, cel, email, "
+                                                        "sito_web, banca, agenzia, "
+                                                        "conto, swift, iban, "
+                                                        "dest_merce, note) "
+                                 "VALUES(:fornitore, :cliente, :rag_sociale, :id_tipo_ditta, "
+                                        ":nome, :cognome, :indirizzo, :id_citta, :id_provincia, "
+                                        ":id_cap, :id_stato, :cod_fisc, :prt_iva, :id_agente, "
+                                        ":tel, :fax, :cel, :email, :sito_web, :banca, :agenzia, "
+                                        ":conto, :swift, :iban, :dest_merce, :note)";
+
+    //Update utilizzata in AnagraficaAddDialog per aggiornare un cliente/fornitore
+    const QString UPDATE_QUERY =
+            "UPDATE anagrafica SET fornitore=:fornitore, cliente=:cliente, "
+                                  "rag_sociale=:rag_sociale, "
+                                  "id_tipo_ditta=:id_tipo_ditta, "
+                                  "nome=:nome, cognome=:cognome, "
+                                  "indirizzo=:indirizzo, id_citta=:id_citta, "
+                                  "id_provincia=:id_provincia, id_cap=:id_cap, "
+                                  "id_stato=:id_stato, cod_fisc=:cod_fisc, "
+                                  "prt_iva=:prt_iva, id_agente=:id_agente, "
+                                  "tel=:tel, fax=:fax, cel=:cel, email=:email, "
+                                  "sito_web=:sito_web, banca=:banca, "
+                                  "agenzia=:agenzia, conto=:conto, swift=:swift, "
+                                  "iban=:iban, dest_merce=:dest_merce, note=:note "
+            "WHERE id=:id";
+
+    //Delete utilizzata in AnagraficaWindow per cancellare un cliente/fornitore
     const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
 
-    //PLACEHOLDERS SQL
+    //PLACEHOLDERS SQL utilizzate nelle query insert/update/delete
     const QString PH_ID = ":id";
     const QString PH_FORNITORE = ":fornitore";
     const QString PH_CLIENTE = ":cliente";
@@ -61,33 +120,39 @@ namespace anagrafica {
     const QString PH_NOTE = ":note";
 
     //COLS
-    enum columns {COL_ID,
-                  COL_FORNITORE, COL_MODEL_DESCR = 1,
-                  COL_CLIENTE, COL_MODEL_COGNOME = 2,
-                  COL_RAG_SOC,
-                  COL_TIPO_DITTA,
-                  COL_NOME,
-                  COL_COGNOME,
-                  COL_INDIRIZZO,
-                  COL_CITTA,
-                  COL_PROVINCIA,
-                  COL_CAP,
-                  COL_STATO,
-                  COL_COD_FISC,
-                  COL_PRT_IVA,
-                  COL_AGENTE,
-                  COL_TEL,
-                  COL_FAX,
-                  COL_CEL,
-                  COL_EMAIL,
-                  COL_WEB,
-                  COL_BANCA,
-                  COL_AGENZIA,
-                  COL_CONTO,
-                  COL_SWIFT,
-                  COL_IBAN,
-                  COL_MERCE,
-                  COL_NOTE};
+    enum columns {COL_TABLE_ID = 0,
+                  COL_TABLE_DESCRIZIONE = 1,
+                  COL_TABLE_COGNOME = 2 //tabella agenti
+                 };
+
+    //Nomi delle colonne della tabella anagrafica.
+    const QString COL_ID = "id";
+    const QString COL_FORNITORE = "fornitore";
+    const QString COL_CLIENTE = "cliente";
+    const QString COL_RAGIONE_SOCIALE = "rag_sociale";
+    const QString COL_ID_TIPO_DITTA = "id_tipo_ditta";
+    const QString COL_NOME = "nome";
+    const QString COL_COGNOME = "cognome";
+    const QString COL_INDIRIZZO = "indirizzo";
+    const QString COL_ID_CITTA = "id_citta";
+    const QString COL_ID_PROVINCIA = "id_provincia";
+    const QString COL_ID_CAP = "id_cap";
+    const QString COL_ID_STATO = "id_stato";
+    const QString COL_CODICE_FISCALE = "cod_fisc";
+    const QString COL_PARTITA_IVA = "prt_iva";
+    const QString COL_ID_AGENTE = "id_agente";
+    const QString COL_TELEFONO = "tel";
+    const QString COL_FAX = "fax";
+    const QString COL_CELLULARE = "cel";
+    const QString COL_EMAIL = "email";
+    const QString COL_SITO_WEB = "sito_web";
+    const QString COL_BANCA = "banca";
+    const QString COL_AGENZIA = "agenzia";
+    const QString COL_CONTO = "conto";
+    const QString COL_SWIFT = "swift";
+    const QString COL_IBAN = "iban";
+    const QString COL_DESTINAZIONE_MERCE = "dest_merce";
+    const QString COL_NOTE = "note";
 }
 
 #endif // ANAGRAFICA_CONST_H

@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include <QDialog>
 #include <QSqlQueryModel>
+#include <QSqlTableModel>
 #include <QDebug>
 #include <QSettings>
 #include <QCloseEvent>
@@ -29,10 +30,19 @@ public:
 private:
     Ui::AnagraficaWindow *ui;
     CustomModel *anagraficaModel;
+    QSqlTableModel *cittaModel;
+    QSqlTableModel *provinciaModel;
+    QSqlTableModel *statoModel;
+    QSqlTableModel *agenteModel;
+
     QSettings settings;
-    QString str_search;
+    void initModel();
+    void initComboBox();
     void loadConfigSettings();
     void saveConfigSettings();
+    QString getSearchString();
+    QString getFilterString1();
+    QString getFilterString2();
 
 protected:
     void showEvent(QShowEvent *);
@@ -42,10 +52,8 @@ public slots:
     void addRecord(void);
     void updateRecord(void);
     void removeRecord(void);
-    void searchRecord(void);
     void updateViewAnagrafica(void);
     void openConfigDialog(void);
-    void updateStringSearch(void);
 
 };
 

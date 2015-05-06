@@ -9,13 +9,9 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
     qDebug() << "AnagraficaWindow()";
     ui->setupUi(this);
 
-    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS);
-    ui->anagraficaView->setModel(anagraficaModel);
-
+    initModel();
+    initComboBox();
     this->move(parent->pos());
-
-    str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
-
     loadConfigSettings();
 }
 
@@ -23,6 +19,48 @@ AnagraficaWindow::~AnagraficaWindow()
 {
     qDebug() << "~AnagraficaWindow()";
     delete ui;
+}
+
+void AnagraficaWindow::initModel()
+{
+    //Configura i model che verrano usati nei combobox (pannello dei filtri)
+    qDebug() << "AnagraficaWindow::initModel()";
+    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS, this);
+    ui->anagraficaView->setModel(anagraficaModel);
+
+    cittaModel = new QSqlTableModel(this);
+    cittaModel->setTable(table::CITTA);
+    cittaModel->select();
+
+    provinciaModel = new QSqlTableModel(this);
+    provinciaModel->setTable(table::PROVINCIA);
+    provinciaModel->select();
+
+    statoModel  = new QSqlTableModel(this);
+    statoModel->setTable(table::STATO);
+    statoModel->select();
+
+    agenteModel = new QSqlTableModel(this);
+    agenteModel->setTable(table::AGENTI);
+    agenteModel->select();
+}
+
+void AnagraficaWindow::initComboBox()
+{
+    //Assegna i model ai combobox(filtri) e imposta le colonne da visualizzare.
+    qDebug() << "AnagraficaWindow::initComboBox()";
+
+    ui->cittaComboBox->setModel(cittaModel);
+    ui->cittaComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+
+    ui->provinciaComboBox->setModel(provinciaModel);
+    ui->provinciaComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+
+    ui->statoComboBox->setModel(statoModel);
+    ui->statoComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+
+    ui->agenteComboBox->setModel(agenteModel);
+    ui->agenteComboBox->setModelColumn(anagrafica::COL_TABLE_COGNOME);
 }
 
 void AnagraficaWindow::loadConfigSettings()
@@ -114,7 +152,7 @@ void AnagraficaWindow::updateRecord(void)
         showDialogError(this, ERR026, MSG007, ""); //NOTE codice errore 026
         return;
     }
-    QString id = anagraficaModel->index(index.row(), anagrafica::COL_ID).data().toString();
+    QString id = anagraficaModel->record(index.row()).value(anagrafica::COL_ID).toString();
     AnagraficaAddDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Cliente Fornitore");
@@ -133,7 +171,7 @@ void AnagraficaWindow::removeRecord(void)
         showDialogError(this, ERR027, MSG004, ""); //NOTE codice errore 027
         return;
     }
-    QString id = anagraficaModel->index(index.row(), anagrafica::COL_ID).data().toString();
+    QString id = anagraficaModel->record(index.row()).value(anagrafica::COL_ID).toString();
 
     QSqlQuery query;
     query.prepare(anagrafica::DELETE_QUERY);
@@ -144,53 +182,101 @@ void AnagraficaWindow::removeRecord(void)
     updateViewAnagrafica();
 }
 
-void AnagraficaWindow::searchRecord(void)
+QString AnagraficaWindow::getSearchString()
 {
-    qDebug() << "AnagraficaWindow::searchRecord()";
-    QString s = ui->searchLineEdit->text();
-
-    if (s.isEmpty()) {
-        updateViewAnagrafica();
-        return;
+    qDebug() << "AnagraficaWindow::getSearchString()";
+    QString value= ui->searchLineEdit->text();
+    if (value.isEmpty()) {
+        return value;
     }
 
-    QString query;
-    if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
-        query.append(anagrafica::SELECT_ALL);
-    }
-    else if (ui->clientiCheckBox->isChecked()) {
-        query.append(anagrafica::SELECT_CLNT);
-    }
-    else if (ui->fornitoriCheckBox->isChecked()) {
-        query.append(anagrafica::SELECT_FORN);
-    }
-    else {
-        return;
+    QString pattern = "%1 ILIKE '%%2%'";
+    QStringList list;
+    if (ui->actionRagioneSociale->isChecked())
+        list.append(pattern.arg(anagrafica::COL_RAGIONE_SOCIALE));
+
+    if (ui->actionCognome->isChecked())
+        //WARNING CONFLITTO con la tabella agenti, campo cognome uguale.
+        list.append(pattern.arg("anagrafica."+anagrafica::COL_COGNOME));
+
+    if (ui->actionCodiceFiscale->isChecked())
+        list.append(pattern.arg(anagrafica::COL_CODICE_FISCALE));
+
+    if (ui->actionPartitaIVA->isChecked())
+        list.append(pattern.arg(anagrafica::COL_PARTITA_IVA));
+
+    return list.join(" OR ").arg(value);
+
+}
+
+QString AnagraficaWindow::getFilterString1()
+{
+    qDebug() << "AnagraficaWindow::getFilterString1()";
+    QStringList filter;
+
+    if (ui->clientiCheckBox->isChecked())
+        filter.append(anagrafica::FILTER_CLIENTE);
+
+    if (ui->fornitoriCheckBox->isChecked())
+        filter.append(anagrafica::FILTER_FORNITORE);
+
+    return filter.join(" OR ");
+}
+
+QString AnagraficaWindow::getFilterString2()
+{
+    qDebug() << "AnagraficaWindow::getFilterString2()";
+    QStringList filter;
+    QString pattern = "%1=%2";
+
+    if (ui->cittaEnabler->isChecked()) {
+        int row = ui->cittaComboBox->currentIndex();
+        QString id = cittaModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(anagrafica::COL_ID_CITTA, id));
     }
 
-    query.append(str_search);
-    qDebug() << query.arg(s);
-    anagraficaModel->setQuery(query.arg(s));
+    if (ui->provinciaEnabler->isChecked()) {
+        int row = ui->provinciaComboBox->currentIndex();
+        QString id = provinciaModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(anagrafica::COL_ID_PROVINCIA, id));
+    }
+
+    if (ui->statoEnabler->isChecked()) {
+        int row = ui->statoComboBox->currentIndex();
+        QString id = statoModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(anagrafica::COL_ID_STATO, id));
+    }
+
+    if (ui->agenteEnabler->isChecked()) {
+        int row = ui->agenteComboBox->currentIndex();
+        QString id = agenteModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(anagrafica::COL_ID_AGENTE, id));
+    }
+
+    return filter.join(" AND ");
 }
 
 void AnagraficaWindow::updateViewAnagrafica(void)
 {
     qDebug() << "AnagraficaWindow::updateViewAnagrafica()";
-    ui->searchLineEdit->clear();
 
-    if (ui->clientiCheckBox->isChecked() && ui->fornitoriCheckBox->isChecked()) {
-        anagraficaModel->setQuery(anagrafica::SELECT_ALL);
-    }
-    else if (ui->clientiCheckBox->isChecked()) {
-        anagraficaModel->setQuery(anagrafica::SELECT_CLNT);
-    }
-    else if (ui->fornitoriCheckBox->isChecked()) {
-        anagraficaModel->setQuery(anagrafica::SELECT_FORN);
-    }
-    else {
-        anagraficaModel->setQuery("");
-    }
+    QString filter1 = getSearchString();
+    QString filter2 = getFilterString1();
+    QString filter3 = getFilterString2();
 
+    QStringList test;
+    test.append(anagrafica::SELECT_ALL);
+    if (!filter1.isEmpty())
+        test.append("("+filter1+")");
+    if (!filter2.isEmpty())
+        test.append("("+filter2+")");
+    if (!filter3.isEmpty())
+        test.append("("+filter3+")");
+
+    QString query = test.join(" AND ");
+    query.append(anagrafica::ORDER_CLAUSE);
+
+    anagraficaModel->setQuery(query);
     ui->anagraficaView->resizeColumnsToContents();
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
 }
@@ -205,35 +291,4 @@ void AnagraficaWindow::openConfigDialog(void)
     }
 
     loadConfigSettings();
-}
-
-void AnagraficaWindow::updateStringSearch(void)
-{
-    qDebug() << "AnagraficaWindow::updateStringSearch()";
-    if (!ui->actionRagioneSociale->isChecked() && !ui->actionCognome->isChecked() &&
-        !ui->actionPartitaIVA->isChecked() && !ui->actionCodiceFiscale->isChecked()) {
-        //Niente selezionato Ragione sociale di default;
-        str_search = " AND \"Ragione sociale\" ILIKE '\%%1\%'";
-        ui->actionRagioneSociale->setChecked(true);
-    }
-    else {
-        QStringList test;
-        if (ui->actionRagioneSociale->isChecked()) {
-            test.append(QString("\"Ragione sociale\" ILIKE '\%%1\%'"));
-        }
-
-        if (ui->actionCognome->isChecked()) {
-            test.append(QString("\"Cognome\" ILIKE '\%%1\%'"));
-        }
-
-        if (ui->actionCodiceFiscale->isChecked()) {
-            test.append(QString("\"Codice fiscale\" ILIKE '\%%1\%'"));
-        }
-
-        if (ui->actionPartitaIVA->isChecked()) {
-            test.append(QString("\"Partita Iva\" ILIKE '\%%1\%'"));
-        }
-
-        str_search = " AND " + test.join(" OR ");
-    }
 }
