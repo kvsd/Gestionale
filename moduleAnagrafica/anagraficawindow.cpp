@@ -213,14 +213,24 @@ QString AnagraficaWindow::getFilterString1()
 {
     qDebug() << "AnagraficaWindow::getFilterString1()";
     QStringList filter;
+    QString pattern = "%1=%2";
+    bool fornitore = ui->fornitoriCheckBox->isChecked();
+    bool cliente = ui->clientiCheckBox->isChecked();
 
-    if (ui->clientiCheckBox->isChecked())
-        filter.append(anagrafica::FILTER_CLIENTE);
+    filter.append(pattern.arg(anagrafica::COL_CLIENTE, QVariant(cliente).toString()));
+    filter.append(pattern.arg(anagrafica::COL_FORNITORE, QVariant(fornitore).toString()));
 
-    if (ui->fornitoriCheckBox->isChecked())
-        filter.append(anagrafica::FILTER_FORNITORE);
-
-    return filter.join(" OR ");
+    if (fornitore==true && cliente==true) {
+        return filter.join(" OR ");
+    }
+    else if (fornitore==true) {
+        return pattern.arg(anagrafica::COL_FORNITORE, QVariant(fornitore).toString());
+    }
+    else if (cliente==true) {
+        return pattern.arg(anagrafica::COL_CLIENTE, QVariant(cliente).toString());
+    }
+    else
+        return filter.join(" AND ");
 }
 
 QString AnagraficaWindow::getFilterString2()
