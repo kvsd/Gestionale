@@ -192,22 +192,11 @@ void AziendaDialog::save(void)
 
     QSqlQuery query;
     query.prepare(azienda::UPDATE_QUERY);
-    query.bindValue(azienda::PH_RAG_SOCIALE, mapAzienda[azienda::PH_RAG_SOCIALE]);
-    query.bindValue(azienda::PH_NOME, mapAzienda[azienda::PH_NOME]);
-    query.bindValue(azienda::PH_COGNOME, mapAzienda[azienda::PH_COGNOME]);
-    query.bindValue(azienda::PH_INDIRIZZO, mapAzienda[azienda::PH_INDIRIZZO]);
-    query.bindValue(azienda::PH_CITTA, mapAzienda[azienda::PH_CITTA]);
-    query.bindValue(azienda::PH_PROVINCIA, mapAzienda[azienda::PH_PROVINCIA]);
-    query.bindValue(azienda::PH_CAP, mapAzienda[azienda::PH_CAP]);
-    query.bindValue(azienda::PH_STATO, mapAzienda[azienda::PH_STATO]);
-    query.bindValue(azienda::PH_TEL, mapAzienda[azienda::PH_TEL]);
-    query.bindValue(azienda::PH_FAX, mapAzienda[azienda::PH_FAX]);
-    query.bindValue(azienda::PH_EMAIL, mapAzienda[azienda::PH_EMAIL]);
-    query.bindValue(azienda::PH_PRT_IVA, mapAzienda[azienda::PH_PRT_IVA]);
-    query.bindValue(azienda::PH_COD_FISC, mapAzienda[azienda::PH_COD_FISC]);
-    query.bindValue(azienda::PH_ISCR_TRIB, mapAzienda[azienda::PH_ISCR_TRIB]);
-    query.bindValue(azienda::PH_CCIAA, mapAzienda[azienda::PH_CCIAA]);
-    query.bindValue(azienda::PH_REG_IMPRESE, mapAzienda[azienda::PH_REG_IMPRESE]);
+    QMapIterator <QString, QString>it(mapAzienda);
+    while (it.hasNext()) {
+        it.next();
+        query.bindValue(it.key(), it.value());
+    }
 
     //Per Salvare logo all'interno del database
     QByteArray array;
