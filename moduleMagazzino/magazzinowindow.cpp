@@ -154,33 +154,28 @@ QString MagazzinoWindow::searchString(void) {
     //immessa nel box della ricerca veloce e ai parametri del menu
     //ricerca veloce
     qDebug() << "MagazzinoWindow::searchString()";
-    QString pattern = ui->searchLineEdit->text();
-    if (pattern.isEmpty()) {
+    QString value = ui->searchLineEdit->text();
+    if (value.isEmpty())
         return "";
-    }
 
     QStringList filter;
-    if (ui->actionDescrizione->isChecked()) {
-        filter.append("descr ILIKE '%%1%'");
-    }
+    QString pattern = "%1 ILIKE '%%2%'";
+    if (ui->actionDescrizione->isChecked())
+        filter.append(pattern.arg(magazzino::COL_DESCRIZIONE));
 
-    if (ui->actionCod_Fornitore->isChecked()) {
-        filter.append("cod_fornitore ILIKE '%%1%'");
-    }
+    if (ui->actionCod_Fornitore->isChecked())
+        filter.append(pattern.arg(magazzino::COL_CODICE_FORNITORE));
 
-    if (ui->actionCod_Articolo->isChecked()) {
-        filter.append("cod_articolo ILIKE '%%1%'");
-    }
+    if (ui->actionCod_Articolo->isChecked())
+        filter.append(pattern.arg(magazzino::COL_CODICE_ARTICOLO));
 
-    if (ui->actionEAN->isChecked()) {
-        filter.append("cod_barre ILIKE '%%1%'");
-    }
+    if (ui->actionEAN->isChecked())
+        filter.append(pattern.arg(magazzino::COL_CODICE_BARRE));
 
-    if (filter.isEmpty()) {
+    if (filter.isEmpty())
         return "";
-    }
 
-    return ( "(" + filter.join(" OR ").arg(pattern) + ")" );
+    return ( "(" + filter.join(" OR ").arg(value) + ")" );
 }
 
 QString MagazzinoWindow::filterString(void) {
@@ -188,44 +183,39 @@ QString MagazzinoWindow::filterString(void) {
     //selezionati nel pannello filtro
     qDebug() << "MagazzinoWindow::filterString()";
     QStringList filter;
+    QString pattern = "%1 = '%2'";
     if (ui->fornitoreComboBox->isEnabled()) {
-        QString fornitore = "id_fornitore = '%1'";
         int index = ui->fornitoreComboBox->currentIndex();
         QString id = fornitoreModel->record(index).value(magazzino::COL_TABLE_ID).toString();
-        filter.append(fornitore.arg(id));
+        filter.append(pattern.arg(magazzino::COL_ID_FORNITORE).arg(id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
-        QString catmerce = "id_merce = '%1'";
         int index = ui->categoriaComboBox->currentIndex();
-        QString id = categoriaModel->index(index, 0).data().toString();
-        filter.append(catmerce.arg(id));
+        QString id = categoriaModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(magazzino::COL_ID_MERCE).arg(id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
-        QString marca = "id_marca = '%1'";
         int index = ui->marcaComboBox->currentIndex();
-        QString id = marcaModel->index(index, 0).data().toString();
-        filter.append(marca.arg(id));
+        QString id = marcaModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(magazzino::COL_ID_MARCA).arg(id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
-        QString sede = "id_sede_magazzino = '%1'";
         int index = ui->sedeComboBox->currentIndex();
-        QString id = sedeModel->index(index, 0).data().toString();
-        filter.append(sede.arg(id));
+        QString id = sedeModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        filter.append(pattern.arg(magazzino::COL_ID_SEDE_MAGAZZINO).arg(id));
     }
 
     if (ui->fatturaLineEdit->isEnabled()) {
-        QString fattura_str = "fattura = '%1'";
         QString numero_fattura = ui->fatturaLineEdit->text();
-        filter.append(fattura_str.arg(numero_fattura));
+        filter.append(pattern.arg(magazzino::COL_FATTURA).arg(numero_fattura));
     }
 
     if (ui->currentDateEnabler->isChecked()) {
-        QString data = "data_arrivo = '%1'";
         QString currentDate = QDate::currentDate().toString("dd/MM/yy");
-        filter.append(data.arg(currentDate));
+        filter.append(pattern.arg(magazzino::COL_DATA_ARRIVO).arg(currentDate));
     }
     else if (ui->rangeDateEnabler->isChecked()) {
         QString data1 = ui->data1LineEdit->text();
@@ -234,31 +224,32 @@ QString MagazzinoWindow::filterString(void) {
         filter.append(data.arg(data1, data2));
     }
 
-    if (filter.isEmpty()) {
+    if (filter.isEmpty())
         return "";
-    }
-    else {
+    else
         return filter.join(" AND ");
-    }
 }
 
 QString MagazzinoWindow::giacenzaString(void)
 {
+    //Prepara il filtro giacenza in base alla selezione dei checkbox giacenza
     qDebug() << "MagazzinoWindow::giacenzaString()";
     QString result = "";
 
     if (ui->radioGiacenzaPos->isChecked())
-        result = "quantita >= scorta_minima";
+        result = QString("%1 >= %2").arg(magazzino::COL_QUANTITA).arg(magazzino::COL_SCORTA_MINIMA);
     else if (ui->radioGiacenzaNeg->isChecked())
-        result = "quantita < scorta_minima";
+        result = QString("%1 < %2").arg(magazzino::COL_QUANTITA).arg(magazzino::COL_SCORTA_MINIMA);
     else if (ui->radioGiacenza0->isChecked())
-        result = "quantita = 0";
+        result = QString("%1 = 0").arg(magazzino::COL_QUANTITA);
 
     return result;
 }
 
 QString MagazzinoWindow::orderString()
 {
+    //Prepara il filtro per ordinare la query in base alla selezione di
+    //orderbyComboBox
     qDebug() << "MagazzinoWindow::orderString()";
     QString str = " ORDER BY \"%1\"";
     if (ui->orderbyComboBox->isEnabled())
@@ -286,9 +277,9 @@ void MagazzinoWindow::addRecord()
     qDebug() << "MagazzinoWindow::addRecord()";
     ArticoloDialog dlg(this);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
+
     updateViewMagazzino();
     updateModel();
 }
@@ -307,9 +298,9 @@ void MagazzinoWindow::updateRecord(void)
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Articolo");
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
+
     updateViewMagazzino();
     updateViewStorico(index);
     updateModel();
@@ -327,14 +318,15 @@ void MagazzinoWindow::removeRecord(void)
     QSqlQuery query;
     query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(":id", id);
-    if (!query.exec()) {
+    if (!query.exec())
         showDialogError(this, ERR037, MSG003, query.lastError().text()); //NOTE codice errore 037
-    }
+
     updateViewMagazzino();
 }
 
 void MagazzinoWindow::updateViewMagazzino(void)
 {
+    //Aggiorna il model articoloModel applicando i vari filtri selezionati
     qDebug() << "MagazzinoWindow::updateViewMagazzino()";
     QString filter1 = filterString();
     QString filter2 = searchString();
@@ -355,11 +347,9 @@ void MagazzinoWindow::updateViewMagazzino(void)
     if (filterList.length())
         query.append(" AND " + filterList.join(" AND "));
 
-    if (!order.isEmpty()) {
+    if (!order.isEmpty())
         query.append(order);
-    }
 
-    qDebug() << query;
     articoloModel->setQuery(query);
 
     ui->articoloView->resizeColumnsToContents();
@@ -367,9 +357,8 @@ void MagazzinoWindow::updateViewMagazzino(void)
 
     /* Per creare l'elenco dinamico delle colonne devo prima impostare il model
     ** per questo viene settato in updateViewMagazzino e non in initComboBox */
-    if (!ui->orderbyComboBox->count()) {
+    if (!ui->orderbyComboBox->count())
         ui->orderbyComboBox->addItems(prepareMapsFromModel(articoloModel).values());
-    }
 
     /* Se viene chiusa immediatamente l'applicazione e il model e' vuoto, viene
        corrotto il file di configurazione. Questa impostazione permette di avere
@@ -380,6 +369,8 @@ void MagazzinoWindow::updateViewMagazzino(void)
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
 {
+    //Aggiorna il view Storico listino quando viene selezionato un
+    //articolo nella view Articolo.
     qDebug() << "MagazzinoWindow::updateViewStorico()";
     if (!index.isValid()) {
         storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
@@ -397,9 +388,9 @@ void MagazzinoWindow::openConfigDialog(void)
     saveConfigSettings();
     OptionsMagazzinoDialog dlg(this);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
+
     loadConfigSettings();
 }
 
