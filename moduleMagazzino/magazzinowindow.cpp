@@ -42,7 +42,7 @@ void MagazzinoWindow::initModel()
 
     ui->articoloView->setModel(articoloModel);
     ui->storicoView->setModel(storicoModel);
-    fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
+    fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
     categoriaModel->setTable(table::CATEGORIA_MERCE);
     marcaModel->setTable(table::MARCA);
     sedeModel->setTable(table::SEDE_MAGAZZINO);
@@ -69,7 +69,7 @@ void MagazzinoWindow::initComboBox()
 void MagazzinoWindow::updateModel()
 {
     qDebug() << "MagazzinoWindow::updateModel()";
-    fornitoreModel->setQuery(magazzino::SELECT_FILTER_FORNITORI);
+    fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
@@ -317,7 +317,7 @@ void MagazzinoWindow::removeRecord(void)
     QString id = articoloModel->record(index.row()).value(magazzino::COL_ID).toString();
     QSqlQuery query;
     query.prepare(magazzino::DELETE_ARTICOLO);
-    query.bindValue(":id", id);
+    query.bindValue(magazzino::PH_ID, id);
     if (!query.exec())
         showDialogError(this, ERR037, MSG003, query.lastError().text()); //NOTE codice errore 037
 

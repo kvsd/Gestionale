@@ -33,15 +33,13 @@ namespace magazzino {
 
 
     //SQL
-    //Select usata nel combobox in MagazzinoWindow per il filtro fornitore.
-    const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, "
-                                                   "\"Ragione sociale\" as descr "
-                                            "FROM vw_anagrafica_fornitori";
+    //Select usata:
+    // *Nel combobox in MagazzinoWindow per il filtro fornitore.
+    // *Nel combobox in ArticoloDialog per la selezione del fornitore
 
-    //Select usate in ArticoloDialog per il combobox del fornitore
-    const QString SELECT_FORNITORE = "SELECT \"Id\", \"Ragione sociale\" "
-                                     "FROM vw_anagrafica_fornitori "
-                                     "ORDER BY \"Ragione sociale\"";
+    const QString SELECT_FORNITORE = "SELECT id, rag_sociale "
+                                            "FROM anagrafica WHERE fornitore=true "
+                                            "ORDER BY rag_sociale";
 
     //Insert utilizzata per aggiungere un record in listino_storico
     //Viene utilizzata in ArticoloDialog, MagazzinoWindows(cvs) e CodIvaUpdateDialog
