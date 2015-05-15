@@ -2,6 +2,8 @@
 #define REPORTDLG_H
 
 #include "report_const.h"
+#include "magazzino_const.h"
+#include "configprintdialog.h"
 
 #include <QDialog>
 #include <QDate>
@@ -30,6 +32,7 @@ public:
 private:
     Ui::ReportDlg *ui;
     QSqlQueryModel *printModel;
+    QSqlQueryModel *fornitoreModel;
     QSettings settings;
     int pageWidth;
     int pageHeight;
@@ -41,17 +44,18 @@ private:
     QString col2Name;
     QString col3Name;
     QString col4Name;
-    report::Documenti report;
+    report::Documenti reportType;
 
-    QRect col1;
-    QRect col2;
-    QRect col3;
-    QRect col4;
-    QRect title;
+    QRect col1Rect;
+    QRect col2Rect;
+    QRect col3Rect;
+    QRect col4Rect;
+    QRect titleRect;
 
     QPrinter *printer;
     QPainter *painter;
 
+    void initComboBox();
     void setReport(report::Documenti reportType);
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);
@@ -64,6 +68,7 @@ signals:
 
 public slots:
     void print();
+    void launchConfigDlg();
 
 };
 

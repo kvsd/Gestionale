@@ -7,6 +7,7 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
 {
     qDebug() << "ConfigPrintDialog()";
     ui->setupUi(this);
+    initModel();
     initComboBoxs();
     loadSettings();
 }
@@ -17,15 +18,24 @@ ConfigPrintDialog::~ConfigPrintDialog()
     delete ui;
 }
 
+void ConfigPrintDialog::initModel()
+{
+    model = new QSqlQueryModel(this);
+    model->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+    headerMap = prepareMapsFromModel(model);
+}
+
 void ConfigPrintDialog::initComboBoxs()
 {
     qDebug() << "ConfigPrintDialog::initComboBoxs()";
     using namespace report;
     QStringList cols;
-    cols << CMP_ID << CMP_DESCR << CMP_FORNIT << CMP_MARCA << CMP_MODELLO << CMP_COD_ART << CMP_COD_FOR <<
-            CMP_COD_EAN << CMP_MERCE << CMP_COD_IVA << CMP_UM << CMP_SCORTA << CMP_QT << CMP_PRZ_FAT <<
-            CMP_SCONTO << CMP_RICAR << CMP_PRZ_ACQ << CMP_IVA << CMP_PRZ_FIN << CMP_PRZ_VEN << CMP_FATTURA <<
-            CMP_DATA << CMP_SEDE << CMP_NOTE << CMP_ID_ART;
+
+    QMapIterator <int, QString> it(headerMap);
+    while (it.hasNext()) {
+        it.next();
+        cols << it.value();
+    }
 
     ui->col1ComboBox->addItems(cols);
     ui->col2ComboBox->addItems(cols);

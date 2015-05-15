@@ -7,6 +7,8 @@
 
 #include "moduleMagazzino/magazzino_const.h"
 #include "report_const.h"
+#include "libs/utils.h"
+#include <QSqlQueryModel>
 
 namespace Ui {
 class ConfigPrintDialog;
@@ -23,6 +25,10 @@ public:
 private:
     Ui::ConfigPrintDialog *ui;
     QSettings settings;
+    QSqlQueryModel *model;
+    QMap <int, QString> headerMap;
+
+    void initModel();
     void initComboBoxs();
     void loadSettings();
 

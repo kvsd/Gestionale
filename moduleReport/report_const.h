@@ -1,6 +1,7 @@
 #ifndef REPORT_CONST_H
 #define REPORT_CONST_H
 
+#include "magazzino_const.h"
 #include <QString>
 #include <QRect>
 #include <QMap>
@@ -12,6 +13,7 @@ namespace report {
     const int PRINT_TITLE_HEIGHT = 500;
     const int PRINT_COLS_HEIGHT = 300;
     const int PRINT_MARGINS = 50;
+    const int PRINT_COLS = 6;
 
 
     //SETTINGS
@@ -28,13 +30,14 @@ namespace report {
     const QString ORDINE_COL4 = "Ordine.col4";
 
 
-    //Select usata nel combobox in MagazzinoWindow per il filtro fornitore.
-    const QString SELECT_FILTER_FORNITORI = "SELECT \"Id\" as id, "
-                                                   "\"Ragione sociale\" as descr "
-                                            "FROM vw_anagrafica_fornitori";
+    //SELECT utilizzata per la stampa del listino completo
+    const QString SELECT_ALL_ARTICLE_FROM_FORNITORE = magazzino::SELECT_ARTICOLI_ALL +
+            " AND an.rag_sociale='%1'";
 
-    //Select utilizzata per la stampa dei listini
-    //const QString SELECT_ARTICOLI_FROM_FORN = "SELECT * FROM vw_magazzino WHERE \"Fornitore\" = '%1'";
+    //SELECT utilizzata per la stampa del listino con data odierna
+    const QString SELECT_ARTICLE_WITH_CURRENT_DATE = magazzino::SELECT_ARTICOLI_ALL +
+            "AND an.rag_sociale='%1' AND data_arrivo=current_date";
+
 
     //Select utilizzata per la stampa dell'inventario
     const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
