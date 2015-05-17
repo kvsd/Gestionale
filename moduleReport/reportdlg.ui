@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>346</height>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,6 +69,9 @@
         <property name="text">
          <string>Stampa listino con data arrivo odierna</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
@@ -82,17 +85,43 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+    <widget class="QGroupBox" name="ordineGroupBox">
+     <property name="title">
+      <string>Ordine</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>CheckBox</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="inventarioGroupBox">
+     <property name="title">
+      <string>Inventario</string>
      </property>
-    </spacer>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QCheckBox" name="checkBox_2">
+        <property name="text">
+         <string>CheckBox</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="pdfCheckBox">
+     <property name="text">
+      <string>Stampa su pdf</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -184,9 +213,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>reportComboBox</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>ReportDlg</receiver>
+   <slot>showOptions(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>print()</slot>
   <slot>launchConfigDlg()</slot>
+  <slot>showOptions(QString)</slot>
  </slots>
 </ui>

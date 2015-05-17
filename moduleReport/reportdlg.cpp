@@ -8,9 +8,14 @@ ReportDlg::ReportDlg(QWidget *parent) :
     qDebug() << "ReportDlg::PrintReport()";
     ui->setupUi(this);
 
-    printer = new QPrinter(QPrinter::HighResolution);
-    painter = new QPainter;
+
     printModel = new QSqlQueryModel(this);
+
+    CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
+    CURRENT_DATE_FS = QDate::currentDate().toString("yyyyMMdd");
+    CURRENT_YEARS = QDate::currentDate().toString("yyyy");
+
+    showOptions(ui->reportComboBox->currentText());
     initComboBox();
 }
 
@@ -18,8 +23,6 @@ ReportDlg::~ReportDlg()
 {
     qDebug() << "ReportDlg::~PrintReport()";
     delete ui;
-    delete printer;
-    delete painter;
 }
 
 void ReportDlg::initComboBox()
@@ -32,15 +35,33 @@ void ReportDlg::initComboBox()
     ui->fornitoreComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 }
 
+void ReportDlg::setupPrinter()
+{
+    qDebug() << "Report::setupPrinter()";
+    printer = new QPrinter(QPrinter::HighResolution);
+    printer->setOutputFileName(QString("/home/kvsd/%1_%2.pdf").arg(fornitore).arg(CURRENT_DATE_FS));
+    printer->setOrientation(QPrinter::Portrait);
+    if (ui->pdfCheckBox->isChecked())
+        printer->setOutputFormat(QPrinter::PdfFormat);
+    else
+        printer->setOutputFormat(QPrinter::NativeFormat);
+}
+
+void ReportDlg::initPainter()
+{
+    //Configura QPainter
+    qDebug() << "ReportDlg::initPainter()";
+    painter = new QPainter;
+    painter->begin(printer);
+    QPen pen;
+    pen.setWidth(10);
+    painter->setPen(pen);
+}
+
 void ReportDlg::print()
 {
-    //ISTRUZIONI TESTING PER PDF
-    printer->setOutputFileName("/home/kvsd/test.pdf");
-    printer->setOutputFormat(QPrinter::PdfFormat);
-    printer->setOrientation(QPrinter::Portrait);
-    //---------------------------------------------
-
-    painter->begin(printer);
+    setReport(report::LISTINO);
+    setupPrinter();
     initPainter();
 
     pageHeight = printer->height();
@@ -55,19 +76,17 @@ void ReportDlg::print()
     col3Rect = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
     col4Rect = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
 
-    setReport(report::LISTINO);
     printHeader(titleStr.arg(1));
     printData(reportType);
     painter->end();
+    delete printer;
+    delete painter;
 }
 
 void ReportDlg::setReport(report::Documenti reportType)
 {
     //In base al tipo di report configura il model e le variabili colXName
     qDebug() << "ReportDlg::setReport()";
-
-    QString CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
-    QString CURRENT_YEARS = QDate::currentDate().toString("yyyy");
 
     if (reportType == report::LISTINO) {
         fornitore = ui->fornitoreComboBox->currentText();
@@ -115,7 +134,6 @@ void ReportDlg::printHeader(QString titleStr)
 
     //Stampo l'intestazione delle tabelle
     setRow(0);
-
     painter->drawText(col1Rect, Qt::AlignCenter, col1Name);
     painter->drawText(col2Rect, Qt::AlignCenter, col2Name);
     painter->drawText(col3Rect, Qt::AlignCenter, col3Name);
@@ -173,16 +191,6 @@ void ReportDlg::printData(report::Documenti reportType)
     if (reportType == report::INVENTARIO) {
         printTotale(row+1);
     }
-
-}
-
-void ReportDlg::initPainter()
-{
-    //Configurazione base di QPainter
-    qDebug() << "ReportDlg::initPainter()";
-    QPen pen;
-    pen.setWidth(10);
-    painter->setPen(pen);
 }
 
 void ReportDlg::setRow(int row)
@@ -222,4 +230,25 @@ void ReportDlg::launchConfigDlg()
     qDebug() << "ReportDlg::launchConfigDlg()";
     ConfigPrintDialog dlg(this);
     dlg.exec();
+}
+
+void ReportDlg::showOptions(QString text)
+{
+    qDebug() << "ReportDlg::showOptions()";
+    if (text == "Listino") {
+        ui->listinoGroupBox->setVisible(true);
+        ui->ordineGroupBox->setVisible(false);
+        ui->inventarioGroupBox->setVisible(false);
+    }
+    else if (text == "Ordine") {
+        ui->listinoGroupBox->setVisible(false);
+        ui->ordineGroupBox->setVisible(true);
+        ui->inventarioGroupBox->setVisible(false);
+    }
+    else if (text == "Inventario") {
+        ui->listinoGroupBox->setVisible(false);
+        ui->ordineGroupBox->setVisible(false);
+        ui->inventarioGroupBox->setVisible(true);
+    }
+    adjustSize();
 }

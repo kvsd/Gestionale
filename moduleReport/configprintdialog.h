@@ -34,7 +34,6 @@ private:
 
 public slots:
     void save();
-
 };
 
 #endif // CONFIGPRINTDIALOG_H

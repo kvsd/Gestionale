@@ -52,15 +52,20 @@ private:
     QRect col4Rect;
     QRect titleRect;
 
+    QString CURRENT_DATE;
+    QString CURRENT_DATE_FS; //per salvataggio pdf
+    QString CURRENT_YEARS;
+
     QPrinter *printer;
     QPainter *painter;
 
     void initComboBox();
+    void setupPrinter();
+    void initPainter();
     void setReport(report::Documenti reportType);
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);
     void printData(report::Documenti reportType);
-    void initPainter();
     void setRow(int row);
     void printTotale(int row);
 
@@ -69,6 +74,7 @@ signals:
 public slots:
     void print();
     void launchConfigDlg();
+    void showOptions(QString text);
 
 };
 
