@@ -15,6 +15,7 @@
 #include <QPainter>
 #include <QPrintDialog>
 #include <QSqlRecord>
+#include <QMessageBox>
 
 namespace Ui {
 class ReportDlg;
@@ -53,15 +54,14 @@ private:
     QRect titleRect;
 
     QString CURRENT_DATE;
-    QString CURRENT_DATE_FS; //per salvataggio pdf
     QString CURRENT_YEARS;
 
     QPrinter *printer;
     QPainter *painter;
 
     void initComboBox();
-    void setupPrinter();
-    void initPainter();
+    bool setupPrinter();
+    bool initPainter();
     void setReport(report::Documenti reportType);
     void printHeader(QString titleStr);
     void printRow(int row, QSqlRecord record);

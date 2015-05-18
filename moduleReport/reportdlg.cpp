@@ -8,11 +8,9 @@ ReportDlg::ReportDlg(QWidget *parent) :
     qDebug() << "ReportDlg::PrintReport()";
     ui->setupUi(this);
 
-
     printModel = new QSqlQueryModel(this);
 
     CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
-    CURRENT_DATE_FS = QDate::currentDate().toString("yyyyMMdd");
     CURRENT_YEARS = QDate::currentDate().toString("yyyy");
 
     showOptions(ui->reportComboBox->currentText());
@@ -35,37 +33,37 @@ void ReportDlg::initComboBox()
     ui->fornitoreComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 }
 
-void ReportDlg::setupPrinter()
+bool ReportDlg::setupPrinter()
 {
     qDebug() << "Report::setupPrinter()";
     printer = new QPrinter(QPrinter::HighResolution);
-    printer->setOrientation(QPrinter::Portrait);
-    if (ui->pdfCheckBox->isChecked()) {
-        printer->setOutputFormat(QPrinter::PdfFormat);
-        printer->setOutputFileName(QString("/home/kvsd/%1_%2.pdf").arg(fornitore).arg(CURRENT_DATE_FS));
-    }
-    else {
-        printer->setOutputFileName("");
-        printer->setOutputFormat(QPrinter::NativeFormat);
-    }
+    QPrintDialog dlg(printer, this);
+    if (dlg.exec() == QPrintDialog::Accepted)
+        return true;
+    else
+        return false;
 }
 
-void ReportDlg::initPainter()
+bool ReportDlg::initPainter()
 {
     //Configura QPainter
     qDebug() << "ReportDlg::initPainter()";
     painter = new QPainter;
-    painter->begin(printer);
+    if (!painter->begin(printer))
+        return false;
     QPen pen;
     pen.setWidth(10);
     painter->setPen(pen);
+    return true;
 }
 
 void ReportDlg::print()
 {
     setReport(report::LISTINO);
-    setupPrinter();
-    initPainter();
+    if (!setupPrinter())
+        return;
+    if (!initPainter())
+        return;
 
     pageHeight = printer->height();
     pageWidth = printer->width();
@@ -82,8 +80,22 @@ void ReportDlg::print()
     printHeader(titleStr.arg(1));
     printData(reportType);
     painter->end();
+
+    QString info;
+    if (printer->outputFileName() != "")
+        info = "Il file pdf è stato creato.";
+    else
+        info = "Il processo di stampa è stato avviato.";
+
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::information(this, "Stampa", info+"Continuare?",
+                                   QMessageBox::Yes, QMessageBox::No);
     delete printer;
     delete painter;
+    if (ret == QMessageBox::Yes)
+        return;
+    else if (ret == QMessageBox::No)
+        this->close();
 }
 
 void ReportDlg::setReport(report::Documenti reportType)
