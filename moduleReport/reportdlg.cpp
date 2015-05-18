@@ -39,12 +39,15 @@ void ReportDlg::setupPrinter()
 {
     qDebug() << "Report::setupPrinter()";
     printer = new QPrinter(QPrinter::HighResolution);
-    printer->setOutputFileName(QString("/home/kvsd/%1_%2.pdf").arg(fornitore).arg(CURRENT_DATE_FS));
     printer->setOrientation(QPrinter::Portrait);
-    if (ui->pdfCheckBox->isChecked())
+    if (ui->pdfCheckBox->isChecked()) {
         printer->setOutputFormat(QPrinter::PdfFormat);
-    else
+        printer->setOutputFileName(QString("/home/kvsd/%1_%2.pdf").arg(fornitore).arg(CURRENT_DATE_FS));
+    }
+    else {
+        printer->setOutputFileName("");
         printer->setOutputFormat(QPrinter::NativeFormat);
+    }
 }
 
 void ReportDlg::initPainter()
