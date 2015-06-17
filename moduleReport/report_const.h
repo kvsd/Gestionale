@@ -48,17 +48,13 @@ namespace report {
                               "FROM vw_magazzino WHERE \"Quantità\"!=0");
 
     //Select utilizzata per la stampa degli ordini
-    const QString SELECT_ORDINE =
-            QString::fromUtf8("SELECT * FROM vw_magazzino "
-                              "WHERE \"Quantità\" <= \"Scorta Minima\" "
-                              "AND \"Fornitore\" = '%1'");
+    const QString SELECT_ORDINE = magazzino::SELECT_ARTICOLI_ALL +
+            QString::fromUtf8(" AND mg.quantita <= mg.scorta_minima "
+                              " AND an.rag_sociale = '%1'");
 
-    enum Documenti {
-        FATTURA,
-        INVENTARIO,
-        ORDINE,
-        LISTINO
-    };
+    const QString LISTINO = "Listino";
+    const QString INVENTARIO = "Inventario";
+    const QString ORDINE = "Ordine";
 
         //CMP Nome Campo Tabella sql
         const QString CMP_ID      = "Id";
