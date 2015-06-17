@@ -8,13 +8,15 @@ ReportDlg::ReportDlg(QWidget *parent) :
     qDebug() << "ReportDlg::PrintReport()";
     ui->setupUi(this);
 
-    printModel = new QSqlQueryModel(this);
+    m_printModel = new QSqlQueryModel(this);
+    m_ordineModel = new QStandardItemModel(this);
+    ui->orderView->setModel(m_ordineModel);
 
     CURRENT_DATE = QDate::currentDate().toString("dd/MM/yyyy");
     CURRENT_YEARS = QDate::currentDate().toString("yyyy");
 
-    showOptions(ui->reportComboBox->currentText());
     initComboBox();
+    showOptions(ui->reportComboBox->currentText());
 }
 
 ReportDlg::~ReportDlg()
@@ -27,17 +29,27 @@ void ReportDlg::initComboBox()
 {
     qDebug() << "Report::initComboBox()";
     //Configura il model e il combobox fornitore
-    fornitoreModel = new QSqlQueryModel(this);
-    fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
-    ui->fornitoreComboBox->setModel(fornitoreModel);
+    m_fornitoreModel = new QSqlQueryModel(this);
+    m_fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
+    ui->fornitoreComboBox->blockSignals(true);
+    ui->fornitoreComboBox->setModel(m_fornitoreModel);
     ui->fornitoreComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->fornitoreComboBox->blockSignals(false);
+
+    //Configura il combobox reportType
+    QStringList items;
+    items << report::LISTINO << report::ORDINE << report::INVENTARIO;
+    ui->reportComboBox->blockSignals(true);
+    ui->reportComboBox->addItems(items);
+    ui->reportComboBox->blockSignals(false);
 }
 
 bool ReportDlg::setupPrinter()
 {
+    //Imposta QPrinter tramite PrintDialog
     qDebug() << "Report::setupPrinter()";
-    printer = new QPrinter(QPrinter::HighResolution);
-    QPrintDialog dlg(printer, this);
+    m_printer = new QPrinter(QPrinter::HighResolution);
+    QPrintDialog dlg(m_printer, this);
     if (dlg.exec() == QPrintDialog::Accepted)
         return true;
     else
@@ -48,96 +60,126 @@ bool ReportDlg::initPainter()
 {
     //Configura QPainter
     qDebug() << "ReportDlg::initPainter()";
-    painter = new QPainter;
-    if (!painter->begin(printer))
+    m_painter = new QPainter;
+    if (!m_painter->begin(m_printer))
         return false;
     QPen pen;
     pen.setWidth(10);
-    painter->setPen(pen);
+    m_painter->setPen(pen);
     return true;
 }
 
 void ReportDlg::print()
 {
-    setReport(report::LISTINO);
     if (!setupPrinter())
         return;
     if (!initPainter())
         return;
 
-    pageHeight = printer->height();
-    pageWidth = printer->width();
-    colWidth = pageWidth/report::PRINT_COLS;
+    m_pageHeight = m_printer->height();
+    m_pageWidth = m_printer->width();
+    m_colWidth = m_pageWidth/report::PRINT_COLS;
 
-    titleRect = QRect(0, 0, pageWidth, report::PRINT_TITLE_HEIGHT);
+    m_titleRect = QRect(0, 0, m_pageWidth, report::PRINT_TITLE_HEIGHT);
     const int leftMargin = report::PRINT_MARGINS;
     const int rightMargin = report::PRINT_MARGINS*2;
-    col1Rect = QRect(colWidth*0+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
-    col2Rect = QRect(colWidth*1+leftMargin, 0, (colWidth*3)-rightMargin, report::PRINT_COLS_HEIGHT);
-    col3Rect = QRect(colWidth*4+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
-    col4Rect = QRect(colWidth*5+leftMargin, 0, (colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
+    m_col1Rect = QRect(m_colWidth*0+leftMargin, 0, (m_colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
+    m_col2Rect = QRect(m_colWidth*1+leftMargin, 0, (m_colWidth*3)-rightMargin, report::PRINT_COLS_HEIGHT);
+    m_col3Rect = QRect(m_colWidth*4+leftMargin, 0, (m_colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
+    m_col4Rect = QRect(m_colWidth*5+leftMargin, 0, (m_colWidth*1)-rightMargin, report::PRINT_COLS_HEIGHT);
 
-    printHeader(titleStr.arg(1));
-    printData(reportType);
-    painter->end();
+    printHeader(m_titleStr.arg(1));
+    printData();
+    m_painter->end();
 
     QString info;
-    if (printer->outputFileName() != "")
-        info = "Il file pdf è stato creato.";
+    if (m_printer->outputFileName() != "")
+        info = tr("Il file pdf è € stato creato.");
     else
         info = "Il processo di stampa è stato avviato.";
 
     QMessageBox::StandardButton ret;
-    ret = QMessageBox::information(this, "Stampa", info+"Continuare?",
+    ret = QMessageBox::information(this, "Stampa", info+"Uscire?",
                                    QMessageBox::Yes, QMessageBox::No);
-    delete printer;
-    delete painter;
+    delete m_printer;
+    delete m_painter;
     if (ret == QMessageBox::Yes)
-        return;
-    else if (ret == QMessageBox::No)
         this->close();
+    else if (ret == QMessageBox::No)
+        return;
 }
 
-void ReportDlg::setReport(report::Documenti reportType)
+void ReportDlg::setReport()
 {
     //In base al tipo di report configura il model e le variabili colXName
     qDebug() << "ReportDlg::setReport()";
-
+    const QString reportType = ui->reportComboBox->currentText();
     if (reportType == report::LISTINO) {
-        fornitore = ui->fornitoreComboBox->currentText();
-        titleStr = QString("Listino %1 del %2 pag. %3").arg(fornitore).arg(CURRENT_DATE);
+        m_titleStr = QString("Listino %1 del %2 pag. %3").arg(m_fornitore).arg(CURRENT_DATE);
         QString query = "";
         if (ui->listinoPrintCurrentDate->isChecked())
-            query = report::SELECT_ARTICLE_WITH_CURRENT_DATE.arg(fornitore);
+            query = report::SELECT_ARTICLE_WITH_CURRENT_DATE.arg(m_fornitore);
         else if (ui->listinoPrintAll->isChecked())
-            query = report::SELECT_ALL_ARTICLE_FROM_FORNITORE.arg(fornitore);
+            query = report::SELECT_ALL_ARTICLE_FROM_FORNITORE.arg(m_fornitore);
 
-        printModel->setQuery(query);
-        col1Name = settings.value(report::LISTINO_COL1, report::CMP_COD_ART).toString();
-        col2Name = settings.value(report::LISTINO_COL2, report::CMP_DESCR).toString();
-        col3Name = settings.value(report::LISTINO_COL3, report::CMP_PRZ_ACQ).toString();
-        col4Name = settings.value(report::LISTINO_COL4, report::CMP_PRZ_VEN).toString();
+        m_printModel->setQuery(query);
+        m_col1Name = m_settings.value(report::LISTINO_COL1, report::CMP_COD_ART).toString();
+        m_col2Name = m_settings.value(report::LISTINO_COL2, report::CMP_DESCR).toString();
+        m_col3Name = m_settings.value(report::LISTINO_COL3, report::CMP_PRZ_ACQ).toString();
+        m_col4Name = m_settings.value(report::LISTINO_COL4, report::CMP_PRZ_VEN).toString();
     }
-//    else if (reportType == report::INVENTARIO) {
-//        titleStr = QString("Inventario %1 pag. %2").arg(CURRENT_YEARS);
-//        printModel->setQuery(report::SELECT_INVENTARIO);
-//        col1Name = report::CMP_QT;
-//        col2Name = report::CMP_DESCR;
-//        col3Name = report::CMP_PRZ_ACQ;
-//        col4Name = report::CMP_SUBTOT;
-//    }
-//    else if  (reportType == report::ORDINE) {
-//        titleStr = QString("Ordine %1 del %2 pag.%3").arg(fornitore).arg(CURRENT_DATE);
-//        QString query = report::SELECT_ORDINE.arg(fornitore);
-//        printModel->setQuery(query);
-//        col1Name = settings.value(report::ORDINE_COL1, report::CMP_COD_ART).toString();
-//        col2Name = settings.value(report::ORDINE_COL2, report::CMP_DESCR).toString();
-//        col3Name = settings.value(report::ORDINE_COL3, report::CMP_QT).toString();
-//        col4Name = settings.value(report::ORDINE_COL4, report::CMP_SCORTA).toString();
-//    }
-//    else {
-//        return;
-//    }
+    else if (reportType == report::INVENTARIO) {
+        m_titleStr = QString("Inventario %1 pag. %2").arg(CURRENT_YEARS);
+        m_printModel->setQuery(report::SELECT_INVENTARIO);
+        m_col1Name = report::CMP_QT;
+        m_col2Name = report::CMP_DESCR;
+        m_col3Name = report::CMP_PRZ_ACQ;
+        m_col4Name = report::CMP_SUBTOT;
+    }
+    else if (reportType == report::ORDINE) {
+        m_titleStr = QString("Ordine %1 del %2 pag.%3").arg(m_fornitore).arg(CURRENT_DATE);
+        QString query = report::SELECT_ORDINE.arg(m_fornitore);
+        m_printModel->setQuery(query);
+        m_col1Name = m_settings.value(report::ORDINE_COL1, report::CMP_COD_ART).toString();
+        m_col2Name = m_settings.value(report::ORDINE_COL2, report::CMP_DESCR).toString();
+        m_col3Name = m_settings.value(report::ORDINE_COL3, report::CMP_QT).toString();
+        m_col4Name = m_settings.value(report::ORDINE_COL4, report::CMP_SCORTA).toString();
+        initOrderView(m_printModel);
+    }
+}
+
+void ReportDlg::initOrderView(QSqlQueryModel *model)
+{
+    qDebug() << "ReportDlg::initListView()";
+    const int ROWS = model->rowCount();
+    const int COLS = 5; //le quattro colonne classiche piu' la colonna per il checkbox
+
+    m_ordineModel->setColumnCount(COLS);
+    m_ordineModel->setRowCount(ROWS);
+
+    //Imposto i nomi delle intestazioni della tabella ordini
+    QStringList headersName;
+    headersName << "Id" << m_col1Name << m_col2Name << m_col3Name << m_col4Name;
+    for (int col=0; col<COLS; col++) {
+        m_ordineModel->setHeaderData(col, Qt::Horizontal, headersName[col]);
+    }
+
+    //Leggo i dati da model e li carico in m_ordineModel
+    for (int row=0; row<ROWS; row++) {
+        for (int col=0; col<COLS; col++) {
+            QStandardItem *Item = new QStandardItem();
+            if (col == 0) {
+                Item->setCheckable(true);
+                Item->setEditable(false);
+            }
+            QString name = model->record(row).value(headersName[col]).toString();
+            Item->setText(name);
+            m_ordineModel->setItem(row, col, Item);
+        }
+    }
+
+    ui->orderView->horizontalHeader()->setStretchLastSection(true);
+    ui->orderView->resizeColumnsToContents();
 }
 
 void ReportDlg::printHeader(QString titleStr)
@@ -145,67 +187,97 @@ void ReportDlg::printHeader(QString titleStr)
     //Stampa l'intestazione titleStr e l'header del report con colXName
     qDebug() << "ReportDlg::printHeader()";
     //Stampo titolo
-    painter->drawText(titleRect, Qt::AlignLeft|Qt::AlignVCenter, titleStr, &titleRect);
+    m_painter->drawText(m_titleRect, Qt::AlignLeft|Qt::AlignVCenter, titleStr, &m_titleRect);
 
     //Stampo l'intestazione delle tabelle
     setRow(0);
-    painter->drawText(col1Rect, Qt::AlignCenter, col1Name);
-    painter->drawText(col2Rect, Qt::AlignCenter, col2Name);
-    painter->drawText(col3Rect, Qt::AlignCenter, col3Name);
-    painter->drawText(col4Rect, Qt::AlignCenter, col4Name);
+    m_painter->drawText(m_col1Rect, Qt::AlignCenter, m_col1Name);
+    m_painter->drawText(m_col2Rect, Qt::AlignCenter, m_col2Name);
+    m_painter->drawText(m_col3Rect, Qt::AlignCenter, m_col3Name);
+    m_painter->drawText(m_col4Rect, Qt::AlignCenter, m_col4Name);
 
     //Stampo la cornice dell'intestazione
-    painter->drawLine(0, report::PRINT_TITLE_HEIGHT, pageWidth, report::PRINT_TITLE_HEIGHT);
-    painter->drawLine(0, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT, pageWidth, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT);
+    m_painter->drawLine(0, report::PRINT_TITLE_HEIGHT, m_pageWidth, report::PRINT_TITLE_HEIGHT);
+    m_painter->drawLine(0, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT, m_pageWidth, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
         if (i==2 || i==3) continue;
-        painter->drawLine(colWidth*i, report::PRINT_TITLE_HEIGHT, colWidth*i, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT );
+        m_painter->drawLine(m_colWidth*i, report::PRINT_TITLE_HEIGHT, m_colWidth*i, report::PRINT_TITLE_HEIGHT+report::PRINT_COLS_HEIGHT );
     }
 }
 
-void ReportDlg::printRow(int row, QSqlRecord record)
+void ReportDlg::printRow(int row, QStringList rowValues)
 {
-    //Stampa alla riga row il record passato come parametro.
-    //I campi sono definiti tramite configPrintDialog
-    qDebug() << "ReportDlg::printRow()";
     setRow(row);
+    if (rowValues.isEmpty()) {
+        return;
+    }
+    QList <QRect> rectCols;
+    rectCols << m_col1Rect << m_col2Rect << m_col3Rect << m_col4Rect;
 
-    QString col1Value = record.value(col1Name).toString();
-    QString col2Value = record.value(col2Name).toString();
-    QString col3Value = record.value(col3Name).toString();
-    QString col4Value = record.value(col4Name).toString();
+    for (int col=0; col<4; col++) {
+        m_painter->drawText(rectCols[col], Qt::AlignLeft|Qt::AlignVCenter, rowValues[col]);
+    }
 
-    painter->drawText(col1Rect, Qt::AlignLeft|Qt::AlignVCenter, col1Value);
-    painter->drawText(col2Rect, Qt::AlignLeft|Qt::AlignVCenter, col2Value);
-    painter->drawText(col3Rect, Qt::AlignRight|Qt::AlignVCenter, col3Value);
-    painter->drawText(col4Rect, Qt::AlignRight|Qt::AlignVCenter, col4Value);
-
-    painter->drawLine(0, col1Rect.y()+report::PRINT_COLS_HEIGHT, pageWidth, col1Rect.y()+report::PRINT_COLS_HEIGHT);
+    m_painter->drawLine(0, m_col1Rect.y()+report::PRINT_COLS_HEIGHT, m_pageWidth, m_col1Rect.y()+report::PRINT_COLS_HEIGHT);
     for (int i=0; i<7; i++) {
         if (i==2 || i==3) continue;
-        painter->drawLine(colWidth*i, col1Rect.y(), colWidth*i, col1Rect.y()+report::PRINT_COLS_HEIGHT);
+        m_painter->drawLine(m_colWidth*i, m_col1Rect.y(), m_colWidth*i, m_col1Rect.y()+report::PRINT_COLS_HEIGHT);
     }
 }
 
-void ReportDlg::printData(report::Documenti reportType)
+QStringList ReportDlg::getFields(QSqlRecord record)
+{
+    QStringList list;
+    QStringList fieldName;
+    fieldName << m_col1Name << m_col2Name << m_col3Name << m_col4Name;
+    for (int col=0; col<4; col++) {
+        list << record.value(fieldName[col]).toString();
+    }
+    return list;
+}
+
+QStringList ReportDlg::getFields(QList<QStandardItem*> items)
+{
+    QStringList list;
+    for (int col=1; col<5; col++) {
+        list << items[col]->text();
+    }
+    return list;
+}
+
+void ReportDlg::printData()
 {
     //Stampa tutte i record presenti nel model
     qDebug() << "ReportDlg::printData()";
-    const int MAX_ROW = (pageHeight-report::PRINT_TITLE_HEIGHT)/report::PRINT_COLS_HEIGHT;
-    const int ROWS = printModel->rowCount();
-    int row = 0;
+    const int MAX_ROW = (m_pageHeight-report::PRINT_TITLE_HEIGHT)/report::PRINT_COLS_HEIGHT;
+    const int ROWS = m_printModel->rowCount();
+    int row = 1;
     int page = 2;
+
+    const QString reportType = ui->reportComboBox->currentText();
+
     for (int i=0; i<ROWS; i++, row++) {
         if (i%MAX_ROW == 0 && i!=0) {
-            printer->newPage();
-            row = 0;
-            printHeader(titleStr.arg(page++));
+            m_printer->newPage();
+            row = 1;
+            printHeader(m_titleStr.arg(page++));
         }
-        printRow(row+1, printModel->record(i));
+        QStringList fields;
+        if (reportType == report::LISTINO || reportType == report::INVENTARIO) {
+            QSqlRecord record = m_printModel->record(i);
+            fields = getFields(record);
+        }
+        else if (reportType == report::ORDINE) {
+            QList <QStandardItem *> items = m_ordineModel->takeRow(0);
+            if (items[0]->checkState())
+                fields = getFields(items);
+            else
+                row--;
+        }
+        printRow(row, fields);
     }
-    if (reportType == report::INVENTARIO) {
-        printTotale(row+1);
-    }
+    if (reportType == report::INVENTARIO)
+        printTotale(row);
 }
 
 void ReportDlg::setRow(int row)
@@ -213,14 +285,15 @@ void ReportDlg::setRow(int row)
     //Imposta la riga per la stampa
     qDebug() << "ReportDlg::setRow()";
     const int y = (row*report::PRINT_COLS_HEIGHT)+report::PRINT_TITLE_HEIGHT;
-    col1Rect.moveTop(y);
-    col2Rect.moveTop(y);
-    col3Rect.moveTop(y);
-    col4Rect.moveTop(y);
+    m_col1Rect.moveTop(y);
+    m_col2Rect.moveTop(y);
+    m_col3Rect.moveTop(y);
+    m_col4Rect.moveTop(y);
 }
 
 void ReportDlg::printTotale(int row)
 {
+    //Interroga il database e stampa il totale dell'inventario
     qDebug() << "ReportDlg::printTotale()";
     setRow(row);
 
@@ -231,13 +304,13 @@ void ReportDlg::printTotale(int row)
 
     const int leftMargin = report::PRINT_MARGINS;
     const int rightMargin = report::PRINT_MARGINS*2;
-    QRect coltot(colWidth*4+leftMargin, col1Rect.y(), (colWidth*2)-rightMargin, report::PRINT_COLS_HEIGHT);
+    QRect coltot(m_colWidth*4+leftMargin, m_col1Rect.y(), (m_colWidth*2)-rightMargin, report::PRINT_COLS_HEIGHT);
 
-    painter->drawText(coltot, Qt::AlignRight|Qt::AlignVCenter, msg.arg(totale));
-    painter->drawLine(col3Rect.x()-report::PRINT_MARGINS, col1Rect.y()+report::PRINT_COLS_HEIGHT,
-                      pageWidth, col1Rect.y()+report::PRINT_COLS_HEIGHT);
-    painter->drawLine(colWidth*4, col1Rect.y(), colWidth*4, col1Rect.y()+report::PRINT_COLS_HEIGHT);
-    painter->drawLine(colWidth*6, col1Rect.y(), colWidth*6, col1Rect.y()+report::PRINT_COLS_HEIGHT);
+    m_painter->drawText(coltot, Qt::AlignRight|Qt::AlignVCenter, msg.arg(totale));
+    m_painter->drawLine(m_col3Rect.x()-report::PRINT_MARGINS, m_col1Rect.y()+report::PRINT_COLS_HEIGHT,
+                      m_pageWidth, m_col1Rect.y()+report::PRINT_COLS_HEIGHT);
+    m_painter->drawLine(m_colWidth*4, m_col1Rect.y(), m_colWidth*4, m_col1Rect.y()+report::PRINT_COLS_HEIGHT);
+    m_painter->drawLine(m_colWidth*6, m_col1Rect.y(), m_colWidth*6, m_col1Rect.y()+report::PRINT_COLS_HEIGHT);
 }
 
 void ReportDlg::launchConfigDlg()
@@ -249,21 +322,38 @@ void ReportDlg::launchConfigDlg()
 
 void ReportDlg::showOptions(QString text)
 {
+    //Slot collegato al segnale currentTextChanged del widget reportComboBox
+    //Modifica la gui in base alla selezione.
     qDebug() << "ReportDlg::showOptions()";
-    if (text == "Listino") {
+    if (text == report::LISTINO) {
+        ui->fornitoreLabel->setVisible(true);
+        ui->fornitoreComboBox->setVisible(true);
         ui->listinoGroupBox->setVisible(true);
         ui->ordineGroupBox->setVisible(false);
         ui->inventarioGroupBox->setVisible(false);
     }
-    else if (text == "Ordine") {
+    else if (text == report::ORDINE) {
+        ui->fornitoreLabel->setVisible(true);
+        ui->fornitoreComboBox->setVisible(true);
         ui->listinoGroupBox->setVisible(false);
         ui->ordineGroupBox->setVisible(true);
         ui->inventarioGroupBox->setVisible(false);
     }
-    else if (text == "Inventario") {
+    else if (text == report::INVENTARIO) {
+        ui->fornitoreLabel->setVisible(false);
+        ui->fornitoreComboBox->setVisible(false);
         ui->listinoGroupBox->setVisible(false);
         ui->ordineGroupBox->setVisible(false);
         ui->inventarioGroupBox->setVisible(true);
     }
     adjustSize();
+    setReport();
+}
+
+void ReportDlg::updateFornitore(QString fornitore)
+{
+    //Slot collegato a fornitoreComboBox
+    qDebug() << "ReportDlg::updateFornitore()";
+    m_fornitore = fornitore;
+    setReport();
 }

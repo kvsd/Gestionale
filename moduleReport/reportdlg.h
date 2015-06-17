@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QStandardItemModel>
 #include <QPrinter>
 #include <QPainter>
 #include <QPrintDialog>
@@ -32,40 +33,43 @@ public:
 
 private:
     Ui::ReportDlg *ui;
-    QSqlQueryModel *printModel;
-    QSqlQueryModel *fornitoreModel;
-    QSettings settings;
-    int pageWidth;
-    int pageHeight;
-    float colWidth;
+    QSqlQueryModel *m_printModel;
+    QStandardItemModel *m_ordineModel;
+    QSqlQueryModel *m_fornitoreModel;
+    QSettings m_settings;
+    int m_pageWidth;
+    int m_pageHeight;
+    float m_colWidth;
 
-    QString fornitore;
-    QString titleStr;
-    QString col1Name;
-    QString col2Name;
-    QString col3Name;
-    QString col4Name;
-    report::Documenti reportType;
+    QString m_fornitore;
+    QString m_titleStr;
+    QString m_col1Name;
+    QString m_col2Name;
+    QString m_col3Name;
+    QString m_col4Name;
 
-    QRect col1Rect;
-    QRect col2Rect;
-    QRect col3Rect;
-    QRect col4Rect;
-    QRect titleRect;
+    QRect m_col1Rect;
+    QRect m_col2Rect;
+    QRect m_col3Rect;
+    QRect m_col4Rect;
+    QRect m_titleRect;
 
     QString CURRENT_DATE;
     QString CURRENT_YEARS;
 
-    QPrinter *printer;
-    QPainter *painter;
+    QPrinter *m_printer;
+    QPainter *m_painter;
 
     void initComboBox();
     bool setupPrinter();
     bool initPainter();
-    void setReport(report::Documenti reportType);
-    void printHeader(QString titleStr);
-    void printRow(int row, QSqlRecord record);
-    void printData(report::Documenti reportType);
+    void setReport();
+    void initOrderView(QSqlQueryModel *model);
+    void printHeader(QString m_titleStr);
+    void printRow(int row, QStringList rowValues);
+    QStringList getFields(QSqlRecord record);
+    QStringList getFields(QList<QStandardItem *> items);
+    void printData();
     void setRow(int row);
     void printTotale(int row);
 
@@ -75,6 +79,8 @@ public slots:
     void print();
     void launchConfigDlg();
     void showOptions(QString text);
+    void updateFornitore(QString fornitore);
+
 
 };
 
