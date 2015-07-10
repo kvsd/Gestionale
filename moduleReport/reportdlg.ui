@@ -218,11 +218,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>listinoPrintCurrentDate</sender>
+   <signal>clicked()</signal>
+   <receiver>ReportDlg</receiver>
+   <slot>setReport()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>397</x>
+     <y>123</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listinoPrintAll</sender>
+   <signal>clicked()</signal>
+   <receiver>ReportDlg</receiver>
+   <slot>setReport()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>169</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>print()</slot>
   <slot>launchConfigDlg()</slot>
   <slot>showOptions(QString)</slot>
   <slot>updateFornitore(QString)</slot>
+  <slot>setReport()</slot>
  </slots>
 </ui>

@@ -63,7 +63,6 @@ private:
     void initComboBox();
     bool setupPrinter();
     bool initPainter();
-    void setReport();
     void initOrderView(QSqlQueryModel *model);
     void printHeader(QString m_titleStr);
     void printRow(int row, QStringList rowValues);
@@ -75,7 +74,8 @@ private:
 
 signals:
 
-public slots:
+private slots:
+    void setReport();
     void print();
     void launchConfigDlg();
     void showOptions(QString text);

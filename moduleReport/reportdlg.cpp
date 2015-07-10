@@ -94,9 +94,9 @@ void ReportDlg::print()
 
     QString info;
     if (m_printer->outputFileName() != "")
-        info = tr("Il file pdf è € stato creato.");
+        info = tr("Il file pdf è stato creato.");
     else
-        info = "Il processo di stampa è stato avviato.";
+        info = tr("Il processo di stampa è stato avviato.");
 
     QMessageBox::StandardButton ret;
     ret = QMessageBox::information(this, "Stampa", info+"Uscire?",
@@ -215,7 +215,13 @@ void ReportDlg::printRow(int row, QStringList rowValues)
     rectCols << m_col1Rect << m_col2Rect << m_col3Rect << m_col4Rect;
 
     for (int col=0; col<4; col++) {
-        m_painter->drawText(rectCols[col], Qt::AlignLeft|Qt::AlignVCenter, rowValues[col]);
+        int alignment = 0;
+        if (col <= 1)
+            alignment = Qt::AlignLeft|Qt::AlignVCenter;
+        else
+            alignment = Qt::AlignRight|Qt::AlignVCenter;
+
+        m_painter->drawText(rectCols[col],alignment, rowValues[col]);
     }
 
     m_painter->drawLine(0, m_col1Rect.y()+report::PRINT_COLS_HEIGHT, m_pageWidth, m_col1Rect.y()+report::PRINT_COLS_HEIGHT);
@@ -227,6 +233,8 @@ void ReportDlg::printRow(int row, QStringList rowValues)
 
 QStringList ReportDlg::getFields(QSqlRecord record)
 {
+    //Metodo che ritorna una QStringList i valori di record. Il nome dei campi
+    //viene preso dagli attributi di classe m_colXName.
     QStringList list;
     QStringList fieldName;
     fieldName << m_col1Name << m_col2Name << m_col3Name << m_col4Name;
@@ -238,6 +246,8 @@ QStringList ReportDlg::getFields(QSqlRecord record)
 
 QStringList ReportDlg::getFields(QList<QStandardItem*> items)
 {
+    //Metodo che ritorna i valori di items, utilizzata nella
+    //gestione degli ordini
     QStringList list;
     for (int col=1; col<5; col++) {
         list << items[col]->text();
