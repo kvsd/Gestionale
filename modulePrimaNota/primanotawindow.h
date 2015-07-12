@@ -9,10 +9,11 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QSettings>
+#include <QSqlRecord>
 
 #include "primanota_const.h"
-#include "primanotamodel.h"
 #include "primanotaadddlg.h"
+#include "libs/custommodel.h"
 #include "libs/error.h"
 
 namespace Ui {
@@ -34,7 +35,8 @@ protected:
 private:
     Ui::PrimaNotaWindow *ui;
     QSettings settings;
-    PrimaNotaModel *primaNotaModel;
+    //PrimaNotaModel *primaNotaModel;
+    CustomModel *primaNotaModel;
 
     void initModel();
     void initComboBox();

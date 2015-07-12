@@ -14,10 +14,12 @@ public:
     explicit CustomModel(QString colsGroup, Qt::AlignmentFlag textAlignment, QObject *parent = 0);
     QVariant data(const QModelIndex &item, int role) const;
     void loadSettings();
-    void setAlignMap(QMap <QString, Qt::AlignmentFlag> map);
+    void setAlignMap(const QMap <QString, Qt::AlignmentFlag> &map);
+    void setForegroundMap(const QMap<QString, QBrush> &map);
 
 private:
-    QMap<int, QBrush>colorsMaps;
+    QMap<int, QBrush>bgColorsMaps;
+    QMap<QString, QBrush>fgColorsMaps;
     QMap<QString, Qt::AlignmentFlag>alignMaps;
     QString group;
     QSettings settings;

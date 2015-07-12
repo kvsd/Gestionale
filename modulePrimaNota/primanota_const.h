@@ -14,22 +14,31 @@ namespace primanota {
 
     //SQL
     //Select tabella prima nota per la table view
-    const QString SELECT_ALL = "SELECT * FROM vw_prima_nota";
+    //const QString SELECT_ALL = "SELECT * FROM vw_prima_nota";
+    const QString SELECT_ALL =
+            "SELECT id AS \"Id\","
+                   "data AS \"Data\","
+                   "descr AS \"Descrizione\","
+                   "entrata_cassa::money AS \"Entrata Cassa\","
+                   "uscita_cassa::money AS \"Uscita Cassa\","
+                   "entrata_banca::money AS \"Entrata Banca\","
+                   "uscita_banca::money AS \"Uscita Banca\""
+            "FROM prima_nota";
 
     //ORDER FILTER usato per ordinare la table view
-    const QString ORDER_BY = " ORDER BY \"Data\", \"Descrizione\"";
+    const QString ORDER_BY = " ORDER BY \"data\", \"descr\"";
 
     //SEARCH FILTER usato per la ricerca nella table view
-    const QString SEARCH_STR = "\"Descrizione\" ILIKE '%%1%'";
+    const QString SEARCH_STR = "\"descr\" ILIKE '%%1%'";
 
     //MONTH FILTER
-    const QString MONTH_STR = "EXTRACT (MONTH FROM \"Data\") = '%1' AND EXTRACT (YEARS FROM \"Data\") = '%2'";
+    const QString MONTH_STR = "EXTRACT (MONTH FROM \"data\") = '%1' AND EXTRACT (YEARS FROM \"data\") = '%2'";
 
     //YEARS FILTER
-    const QString YEARS_STR = "EXTRACT (YEARS FROM \"Data\") = '%1'";
+    const QString YEARS_STR = "EXTRACT (YEARS FROM \"data\") = '%1'";
 
     //RANGE FILTER
-    const QString RANGE_STR = "\"Data\" >= '%1' AND \"Data\" <= '%2'";
+    const QString RANGE_STR = "\"data\" >= '%1' AND \"data\" <= '%2'";
 
     //Effettua la somma delle colonne entrate e uscite
     //utilizzata nelle label della finestra principale
@@ -72,15 +81,23 @@ namespace primanota {
     //valori della nota selezionata
     const QString SELECT_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
 
-    enum Column {
-        COL_ID = 0,
-        COL_DATA = 1,
-        COL_DESCR = 2,
-        COL_ENT_CASSA = 3,
-        COL_USC_CASSA = 4,
-        COL_ENT_BANCA = 5,
-        COL_USC_BANCA = 6
-    };
+//    enum Column {
+//        COL_ID = 0,
+//        COL_DATA = 1,
+//        COL_DESCR = 2,
+//        COL_ENT_CASSA = 3,
+//        COL_USC_CASSA = 4,
+//        COL_ENT_BANCA = 5,
+//        COL_USC_BANCA = 6
+//    };
+
+    const QString COL_ID = "Id";
+    const QString COL_DATA = "Data";
+    const QString COL_DESCR = "Descrizione";
+    const QString COL_ENT_CASSA = "Entrata Cassa";
+    const QString COL_USC_CASSA = "Uscita Cassa";
+    const QString COL_ENT_BANCA = "Entrata Banca";
+    const QString COL_USC_BANCA = "Uscita Banca";
 
     //PLACEHOLDER SQL
     const QString PH_ID = ":id";

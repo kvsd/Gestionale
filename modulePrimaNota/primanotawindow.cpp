@@ -36,7 +36,19 @@ void PrimaNotaWindow::showEvent(QShowEvent *event)
 void PrimaNotaWindow::initModel()
 {
     qDebug() << "PrimaNotaWindow::initModel()";
-    primaNotaModel = new PrimaNotaModel(this);
+    QMap <QString, Qt::AlignmentFlag> alignMap;
+    alignMap[primanota::COL_DATA] = Qt::AlignLeft;
+    alignMap[primanota::COL_DESCR] = Qt::AlignLeft;
+
+    QMap <QString, QBrush> fgColorMap;
+    fgColorMap[primanota::COL_ENT_BANCA] = QBrush(Qt::blue);
+    fgColorMap[primanota::COL_ENT_CASSA] = QBrush(Qt::blue);
+    fgColorMap[primanota::COL_USC_BANCA] = QBrush(Qt::red);
+    fgColorMap[primanota::COL_USC_CASSA] = QBrush(Qt::red);
+
+    primaNotaModel = new CustomModel("", Qt::AlignRight, this);
+    primaNotaModel->setAlignMap(alignMap);
+    primaNotaModel->setForegroundMap(fgColorMap);
     ui->noteTableView->setModel(primaNotaModel);
 }
 
@@ -44,11 +56,11 @@ void PrimaNotaWindow::initComboBox()
 {
     //Imposta le date nei combobox
     qDebug() << "PrimaNotaWindow::initComboBox()";
-    ui->allRadioButton->blockSignals(true);
-    ui->monthDateEdit->blockSignals(true);
-    ui->yearDateEdit->blockSignals(true);
-    ui->fromDateEdit->blockSignals(true);
-    ui->toDateEdit->blockSignals(true);
+    QList <QWidget*> listWidget;
+    listWidget << ui->allRadioButton << ui->monthDateEdit << ui->yearDateEdit << ui->fromDateEdit << ui->toDateEdit;
+    QWidget *obj;
+    foreach (obj, listWidget)
+        obj->blockSignals(true);
 
     QDate date = QDate::currentDate();
     ui->monthDateEdit->setDate(date);
@@ -57,11 +69,8 @@ void PrimaNotaWindow::initComboBox()
     ui->fromDateEdit->setDate(startOfMonth);
     ui->toDateEdit->setDate(date);
 
-    ui->allRadioButton->blockSignals(false);
-    ui->monthDateEdit->blockSignals(false);
-    ui->yearDateEdit->blockSignals(false);
-    ui->fromDateEdit->blockSignals(false);
-    ui->toDateEdit->blockSignals(false);
+    foreach (obj, listWidget)
+        obj->blockSignals(false);
 }
 
 void PrimaNotaWindow::getInfoLabel()
@@ -93,7 +102,7 @@ void PrimaNotaWindow::updateViewNote()
     qDebug() << "PrimaNotaWindow::updateViewNote()";
     QString query = primanota::SELECT_ALL + prepareFilterQuery();
     primaNotaModel->setQuery(query);
-    ui->noteTableView->hideColumn(primanota::COL_ID);
+    ui->noteTableView->hideColumn(0);
     ui->noteTableView->resizeColumnsToContents();
     ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
     getInfoLabel();
@@ -105,9 +114,8 @@ QString PrimaNotaWindow::prepareFilterQuery()
     QStringList list;
 
     QString searchString = ui->searchLineEdit->text();
-    if (!searchString.isEmpty()) {
+    if (!searchString.isEmpty())
         list.append(primanota::SEARCH_STR.arg(searchString));
-    }
 
     if (ui->monthRadioButton->isChecked()) {
         QDate data = ui->monthDateEdit->date();
@@ -118,7 +126,6 @@ QString PrimaNotaWindow::prepareFilterQuery()
     else if (ui->yearRadioButton->isChecked()) {
         QString years = ui->yearDateEdit->text();
         list.append(primanota::YEARS_STR.arg(years));
-
     }
     else if (ui->rangeRadioButton->isChecked()) {
         QString fromDate = ui->fromDateEdit->text();
@@ -127,12 +134,10 @@ QString PrimaNotaWindow::prepareFilterQuery()
     }
 
     QString str("");
-    if (list.length() == 1) {
+    if (list.length() == 1)
         str = " WHERE " + list[0];
-    }
-    else if (list.length() > 1) {
+    else if (list.length() > 1)
         str = " WHERE " + list.join(" AND ");
-    }
 
     return str+primanota::ORDER_BY;
 }
@@ -142,9 +147,9 @@ void PrimaNotaWindow::addNote()
     qDebug() << "PrimaNotaWindow::addNote()";
     PrimaNotaAddDlg dlg(this);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
+
     updateViewNote();
 }
 
@@ -158,13 +163,13 @@ void PrimaNotaWindow::updateNote()
         return;
     }
 
-    QString id = primaNotaModel->index(index.row(), primanota::COL_ID).data().toString();
+    QString id = primaNotaModel->record(index.row()).value(primanota::COL_ID).toString();
     PrimaNotaAddDlg dlg(this);
     dlg.setValue(id);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
+
     updateViewNote();
 }
 
@@ -176,13 +181,13 @@ void PrimaNotaWindow::removeNote()
         showDialogError(this, ERR048, MSG012); //NOTE codice errore 048
         return;
     }
-    QString id = primaNotaModel->index(index.row(), primanota::COL_ID).data().toString();
+    QString id = primaNotaModel->record(index.row()).value(primanota::COL_ID).toString();
     QSqlQuery query;
     query.prepare(primanota::DELETE_NOTE);
     query.bindValue(primanota::PH_ID, id);
-    if (!query.exec()) {
+    if (!query.exec())
         showDialogError(this, ERR049, MSG003, query.lastError().text()); //NOTE codice errore 049
-    }
+
     updateViewNote();
 }
 

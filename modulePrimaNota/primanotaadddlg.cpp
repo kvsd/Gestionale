@@ -9,6 +9,7 @@ PrimaNotaAddDlg::PrimaNotaAddDlg(QWidget *parent) :
     ui->setupUi(this);
 
     ui->dateEdit->setDate(QDate::currentDate());
+
     descrModel = new QSqlQueryModel(this);
     descrModel->setQuery(primanota::SELECT_DESCR);
     ui->comboBox->setModel(descrModel);
@@ -81,10 +82,8 @@ QSqlQuery PrimaNotaAddDlg::prepareQuery()
         query.prepare(primanota::UPDATE_NOTE);
         query.bindValue(primanota::PH_ID, mapQuery[primanota::PH_ID]);
     }
-    else {
+    else
         query.prepare(primanota::INSERT_NOTE);
-    }
-
 
     query.bindValue(primanota::PH_DATE, mapQuery[primanota::PH_DATE]);
     query.bindValue(primanota::PH_DESCR, mapQuery[primanota::PH_DESCR]);
