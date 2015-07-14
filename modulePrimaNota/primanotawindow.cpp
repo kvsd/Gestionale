@@ -19,8 +19,8 @@ void PrimaNotaWindow::closeEvent(QCloseEvent *event)
 {
     qDebug() << "PrimaNotaWindow::closeEvent()";
     this->parentWidget()->show();
-    settings.setValue(primanota::SPLITTER_SIZE, ui->splitter->saveState());
-    settings.setValue(primanota::WINDOW_SIZE, this->saveGeometry());
+    m_settings.setValue(primanota::SPLITTER_SIZE, ui->splitter->saveState());
+    m_settings.setValue(primanota::WINDOW_SIZE, this->saveGeometry());
     event->accept();
 }
 
@@ -28,8 +28,8 @@ void PrimaNotaWindow::showEvent(QShowEvent *event)
 {
     qDebug() << "PrimaNotaWindow::showEvent()";
     Q_UNUSED(event)
-    ui->splitter->restoreState(settings.value(primanota::SPLITTER_SIZE).toByteArray());
-    restoreGeometry(settings.value(primanota::WINDOW_SIZE).toByteArray());
+    ui->splitter->restoreState(m_settings.value(primanota::SPLITTER_SIZE).toByteArray());
+    restoreGeometry(m_settings.value(primanota::WINDOW_SIZE).toByteArray());
     updateViewNote();
 }
 
@@ -37,19 +37,19 @@ void PrimaNotaWindow::initModel()
 {
     qDebug() << "PrimaNotaWindow::initModel()";
     QMap <QString, Qt::AlignmentFlag> alignMap;
-    alignMap[primanota::COL_DATA] = Qt::AlignLeft;
-    alignMap[primanota::COL_DESCR] = Qt::AlignLeft;
+    alignMap[primanota::COL_VW_DATA] = Qt::AlignLeft;
+    alignMap[primanota::COL_VW_DESCR] = Qt::AlignLeft;
 
     QMap <QString, QBrush> fgColorMap;
-    fgColorMap[primanota::COL_ENT_BANCA] = QBrush(Qt::blue);
-    fgColorMap[primanota::COL_ENT_CASSA] = QBrush(Qt::blue);
-    fgColorMap[primanota::COL_USC_BANCA] = QBrush(Qt::red);
-    fgColorMap[primanota::COL_USC_CASSA] = QBrush(Qt::red);
+    fgColorMap[primanota::COL_VW_ENT_CASSA] = QBrush(Qt::blue);
+    fgColorMap[primanota::COL_VW_ENT_BANCA] = QBrush(Qt::blue);
+    fgColorMap[primanota::COL_VW_USC_CASSA] = QBrush(Qt::red);
+    fgColorMap[primanota::COL_VW_USC_BANCA] = QBrush(Qt::red);
 
-    primaNotaModel = new CustomModel("", Qt::AlignRight, this);
-    primaNotaModel->setAlignMap(alignMap);
-    primaNotaModel->setForegroundMap(fgColorMap);
-    ui->noteTableView->setModel(primaNotaModel);
+    m_primaNotaModel = new CustomModel("", Qt::AlignRight, this);
+    m_primaNotaModel->setAlignMap(alignMap);
+    m_primaNotaModel->setForegroundMap(fgColorMap);
+    ui->noteTableView->setModel(m_primaNotaModel);
 }
 
 void PrimaNotaWindow::initComboBox()
@@ -76,32 +76,30 @@ void PrimaNotaWindow::initComboBox()
 void PrimaNotaWindow::getInfoLabel()
 {
     //Imposta le label dei totali nel pannello a destra
-    qDebug() << "PrimaNotaWindow::getInfoLabel()";
+    qDebug() << "PrimaNotaWindow::getInfoLabel()";    
     QSqlQuery query;
-    query.prepare(primanota::SELECT_SUM);
+    query.prepare(primanota::SELECT_SUM + prepareFilterQuery());
     query.exec();
     query.next();
 
-    QString entrate_cassa = query.value(0).toString();
-    QString entrate_banca = query.value(1).toString();
-    QString uscite_cassa = query.value(2).toString();
-    QString uscite_banca = query.value(3).toString();
+    QSqlRecord record = query.record();
 
-    ui->ecLabel->setText(QString("%1").arg(entrate_cassa));
+    ui->ecLabel->setText(record.value(0).toString());
+    ui->ebLabel->setText(record.value(1).toString());
+    ui->ucLabel->setText(record.value(2).toString());
+    ui->ubLabel->setText(record.value(3).toString());
+
     ui->ecLabel->setStyleSheet(primanota::positive_css);
-    ui->ebLabel->setText(QString("%1").arg(entrate_banca));
     ui->ebLabel->setStyleSheet(primanota::positive_css);
-    ui->ucLabel->setText(QString("%1").arg(uscite_cassa));
     ui->ucLabel->setStyleSheet(primanota::negative_css);
-    ui->ubLabel->setText(QString("%1").arg(uscite_banca));
     ui->ubLabel->setStyleSheet(primanota::negative_css);
 }
 
 void PrimaNotaWindow::updateViewNote()
 {
     qDebug() << "PrimaNotaWindow::updateViewNote()";
-    QString query = primanota::SELECT_ALL + prepareFilterQuery();
-    primaNotaModel->setQuery(query);
+    QString query = primanota::SELECT_ALL + prepareFilterQuery() + primanota::ORDER_BY;
+    m_primaNotaModel->setQuery(query);
     ui->noteTableView->hideColumn(0);
     ui->noteTableView->resizeColumnsToContents();
     ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
@@ -139,7 +137,7 @@ QString PrimaNotaWindow::prepareFilterQuery()
     else if (list.length() > 1)
         str = " WHERE " + list.join(" AND ");
 
-    return str+primanota::ORDER_BY;
+    return str;
 }
 
 void PrimaNotaWindow::addNote()
@@ -163,9 +161,10 @@ void PrimaNotaWindow::updateNote()
         return;
     }
 
-    QString id = primaNotaModel->record(index.row()).value(primanota::COL_ID).toString();
+    QString id = m_primaNotaModel->record(index.row()).value(primanota::COL_DB_ID).toString();
     PrimaNotaAddDlg dlg(this);
     dlg.setValue(id);
+    dlg.setWindowTitle("Modifica Nota");
     bool ok = dlg.exec();
     if (!ok)
         return;
@@ -181,7 +180,7 @@ void PrimaNotaWindow::removeNote()
         showDialogError(this, ERR048, MSG012); //NOTE codice errore 048
         return;
     }
-    QString id = primaNotaModel->record(index.row()).value(primanota::COL_ID).toString();
+    QString id = m_primaNotaModel->record(index.row()).value(primanota::COL_DB_ID).toString();
     QSqlQuery query;
     query.prepare(primanota::DELETE_NOTE);
     query.bindValue(primanota::PH_ID, id);

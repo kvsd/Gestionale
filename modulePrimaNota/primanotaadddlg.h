@@ -26,8 +26,8 @@ public:
 
 private:
     Ui::PrimaNotaAddDlg *ui;
-    QSqlQueryModel *descrModel;
-    QMap<QString, QString> mapQuery;
+    QSqlQueryModel *m_descrModel;
+    QMap<QString, QString> m_mapQuery;
 
     void prepareMap();
     QSqlQuery prepareQuery();

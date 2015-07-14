@@ -10,9 +10,9 @@ PrimaNotaAddDlg::PrimaNotaAddDlg(QWidget *parent) :
 
     ui->dateEdit->setDate(QDate::currentDate());
 
-    descrModel = new QSqlQueryModel(this);
-    descrModel->setQuery(primanota::SELECT_DESCR);
-    ui->comboBox->setModel(descrModel);
+    m_descrModel = new QSqlQueryModel(this);
+    m_descrModel->setQuery(primanota::SELECT_DESCR);
+    ui->comboBox->setModel(m_descrModel);
     updateLineEdit();
 }
 
@@ -33,14 +33,14 @@ void PrimaNotaAddDlg::setValue(QString id)
     }
 
     query.first();
-    mapQuery[primanota::PH_ID] = id;
+    m_mapQuery[primanota::PH_ID] = id;
 
-    QDate data = query.value(primanota::COL_DATA).toDate();
-    QString descr = query.value(primanota::COL_DESCR).toString();
-    QString entCassa = query.value(primanota::COL_ENT_CASSA).toString();
-    QString entBanca = query.value(primanota::COL_ENT_BANCA).toString();
-    QString uscCassa = query.value(primanota::COL_USC_CASSA).toString();
-    QString uscBanca = query.value(primanota::COL_USC_BANCA).toString();
+    QDate data = query.value(primanota::COL_DB_DATA).toDate();
+    QString descr = query.value(primanota::COL_DB_DESCR).toString();
+    QString entCassa = query.value(primanota::COL_DB_ENT_CASSA).toString();
+    QString entBanca = query.value(primanota::COL_DB_ENT_BANCA).toString();
+    QString uscCassa = query.value(primanota::COL_DB_USC_CASSA).toString();
+    QString uscBanca = query.value(primanota::COL_DB_USC_BANCA).toString();
 
     ui->dateEdit->setDate(data);
     ui->comboBox->setCurrentText(descr);
@@ -56,20 +56,20 @@ void PrimaNotaAddDlg::prepareMap()
 {
     qDebug() << "PrimaNotaAddDlg::prepareMap()";
 
-    mapQuery[primanota::PH_DATE] = ui->dateEdit->text();
-    mapQuery[primanota::PH_DESCR] = ui->comboBox->currentText();
+    m_mapQuery[primanota::PH_DATE] = ui->dateEdit->text();
+    m_mapQuery[primanota::PH_DESCR] = ui->comboBox->currentText();
 
     double entCassa = stringToDouble(ui->entCassaLineEdit->text());
-    mapQuery[primanota::PH_ENT_CASSA] = QString().setNum(entCassa);
+    m_mapQuery[primanota::PH_ENT_CASSA] = QString().setNum(entCassa);
 
     double entBanca = stringToDouble(ui->entBancaLineEdit->text());
-    mapQuery[primanota::PH_ENT_BANCA] = QString().setNum(entBanca);
+    m_mapQuery[primanota::PH_ENT_BANCA] = QString().setNum(entBanca);
 
     double uscCassa = stringToDouble(ui->uscCassaLineEdit->text());
-    mapQuery[primanota::PH_USC_CASSA] = QString().setNum(uscCassa);
+    m_mapQuery[primanota::PH_USC_CASSA] = QString().setNum(uscCassa);
 
     double uscBanca = stringToDouble(ui->uscBancaLineEdit->text());
-    mapQuery[primanota::PH_USC_BANCA] = QString().setNum(uscBanca);
+    m_mapQuery[primanota::PH_USC_BANCA] = QString().setNum(uscBanca);
 }
 
 QSqlQuery PrimaNotaAddDlg::prepareQuery()
@@ -78,19 +78,18 @@ QSqlQuery PrimaNotaAddDlg::prepareQuery()
     prepareMap();
 
     QSqlQuery query;
-    if (mapQuery.contains(primanota::PH_ID)) {
+    if (m_mapQuery.contains(primanota::PH_ID)) {
         query.prepare(primanota::UPDATE_NOTE);
-        query.bindValue(primanota::PH_ID, mapQuery[primanota::PH_ID]);
+        query.bindValue(primanota::PH_ID, m_mapQuery[primanota::PH_ID]);
     }
     else
         query.prepare(primanota::INSERT_NOTE);
 
-    query.bindValue(primanota::PH_DATE, mapQuery[primanota::PH_DATE]);
-    query.bindValue(primanota::PH_DESCR, mapQuery[primanota::PH_DESCR]);
-    query.bindValue(primanota::PH_ENT_CASSA, mapQuery[primanota::PH_ENT_CASSA]);
-    query.bindValue(primanota::PH_ENT_BANCA, mapQuery[primanota::PH_ENT_BANCA]);
-    query.bindValue(primanota::PH_USC_CASSA, mapQuery[primanota::PH_USC_CASSA]);
-    query.bindValue(primanota::PH_USC_BANCA, mapQuery[primanota::PH_USC_BANCA]);
+    QMap<QString, QString>::const_iterator i = m_mapQuery.begin();
+    while (i!=m_mapQuery.end()) {
+        query.bindValue(i.key(), i.value());
+        i++;
+    }
 
     return query;
 }
@@ -100,7 +99,7 @@ void PrimaNotaAddDlg::save()
     qDebug() << "PrimaNotaAddDlg::save()";
     QSqlQuery query = prepareQuery();
 
-    if (mapQuery[primanota::PH_DESCR].isEmpty()) {
+    if (m_mapQuery[primanota::PH_DESCR].isEmpty()) {
         showDialogError(this, ERR051, MSG013); //NOTE codice errore 051
         return;
     }

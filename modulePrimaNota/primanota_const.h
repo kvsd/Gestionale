@@ -79,25 +79,26 @@ namespace primanota {
 
     //SELECT utilizzata in PrimaNotaAddDialog per recuperare i
     //valori della nota selezionata
+    //const QString SELECT_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
     const QString SELECT_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
 
-//    enum Column {
-//        COL_ID = 0,
-//        COL_DATA = 1,
-//        COL_DESCR = 2,
-//        COL_ENT_CASSA = 3,
-//        COL_USC_CASSA = 4,
-//        COL_ENT_BANCA = 5,
-//        COL_USC_BANCA = 6
-//    };
+    //Nome colonne vista noteTableView
+    const QString COL_VW_ID = "Id";
+    const QString COL_VW_DATA = "Data";
+    const QString COL_VW_DESCR = "Descrizione";
+    const QString COL_VW_ENT_CASSA = "Entrata Cassa";
+    const QString COL_VW_USC_CASSA = "Uscita Cassa";
+    const QString COL_VW_ENT_BANCA = "Entrata Banca";
+    const QString COL_VW_USC_BANCA = "Uscita Banca";
 
-    const QString COL_ID = "Id";
-    const QString COL_DATA = "Data";
-    const QString COL_DESCR = "Descrizione";
-    const QString COL_ENT_CASSA = "Entrata Cassa";
-    const QString COL_USC_CASSA = "Uscita Cassa";
-    const QString COL_ENT_BANCA = "Entrata Banca";
-    const QString COL_USC_BANCA = "Uscita Banca";
+    //Nome colonne della tabella prima_nota
+    const QString COL_DB_ID = "id";
+    const QString COL_DB_DATA = "data";
+    const QString COL_DB_DESCR = "descr";
+    const QString COL_DB_ENT_CASSA = "entrata_cassa";
+    const QString COL_DB_USC_CASSA = "uscita_cassa";
+    const QString COL_DB_ENT_BANCA = "entrata_banca";
+    const QString COL_DB_USC_BANCA = "uscita_banca";
 
     //PLACEHOLDER SQL
     const QString PH_ID = ":id";
