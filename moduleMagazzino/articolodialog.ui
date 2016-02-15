@@ -41,7 +41,7 @@
             <x>0</x>
             <y>0</y>
             <width>680</width>
-            <height>288</height>
+            <height>284</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -211,8 +211,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>666</width>
-            <height>310</height>
+            <width>667</width>
+            <height>330</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
@@ -436,8 +436,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>264</width>
-            <height>226</height>
+            <width>680</width>
+            <height>284</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -558,6 +558,9 @@
        <property name="text">
         <string>Chiudi</string>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -578,6 +581,9 @@
        <property name="text">
         <string>Cancella</string>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -585,8 +591,11 @@
        <property name="text">
         <string>Salva</string>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
        <property name="default">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -642,8 +651,8 @@
      <y>180</y>
     </hint>
     <hint type="destinationlabel">
-     <x>129</x>
-     <y>180</y>
+     <x>157</x>
+     <y>243</y>
     </hint>
    </hints>
   </connection>
@@ -798,8 +807,8 @@
    <slot>openAddMisura()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>687</x>
-     <y>237</y>
+     <x>690</x>
+     <y>267</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
@@ -846,8 +855,8 @@
    <slot>openAddSede()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>690</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
@@ -862,8 +871,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>241</y>
+     <x>517</x>
+     <y>268</y>
     </hint>
     <hint type="destinationlabel">
      <x>360</x>
@@ -878,8 +887,8 @@
    <slot>updatePrezzoVendita()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>328</y>
+     <x>517</x>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
      <x>360</x>
