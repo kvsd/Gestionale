@@ -306,6 +306,26 @@ void MagazzinoWindow::updateRecord(void)
     updateModel();
 }
 
+void MagazzinoWindow::cloneRecord(void)
+{
+    qDebug() << "MagazzinoWindow::cloneRecord()";
+    QModelIndex index = ui->articoloView->currentIndex();
+    if (!index.isValid()) {
+        showDialogError(this, ERR056, MSG028); //NOTE codice errore 056
+        return;
+    }
+
+    QString id = articoloModel->record(index.row()).value(magazzino::COL_ID).toString();
+    ArticoloDialog dlg(this);
+    dlg.setValue(id, false);
+    bool ok = dlg.exec();
+    if (!ok)
+        return;
+
+    updateViewMagazzino();
+    updateModel();
+}
+
 void MagazzinoWindow::removeRecord(void)
 {
     qDebug() << "MagazzinoWindow::removeRecord()";

@@ -59,6 +59,7 @@ protected:
 public slots:
     void addRecord();
     void updateRecord();
+    void cloneRecord();
     void removeRecord();
     void updateViewMagazzino(void);
     void updateViewStorico(QModelIndex index);

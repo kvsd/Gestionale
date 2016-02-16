@@ -412,6 +412,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="cloneButton">
+        <property name="text">
+         <string>C&amp;lona</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="removeButton">
         <property name="text">
          <string>&amp;Rimuovi</string>
@@ -660,8 +667,8 @@
    <slot>removeRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>218</x>
-     <y>539</y>
+     <x>367</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>218</x>
@@ -676,8 +683,8 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>536</y>
+     <x>185</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>144</x>
@@ -724,8 +731,8 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>444</x>
-     <y>276</y>
+     <x>393</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
      <x>788</x>
@@ -740,8 +747,8 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>297</x>
-     <y>533</y>
+     <x>458</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
@@ -756,8 +763,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>117</y>
+     <x>543</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -772,8 +779,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>145</y>
+     <x>543</x>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -788,8 +795,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>173</y>
+     <x>543</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -804,12 +811,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>201</y>
+     <x>543</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>799</x>
-     <y>202</y>
+     <x>803</x>
+     <y>227</y>
     </hint>
    </hints>
   </connection>
@@ -836,8 +843,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>799</x>
-     <y>202</y>
+     <x>803</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
      <x>844</x>
@@ -868,12 +875,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>544</x>
-     <y>516</y>
+     <x>506</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
-     <x>787</x>
-     <y>508</y>
+     <x>794</x>
+     <y>543</y>
     </hint>
    </hints>
   </connection>
@@ -884,12 +891,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>544</x>
-     <y>516</y>
+     <x>506</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
-     <x>787</x>
-     <y>538</y>
+     <x>794</x>
+     <y>574</y>
     </hint>
    </hints>
   </connection>
@@ -900,12 +907,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>257</y>
+     <x>543</x>
+     <y>286</y>
     </hint>
     <hint type="destinationlabel">
-     <x>799</x>
-     <y>258</y>
+     <x>803</x>
+     <y>289</y>
     </hint>
    </hints>
   </connection>
@@ -916,8 +923,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>799</x>
-     <y>258</y>
+     <x>803</x>
+     <y>289</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -948,8 +955,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>365</y>
+     <x>794</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -964,8 +971,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>313</y>
+     <x>794</x>
+     <y>340</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -980,8 +987,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>339</y>
+     <x>794</x>
+     <y>366</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -996,8 +1003,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>391</y>
+     <x>794</x>
+     <y>418</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1012,8 +1019,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>140</y>
+     <x>543</x>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1028,8 +1035,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>169</y>
+     <x>543</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1044,8 +1051,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>198</y>
+     <x>543</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1060,8 +1067,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>257</y>
+     <x>543</x>
+     <y>286</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1076,8 +1083,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>111</y>
+     <x>543</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1092,8 +1099,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>464</y>
+     <x>794</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1108,8 +1115,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>490</y>
+     <x>794</x>
+     <y>512</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1124,12 +1131,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>544</x>
-     <y>516</y>
+     <x>506</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
-     <x>787</x>
-     <y>576</y>
+     <x>794</x>
+     <y>606</y>
     </hint>
    </hints>
   </connection>
@@ -1140,8 +1147,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>576</y>
+     <x>794</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1156,12 +1163,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>526</x>
-     <y>226</y>
+     <x>543</x>
+     <y>255</y>
     </hint>
     <hint type="destinationlabel">
-     <x>611</x>
-     <y>219</y>
+     <x>803</x>
+     <y>258</y>
     </hint>
    </hints>
   </connection>
@@ -1172,8 +1179,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>499</x>
-     <y>219</y>
+     <x>543</x>
+     <y>255</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1188,8 +1195,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>677</x>
-     <y>219</y>
+     <x>803</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1213,6 +1220,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cloneButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>cloneRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>254</x>
+     <y>564</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>578</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1227,5 +1250,6 @@
   <slot>showArticoliEsauriti()</slot>
   <slot>launchReportDlg()</slot>
   <slot>importMagazzino()</slot>
+  <slot>cloneRecord()</slot>
  </slots>
 </ui>

@@ -77,7 +77,7 @@ void ArticoloDialog::initComboBox(void)
     ui->cb_unitamisura->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 }
 
-void ArticoloDialog::setValue(QString id)
+void ArticoloDialog::setValue(QString id, bool update)
 {
     qDebug() << "ArticoloDialog::setValue()";
     QSqlQuery query;
@@ -88,7 +88,8 @@ void ArticoloDialog::setValue(QString id)
     }
 
     query.first();
-    articoloMap[magazzino::PH_ID] = id;
+    if (update)
+        articoloMap[magazzino::PH_ID] = id;
     ui->le_descrizione->setText(query.value(magazzino::COL_DESCRIZIONE).toString());
 
     ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_ID);
