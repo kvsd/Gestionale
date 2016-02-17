@@ -42,10 +42,17 @@ void MagazzinoWindow::initModel()
 
     ui->articoloView->setModel(articoloModel);
     ui->storicoView->setModel(storicoModel);
+
     fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
+
     categoriaModel->setTable(table::CATEGORIA_MERCE);
+    categoriaModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
+
     marcaModel->setTable(table::MARCA);
+    marcaModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
+
     sedeModel->setTable(table::SEDE_MAGAZZINO);
+    sedeModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
 
     updateModel();
 }
