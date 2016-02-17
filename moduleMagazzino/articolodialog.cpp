@@ -25,10 +25,12 @@ void ArticoloDialog::initModel(void)
     qDebug() << "ArticoloDialog::initModel()";
     modelCatMerce = new QSqlTableModel(this);
     modelCatMerce->setTable(table::CATEGORIA_MERCE);
+    modelCatMerce->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
     modelCatMerce->select();
 
     modelCodIva = new QSqlTableModel(this);
     modelCodIva->setTable(table::CODICE_IVA);
+    modelCodIva->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
     modelCodIva->select();
 
     modelFornitore = new QSqlQueryModel(this);
@@ -36,16 +38,18 @@ void ArticoloDialog::initModel(void)
 
     modelMarca = new QSqlTableModel(this);
     modelMarca->setTable(table::MARCA);
+    modelMarca->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
     modelMarca->select();
 
     modelSede = new QSqlTableModel(this);
     modelSede->setTable(table::SEDE_MAGAZZINO);
+    modelSede->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
     modelSede->select();
 
     modelUnita = new QSqlTableModel(this);
     modelUnita->setTable(table::UNITA_MISURA);
+    modelUnita->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
     modelUnita->select();
-
 }
 
 void ArticoloDialog::initComboBox(void)
