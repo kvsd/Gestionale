@@ -10,6 +10,7 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
     ui->setupUi(this);
 
     initModel();
+    updateModel();
     initComboBox();
     this->move(parent->pos());
     loadConfigSettings();
@@ -30,18 +31,26 @@ void AnagraficaWindow::initModel()
 
     cittaModel = new QSqlTableModel(this);
     cittaModel->setTable(table::CITTA);
-    cittaModel->select();
+    //cittaModel->select();
 
     provinciaModel = new QSqlTableModel(this);
     provinciaModel->setTable(table::PROVINCIA);
-    provinciaModel->select();
+    //provinciaModel->select();
 
     statoModel  = new QSqlTableModel(this);
     statoModel->setTable(table::STATO);
-    statoModel->select();
+    //statoModel->select();
 
     agenteModel = new QSqlTableModel(this);
     agenteModel->setTable(table::AGENTI);
+    //agenteModel->select();
+}
+
+void AnagraficaWindow::updateModel()
+{
+    cittaModel->select();
+    provinciaModel->select();
+    statoModel->select();
     agenteModel->select();
 }
 
@@ -122,6 +131,7 @@ void AnagraficaWindow::showEvent(QShowEvent *event)
 {
     qDebug() << "AnagraficaWindow::showEvent()";
     updateViewAnagrafica();
+    updateModel();
     event->accept();
 }
 

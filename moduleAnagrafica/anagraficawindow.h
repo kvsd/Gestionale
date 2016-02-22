@@ -37,6 +37,7 @@ private:
 
     QSettings settings;
     void initModel();
+    void updateModel();
     void initComboBox();
     void loadConfigSettings();
     void saveConfigSettings();
