@@ -12,6 +12,7 @@
 #include <QMap>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QSqlRecord>
 
 namespace Ui {
 class AgentiViewDialog;

@@ -2,27 +2,65 @@
 #define AGENTI_CONST_H
 
 namespace agenti {
-    //SQL
-    const QString SQL_ADD_AGENTE = "INSERT INTO agenti(nome, cognome, tel, fax, cel, email) VALUES(:nome, :cognome, :tel, :fax, :cel, :email)";
-    const QString SQL_DELETE_AGENTE = "DELETE FROM agenti WHERE id=:id";
-    const QString SQL_UPDATE_AGENTE = "UPDATE agenti SET nome=:nome, cognome=:cognome, tel=:tel, fax=:fax, cel=:cel, email=:email WHERE id=:id";
-    const QString SQL_SELECT_AGENTE = "SELECT * FROM agenti WHERE id=:id";
+    //Query usata da AgentiAddDialog per aggiungere un nuovo record
+    const QString INSERT_QUERY = "INSERT INTO agenti(nome,"
+                                                    "cognome,"
+                                                    "tel,"
+                                                    "fax,"
+                                                    "cel,"
+                                                    "email) "
+                                   "VALUES(:nome, "
+                                          ":cognome, "
+                                          ":tel, "
+                                          ":fax,"
+                                          ":cel, "
+                                          ":email)";
 
-    const QString SQL_SELECT_AGENTI = "SELECT * FROM agenti WHERE id>0 ORDER BY cognome";
-    const QString SQL_SEARCH_AGENTI = "SELECT * FROM agenti WHERE \"cognome\" ILIKE '\%%1\%' AND id>0 ORDER BY cognome";
+    //Query usata da AgentiViewDialog per cancellare un record
+    const QString DELETE_QUERY = "DELETE FROM agenti WHERE id=:id";
+
+    //Query usata da AgentiAddDialog per aggiornare un record
+    const QString UPDATE_QUERY = "UPDATE agenti "
+                                 "SET nome=:nome, "
+                                     "cognome=:cognome, "
+                                     "tel=:tel, "
+                                     "fax=:fax, "
+                                     "cel=:cel, "
+                                     "email=:email "
+                                 "WHERE id=:id";
+
+    //Query usata per caricare i dati in AgentiAddDialog
+    const QString SELECT_FROM_ID = "SELECT * FROM agenti WHERE id=:id";
+
+    //Query usata da AgentiViewDialog per elencare tutti gli agenti
+    const QString SELECT_AGENTI = "SELECT "
+                                      "id AS \"Id\","
+                                      "nome AS \"Nome\","
+                                      "cognome AS \"Cognome\","
+                                      "tel AS \"Telefono\","
+                                      "fax AS \"Fax\", "
+                                      "cel AS \"Cellulare\", "
+                                      "email AS \"Email\" "
+                                  "FROM agenti "
+                                  "WHERE id>0 ";
+
+    const QString ORDER_CLAUSE = "ORDER BY cognome";
+
+    const QString SEARCH_CLAUSE =  "AND \"cognome\" ILIKE '\%%1\%' ";
+
 
     //SETTINGS
     const QString CSS_WARNING_STYLE = "background-color: yellow";
     const QString WINDOW_SIZE = "AgentiViewDlg.size";
 
-    //CONST
-    enum columns {COL_ID,
-                  COL_NOME,
-                  COL_COGNOME,
-                  COL_TEL,
-                  COL_FAX,
-                  COL_CEL,
-                  COL_EMAIL};
+    //Nomi colonne tabella agenti
+    const QString COL_ID = "id";
+    const QString COL_NOME = "nome";
+    const QString COL_COGNOME = "cognome";
+    const QString COL_TEL = "tel";
+    const QString COL_FAX = "fax";
+    const QString COL_CEL = "cel";
+    const QString COL_EMAIL = "email";
 
     //PH PlaceHolder
     const QString PH_ID = ":id";

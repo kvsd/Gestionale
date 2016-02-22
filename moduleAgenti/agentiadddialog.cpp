@@ -19,7 +19,7 @@ void AgentiAddDialog::setValue(QString id)
 {
     qDebug() << "AgentiAddDialog::setValue()";
     QSqlQuery query;
-    query.prepare(agenti::SQL_SELECT_AGENTE);
+    query.prepare(agenti::SELECT_FROM_ID);
     query.bindValue(agenti::PH_ID, id);
     query.exec();
     query.first();
@@ -50,11 +50,11 @@ void AgentiAddDialog::save(void)
 
     QSqlQuery query;
     if (mapAgente.contains(agenti::PH_ID)) {
-        query.prepare(agenti::SQL_UPDATE_AGENTE);
+        query.prepare(agenti::UPDATE_QUERY);
         query.bindValue(agenti::PH_ID, mapAgente[agenti::PH_ID]);
     }
     else {
-        query.prepare(agenti::SQL_ADD_AGENTE);
+        query.prepare(agenti::INSERT_QUERY);
     }
 
     query.bindValue(agenti::PH_NOME, mapAgente[agenti::PH_NOME]);
