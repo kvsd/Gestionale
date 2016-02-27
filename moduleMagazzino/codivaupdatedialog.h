@@ -4,6 +4,7 @@
 #include "libs/gestionale_const.h"
 #include "magazzino_const.h"
 #include "libs/error.h"
+#include "libs/utils.h"
 
 #include <QDate>
 #include <QDialog>
