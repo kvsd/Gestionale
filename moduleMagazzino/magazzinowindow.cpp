@@ -435,3 +435,12 @@ void MagazzinoWindow::launchReportDlg()
     ReportDlg dlg(this);
     dlg.exec();
 }
+
+void MagazzinoWindow::findCodBarre()
+{
+    qDebug() << "MagazzinoWindow::findCodBarre()";
+    QSqlQuery SELECT_COD_BARRE = QSqlQuery(magazzino::SELECT_ARTICOLI_ALL +
+                                           " AND cod_barre='' " +
+                                           orderString());
+    articoloModel->setQuery(SELECT_COD_BARRE);
+}
