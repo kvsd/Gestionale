@@ -43,6 +43,7 @@ void AnagraficaWindow::initModel()
 
     agenteModel = new QSqlTableModel(this);
     agenteModel->setTable(table::AGENTI);
+    agenteModel->setSort(2, Qt::AscendingOrder);
     //agenteModel->select();
 }
 
@@ -152,6 +153,7 @@ void AnagraficaWindow::addRecord(void)
         return;
     }
     updateViewAnagrafica();
+    updateModel();
 }
 
 void AnagraficaWindow::updateRecord(void)
