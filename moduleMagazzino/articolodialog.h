@@ -60,6 +60,7 @@ public slots:
     void openAddFornitore();
     void openAddIVA();
     void openAddSede();
+    void copyCodArt(void);
 
 };
 
