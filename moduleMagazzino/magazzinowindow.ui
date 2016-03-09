@@ -160,8 +160,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>388</width>
-             <height>534</height>
+             <width>385</width>
+             <height>535</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -468,7 +468,7 @@
      <x>0</x>
      <y>0</y>
      <width>845</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpzioni">
@@ -495,6 +495,7 @@
      <addaction name="actionEAN"/>
     </widget>
     <addaction name="menuRicerca_per"/>
+    <addaction name="actionArticoli_s_cod_barre"/>
    </widget>
    <widget class="QMenu" name="menuStampa">
     <property name="title">
@@ -591,6 +592,11 @@
   <action name="actionStampa">
    <property name="text">
     <string>Stampa...</string>
+   </property>
+  </action>
+  <action name="actionArticoli_s_cod_barre">
+   <property name="text">
+    <string>Articoli senza codice a barre</string>
    </property>
   </action>
  </widget>
@@ -1236,6 +1242,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionArticoli_s_cod_barre</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>findCodBarre()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1251,5 +1273,6 @@
   <slot>launchReportDlg()</slot>
   <slot>importMagazzino()</slot>
   <slot>cloneRecord()</slot>
+  <slot>findCodBarre()</slot>
  </slots>
 </ui>

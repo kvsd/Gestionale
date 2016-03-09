@@ -66,6 +66,7 @@ public slots:
     void openConfigDialog(void);
     void changeCodIva(void);
     void launchReportDlg(void);
+    void findCodBarre(void);
 };
 
 #endif // MAGAZZINOWINDOW_H
