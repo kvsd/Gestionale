@@ -447,3 +447,10 @@ void ArticoloDialog::openAddSede()
         ui->cb_sede->setCurrentText(newValue);
     }
 }
+
+void ArticoloDialog::copyCodArt()
+{
+    qDebug() << "ArticoloDialog::copyCodArt()";
+    QString codArticolo = ui->le_cod_articolo->text();
+    ui->le_cod_fornitore->setText(codArticolo);
+}

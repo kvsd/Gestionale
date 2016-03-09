@@ -69,8 +69,10 @@ void codIvaUpdateDialog::updateIva(void)
         double prezzo_ricarico = 0;
         if (ricarico.contains("+")) {
             QStringList ricarichi = ricarico.split("+");
-            for (int i=0; i<ricarichi.length(); i++) {
-                prezzo_ricarico = prezzo_acquisto + prezzo_acquisto*ricarichi[i].toDouble()/100;
+            QString s;
+            prezzo_ricarico = prezzo_acquisto;
+            foreach(s, ricarichi) {
+                prezzo_ricarico += prezzo_ricarico * stringToDouble(s) / 100.0;
             }
         }
         else
@@ -92,8 +94,20 @@ void codIvaUpdateDialog::updateIva(void)
         queryUpdateIva.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
         queryUpdateIva.exec();
 
-        QSqlQuery queryInsertStorico; //WARNING SISTEMARE, non aggiorna i record con la stessa data
-        queryInsertStorico.prepare(magazzino::INSERT_STORICO);
+        QSqlQuery query_check_storico;
+        query_check_storico.prepare(magazzino::CHECK_STORICO);
+        query_check_storico.bindValue(magazzino::PH_ID_ART, id);
+        query_check_storico.bindValue(magazzino::PH_DATA, data);
+        query_check_storico.exec();
+
+        QSqlQuery queryInsertStorico;
+        if (query_check_storico.first()) {
+            queryInsertStorico.prepare(magazzino::UPDATE_STORICO);
+        }
+        else {
+            queryInsertStorico.prepare(magazzino::INSERT_STORICO);
+        }
+
         queryInsertStorico.bindValue(magazzino::PH_ID_ART, id);
         queryInsertStorico.bindValue(magazzino::PH_DATA, data);
         queryInsertStorico.bindValue(magazzino::PH_QUANTIT, quantita);
