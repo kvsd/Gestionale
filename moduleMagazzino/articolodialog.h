@@ -49,6 +49,7 @@ private:
 
 public slots:
     void updatePrezzoFattura(void);
+    void calculatePrezzoAcquisto(void);
     void updatePrezzoAcquisto(void);
     void updateIva(void);
     void updatePrezzoFinito(void);

@@ -282,19 +282,21 @@ void ArticoloDialog::updatePrezzoFattura(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoFattura()";
     QString prezzo_str = ui->le_prezzo_fattura->text();
-
-    if (!prezzo_str.contains(locale().currencySymbol())) {
-            ui->le_prezzo_fattura->setText(locale().toCurrencyString(stringToDouble(prezzo_str)));
-    }
-    else {
-        prezzo_str = locale().toCurrencyString(stringToDouble(prezzo_str));
-        ui->le_prezzo_fattura->setText(prezzo_str);
+    if (prezzo_str.isEmpty()) {
+        ui->le_prezzo_acquisto->setReadOnly(false);
+        ui->le_prezzo_acquisto->setStyleSheet("");
+        return;
     }
 
-    updatePrezzoAcquisto();
+    prezzo_str = locale().toCurrencyString(stringToDouble(prezzo_str));
+    ui->le_prezzo_fattura->setText(prezzo_str);
+
+    calculatePrezzoAcquisto();
+    ui->le_prezzo_acquisto->setReadOnly(true);
+    ui->le_prezzo_acquisto->setStyleSheet("background:yellow");
 }
 
-void ArticoloDialog::updatePrezzoAcquisto(void)
+void ArticoloDialog::calculatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
     QString prezzo_str = ui->le_prezzo_fattura->text();
@@ -324,10 +326,21 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
     updateIva();
 }
 
+void ArticoloDialog::updatePrezzoAcquisto(void)
+{
+    qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
+    ui->le_prezzo_fattura->clear();
+    ui->le_sconto->clear();
+    QString prezzo = ui->le_prezzo_acquisto->text();
+    if (!prezzo.contains(locale().currencySymbol()))
+        ui->le_prezzo_acquisto->setText((locale().toCurrencyString(stringToDouble(prezzo))));
+    updateIva();
+}
+
 void ArticoloDialog::updateIva(void)
 {
     qDebug() << "ArticoloDialog::updateIva()";
-    if (ui->le_prezzo_fattura->text().isEmpty() || ui->le_ricarico->text().isEmpty()) {
+    if (ui->le_prezzo_acquisto->text().isEmpty() || ui->le_ricarico->text().isEmpty()) {
         return;
     }
 

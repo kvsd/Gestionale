@@ -20,7 +20,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -392,11 +392,8 @@
              </item>
              <item row="5" column="1" colspan="2">
               <widget class="QLineEdit" name="le_prezzo_acquisto">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 127);</string>
-               </property>
                <property name="readOnly">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -449,8 +446,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>275</width>
-            <height>226</height>
+            <width>680</width>
+            <height>288</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -705,7 +702,7 @@
    <sender>le_sconto</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoAcquisto()</slot>
+   <slot>calculatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>239</x>
@@ -925,6 +922,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>le_prezzo_acquisto</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updatePrezzoAcquisto()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>393</x>
+     <y>212</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>updatePrezzoFattura()</slot>
@@ -940,5 +953,6 @@
   <slot>openAddSede()</slot>
   <slot>updatePrezzoVendita()</slot>
   <slot>copyCodArt()</slot>
+  <slot>calculatePrezzoAcquisto()</slot>
  </slots>
 </ui>
