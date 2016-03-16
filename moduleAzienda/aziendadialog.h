@@ -42,14 +42,14 @@ private:
     void prepareMap(void);
 
 public slots:
-    void open_add_citta(void);
-    void open_add_provincia(void);
-    void open_add_cap(void);
-    void open_add_stato(void);
-    void open_add_logo(void);
+    void openAddCitta(void);
+    void openAddProvincia(void);
+    void openAddCap(void);
+    void openAddStato(void);
+    void openAddLogo(void);
     void save(void);
     void clearForm(void);
-    void copy_prt_iva(void);
+    void copyPrtIva(void);
 };
 
 #endif // AZIENDADIALOG_H

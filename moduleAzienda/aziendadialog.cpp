@@ -46,31 +46,31 @@ void AziendaDialog::initComboBox()
     ui->cb_stato->setModelColumn(azienda::COL_DESCR);
 }
 
-void AziendaDialog::open_add_citta(void)
+void AziendaDialog::openAddCitta(void)
 {
     qDebug() << "AziendaDialog::open_add_citta()";
     allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016.1
 }
 
-void AziendaDialog::open_add_provincia(void)
+void AziendaDialog::openAddProvincia(void)
 {
     qDebug() << "AziendaDialog::open_add_provincia()";
     allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017.1
 }
 
-void AziendaDialog::open_add_cap(void)
+void AziendaDialog::openAddCap(void)
 {
     qDebug() << "AziendaDialog::open_add_cap()";
     allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018.1
 }
 
-void AziendaDialog::open_add_stato(void)
+void AziendaDialog::openAddStato(void)
 {
     qDebug() << "AziendaDialog::open_add_stato()";
     allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019.1
 }
 
-void AziendaDialog::open_add_logo(void)
+void AziendaDialog::openAddLogo(void)
 {
     qDebug() << "AziendaDialog::open_add_logo()";
     QString filename = QFileDialog::getOpenFileName(this, "Seleziona un immagine", ".",  "Images (*.png *.xpm *.jpg *.jpeg)");
@@ -223,7 +223,7 @@ void AziendaDialog::clearForm(void)
     logo = QPixmap();
 }
 
-void AziendaDialog::copy_prt_iva(void)
+void AziendaDialog::copyPrtIva(void)
 {
     qDebug() << "AziendaDialog::copy_prt_iva()";
     QString prtiva = ui->le_prtiva->text();

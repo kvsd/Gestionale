@@ -552,7 +552,7 @@
    <sender>pb_citta_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>open_add_citta()</slot>
+   <slot>openAddCitta()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
@@ -568,7 +568,7 @@
    <sender>pb_provincia_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>open_add_provincia()</slot>
+   <slot>openAddProvincia()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
@@ -584,7 +584,7 @@
    <sender>pb_cap_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>open_add_cap()</slot>
+   <slot>openAddCap()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
@@ -600,7 +600,7 @@
    <sender>pb_stato_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>open_add_stato()</slot>
+   <slot>openAddStato()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
@@ -664,7 +664,7 @@
    <sender>pb_copy</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>copy_prt_iva()</slot>
+   <slot>copyPrtIva()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>469</x>
@@ -680,7 +680,7 @@
    <sender>pb_logo_dlg</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
-   <slot>open_add_logo()</slot>
+   <slot>openAddLogo()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
@@ -710,13 +710,13 @@
   </connection>
  </connections>
  <slots>
-  <slot>open_add_citta()</slot>
-  <slot>open_add_provincia()</slot>
-  <slot>open_add_cap()</slot>
-  <slot>open_add_stato()</slot>
   <slot>save()</slot>
   <slot>clearForm()</slot>
-  <slot>copy_prt_iva()</slot>
-  <slot>open_add_logo()</slot>
+  <slot>copyPrtIva()</slot>
+  <slot>openAddLogo()</slot>
+  <slot>openAddCitta()</slot>
+  <slot>openAddProvincia()</slot>
+  <slot>openAddCap()</slot>
+  <slot>openAddStato()</slot>
  </slots>
 </ui>
