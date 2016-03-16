@@ -34,8 +34,8 @@ protected:
 
 private:
     Ui::PrimaNotaWindow *ui;
-    QSettings m_settings;
-    CustomModel *m_primaNotaModel;
+    QSettings settings;
+    CustomModel *primaNotaModel;
 
     void initModel();
     void initComboBox();
