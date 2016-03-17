@@ -31,6 +31,9 @@ void MagazzinoWindow::initModel()
     map["Descrizione"] = Qt::AlignLeft;
     map["Fornitore"] = Qt::AlignLeft;
     map["Note"] = Qt::AlignLeft;
+    map["Modello"] = Qt::AlignLeft;
+    map["Cod.Articolo"] = Qt::AlignLeft;
+    map["Cod.Fornitore"] = Qt::AlignLeft;
     articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, Qt::AlignRight, this);
     articoloModel->setAlignMap(map);
 
@@ -76,10 +79,24 @@ void MagazzinoWindow::initComboBox()
 void MagazzinoWindow::updateModel()
 {
     qDebug() << "MagazzinoWindow::updateModel()";
+    QString fornitoreText = ui->fornitoreComboBox->currentText();
+    QString categoriaText = ui->categoriaComboBox->currentText();
+    QString marcaText = ui->marcaComboBox->currentText();
+    QString sedeText = ui->sedeComboBox->currentText();
+
     fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
+
+    if (fornitoreText.isEmpty() || categoriaText.isEmpty() ||
+            marcaText.isEmpty() || sedeText.isEmpty())
+        return;
+
+    ui->fornitoreComboBox->setCurrentText(fornitoreText);
+    ui->categoriaComboBox->setCurrentText(categoriaText);
+    ui->marcaComboBox->setCurrentText(marcaText);
+    ui->sedeComboBox->setCurrentText(sedeText);
 }
 
 void MagazzinoWindow::loadConfigSettings()
