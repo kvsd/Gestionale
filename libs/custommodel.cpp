@@ -1,12 +1,19 @@
 #include "custommodel.h"
 
-CustomModel::CustomModel(QString colsGroup, Qt::AlignmentFlag textAlignment, QObject *parent) :
-    QSqlQueryModel(parent)
+CustomModel::CustomModel(QObject *parent)
+    : QSqlQueryModel(parent),
+      defaultAlign(Qt::AlignLeft),
+      defaultBgColor(Qt::transparent),
+      defaultFgColor(Qt::black)
 {
-    group = colsGroup;
-    defaulTextAlign = textAlignment;
-    prepareMap();
-    loadSettings();
+}
+
+CustomModel::CustomModel(Qt::AlignmentFlag textAlignment, QObject *parent)
+    : QSqlQueryModel(parent),
+      defaultAlign(textAlignment),
+      defaultBgColor(Qt::transparent),
+      defaultFgColor(Qt::black)
+{
 }
 
 QVariant CustomModel::data(const QModelIndex &item, int role) const
@@ -15,45 +22,42 @@ QVariant CustomModel::data(const QModelIndex &item, int role) const
     QString headerName = headerData(item.column(), Qt::Horizontal).toString();
 
     if (role == Qt::TextAlignmentRole)
-        return alignMaps.value(headerName, defaulTextAlign) + Qt::AlignVCenter;
+        return alignMap.value(headerName, defaultAlign) + Qt::AlignVCenter;
 
     if (role == Qt::BackgroundRole)
-        return bgColorsMaps.value(item.column(), Qt::transparent);
+        return bgColorsMap.value(headerName, defaultBgColor);
 
     if (role == Qt::ForegroundRole)
-        return fgColorsMaps.value(headerName, Qt::black);
+        return fgColorsMap.value(headerName, defaultFgColor);
 
     return value;
 }
 
-void CustomModel::prepareMap(void)
-{
-    const int MAX_COLUMNS = 30;
-    for (int i=0; i<=MAX_COLUMNS; i++) {
-        bgColorsMaps[i] = QBrush(Qt::transparent);
-    }
-}
-
-void CustomModel::loadSettings(void)
-{
-    settings.beginGroup(group);
-    int lenght = settings.allKeys().length();
-    for (int i=0; i<lenght; i++) {
-        QString value = settings.value(QVariant(i).toString(), "-1").toString();
-        if (value == "-1")
-            bgColorsMaps[i] = QBrush(Qt::transparent);
-        else
-            bgColorsMaps[i] = QBrush(QColor(value));
-    }
-    settings.endGroup();
+void CustomModel::setBgMap(const QMap<QString, QBrush> &map) {
+    bgColorsMap = map;
 }
 
 void CustomModel::setAlignMap(const QMap<QString, Qt::AlignmentFlag> &map)
 {
-    alignMaps = map;
+    alignMap = map;
 }
 
-void CustomModel::setForegroundMap(const QMap<QString, QBrush> &map)
+void CustomModel::setFgMap(const QMap<QString, QBrush> &map)
 {
-    fgColorsMaps = map;
+    fgColorsMap = map;
+}
+
+void CustomModel::setDefaultAlignment(Qt::AlignmentFlag flag)
+{
+    defaultAlign = flag;
+}
+
+void CustomModel::setDefaultFgColor(QBrush brush)
+{
+    defaultFgColor = brush;
+}
+
+void CustomModel::setDefaultBgColor(QBrush brush)
+{
+    defaultBgColor = brush;
 }

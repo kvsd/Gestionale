@@ -5,27 +5,39 @@
 #include <QMap>
 #include <QColor>
 #include <QBrush>
-#include <QSettings>
 
 class CustomModel : public QSqlQueryModel
 {
     Q_OBJECT
 public:
-    explicit CustomModel(QString colsGroup, Qt::AlignmentFlag textAlignment, QObject *parent = 0);
+    explicit CustomModel(QObject *parent = 0);
+    explicit CustomModel(Qt::AlignmentFlag textAlignment, QObject *parent = 0);
     QVariant data(const QModelIndex &item, int role) const;
-    void loadSettings();
+
     void setAlignMap(const QMap <QString, Qt::AlignmentFlag> &map);
-    void setForegroundMap(const QMap<QString, QBrush> &map);
+    void setBgMap(const QMap <QString, QBrush> &map);
+    void setFgMap(const QMap<QString, QBrush> &map);
+
+    void setDefaultAlignment(Qt::AlignmentFlag flag);
+    void setDefaultFgColor(QBrush brush);
+    void setDefaultBgColor(QBrush brush);
+
+    Qt::AlignmentFlag getDefaultAlignment(void) const {return defaultAlign;}
+    QBrush getDefaultBgColor(void) const {return defaultBgColor;}
+    QBrush getDefaultFgColor(void) const {return defaultFgColor;}
+
+    QMap<QString, QBrush> getBgColorsMap() const {return bgColorsMap;}
+    QMap<QString, QBrush> getFgColorsMap() const {return fgColorsMap;}
+    QMap<QString, Qt::AlignmentFlag> getAlignMap() const {return alignMap;}
 
 private:
-    QMap<int, QBrush>bgColorsMaps;
-    QMap<QString, QBrush>fgColorsMaps;
-    QMap<QString, Qt::AlignmentFlag>alignMaps;
-    QString group;
-    QSettings settings;
-    Qt::AlignmentFlag defaulTextAlign;
+    QMap<QString, QBrush>bgColorsMap;
+    QMap<QString, QBrush>fgColorsMap;
+    QMap<QString, Qt::AlignmentFlag>alignMap;
 
-    void prepareMap(void);
+    Qt::AlignmentFlag defaultAlign;
+    QBrush defaultBgColor;
+    QBrush defaultFgColor;
 
 signals:
 
