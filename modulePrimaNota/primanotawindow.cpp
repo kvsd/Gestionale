@@ -46,9 +46,10 @@ void PrimaNotaWindow::initModel()
     fgColorMap[primanota::COL_VW_USC_CASSA] = QBrush(Qt::red);
     fgColorMap[primanota::COL_VW_USC_BANCA] = QBrush(Qt::red);
 
-    primaNotaModel = new CustomModel("", Qt::AlignRight, this);
+    //primaNotaModel = new CustomModel("", Qt::AlignRight, this);
+    primaNotaModel = new CustomModel(Qt::AlignRight, this);
     primaNotaModel->setAlignMap(alignMap);
-    primaNotaModel->setForegroundMap(fgColorMap);
+    primaNotaModel->setFgMap(fgColorMap);
     ui->noteTableView->setModel(primaNotaModel);
 }
 
