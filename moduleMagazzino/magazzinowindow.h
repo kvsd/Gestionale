@@ -4,6 +4,7 @@
 #include "libs/custommodel.h"
 #include "libs/gestionale_const.h"
 #include "libs/utils.h"
+#include "libs/customwindow.h"
 #include "articolodialog.h"
 #include "optionsmagazzinodialog.h"
 #include "magazzino_const.h"
@@ -19,12 +20,13 @@
 #include <QFileDialog>
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QTableView>
 
 namespace Ui {
 class MagazzinoWindow;
 }
 
-class MagazzinoWindow : public QMainWindow
+class MagazzinoWindow : public CustomWindow
 {
     Q_OBJECT
 
@@ -40,7 +42,6 @@ private:
     QSqlTableModel *categoriaModel;
     QSqlTableModel *marcaModel;
     QSqlTableModel *sedeModel;
-    QSettings settings;
 
     void initModel();
     void initComboBox();

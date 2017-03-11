@@ -2,7 +2,7 @@
 #include "ui_magazzinowindow.h"
 
 MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
-    QMainWindow(parent),
+    CustomWindow(parent),
     ui(new Ui::MagazzinoWindow)
 {
     qDebug() << "MagazzinoWindow()";
@@ -34,10 +34,10 @@ void MagazzinoWindow::initModel()
     map["Modello"] = Qt::AlignLeft;
     map["Cod.Articolo"] = Qt::AlignLeft;
     map["Cod.Fornitore"] = Qt::AlignLeft;
-    articoloModel = new CustomModel(magazzino::ARTICOLO_COLORS, Qt::AlignRight, this);
+    articoloModel = new CustomModel(Qt::AlignRight, this);
     articoloModel->setAlignMap(map);
 
-    storicoModel = new CustomModel(magazzino::STORICO_COLORS, Qt::AlignRight, this);
+    storicoModel = new CustomModel(Qt::AlignRight, this);
     fornitoreModel = new QSqlQueryModel(this);
     categoriaModel = new QSqlTableModel(this);
     marcaModel = new QSqlTableModel(this);
@@ -122,33 +122,15 @@ void MagazzinoWindow::loadConfigSettings()
         ui->storicoView->horizontalHeader()->restoreState(array);
     }
 
-    //Carico la visibilita delle colonne della vista articolo
-    settings.beginGroup(magazzino::ARTICOLO_STATUS);
-    QStringList articoloCols = settings.allKeys();
-    if (!articoloCols.isEmpty()) {
-        for (QStringList::Iterator i=articoloCols.begin(); i!=articoloCols.end(); i++) {
-            int col = QVariant((*i)).toInt();
-            bool value = settings.value((*i)).toBool();
-            ui->articoloView->setColumnHidden(col, !value);
-        }
-    }
-    settings.endGroup();
-
-    //Carico la visibilita delle colonne della vista storico
-    settings.beginGroup(magazzino::STORICO_STATUS);
-    QStringList storicoCols = settings.allKeys();
-    if (!storicoCols.isEmpty()) {
-        for (QStringList::Iterator i=storicoCols.begin(); i!=storicoCols.end(); i++) {
-            int col = QVariant((*i)).toInt();
-            bool value = settings.value((*i)).toBool();
-            ui->storicoView->setColumnHidden(col, !value);
-        }
-    }
-    settings.endGroup();
+    //Carico la visibilita delle colonne della vista articolo e storico
+    loadColumnVisibility(ui->articoloView, magazzino::ARTICOLO_STATUS);
+    loadColumnVisibility(ui->storicoView, magazzino::STORICO_STATUS);
 
     //Carico il colore dello sfondo delle colonne. (Si e' gestito dai model)
-    articoloModel->loadSettings();
-    storicoModel->loadSettings();
+    articoloModel->setDefaultBgColor(QColor(255,255,200));
+    articoloModel->setBgMap(getBgSettings(magazzino::ARTICOLO_COLORS));
+    storicoModel->setDefaultBgColor(QColor(220,220,180));
+    storicoModel->setBgMap(getBgSettings(magazzino::STORICO_COLORS));
 
     //Carico le impostazioni del menu ricerca
     ui->actionDescrizione->setChecked(settings.value(magazzino::SEARCH_DESCR, true).toBool());
@@ -435,6 +417,7 @@ void MagazzinoWindow::openConfigDialog(void)
     if (!ok)
         return;
 
+    ui->articoloView->clearSelection();
     loadConfigSettings();
 }
 
