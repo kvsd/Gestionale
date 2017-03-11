@@ -2,27 +2,26 @@
 #include "ui_optionsmagazzinodialog.h"
 
 OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::OptionsMagazzinoDialog)
+    OptionsDialog(parent),
+    ui(new Ui::OptionsMagazzinoDialog),
+    codIvaModel(new QSqlTableModel(this)),
+    articoloModel(new QSqlQueryModel(this)),
+    storicoModel(new QSqlQueryModel(this))
 {
     qDebug() << "OptionsMagazzinoDialog()";
     ui->setupUi(this);
 
-    codIvaModel = new QSqlTableModel(this);
     codIvaModel->setTable(table::CODICE_IVA);
     codIvaModel->select();
 
-    articoloModel = new QSqlQueryModel(this);
     articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
-
-    storicoModel = new QSqlQueryModel(this);
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 
     ui->codIvaComboBox->setModel(codIvaModel);
     ui->codIvaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    prepareMaps();
-    populateList();
+    populateList(ui->magazzinoListView, articoloModel);
+    populateList(ui->storicoListView, storicoModel);
     loadConfig();
 }
 
@@ -32,72 +31,20 @@ OptionsMagazzinoDialog::~OptionsMagazzinoDialog()
     delete ui;
 }
 
-void OptionsMagazzinoDialog::prepareMaps()
-{
-    qDebug() << "OptionsMagazzinoDialog::prepareMaps()";
-
-    magazzinoNameCols = prepareMapsFromModel(articoloModel);
-    storicoNameCols = prepareMapsFromModel(storicoModel);
-}
-
-void OptionsMagazzinoDialog::populateList(void)
-{
-    qDebug() << "OptionsMagazzinoDialog::populateList()";
-    for (QMap<int,QString>::Iterator i = magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        ui->magazzinoListView->insertItem(i.key(), i.value());
-        QListWidgetItem *col = ui->magazzinoListView->item(i.key());
-        col->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-        col->setCheckState(Qt::Checked);
-    }
-
-    for (QMap<int,QString>::Iterator i = storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        ui->storicoListView->insertItem(i.key(), i.value());
-        QListWidgetItem *col = ui->storicoListView->item(i.key());
-        col->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-        col->setCheckState(Qt::Checked);
-    }
-}
-
 void OptionsMagazzinoDialog::saveConfig(void)
 {
     qDebug() << "OptionsMagazzinoDialog::saveConfig()";
-    settings.beginGroup(magazzino::ARTICOLO_STATUS);
-    for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->magazzinoListView->item(i.key());
-        int checkState = col->checkState()==Qt::Checked ? 1 : 0;
-        settings.setValue(QVariant(i.key()).toString(), checkState);
-    }
-    settings.endGroup();
+    //Salvo la visibilita' delle colonne della vista Articolo
+    saveVisibility(ui->magazzinoListView, magazzino::ARTICOLO_STATUS);
 
-    settings.beginGroup(magazzino::ARTICOLO_COLORS);
-    for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->magazzinoListView->item(i.key());
-        QColor color = col->background().color();
-        if (color == QColor(Qt::transparent))
-            settings.setValue(QVariant(i.key()).toString(), "-1");
-        else
-            settings.setValue(QVariant(i.key()).toString(), color.name());
-    }
-    settings.endGroup();
+    //Salvo i colori della vista Articolo
+    saveBgColor(ui->magazzinoListView, magazzino::ARTICOLO_COLORS);
 
-    settings.beginGroup(magazzino::STORICO_STATUS);
-    for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->storicoListView->item(i.key());
-        int checkState = col->checkState()==Qt::Checked ? 1 : 0;
-        settings.setValue(QVariant(i.key()).toString(), checkState);
-    }
-    settings.endGroup();
+    //Salvo la visibilita' delle colonne della vista Storico
+    saveVisibility(ui->storicoListView, magazzino::STORICO_STATUS);
 
-    settings.beginGroup(magazzino::STORICO_COLORS);
-    for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->storicoListView->item(i.key());
-        QColor color = col->background().color();
-        if (color == QColor(Qt::transparent))
-            settings.setValue(QVariant(i.key()).toString(), "-1");
-        else
-            settings.setValue(QVariant(i.key()).toString(), color.name());
-    }
-    settings.endGroup();
+    //Salvo i colori della vista Storico
+    saveBgColor(ui->storicoListView, magazzino::STORICO_COLORS);
 
     settings.setValue(magazzino::DEFAULT_IVA, ui->codIvaComboBox->currentText());
 }
@@ -105,48 +52,18 @@ void OptionsMagazzinoDialog::saveConfig(void)
 void OptionsMagazzinoDialog::loadConfig(void)
 {
     qDebug() << "OptionsMagazzinoDialog::loadConfig()";
-    settings.beginGroup(magazzino::ARTICOLO_STATUS);
-    for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->magazzinoListView->item(i.key());
-        int status = settings.value(QVariant(i.key()).toString(), 1).toInt();
-        col->setCheckState(status==1 ? Qt::Checked : Qt::Unchecked);
-    }
-    settings.endGroup();
 
-    QColor color;
-    settings.beginGroup(magazzino::ARTICOLO_COLORS);
-    for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->magazzinoListView->item(i.key());
-        QString colorStr = settings.value(QVariant(i.key()).toString(), "-1").toString();
-        if (colorStr == "-1")
-            color = QColor(Qt::transparent);
-        else
-            color.setNamedColor(colorStr);
+    //Carico la visibilita' delle colonne della vista Articolo
+    loadVisibility(ui->magazzinoListView, magazzino::ARTICOLO_STATUS);
 
-        col->setBackground(QBrush(color));
-    }
-    settings.endGroup();
+    //Carico i colori della vista Articolo
+    loadBgColor(ui->magazzinoListView, magazzino::ARTICOLO_COLORS);
 
-    settings.beginGroup(magazzino::STORICO_STATUS);
-    for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->storicoListView->item(i.key());
-        int status = settings.value(QVariant(i.key()).toString(), 1).toInt();
-        col->setCheckState(status==1 ? Qt::Checked : Qt::Unchecked);
-    }
-    settings.endGroup();
+    //Carico la visibilita' delle colonne della vista Storico
+    loadVisibility(ui->storicoListView, magazzino::STORICO_STATUS);
 
-    settings.beginGroup(magazzino::STORICO_COLORS);
-    for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->storicoListView->item(i.key());
-        QString colorStr = settings.value(QVariant(i.key()).toString(), "-1").toString();
-        if (colorStr == "-1")
-            color = QColor(Qt::transparent);
-        else
-            color.setNamedColor(colorStr);
-
-        col->setBackground(QBrush(color));
-    }
-    settings.endGroup();
+    //Carico i colori della vista Storico
+    loadBgColor(ui->storicoListView, magazzino::STORICO_COLORS);
 
     int index = ui->codIvaComboBox->findText(settings.value(magazzino::DEFAULT_IVA).toString(), 0);
     ui->codIvaComboBox->setCurrentIndex(index);
@@ -155,62 +72,10 @@ void OptionsMagazzinoDialog::loadConfig(void)
 void OptionsMagazzinoDialog::restoreToDefault(void)
 {
     qDebug() << "OptionsMagazzinoDialog::restoreToDefault()";
-    settings.beginGroup(magazzino::ARTICOLO_STATUS);
-    for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->magazzinoListView->item(i.key());
-        col->setCheckState(Qt::Checked);
-        settings.setValue(QVariant(i.key()).toString(), 1);
-    }
-    settings.endGroup();
 
-    settings.beginGroup(magazzino::ARTICOLO_COLORS);
-    for (QMap<int,QString>::Iterator i=magazzinoNameCols.begin(); i!=magazzinoNameCols.end(); i++) {
-        settings.setValue(QVariant(i.key()).toString(), "-1");
-    }
-    settings.endGroup();
+    restoreListWidget(ui->magazzinoListView);
+    restoreListWidget(ui->storicoListView);
 
-    settings.beginGroup(magazzino::STORICO_STATUS);
-    for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        QListWidgetItem *col = ui->storicoListView->item(i.key());
-        col->setCheckState(Qt::Checked);
-        settings.setValue(QVariant(i.key()).toString(), 1);
-    }
-    settings.endGroup();
-
-    settings.beginGroup(magazzino::STORICO_COLORS);
-    for (QMap<int,QString>::Iterator i=storicoNameCols.begin(); i!=storicoNameCols.end(); i++) {
-        settings.setValue(QVariant(i.key()).toString(), "-1");
-    }
-    settings.endGroup();
-
+    saveConfig();
     loadConfig();
 }
-
-void OptionsMagazzinoDialog::setColumnColorMagazzino(QModelIndex index)
-{
-    qDebug() << "OptionsMagazzinoDialog::setColumnColorMagazzino()";
-    QListWidgetItem *col;
-    col = ui->magazzinoListView->item(index.row());
-
-    QColorDialog dlg(this);
-    bool ok = dlg.exec();
-    if (ok) {
-        QColor color = dlg.selectedColor();
-        col->setBackgroundColor(color);
-    }
-}
-
-void OptionsMagazzinoDialog::setColumnColorStorico(QModelIndex index)
-{
-    qDebug() << "OptionsMagazzinoDialog::setColumnColorStorico()";
-    QListWidgetItem *col;
-    col = ui->storicoListView->item(index.row());
-
-    QColorDialog dlg(this);
-    bool ok = dlg.exec();
-    if (ok) {
-        QColor color = dlg.selectedColor();
-        col->setBackgroundColor(color);
-    }
-}
-

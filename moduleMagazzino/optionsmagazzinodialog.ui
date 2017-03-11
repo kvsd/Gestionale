@@ -203,7 +203,7 @@
    <sender>magazzinoListView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>OptionsMagazzinoDialog</receiver>
-   <slot>setColumnColorMagazzino(QModelIndex)</slot>
+   <slot>setColumnColor(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>222</x>
@@ -219,7 +219,7 @@
    <sender>storicoListView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>OptionsMagazzinoDialog</receiver>
-   <slot>setColumnColorStorico(QModelIndex)</slot>
+   <slot>setColumnColor(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>171</x>
@@ -237,5 +237,6 @@
   <slot>restoreToDefault()</slot>
   <slot>setColumnColorMagazzino(QModelIndex)</slot>
   <slot>setColumnColorStorico(QModelIndex)</slot>
+  <slot>setColumnColor(QModelIndex)</slot>
  </slots>
 </ui>
