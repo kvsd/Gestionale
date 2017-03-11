@@ -152,22 +152,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_default</sender>
-   <signal>clicked()</signal>
-   <receiver>OptionsAnagraficaDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>528</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>108</x>
-     <y>528</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>lw_column_anagrafica</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>OptionsAnagraficaDialog</receiver>
