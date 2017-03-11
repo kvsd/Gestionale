@@ -57,7 +57,9 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     modulePrimaNota/primanota_const.h \
 	modulePrimaNota/primanotaadddlg.h \
     moduleDatabase/db_const.h \
-    moduleDatabase/userdbdialog.h
+    moduleDatabase/userdbdialog.h \
+    libs/optionsdialog.h \
+    libs/customwindow.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -100,4 +102,6 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     libs/utils.cpp \
     modulePrimaNota/primanotawindow.cpp \
     modulePrimaNota/primanotaadddlg.cpp \
-    moduleDatabase/userdbdialog.cpp
+    moduleDatabase/userdbdialog.cpp \
+    libs/optionsdialog.cpp \
+    libs/customwindow.cpp
