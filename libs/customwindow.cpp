@@ -7,7 +7,7 @@ CustomWindow::CustomWindow(QWidget *parent) : QMainWindow(parent)
 
 void CustomWindow::loadColumnVisibility(QTableView *view, QString groupSettings)
 {
-    qDebug() << "::loadColumnVisibility()";
+    qDebug() << objectName() + "::loadColumnVisibility() *";
     settings.beginGroup(groupSettings);
 
     QStringList cols = settings.allKeys();
@@ -23,7 +23,7 @@ void CustomWindow::loadColumnVisibility(QTableView *view, QString groupSettings)
 
 QMap<QString, QBrush> CustomWindow::getBgSettings(QString groupName)
 {
-    qDebug() << "::getBgMap()";
+    qDebug() << objectName() + "::getBgMap() *";
     QMap<QString, QBrush> map;
     settings.beginGroup(groupName);
 

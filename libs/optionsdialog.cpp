@@ -8,7 +8,7 @@ OptionsDialog::OptionsDialog(QWidget *parent)
 
 void OptionsDialog::populateList(QListWidget *list, QSqlQueryModel *model)
 {
-    qDebug() << objectName() << "::populateList()";
+    qDebug() << objectName() + "::populateList() *";
     auto modelNameCols = prepareMapsFromModel(model);
     for (auto i = modelNameCols.begin(); i!=modelNameCols.end(); i++) {
         list->insertItem(i.key(), i.value());
@@ -20,7 +20,7 @@ void OptionsDialog::populateList(QListWidget *list, QSqlQueryModel *model)
 
 void OptionsDialog::saveVisibility(QListWidget *list, QString groupSettings)
 {
-    qDebug() << objectName() << "::saveVisibility()*";
+    qDebug() << objectName() + "::saveVisibility() *";
     settings.beginGroup(groupSettings);
     for (int i=0; i<list->count(); i++) {
         QListWidgetItem *col = list->item(i);
@@ -32,7 +32,7 @@ void OptionsDialog::saveVisibility(QListWidget *list, QString groupSettings)
 
 void OptionsDialog::saveBgColor(QListWidget *list, QString groupSettings)
 {
-    qDebug() << objectName() << "::saveBgColor()*";
+    qDebug() << objectName() + "::saveBgColor() *";
     settings.beginGroup(groupSettings);
     for (int i=0; i<list->count(); i++) {
         QListWidgetItem *col = list->item(i);
@@ -47,7 +47,7 @@ void OptionsDialog::saveBgColor(QListWidget *list, QString groupSettings)
 
 void OptionsDialog::loadVisibility(QListWidget *list, QString groupSettings)
 {
-    qDebug() << objectName() << "::loadVisibility()*";
+    qDebug() << objectName() + "::loadVisibility() *";
     settings.beginGroup(groupSettings);
     for (int i=0; i<list->count(); i++) {
         QListWidgetItem *col = list->item(i);
@@ -59,7 +59,7 @@ void OptionsDialog::loadVisibility(QListWidget *list, QString groupSettings)
 
 void OptionsDialog::loadBgColor(QListWidget *list, QString groupSettings)
 {
-    qDebug() << objectName() << "::loadBgColor()*";
+    qDebug() << objectName() + "::loadBgColor() *";
     QColor color;
     settings.beginGroup(groupSettings);
     for (int i=0; i<list->count(); i++) {
@@ -77,7 +77,7 @@ void OptionsDialog::loadBgColor(QListWidget *list, QString groupSettings)
 
 void OptionsDialog::restoreListWidget(QListWidget *list)
 {
-    qDebug() << objectName() << "::restoreListWidget()*";
+    qDebug() << objectName() + "::restoreListWidget() *";
     for (int i=0; i<list->count(); i++) {
         QListWidgetItem *col = list->item(i);
         col->setCheckState(Qt::Checked);
@@ -87,7 +87,7 @@ void OptionsDialog::restoreListWidget(QListWidget *list)
 
 void OptionsDialog::setColumnColor(QModelIndex index)
 {
-    qDebug() << objectName() << "::setColumnColor()";
+    qDebug() << objectName() + "::setColumnColor() *";
     QListWidgetItem *col;
     QListWidget *list = qobject_cast<QListWidget *>(sender());
     if (list!=NULL) {
