@@ -3,7 +3,7 @@
 #include "custommodel.h"
 
 AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
-    QMainWindow(parent),
+    CustomWindow(parent),
     ui(new Ui::AnagraficaWindow)
 {
     qDebug() << "AnagraficaWindow()";
@@ -26,7 +26,7 @@ void AnagraficaWindow::initModel()
 {
     //Configura i model che verrano usati nei combobox (pannello dei filtri)
     qDebug() << "AnagraficaWindow::initModel()";
-    anagraficaModel = new CustomModel(anagrafica::ANGRFC_COLORS, Qt::AlignLeft, this);
+    anagraficaModel = new CustomModel(Qt::AlignLeft, this);
     ui->anagraficaView->setModel(anagraficaModel);
 
     cittaModel = new QSqlTableModel(this);
@@ -91,20 +91,11 @@ void AnagraficaWindow::loadConfigSettings()
 
     //legge il file file di configurazione e in base al valore
     //mostra o nasconde le colonne
-    settings.beginGroup(anagrafica::ANGRFC_STATUS);
-    QStringList cols = settings.allKeys();
-    if (!cols.isEmpty()) {
-        for (QStringList::Iterator i=cols.begin(); i!=cols.end(); i++) {
-            int col = QVariant((*i)).toInt();
-            bool value = settings.value((*i)).toBool();
-            ui->anagraficaView->setColumnHidden(col, !value);
-        }
-    }
-    settings.endGroup();
+    loadColumnVisibility(ui->anagraficaView, anagrafica::ANGRFC_STATUS);
 
     //imposta i colori delle colonne, questo viene fatto dal model
     //e non dalla view. MISTERI DI QT
-    anagraficaModel->loadSettings();
+    anagraficaModel->setBgMap(getBgSettings(anagrafica::ANGRFC_COLORS));
 
     //Carico le impostazioni del menu ricerca
     ui->actionRagioneSociale->setChecked(settings.value(anagrafica::SEARCH_RAGSOCL, true).toBool());
@@ -306,7 +297,7 @@ void AnagraficaWindow::updateViewAnagrafica(void)
 void AnagraficaWindow::openConfigDialog(void)
 {
     qDebug() << "AnagraficaWindow::openConfigDialog()";
-    OptionsAnagraficaDialog dlg(anagraficaModel, this);
+    OptionsAnagraficaDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
         return;

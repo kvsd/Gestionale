@@ -4,6 +4,7 @@
 #include "moduleAnagrafica/anagraficaadddialog.h"
 #include "moduleAnagrafica/optionsanagraficadialog.h"
 #include "libs/custommodel.h"
+#include "libs/customwindow.h"
 #include "anagrafica_const.h"
 
 #include <QMainWindow>
@@ -14,12 +15,13 @@
 #include <QSettings>
 #include <QCloseEvent>
 #include <QShowEvent>
+#include <QTableView>
 
 namespace Ui {
 class AnagraficaWindow;
 }
 
-class AnagraficaWindow : public QMainWindow
+class AnagraficaWindow : public CustomWindow
 {
     Q_OBJECT
 
@@ -35,7 +37,6 @@ private:
     QSqlTableModel *statoModel;
     QSqlTableModel *agenteModel;
 
-    QSettings settings;
     void initModel();
     void updateModel();
     void initComboBox();
