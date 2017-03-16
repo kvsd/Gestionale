@@ -5,6 +5,8 @@
 #include <QTableView>
 #include <QSettings>
 #include <QDebug>
+#include <QSplitter>
+#include <QHeaderView>
 
 class CustomWindow : public QMainWindow
 {
@@ -18,7 +20,19 @@ protected:
     void loadColumnVisibility(QTableView *view, QString groupSettings);
     QMap<QString, QBrush> getBgSettings(QString groupName);
 
+    void saveWindowGeometry();
+    void loadWindowGeometry();
+
+    void saveSplittersState();
+    void loadSplittersState();
+
+    void saveTableViewSettings();
+    void loadTableViewSettings();
+
 private:
+    static QString winKeyStr;
+    static QString splitterKeyStr;
+    static QString headerKeyStr;
 
 signals:
 
