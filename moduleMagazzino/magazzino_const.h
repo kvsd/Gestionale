@@ -8,23 +8,15 @@
 
 namespace magazzino {
 
-    const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
-
     const QString CSS_WARNING_STYLE = "background-color:yellow";
 
     //SETTINGS
     const QString DEFAULT_IVA = "default.civa";
     const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
     const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
-    const QString ARTICOLO_HEADER = "MagazzinoWindow.header.articolo";
 
     const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
     const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
-    const QString STORICO_HEADER = "MagazzinoWindow.header.storico";
-
-    const QString GEOMETRY = "MagazzinoWindow.size";
-    const QString SPLITTER1_SIZE = "MagazzinoWindow.size.splitter1";
-    const QString SPLITTER2_SIZE = "MagazzinoWindow.size.splitter2";
 
     const QString SEARCH_DESCR = "MagazzinoWindow.search.descrizione";
     const QString SEARCH_COD_ART = "MagazzinoWindow.search.codarticolo";
