@@ -24,8 +24,13 @@ QVariant CustomModel::data(const QModelIndex &item, int role) const
     if (role == Qt::TextAlignmentRole)
         return alignMap.value(headerName, defaultAlign) + Qt::AlignVCenter;
 
-    if (role == Qt::BackgroundRole)
+    if (role == Qt::BackgroundRole && item.row()%2==1)
         return bgColorsMap.value(headerName, defaultBgColor);
+
+    if (role == Qt::BackgroundRole && item.row()%2==0) {
+        QBrush brush = bgColorsMap.value(headerName, defaultBgColor);
+        return QBrush(brush.color().lighter(115));;
+    }
 
     if (role == Qt::ForegroundRole)
         return fgColorsMap.value(headerName, defaultFgColor);
