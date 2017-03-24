@@ -10,8 +10,8 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
     ui->setupUi(this);
 
     initModel();
-    updateModel();
     initComboBox();
+
     this->move(parent->pos());
     loadConfigSettings();
 }
@@ -31,28 +31,42 @@ void AnagraficaWindow::initModel()
 
     cittaModel = new QSqlTableModel(this);
     cittaModel->setTable(table::CITTA);
-    //cittaModel->select();
 
     provinciaModel = new QSqlTableModel(this);
     provinciaModel->setTable(table::PROVINCIA);
-    //provinciaModel->select();
 
     statoModel  = new QSqlTableModel(this);
     statoModel->setTable(table::STATO);
-    //statoModel->select();
 
     agenteModel = new QSqlTableModel(this);
     agenteModel->setTable(table::AGENTI);
     agenteModel->setSort(2, Qt::AscendingOrder);
-    //agenteModel->select();
+
+    updateModel();
 }
 
 void AnagraficaWindow::updateModel()
 {
+    qDebug() << "AnagraficaWindow::updateModel()";
+
+    QString cittaText = ui->cittaComboBox->currentText();
+    QString provinciaText = ui->provinciaComboBox->currentText();
+    QString statoText = ui->statoComboBox->currentText();
+    QString agenteText = ui->agenteComboBox->currentText();
+
     cittaModel->select();
     provinciaModel->select();
     statoModel->select();
     agenteModel->select();
+
+    if (cittaText.isEmpty() || provinciaText.isEmpty() ||
+            statoText.isEmpty() || agenteText.isEmpty())
+        return;
+
+    ui->cittaComboBox->setCurrentText(cittaText);
+    ui->provinciaComboBox->setCurrentText(provinciaText);
+    ui->statoComboBox->setCurrentText(statoText);
+    ui->agenteComboBox->setCurrentText(agenteText);
 }
 
 void AnagraficaWindow::initComboBox()
@@ -62,6 +76,7 @@ void AnagraficaWindow::initComboBox()
 
     ui->cittaComboBox->setModel(cittaModel);
     ui->cittaComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->cittaComboBox->setCurrentIndex(0);
 
     ui->provinciaComboBox->setModel(provinciaModel);
     ui->provinciaComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
@@ -76,18 +91,9 @@ void AnagraficaWindow::initComboBox()
 void AnagraficaWindow::loadConfigSettings()
 {
     qDebug() << "AnagraficaWindow::loadConfigSettings()";
-    this->setGeometry(settings.value(anagrafica::GEOMETRY, anagrafica::DEFAULT_GEOMETRY).toRect());
-    ui->splitter_filtri->restoreState(settings.value(anagrafica::SPLITTER_FILTRI_STATE).toByteArray());
-    ui->splitter_docs->restoreState(settings.value(anagrafica::SPLITTER_DOCS_STATE).toByteArray());
-    //Carica la disposizione delle colonne. Il ripristino dello stato delle colonne
-    //salva anche lo stato delle colonne (mostra/nascondi), quindi bisogna caricarle
-    //prima di leggere lo stato mostra nascondi.
-    //ui->anagraficaView->horizontalHeader()->setMovable(true);
-    ui->anagraficaView->horizontalHeader()->setSectionsMovable(true);
-    if (settings.contains(anagrafica::ANGRFC_HEADER)) {
-        QByteArray array = settings.value(anagrafica::ANGRFC_HEADER).toByteArray();
-        ui->anagraficaView->horizontalHeader()->restoreState(array);
-    }
+    loadWindowGeometry();
+    loadSplittersState();
+    loadTableViewSettings();
 
     //legge il file file di configurazione e in base al valore
     //mostra o nasconde le colonne
@@ -107,10 +113,9 @@ void AnagraficaWindow::loadConfigSettings()
 void AnagraficaWindow::saveConfigSettings()
 {
     qDebug() << "AnagraficaWindow::saveConfigSettings()";
-    settings.setValue(anagrafica::GEOMETRY, this->geometry());
-    settings.setValue(anagrafica::ANGRFC_HEADER, ui->anagraficaView->horizontalHeader()->saveState());
-    settings.setValue(anagrafica::SPLITTER_FILTRI_STATE, ui->splitter_filtri->saveState());
-    settings.setValue(anagrafica::SPLITTER_DOCS_STATE, ui->splitter_docs->saveState());
+    saveWindowGeometry();
+    saveSplittersState();
+    saveTableViewSettings();
 
     //Salvo le impostazioni del menu ricerca
     settings.setValue(anagrafica::SEARCH_RAGSOCL, ui->actionRagioneSociale->isChecked());
