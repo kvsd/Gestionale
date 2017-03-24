@@ -28,12 +28,12 @@ void MagazzinoWindow::initModel()
     qDebug() << "MagazzinoWindow::initModel()";
 
     QMap <QString, Qt::AlignmentFlag> map;
-    map["Descrizione"] = Qt::AlignLeft;
-    map["Fornitore"] = Qt::AlignLeft;
-    map["Note"] = Qt::AlignLeft;
-    map["Modello"] = Qt::AlignLeft;
-    map["Cod.Articolo"] = Qt::AlignLeft;
-    map["Cod.Fornitore"] = Qt::AlignLeft;
+    QStringList cols;
+    cols << "Descrizione" << "Fornitore" << "Note" << "Modello"
+         << "Cod.Articolo" << "Cod.Fornitore";
+    for (auto col : cols)
+        map[col] = Qt::AlignLeft;
+
     articoloModel = new CustomModel(Qt::AlignRight, this);
     articoloModel->setAlignMap(map);
 
@@ -102,34 +102,19 @@ void MagazzinoWindow::updateModel()
 void MagazzinoWindow::loadConfigSettings()
 {
     qDebug() << "MagazzinoWindow::loadConfigSettings()";
-    this->setGeometry(settings.value(magazzino::GEOMETRY, magazzino::DEFAULT_GEOMETRY).toRect());
-    ui->splitter_1->restoreState(settings.value(magazzino::SPLITTER1_SIZE).toByteArray());
-    ui->splitter_2->restoreState(settings.value(magazzino::SPLITTER2_SIZE).toByteArray());
 
-    //Carico la disposizione delle colonne della vista articolo
-    //ui->articoloView->horizontalHeader()->setMovable(true);
-    ui->articoloView->horizontalHeader()->setSectionsMovable(true);
-    if (settings.contains(magazzino::ARTICOLO_HEADER)) {
-        QByteArray array = settings.value(magazzino::ARTICOLO_HEADER).toByteArray();
-        ui->articoloView->horizontalHeader()->restoreState(array);
-    }
-
-    //Carico la disposizione delle colonne della vista storico
-    //ui->storicoView->horizontalHeader()->setMovable(true);
-    ui->storicoView->horizontalHeader()->setSectionsMovable(true);
-    if (settings.contains(magazzino::STORICO_HEADER)) {
-        QByteArray array = settings.value(magazzino::STORICO_HEADER).toByteArray();
-        ui->storicoView->horizontalHeader()->restoreState(array);
-    }
+    loadWindowGeometry();
+    loadSplittersState();
+    loadTableViewSettings();
 
     //Carico la visibilita delle colonne della vista articolo e storico
     loadColumnVisibility(ui->articoloView, magazzino::ARTICOLO_STATUS);
     loadColumnVisibility(ui->storicoView, magazzino::STORICO_STATUS);
 
     //Carico il colore dello sfondo delle colonne. (Si e' gestito dai model)
-    articoloModel->setDefaultBgColor(QColor(255,255,200));
+    //articoloModel->setDefaultBgColor(QColor(255,255,180));
     articoloModel->setBgMap(getBgSettings(magazzino::ARTICOLO_COLORS));
-    storicoModel->setDefaultBgColor(QColor(220,220,180));
+    //storicoModel->setDefaultBgColor(QColor(220,220,180));
     storicoModel->setBgMap(getBgSettings(magazzino::STORICO_COLORS));
 
     //Carico le impostazioni del menu ricerca
@@ -142,12 +127,11 @@ void MagazzinoWindow::loadConfigSettings()
 void MagazzinoWindow::saveConfigSettings()
 {
     qDebug() << "MagazzinoWindow::saveConfigSettings()";
-    settings.setValue(magazzino::GEOMETRY, this->geometry());
-    settings.setValue(magazzino::SPLITTER1_SIZE, ui->splitter_1->saveState());
-    settings.setValue(magazzino::SPLITTER2_SIZE, ui->splitter_2->saveState());
-    //Salvo la disposizione delle colonne delle viste BUGGATA si corrompe e non ne capisco il motivo
-    settings.setValue(magazzino::ARTICOLO_HEADER, ui->articoloView->horizontalHeader()->saveState());
-    settings.setValue(magazzino::STORICO_HEADER, ui->storicoView->horizontalHeader()->saveState());
+
+    saveWindowGeometry();
+    saveSplittersState();
+    saveTableViewSettings();
+
     //Salvo le impostazioni del menu Ricerca
     settings.setValue(magazzino::SEARCH_DESCR, ui->actionDescrizione->isChecked());
     settings.setValue(magazzino::SEARCH_COD_ART, ui->actionCod_Articolo->isChecked());
@@ -438,6 +422,7 @@ void MagazzinoWindow::launchReportDlg()
 
 void MagazzinoWindow::findCodBarre()
 {
+    //Slot che ricerca tutti gli articoli senza codice a barre.
     qDebug() << "MagazzinoWindow::findCodBarre()";
     QSqlQuery SELECT_COD_BARRE = QSqlQuery(magazzino::SELECT_ARTICOLI_ALL +
                                            " AND cod_barre='' " +

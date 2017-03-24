@@ -12,12 +12,10 @@
 #include "configprintdialog.h"
 #include "reportdlg.h"
 
-#include <QMainWindow>
 #include <QSqlQueryModel>
 #include <QMap>
 #include <QDebug>
 #include <QCloseEvent>
-#include <QFileDialog>
 #include <QSqlRecord>
 #include <QSqlField>
 #include <QTableView>
