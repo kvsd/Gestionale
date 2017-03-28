@@ -302,6 +302,7 @@ void AnagraficaWindow::updateViewAnagrafica(void)
 void AnagraficaWindow::openConfigDialog(void)
 {
     qDebug() << "AnagraficaWindow::openConfigDialog()";
+    saveConfigSettings();
     OptionsAnagraficaDialog dlg(this);
     bool ok = dlg.exec();
     if (!ok) {
