@@ -305,23 +305,8 @@ void ArticoloDialog::calculatePrezzoAcquisto(void)
     }
 
     QString sconto_str = ui->le_sconto->text().replace("%", "");
-
-    double prezzo_acquisto = stringToDouble(prezzo_str);
-    double sconto = 0;
-
-    if (sconto_str.contains("+")) {
-        QStringList sconti = sconto_str.split("+");
-        QString s;
-        foreach(s, sconti) {
-            sconto = stringToDouble(s)/100.0;
-            prezzo_acquisto -= prezzo_acquisto*sconto;
-        }
-    }
-    else {
-        sconto = stringToDouble(sconto_str)/100.0;
-        prezzo_acquisto -= prezzo_acquisto*sconto;
-    }
-
+    double prezzo = stringToDouble(prezzo_str);
+    double prezzo_acquisto = setSconto(prezzo, sconto_str);
     ui->le_prezzo_acquisto->setText(locale().toCurrencyString(prezzo_acquisto));
     updateIva();
 }
@@ -344,30 +329,19 @@ void ArticoloDialog::updateIva(void)
         return;
     }
 
-    double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
-    double ricarico = 0;
-
+    double prezzo = stringToDouble(ui->le_prezzo_acquisto->text());
     QString ricarico_str = ui->le_ricarico->text().replace("%","");
-    if (ricarico_str.contains("+")) {
-        QStringList ricarichi = ricarico_str.split("+");
-        QString s;
-        foreach(s, ricarichi) {
-            ricarico = stringToDouble(s)/100;
-            prezzo_acquisto += prezzo_acquisto*ricarico;
-        }
-    }
-    else {
-        ricarico = stringToDouble(ricarico_str)/100;
-        prezzo_acquisto += prezzo_acquisto*ricarico;
-    }
+    double prezzo_acquisto = setRicarico(prezzo, ricarico_str);
 
     double codiva = stringToDouble(ui->cb_codiva->currentText())/100.0;
     double iva = prezzo_acquisto*codiva;
     ui->le_iva->setText(locale().toCurrencyString(iva));
 
-    double prezzo_vendita = prezzo_acquisto+iva;
-    ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_vendita));
-    ui->le_prezzo_finito->setText(locale().toCurrencyString(prezzo_vendita));
+    double prezzo_finito = prezzo_acquisto+iva;
+    ui->le_prezzo_finito->setText(locale().toCurrencyString(prezzo_finito));
+    double prezzo_vendita = stringToDouble(ui->le_prezzo_vendita->text());
+    if (prezzo_vendita < prezzo_finito)
+        ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_finito));
 }
 
 void ArticoloDialog::updatePrezzoFinito(void)
