@@ -142,3 +142,25 @@ bool controlloCodiceFiscale(QString s)
     //Converti il resto della somme per 26 e controlla l'ultima cifra del codice fiscale
     return c_check[(x+y)%26] == s[CHECKDIGIT_CF].toUpper();
 }
+
+double setRicarico(double prezzo, QString ricarico)
+{
+    qDebug() << "setRicarico()";
+    if (ricarico.contains("+")) {
+        for (auto s : ricarico.split("+"))
+            prezzo += prezzo * stringToDouble(s) / 100.0;
+        return prezzo;
+    }
+    return prezzo + (prezzo*ricarico.toDouble()/100.0);
+}
+
+double setSconto(double prezzo, QString sconto)
+{
+    qDebug() << "setSconto()";
+    if (sconto.contains("+")) {
+        for (auto s : sconto.split("+"))
+            prezzo -= prezzo * stringToDouble(s) / 100.0;
+        return prezzo;
+    }
+    return prezzo - (prezzo*sconto.toDouble()/100.0);
+}

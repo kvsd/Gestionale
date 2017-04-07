@@ -21,5 +21,9 @@ bool controlloPartitaIva(QString s);
 
 bool controlloCodiceFiscale(QString s);
 
+double setRicarico(double prezzo, QString ricarico);
+
+double setSconto(double prezzo, QString sconto);
+
 #endif // UTILS
 
