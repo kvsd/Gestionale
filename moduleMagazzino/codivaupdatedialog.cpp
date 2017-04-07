@@ -87,7 +87,12 @@ void codIvaUpdateDialog::updateIva(void)
         queryUpdateIva.bindValue(magazzino::PH_IVA, iva);
         queryUpdateIva.bindValue(magazzino::PH_PRZ_FIN, prezzo_finito);
         queryUpdateIva.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
-        queryUpdateIva.exec();
+        if (!queryUpdateIva.exec()) {
+            showDialogError(this, "Errore",
+                            "Errore nell'aggiornamento della tabella articolo");
+            db.rollback();
+            return;
+        }
 
         QSqlQuery query_check_storico;
         query_check_storico.prepare(magazzino::CHECK_STORICO);
@@ -112,7 +117,13 @@ void codIvaUpdateDialog::updateIva(void)
         queryInsertStorico.bindValue(magazzino::PH_PRZ_FIN, prezzo_finito);
         queryInsertStorico.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
         queryInsertStorico.bindValue(magazzino::PH_FATTURA, fattura);
-        queryInsertStorico.exec();
+        if (!queryInsertStorico.exec()) {
+            showDialogError(this, "Errore",
+                            "Errore nell'aggiornamento della tabella storico");
+            db.rollback();
+            return;
+        }
+
     }
     qDebug() << "Transaction commited:" << db.commit();
 }
