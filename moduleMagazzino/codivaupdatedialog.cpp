@@ -49,9 +49,16 @@ void codIvaUpdateDialog::updateIva(void)
     int oldIvastr = oldIvaModel->record(oldIvaIndex).value(magazzino::COL_TABLE_DESCRIZIONE).toInt();
     int newIvastr = newIvaModel->record(newIvaIndex).value(magazzino::COL_TABLE_DESCRIZIONE).toInt();
 
+    if (oldIvastr == newIvastr) {
+        showDialogError(this, ERR057, MSG030);
+        return;
+    }
+
     if (!showDialogWarning(this, "Attenzione", MSG023.arg(oldIvastr).arg(newIvastr))) {
         return;
     }
+    QSqlDatabase db = QSqlDatabase::database();
+    qDebug() << "Transaction start:" << db.transaction();
 
     QSqlQuery query;
     query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);
@@ -66,24 +73,12 @@ void codIvaUpdateDialog::updateIva(void)
         QString ricarico = query.value(magazzino::COL_RICARICO).toString();
         QString fattura = query.value(magazzino::COL_FATTURA).toString();
         double prezzo_acquisto = query.value(magazzino::COL_PREZZO_ACQUISTO).toDouble();
-        double prezzo_ricarico = 0;
-        if (ricarico.contains("+")) {
-            QStringList ricarichi = ricarico.split("+");
-            QString s;
-            prezzo_ricarico = prezzo_acquisto;
-            foreach(s, ricarichi) {
-                prezzo_ricarico += prezzo_ricarico * stringToDouble(s) / 100.0;
-            }
-        }
-        else
-            prezzo_ricarico = prezzo_acquisto + (prezzo_acquisto*ricarico.toDouble()/100.0);
-
+        double prezzo_ricarico = setRicarico(prezzo_acquisto, ricarico);
         double iva = prezzo_ricarico*newIvastr/100.0;
         double prezzo_finito = prezzo_ricarico+iva;
         double prezzo_vendita = query.value(magazzino::COL_PREZZO_VENDITA).toDouble();
-        if (prezzo_finito > prezzo_vendita) {
+        if (prezzo_finito > prezzo_vendita)
             prezzo_vendita = prezzo_finito;
-        }
 
         QSqlQuery queryUpdateIva;
         queryUpdateIva.prepare(magazzino::UPDATE_ARTICOLI_FROM_IVA);
@@ -101,12 +96,10 @@ void codIvaUpdateDialog::updateIva(void)
         query_check_storico.exec();
 
         QSqlQuery queryInsertStorico;
-        if (query_check_storico.first()) {
+        if (query_check_storico.first())
             queryInsertStorico.prepare(magazzino::UPDATE_STORICO);
-        }
-        else {
+        else
             queryInsertStorico.prepare(magazzino::INSERT_STORICO);
-        }
 
         queryInsertStorico.bindValue(magazzino::PH_ID_ART, id);
         queryInsertStorico.bindValue(magazzino::PH_DATA, data);
@@ -121,4 +114,5 @@ void codIvaUpdateDialog::updateIva(void)
         queryInsertStorico.bindValue(magazzino::PH_FATTURA, fattura);
         queryInsertStorico.exec();
     }
+    qDebug() << "Transaction commited:" << db.commit();
 }

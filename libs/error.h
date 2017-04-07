@@ -62,6 +62,7 @@
 #define ERR054 "Codice Errore 054"
 #define ERR055 "Codice Errore 055"
 #define ERR056 "Codice Errore 056"
+#define ERR057 "Codice Errore 057"
 
 
 const QString MSG000 = QString::fromUtf8("Si è verificato un errore nella connessione al database.");
@@ -93,6 +94,7 @@ const QString MSG025 = QString::fromUtf8("Prima di modificare una nota bisogna s
 const QString MSG026 = QString::fromUtf8("Non è stata effettuata la connessione al database");
 const QString MSG027 = QString::fromUtf8("Per poter gestire gli utenti devi usare l'utente postgres");
 const QString MSG028 = QString::fromUtf8("Per poter clonare un articolo bisogna prima selezionarlo dalla lista articoli.");
+const QString MSG030 = QString::fromUtf8("I codici IVA sono uguali.");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");
