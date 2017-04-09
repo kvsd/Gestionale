@@ -14,12 +14,12 @@ namespace anagrafica {
     const QString CSS_WARNING_STYLE = "background-color:yellow";
     const QString ANGRFC_STATUS ="AnagraficaColsStatus";
     const QString ANGRFC_COLORS = "AnagraficaColsColors";
-    const QString ANGRFC_HEADER = "AnagraficaWindow.header";
-    const QString GEOMETRY = "AnagraficaWindow.size";
-    const QString SPLITTER_FILTRI_STATE = "AnagraficaWindow.splitter_filtri";
-    const QString SPLITTER_DOCS_STATE = "AnagraficaWindow.splitter_docs";
+    //const QString ANGRFC_HEADER = "AnagraficaWindow.header";
+    //const QString GEOMETRY = "AnagraficaWindow.size";
+    //const QString SPLITTER_FILTRI_STATE = "AnagraficaWindow.splitter_filtri";
+    //const QString SPLITTER_DOCS_STATE = "AnagraficaWindow.splitter_docs";
 
-    const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
+    //const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
 
     //SQL
 
