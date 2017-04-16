@@ -200,7 +200,8 @@ QString MagazzinoWindow::filterString(void) {
 
     if (ui->fatturaLineEdit->isEnabled()) {
         QString numero_fattura = ui->fatturaLineEdit->text();
-        filter.append(pattern.arg(magazzino::COL_FATTURA).arg(numero_fattura));
+        QString pattern("fattura ILIKE '%%1%'");
+        filter.append(pattern.arg(numero_fattura));
     }
 
     if (ui->currentDateEnabler->isChecked()) {
