@@ -213,6 +213,7 @@ FROM prima_nota
 ORDER BY data;
 
 --PERMISSION#################################################################################
+CREATE ROLE gestionale_user;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO gestionale_user;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO gestionale_user;
 
