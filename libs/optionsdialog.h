@@ -8,6 +8,7 @@
 #include <QColorDialog>
 #include <QSqlQueryModel>
 #include <libs/utils.h>
+#include <QApplication>
 
 class OptionsDialog : public QDialog
 {

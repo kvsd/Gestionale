@@ -88,16 +88,27 @@ void OptionsDialog::restoreListWidget(QListWidget *list)
 void OptionsDialog::setColumnColor(QModelIndex index)
 {
     qDebug() << objectName() + "::setColumnColor() *";
+    /* Funzione membro richiamata dal segnale itemDoubleClicked di
+     * una ListWidget, riconosce quale pulsante del mouse è stato
+     * usato per generare il segnale. Con il pulsante sinistro apre
+     * un QColorDialog per la selezione del colore, mentre con il
+     * destro ripristina il colore trasparente. */
+
+    auto buttons = qApp->mouseButtons();
     QListWidgetItem *col;
     QListWidget *list = qobject_cast<QListWidget *>(sender());
     if (list!=NULL) {
         col = list->item(index.row());
-        QColorDialog dlg(this);
-        bool ok = dlg.exec();
-        if (ok) {
-            QColor color = dlg.selectedColor();
-            col->setBackgroundColor(color);
-            list->clearSelection();
+        if (buttons == Qt::RightButton)
+            col->setBackgroundColor(Qt::transparent);
+        else {
+            QColorDialog dlg(this);
+            bool ok = dlg.exec();
+            if (ok) {
+                QColor color = dlg.selectedColor();
+                col->setBackgroundColor(color);
+            }
         }
+        list->clearSelection();
     }
 }

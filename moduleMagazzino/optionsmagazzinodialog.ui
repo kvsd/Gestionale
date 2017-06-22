@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
@@ -66,6 +66,17 @@
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QListWidget" name="magazzinoListView"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 102, 255);</string>
+            </property>
+            <property name="text">
+             <string>Doppio click mouse sinistro per selezionare il colore dello sfondo
+Doppio click mouse destro per ripristinare il colore</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
