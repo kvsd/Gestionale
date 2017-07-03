@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QPainter>
 #include <QPrinter>
-#include <QPrintDialog>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QDebug>
@@ -34,33 +33,35 @@ class Report : public QObject
     Q_OBJECT
 
 public:
-    explicit Report(QVector<int> columnsStretch={1,3,1,1}, QObject *parent = 0);
+    explicit Report(QPainter *painter,
+                    QPrinter *printer,
+                    QVector<int> columnsStretch,
+                    QObject *parent = 0);
     ~Report();
 
     void setPen(QColor color=QColor(Qt::black), int width=10);
-    bool startPrinting(bool dlg=false);
-    void endPrinting();
+    void startPrinting();
     void print(QStringList list, QVector<Qt::Alignment> align={}, bool bold=false, bool border=true);
-    void setTitle(QString title){titleText = title;}
-    void setHeaderNames(QStringList list){headerNames=list;}
+    void setTitle(QString title){m_titleText = title;}
+    void setHeaderNames(QStringList list){m_headerNames=list;}
 
 private:
-    QPrinter *printer;
-    QPainter *painter;
-    QVector<int> colsStretch;
-    QPen pen;
-    QVector <QRectF> cols;
-    QRectF title1Rect;
-    QRectF title2Rect;
-    QStringList headerNames;
+    QPrinter *m_printer;
+    QPainter *m_painter;
+    QVector<int> m_colsStretch; //Fattore di estensione delle colonne
+    QPen m_pen;
+    QVector <QRectF> m_cols;    //Colonne del foglio
+    QRectF m_title1Rect;
+    QRectF m_title2Rect;
+    QStringList m_headerNames;
+    QString m_titleText;
 
-    int colsNumber;   //numero di colonne del foglio
-    float textMargin; //margine da applicare al testo nelle celle
-    float rowHeight;  //altezza della riga
-    int maxRowNumber; //numero di righe per foglio
-    int currentPage;
-    int currentRow;
-    QString titleText;
+    int m_colsNumber;   //numero di colonne del foglio
+    float m_textMargin; //margine da applicare al testo nelle celle
+    float m_rowHeight;  //altezza della riga
+    int m_maxRowNumber; //numero di righe per foglio
+    int m_currentPage;
+    int m_currentRow;
 
     void setupPage();
     void setRow(int row);
