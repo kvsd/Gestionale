@@ -1,39 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ReportDlg</class>
- <widget class="QDialog" name="ReportDlg">
+ <class>ReportListino</class>
+ <widget class="QWidget" name="ReportListino">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>379</height>
+    <width>389</width>
+    <height>194</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Stampa</string>
+   <string>Stampa listino</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Report:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="reportComboBox"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="fornitoreLayout">
-     <item>
-      <widget class="QLabel" name="fornitoreLabel">
-       <property name="text">
-        <string>Fornitore:</string>
+        <string>fornitore:</string>
        </property>
       </widget>
      </item>
@@ -43,15 +29,15 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="listinoGroupBox">
+    <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Listino</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QRadioButton" name="listinoPrintCurrentDate">
+       <widget class="QRadioButton" name="listinoPrintAll">
         <property name="text">
-         <string>Stampa listino con data arrivo odierna</string>
+         <string>Stampa listino completo</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -59,9 +45,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="listinoPrintAll">
+       <widget class="QRadioButton" name="listinoPrintCurrentDate">
         <property name="text">
-         <string>Stampa listino completo</string>
+         <string>Stampa listino con data arrivo odierna</string>
         </property>
        </widget>
       </item>
@@ -69,39 +55,24 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="ordineGroupBox">
-     <property name="title">
-      <string>Ordine</string>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QTableView" name="orderView"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="inventarioGroupBox">
-     <property name="title">
-      <string>Inventario</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QCheckBox" name="checkBox_2">
-        <property name="text">
-         <string>CheckBox</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="closeButton">
        <property name="text">
-        <string>&amp;Chiudi</string>
+        <string>Chiudi</string>
        </property>
       </widget>
      </item>
@@ -121,14 +92,14 @@
      <item>
       <widget class="QPushButton" name="configButton">
        <property name="text">
-        <string>C&amp;onfigura</string>
+        <string>Configura</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="printButton">
        <property name="text">
-        <string>&amp;Stampa</string>
+        <string>Stampa</string>
        </property>
       </widget>
      </item>
@@ -141,121 +112,104 @@
   <connection>
    <sender>closeButton</sender>
    <signal>clicked()</signal>
-   <receiver>ReportDlg</receiver>
+   <receiver>ReportListino</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>368</y>
+     <x>64</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
-     <x>260</x>
-     <y>89</y>
+     <x>35</x>
+     <y>212</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>printButton</sender>
-   <signal>clicked()</signal>
-   <receiver>ReportDlg</receiver>
+   <signal>clicked(bool)</signal>
+   <receiver>ReportListino</receiver>
    <slot>print()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>389</x>
-     <y>368</y>
+     <x>365</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
-     <x>293</x>
-     <y>110</y>
+     <x>397</x>
+     <y>194</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>configButton</sender>
    <signal>clicked()</signal>
-   <receiver>ReportDlg</receiver>
+   <receiver>ReportListino</receiver>
    <slot>launchConfigDlg()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>298</x>
-     <y>368</y>
+     <x>227</x>
+     <y>190</y>
     </hint>
     <hint type="destinationlabel">
-     <x>257</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>reportComboBox</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>ReportDlg</receiver>
-   <slot>showOptions(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>287</x>
-     <y>24</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>395</x>
-     <y>22</y>
+     <x>208</x>
+     <y>206</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>fornitoreComboBox</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>ReportDlg</receiver>
+   <signal>activated(QString)</signal>
+   <receiver>ReportListino</receiver>
    <slot>updateFornitore(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>348</x>
-     <y>52</y>
+     <x>322</x>
+     <y>20</y>
     </hint>
     <hint type="destinationlabel">
-     <x>398</x>
-     <y>68</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listinoPrintCurrentDate</sender>
-   <signal>clicked()</signal>
-   <receiver>ReportDlg</receiver>
-   <slot>setReport()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>195</x>
-     <y>113</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>397</x>
-     <y>123</y>
+     <x>396</x>
+     <y>20</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>listinoPrintAll</sender>
    <signal>clicked()</signal>
-   <receiver>ReportDlg</receiver>
+   <receiver>ReportListino</receiver>
    <slot>setReport()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>317</x>
-     <y>135</y>
+     <x>292</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>395</x>
-     <y>169</y>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listinoPrintCurrentDate</sender>
+   <signal>clicked()</signal>
+   <receiver>ReportListino</receiver>
+   <slot>setReport()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>print()</slot>
-  <slot>launchConfigDlg()</slot>
-  <slot>showOptions(QString)</slot>
-  <slot>updateFornitore(QString)</slot>
   <slot>setReport()</slot>
+  <slot>launchConfigDlg()</slot>
+  <slot>updateFornitore(QString)</slot>
  </slots>
 </ui>

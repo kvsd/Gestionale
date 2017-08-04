@@ -1,6 +1,5 @@
 #include "error.h"
 
-
 void showDialogError(QWidget *parent, QString title, QString informative, QString details)
 {
     qDebug() << "showDialogError()";
@@ -41,4 +40,14 @@ bool showDialogWarning(QWidget *parent, QString title, QString informative, QStr
     }
 
     return false;
+}
+
+void showDialogInfo(QWidget *parent, QString title, QString informative)
+{
+    qDebug() << "showDialogInfo()";
+    QMessageBox dlg(parent);
+    dlg.setIcon(QMessageBox::Information);
+    dlg.setWindowTitle(title);
+    dlg.setText(informative);
+    dlg.exec();
 }

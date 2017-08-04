@@ -49,7 +49,6 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
            moduleMagazzino/codivaupdatedialog.h \
            moduleReport/configprintdialog.h \
            moduleAgenti/agenti_const.h \
-           moduleReport/reportdlg.h \
 		   moduleReport/report_const.h \
     moduleAzienda/azienda_const.h \
     libs/utils.h \
@@ -60,7 +59,10 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     moduleDatabase/userdbdialog.h \
     libs/optionsdialog.h \
     libs/customwindow.h \
-    moduleReport/report.h
+    moduleReport/report.h \
+    moduleReport/reportbase.h \
+    moduleReport/reportlistino.h \
+    moduleReport/reportinventario.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -76,10 +78,11 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleMagazzino/optionsmagazzinodialog.ui \
          moduleMagazzino/codivaupdatedialog.ui \
          moduleReport/configprintdialog.ui \
-         moduleReport/reportdlg.ui \
     modulePrimaNota/primanotawindow.ui \
     modulePrimaNota/primanotaadddlg.ui \
-    moduleDatabase/userdbdialog.ui
+    moduleDatabase/userdbdialog.ui \
+    moduleReport/reportlistino.ui \
+    moduleReport/reportinventario.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \
@@ -99,11 +102,13 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            moduleMagazzino/optionsmagazzinodialog.cpp \
            moduleMagazzino/codivaupdatedialog.cpp \
            moduleReport/configprintdialog.cpp \
-           moduleReport/reportdlg.cpp \
     libs/utils.cpp \
     modulePrimaNota/primanotawindow.cpp \
     modulePrimaNota/primanotaadddlg.cpp \
     moduleDatabase/userdbdialog.cpp \
     libs/optionsdialog.cpp \
     libs/customwindow.cpp \
-    moduleReport/report.cpp
+    moduleReport/report.cpp \
+    moduleReport/reportbase.cpp \
+    moduleReport/reportlistino.cpp \
+    moduleReport/reportinventario.cpp

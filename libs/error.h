@@ -98,6 +98,6 @@ const QString MSG030 = QString::fromUtf8("I codici IVA sono uguali.");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");
-
+void showDialogInfo(QWidget *parent, QString title, QString informative="");
 
 #endif // ERROR_H

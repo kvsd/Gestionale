@@ -8,27 +8,9 @@
 
 namespace report {
 
-    const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
-
-    const int PRINT_TITLE_HEIGHT = 500;
-    const int PRINT_COLS_HEIGHT = 300;
-    const int PRINT_MARGINS = 50;
-    const int PRINT_COLS = 6;
-
-
     //SETTINGS
-    const QString GEOMETRY = "MagazzinoWindow.size";
-
-    const QString LISTINO_COL1 = "Listino.col1";
-    const QString LISTINO_COL2 = "Listino.col2";
-    const QString LISTINO_COL3 = "Listino.col3";
-    const QString LISTINO_COL4 = "Listino.col4";
-
-    const QString ORDINE_COL1 = "Ordine.col1";
-    const QString ORDINE_COL2 = "Ordine.col2";
-    const QString ORDINE_COL3 = "Ordine.col3";
-    const QString ORDINE_COL4 = "Ordine.col4";
-
+    const QString listinoCols = "Listino.cols";
+    const QString ordineCols = "Ordine.cols";
 
     //SELECT utilizzata per la stampa del listino completo
     const QString SELECT_ALL_ARTICLE_FROM_FORNITORE = magazzino::SELECT_ARTICOLI_ALL +
@@ -40,17 +22,16 @@ namespace report {
 
 
     //Select utilizzata per la stampa dell'inventario
-    const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario";
+    const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario WHERE \"Quantità\"!=0";
 
     //Select che ritorna il totale dell'inventario, usato insieme alla query SELECT_INVENTARIO
     const QString SQL_INVENTARIO_TOT =
-            QString::fromUtf8("SELECT sum(\"Prezzo Acquisto\"*\"Quantità\") AS \"Totale\" "
-                              "FROM vw_magazzino WHERE \"Quantità\"!=0");
+            QString::fromUtf8("SELECT sum(\"SubTotale\") AS \"Totale\" "
+                              "FROM vw_inventario");
 
     //Select utilizzata per la stampa degli ordini
     const QString SELECT_ORDINE = magazzino::SELECT_ARTICOLI_ALL +
-            QString::fromUtf8(" AND mg.quantita <= mg.scorta_minima "
-                              " AND an.rag_sociale = '%1'");
+            QString::fromUtf8(" AND an.rag_sociale = '%1'");
 
     const QString LISTINO = "Listino";
     const QString INVENTARIO = "Inventario";

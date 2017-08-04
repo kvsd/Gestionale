@@ -24,22 +24,29 @@ Report::~Report()
 
 void Report::setPen(QColor color, int width)
 {
-    qDebug() << "setPen()";
+    qDebug() << "Report::setPen()";
     m_pen.setColor(color);
     m_pen.setWidth(width);
     if (m_painter->isActive())
         m_painter->setPen(m_pen);
 }
 
+void Report::setFont(QString fontFamily, int fontSize)
+{
+    QFont font(fontFamily, fontSize);
+    m_painter->setFont(font);
+}
+
 void Report::startPrinting()
 {
-    qDebug() << "startPrinting()";
+    qDebug() << "Report::startPrinting()";
     setPen();
     setupPage();
 }
 
 void Report::print(QStringList list, QVector<Qt::Alignment> align, bool bold, bool border)
 {
+    qDebug() << "Report::print()";
     if (m_currentRow == 0)
         printHeader(true);
 
@@ -48,7 +55,7 @@ void Report::print(QStringList list, QVector<Qt::Alignment> align, bool bold, bo
 
 void Report::setupPage()
 {
-    qDebug() << "setupPage()";
+    qDebug() << "Report::setupPage()";
     //Inizializza diverse variabili
     int pageHeight = m_printer->height();
     int pageWidth = m_printer->width();
@@ -81,7 +88,7 @@ void Report::setupPage()
 
 void Report::setRow(int row)
 {
-    qDebug() << "setRow()";
+    qDebug() << "Report::setRow()";
     float y = m_rowHeight*row;
     for (QRectF &col : m_cols)
         col.moveTop(y);
@@ -89,7 +96,7 @@ void Report::setRow(int row)
 
 void Report::nextRow()
 {
-    qDebug() << "nextRow()";
+    qDebug() << "Report::nextRow()";
     setRow(++m_currentRow);
     if (m_currentRow == m_maxRowNumber)
         setNewPage();
@@ -97,7 +104,7 @@ void Report::nextRow()
 
 void Report::printRow(QStringList list, QVector<Qt::Alignment> align, bool bold, bool border)
 {
-    qDebug() << "printRow()";
+    qDebug() << "Report::printRow()";
     if (bold) {
         m_painter->save();
         auto font = m_painter->font();
@@ -120,7 +127,7 @@ void Report::printRow(QStringList list, QVector<Qt::Alignment> align, bool bold,
 
 void Report::printTitle()
 {
-    qDebug() << "printTitle()";
+    qDebug() << "Report::printTitle()";
     m_painter->save();
     auto font = m_painter->font();
     font.setBold(true);
@@ -133,7 +140,7 @@ void Report::printTitle()
 
 void Report::printHeader(bool bold)
 {
-    qDebug() << "printHeader()";
+    qDebug() << "Report::printHeader()";
     if (!m_titleText.isEmpty()) {
         printTitle();
     }
@@ -143,7 +150,7 @@ void Report::printHeader(bool bold)
 
 void Report::setNewPage()
 {
-    qDebug() << "setNewPage()";
+    qDebug() << "Report::setNewPage()";
     m_printer->newPage();
     m_currentPage++;
     m_currentRow = 0;

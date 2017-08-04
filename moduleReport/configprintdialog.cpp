@@ -8,7 +8,6 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
     qDebug() << "ConfigPrintDialog()";
     ui->setupUi(this);
     initModel();
-    initComboBoxs();
     loadSettings();
 }
 
@@ -18,94 +17,137 @@ ConfigPrintDialog::~ConfigPrintDialog()
     delete ui;
 }
 
+void ConfigPrintDialog::setPage(int page, bool status)
+{
+    ui->tabWidget->setTabEnabled(page, status);
+}
+
 void ConfigPrintDialog::initModel()
 {
+    qDebug() << "ConfigPrintDialog::initModel()";
     model = new QSqlQueryModel(this);
     model->setQuery(magazzino::SELECT_ARTICOLI_ALL);
     headerMap = prepareMapsFromModel(model);
+    colsModel = new QStringListModel(headerMap.values(), this);
 }
 
-void ConfigPrintDialog::initComboBoxs()
+void ConfigPrintDialog::loadTableSettings(QTableWidget *table, QString settingsName)
 {
-    qDebug() << "ConfigPrintDialog::initComboBoxs()";
-    using namespace report;
-    QStringList cols;
-
-    QMapIterator <int, QString> it(headerMap);
-    while (it.hasNext()) {
-        it.next();
-        cols << it.value();
+    qDebug() << "ConfigPrintDialog::loadTableSettings()";
+    settings.beginGroup(settingsName);
+    for (QString key : settings.allKeys()) {
+        QStringList values = settings.value(key).toStringList();
+        addRow(table);
+        setRow(table, key.toInt(), values);
     }
-
-    ui->col1ComboBox->addItems(cols);
-    ui->col2ComboBox->addItems(cols);
-    ui->col3ComboBox->addItems(cols);
-    ui->col4ComboBox->addItems(cols);
-
-    ui->ordineCol1ComboBox->addItems(cols);
-    ui->ordineCol2ComboBox->addItems(cols);
-    ui->ordineCol3ComboBox->addItems(cols);
-    ui->ordineCol4ComboBox->addItems(cols);
+    settings.endGroup();
 }
 
 void ConfigPrintDialog::loadSettings()
 {
     qDebug() << "ConfigPrintDialog::loadSettings()";
-    //Configura listino
-    QString col1 = settings.value(report::LISTINO_COL1, report::CMP_COD_ART).toString();
-    QString col2 = settings.value(report::LISTINO_COL2, report::CMP_DESCR).toString();
-    QString col3 = settings.value(report::LISTINO_COL3, report::CMP_PRZ_ACQ).toString();
-    QString col4 = settings.value(report::LISTINO_COL4, report::CMP_PRZ_FIN).toString();
+    loadTableSettings(ui->listinoTableWidget, report::listinoCols);
+    loadTableSettings(ui->ordineTableWidget, report::ordineCols);
+}
 
-    int idCol1 = ui->col1ComboBox->findText(col1);
-    int idCol2 = ui->col1ComboBox->findText(col2);
-    int idCol3 = ui->col1ComboBox->findText(col3);
-    int idCol4 = ui->col1ComboBox->findText(col4);
+void ConfigPrintDialog::addRow(QTableWidget *table)
+{
+    qDebug() << "ConfigPrintDialog::addRow()";
+    int row = table->rowCount();
+    table->insertRow(row);
+    for (int col=0; col<table->columnCount(); col++) {
+        if (col==0) {
+            table->setCellWidget(row, col, new QComboBox);
+            auto cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
+            cb->setModel(colsModel);
+        }
+        else {
+            table->setCellWidget(row, col, new QLineEdit);
+        }
+    }
+}
 
-    ui->col1ComboBox->setCurrentIndex(idCol1);
-    ui->col2ComboBox->setCurrentIndex(idCol2);
-    ui->col3ComboBox->setCurrentIndex(idCol3);
-    ui->col4ComboBox->setCurrentIndex(idCol4);
+void ConfigPrintDialog::removeRow(QTableWidget *table)
+{
+    qDebug() << "ConfigPrintDialog::removeRow()";
+    table->removeRow(table->rowCount()-1);
+}
 
-    //Configura ordine
-    QString ordineCol1 = settings.value(report::ORDINE_COL1, report::CMP_COD_ART).toString();
-    QString ordineCol2 = settings.value(report::ORDINE_COL2, report::CMP_DESCR).toString();
-    QString ordineCol3 = settings.value(report::ORDINE_COL3, report::CMP_QT).toString();
-    QString ordineCol4 = settings.value(report::ORDINE_COL4, report::CMP_SCORTA).toString();
+void ConfigPrintDialog::setRow(QTableWidget *table, int row, QStringList values)
+{
+    qDebug() << "ConfigPrintDialog::setRow()";
+    for (int col=0; col<table->columnCount(); col++) {
+        if (col == 0) {
+            QComboBox *cb = qobject_cast<QComboBox *>(table->cellWidget(row, 0));
+            cb->setCurrentText(values[col]);
+        }
+        else {
+            QLineEdit *le = qobject_cast<QLineEdit *>(table->cellWidget(row, col));
+            le->setText(values[col]);
+        }
+    }
+}
 
-    idCol1 = ui->ordineCol1ComboBox->findText(ordineCol1);
-    idCol2 = ui->ordineCol2ComboBox->findText(ordineCol2);
-    idCol3 = ui->ordineCol3ComboBox->findText(ordineCol3);
-    idCol4 = ui->ordineCol4ComboBox->findText(ordineCol4);
+void ConfigPrintDialog::saveSettings(QTableWidget *table, QString settingsName)
+{
+    qDebug() << "ConfigPrintDialog::saveSetting()";
+    settings.beginGroup(settingsName);
+    settings.remove(""); //passando una stringa vuota rimuove tutto
+    for (int row=0; row<table->rowCount(); row++) {
+        QStringList values; //[ColsName, Stretch Factor, Display Name]
+        for (int col=0; col<table->columnCount(); col++) {
+            if (col==0) {
+                auto cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
+                values << cb->currentText();
+            }
+            else {
+                auto le = qobject_cast<QLineEdit *>(table->cellWidget(row, col));
+                QString val = le->text();
+                if (col==1 && val.isEmpty())
+                    val = "1"; //Valore di default Stretch Factor
+                else if (col==2 && val.isEmpty())
+                    val = values[0]; //Valore di default Display Name
+                values << val;
+            }
+        }
+        settings.setValue(QString("%1").arg(row), values);
+    }
+    settings.endGroup();
+}
 
-    ui->ordineCol1ComboBox->setCurrentIndex(idCol1);
-    ui->ordineCol2ComboBox->setCurrentIndex(idCol2);
-    ui->ordineCol3ComboBox->setCurrentIndex(idCol3);
-    ui->ordineCol4ComboBox->setCurrentIndex(idCol4);
+void ConfigPrintDialog::addColumn()
+{
+    qDebug() << "ConfigPrintDialog::addColumn()";
+    QTableWidget *table;
+    if (ui->listinoTableWidget->isVisible())
+        table = ui->listinoTableWidget;
+    else if (ui->ordineTableWidget->isVisible())
+        table = ui->ordineTableWidget;
+    else
+        return;
+
+    addRow(table);
+}
+
+void ConfigPrintDialog::removeColumn()
+{
+    qDebug() << "ConfigPrintDialog::removeColumn()";
+    QTableWidget *table;
+    if (ui->listinoTableWidget->isVisible())
+        table = ui->listinoTableWidget;
+    else if (ui->ordineTableWidget->isVisible())
+        table = ui->ordineTableWidget;
+    else
+        return;
+
+    removeRow(table);
 }
 
 void ConfigPrintDialog::save()
 {
     qDebug() << "ConfigPrintDialog::save()";
     //Configura listino
-    QString col1 = ui->col1ComboBox->currentText();
-    QString col2 = ui->col2ComboBox->currentText();
-    QString col3 = ui->col3ComboBox->currentText();
-    QString col4 = ui->col4ComboBox->currentText();
-
-    settings.setValue(report::LISTINO_COL1, col1);
-    settings.setValue(report::LISTINO_COL2, col2);
-    settings.setValue(report::LISTINO_COL3, col3);
-    settings.setValue(report::LISTINO_COL4, col4);
-
-    //Configura ordine
-    QString ordineCol1 = ui->ordineCol1ComboBox->currentText();
-    QString ordineCol2 = ui->ordineCol2ComboBox->currentText();
-    QString ordineCol3 = ui->ordineCol3ComboBox->currentText();
-    QString ordineCol4 = ui->ordineCol4ComboBox->currentText();
-
-    settings.setValue(report::ORDINE_COL1, ordineCol1);
-    settings.setValue(report::ORDINE_COL2, ordineCol2);
-    settings.setValue(report::ORDINE_COL3, ordineCol3);
-    settings.setValue(report::ORDINE_COL4, ordineCol4);
+    saveSettings(ui->listinoTableWidget, report::listinoCols);
+    saveSettings(ui->ordineTableWidget, report::ordineCols);
 }
+

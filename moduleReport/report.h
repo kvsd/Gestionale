@@ -4,10 +4,7 @@
 #include <QObject>
 #include <QPainter>
 #include <QPrinter>
-#include <QDesktopServices>
-#include <QUrl>
 #include <QDebug>
-#include <QMessageBox>
 /*
  * +-------------------+
  * |   Title      | Pag| Title columns
@@ -40,6 +37,7 @@ public:
     ~Report();
 
     void setPen(QColor color=QColor(Qt::black), int width=10);
+    void setFont(QString fontFamily="fixed", int fontSize=10);
     void startPrinting();
     void print(QStringList list, QVector<Qt::Alignment> align={}, bool bold=false, bool border=true);
     void setTitle(QString title){m_titleText = title;}
