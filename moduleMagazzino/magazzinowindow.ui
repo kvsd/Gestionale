@@ -505,7 +505,8 @@
     <property name="title">
      <string>&amp;Stampa</string>
     </property>
-    <addaction name="actionStampa"/>
+    <addaction name="actionListino"/>
+    <addaction name="actionInventario"/>
    </widget>
    <addaction name="menuOpzioni"/>
    <addaction name="menuRicerca"/>
@@ -548,59 +549,27 @@
     <string>Configura...</string>
    </property>
   </action>
-  <action name="actionExportMagazzino">
-   <property name="text">
-    <string>Magazzino</string>
-   </property>
-  </action>
-  <action name="actionExportStoricoCSV">
-   <property name="text">
-    <string>Storico in CSV</string>
-   </property>
-  </action>
   <action name="actionAggiornaCodIva">
    <property name="text">
     <string>Aggiorna codice iva</string>
-   </property>
-  </action>
-  <action name="actionArticoliEsauriti">
-   <property name="text">
-    <string>Articoli esauriti</string>
-   </property>
-  </action>
-  <action name="actionPrintConfig">
-   <property name="text">
-    <string>Configura...</string>
    </property>
   </action>
   <action name="actionListino">
    <property name="text">
     <string>Listino</string>
    </property>
-  </action>
-  <action name="actionInventario">
-   <property name="text">
-    <string>Inventario</string>
-   </property>
-  </action>
-  <action name="actionOrdine">
-   <property name="text">
-    <string>Ordine</string>
-   </property>
-  </action>
-  <action name="actionImportMagazzino">
-   <property name="text">
-    <string>Magazzino</string>
-   </property>
-  </action>
-  <action name="actionStampa">
-   <property name="text">
-    <string>Stampa...</string>
+   <property name="toolTip">
+    <string>Stampa Listino</string>
    </property>
   </action>
   <action name="actionArticoli_s_cod_barre">
    <property name="text">
     <string>Articoli senza codice a barre</string>
+   </property>
+  </action>
+  <action name="actionInventario">
+   <property name="text">
+    <string>Inventario</string>
    </property>
   </action>
  </widget>
@@ -1215,10 +1184,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionStampa</sender>
+   <sender>actionListino</sender>
    <signal>triggered()</signal>
    <receiver>MagazzinoWindow</receiver>
-   <slot>launchReportDlg()</slot>
+   <slot>launchReportListino()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1262,6 +1231,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionInventario</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>launchReportInventario()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1274,9 +1259,9 @@
   <slot>exportMagazzino()</slot>
   <slot>changeCodIva()</slot>
   <slot>showArticoliEsauriti()</slot>
-  <slot>launchReportDlg()</slot>
-  <slot>importMagazzino()</slot>
+  <slot>launchReportListino()</slot>
   <slot>cloneRecord()</slot>
   <slot>findCodBarre()</slot>
+  <slot>launchReportInventario()</slot>
  </slots>
 </ui>

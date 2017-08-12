@@ -414,10 +414,17 @@ void MagazzinoWindow::changeCodIva(void)
         updateViewMagazzino();
 }
 
-void MagazzinoWindow::launchReportDlg()
+void MagazzinoWindow::launchReportListino()
 {
-    qDebug() << "MagazzinoWindow::launchReportDlg()";
+    qDebug() << "MagazzinoWindow::launchReportListino()";
     ReportListino dlg(this);
+    dlg.exec();
+}
+
+void MagazzinoWindow::launchReportInventario()
+{
+    qDebug() << "MagazzinoWindow::launchReportInventario()";
+    ReportInventario dlg(this);
     dlg.exec();
 }
 

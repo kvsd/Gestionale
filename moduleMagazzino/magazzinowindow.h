@@ -11,6 +11,7 @@
 #include "codivaupdatedialog.h"
 #include "configprintdialog.h"
 #include "reportlistino.h"
+#include "reportinventario.h"
 
 #include <QSqlQueryModel>
 #include <QMap>
@@ -64,7 +65,8 @@ public slots:
     void updateViewStorico(QModelIndex index);
     void openConfigDialog(void);
     void changeCodIva(void);
-    void launchReportDlg(void);
+    void launchReportListino(void);
+    void launchReportInventario(void);
     void findCodBarre(void);
 };
 
