@@ -90,13 +90,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="configButton">
-       <property name="text">
-        <string>Configura</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="printButton">
        <property name="text">
         <string>Stampa</string>
@@ -138,22 +131,6 @@
     <hint type="destinationlabel">
      <x>397</x>
      <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>configButton</sender>
-   <signal>clicked()</signal>
-   <receiver>ReportListino</receiver>
-   <slot>launchConfigDlg()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>227</x>
-     <y>190</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>208</x>
-     <y>206</y>
     </hint>
    </hints>
   </connection>
@@ -209,7 +186,6 @@
  <slots>
   <slot>print()</slot>
   <slot>setReport()</slot>
-  <slot>launchConfigDlg()</slot>
   <slot>updateFornitore(QString)</slot>
  </slots>
 </ui>

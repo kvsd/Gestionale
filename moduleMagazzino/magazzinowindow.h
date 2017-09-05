@@ -65,6 +65,7 @@ public slots:
     void updateViewStorico(QModelIndex index);
     void openConfigDialog(void);
     void changeCodIva(void);
+    void launchReportConfig(void);
     void launchReportListino(void);
     void launchReportInventario(void);
     void findCodBarre(void);

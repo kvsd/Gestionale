@@ -414,6 +414,13 @@ void MagazzinoWindow::changeCodIva(void)
         updateViewMagazzino();
 }
 
+void MagazzinoWindow::launchReportConfig(void)
+{
+    qDebug() << "MagazzinoWindow::launchReportConfig()";
+    ConfigPrintDialog dlg(this);
+    dlg.exec();
+}
+
 void MagazzinoWindow::launchReportListino()
 {
     qDebug() << "MagazzinoWindow::launchReportListino()";

@@ -1,13 +1,13 @@
 #ifndef CONFIGPRINTDIALOG_H
 #define CONFIGPRINTDIALOG_H
 
-#include <QDialog>
-#include <QSettings>
-#include <QDebug>
-
 #include "moduleMagazzino/magazzino_const.h"
 #include "report_const.h"
 #include "libs/utils.h"
+
+#include <QDialog>
+#include <QSettings>
+#include <QDebug>
 #include <QSqlQueryModel>
 #include <QComboBox>
 #include <QStringListModel>

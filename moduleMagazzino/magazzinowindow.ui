@@ -505,6 +505,7 @@
     <property name="title">
      <string>&amp;Stampa</string>
     </property>
+    <addaction name="actionReportConfig"/>
     <addaction name="actionListino"/>
     <addaction name="actionInventario"/>
    </widget>
@@ -570,6 +571,11 @@
   <action name="actionInventario">
    <property name="text">
     <string>Inventario</string>
+   </property>
+  </action>
+  <action name="actionReportConfig">
+   <property name="text">
+    <string>Configura</string>
    </property>
   </action>
  </widget>
@@ -646,8 +652,8 @@
    <slot>removeRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>367</x>
-     <y>568</y>
+     <x>347</x>
+     <y>569</y>
     </hint>
     <hint type="destinationlabel">
      <x>218</x>
@@ -662,8 +668,8 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>568</y>
+     <x>175</x>
+     <y>569</y>
     </hint>
     <hint type="destinationlabel">
      <x>144</x>
@@ -710,8 +716,8 @@
    <slot>updateRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>393</x>
-     <y>288</y>
+     <x>396</x>
+     <y>287</y>
     </hint>
     <hint type="destinationlabel">
      <x>788</x>
@@ -726,8 +732,8 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>458</x>
-     <y>568</y>
+     <x>433</x>
+     <y>569</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
@@ -742,8 +748,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>131</y>
+     <x>538</x>
+     <y>129</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -758,8 +764,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>162</y>
+     <x>538</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -774,8 +780,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>193</y>
+     <x>538</x>
+     <y>187</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -790,12 +796,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>224</y>
+     <x>538</x>
+     <y>216</y>
     </hint>
     <hint type="destinationlabel">
-     <x>803</x>
-     <y>227</y>
+     <x>799</x>
+     <y>217</y>
     </hint>
    </hints>
   </connection>
@@ -822,8 +828,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>803</x>
-     <y>227</y>
+     <x>799</x>
+     <y>217</y>
     </hint>
     <hint type="destinationlabel">
      <x>844</x>
@@ -854,12 +860,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>506</x>
-     <y>538</y>
+     <x>496</x>
+     <y>542</y>
     </hint>
     <hint type="destinationlabel">
-     <x>794</x>
-     <y>543</y>
+     <x>787</x>
+     <y>545</y>
     </hint>
    </hints>
   </connection>
@@ -870,12 +876,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>506</x>
-     <y>538</y>
+     <x>496</x>
+     <y>542</y>
     </hint>
     <hint type="destinationlabel">
-     <x>794</x>
-     <y>574</y>
+     <x>787</x>
+     <y>575</y>
     </hint>
    </hints>
   </connection>
@@ -886,12 +892,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>286</y>
+     <x>538</x>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
-     <x>803</x>
-     <y>289</y>
+     <x>799</x>
+     <y>275</y>
     </hint>
    </hints>
   </connection>
@@ -902,8 +908,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>803</x>
-     <y>289</y>
+     <x>799</x>
+     <y>275</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -934,8 +940,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>392</y>
+     <x>787</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -950,8 +956,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>340</y>
+     <x>787</x>
+     <y>332</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -966,8 +972,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>366</y>
+     <x>787</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -982,8 +988,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>418</y>
+     <x>787</x>
+     <y>413</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -998,8 +1004,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>162</y>
+     <x>538</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1014,8 +1020,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>193</y>
+     <x>538</x>
+     <y>187</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1030,8 +1036,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>224</y>
+     <x>538</x>
+     <y>216</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1046,8 +1052,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>286</y>
+     <x>538</x>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1062,8 +1068,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>131</y>
+     <x>538</x>
+     <y>129</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1078,8 +1084,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>486</y>
+     <x>787</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1094,8 +1100,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>512</y>
+     <x>787</x>
+     <y>515</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1110,12 +1116,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>506</x>
-     <y>538</y>
+     <x>496</x>
+     <y>542</y>
     </hint>
     <hint type="destinationlabel">
-     <x>794</x>
-     <y>606</y>
+     <x>787</x>
+     <y>604</y>
     </hint>
    </hints>
   </connection>
@@ -1126,8 +1132,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
-     <y>606</y>
+     <x>787</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1142,12 +1148,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>255</y>
+     <x>538</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
-     <x>803</x>
-     <y>258</y>
+     <x>799</x>
+     <y>246</y>
     </hint>
    </hints>
   </connection>
@@ -1158,8 +1164,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>543</x>
-     <y>255</y>
+     <x>538</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1174,8 +1180,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>803</x>
-     <y>258</y>
+     <x>799</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1247,6 +1253,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionReportConfig</sender>
+   <signal>triggered()</signal>
+   <receiver>MagazzinoWindow</receiver>
+   <slot>launchReportConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRecord()</slot>
@@ -1263,5 +1285,6 @@
   <slot>cloneRecord()</slot>
   <slot>findCodBarre()</slot>
   <slot>launchReportInventario()</slot>
+  <slot>launchReportConfig()</slot>
  </slots>
 </ui>

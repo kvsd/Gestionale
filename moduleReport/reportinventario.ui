@@ -50,13 +50,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="configButton">
-       <property name="text">
-        <string>Configura</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="printButton">
        <property name="text">
         <string>Stampa</string>
@@ -68,5 +61,41 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ReportInventario</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>65</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>printButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ReportInventario</receiver>
+   <slot>print()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>393</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>print()</slot>
+ </slots>
 </ui>
