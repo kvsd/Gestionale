@@ -62,7 +62,7 @@ void codIvaUpdateDialog::updateIva(void)
 
     QSqlQuery query;
     query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);
-    query.bindValue(magazzino::PH_COD_IVA, oldIvastr);
+    query.bindValue(ph::COD_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
         QString id = query.value(magazzino::COL_ID).toString();
@@ -82,11 +82,11 @@ void codIvaUpdateDialog::updateIva(void)
 
         QSqlQuery queryUpdateIva;
         queryUpdateIva.prepare(magazzino::UPDATE_ARTICOLI_FROM_IVA);
-        queryUpdateIva.bindValue(magazzino::PH_ID, id);
-        queryUpdateIva.bindValue(magazzino::PH_COD_IVA, newIvastr);
-        queryUpdateIva.bindValue(magazzino::PH_IVA, iva);
-        queryUpdateIva.bindValue(magazzino::PH_PRZ_FIN, prezzo_finito);
-        queryUpdateIva.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
+        queryUpdateIva.bindValue(ph::ID, id);
+        queryUpdateIva.bindValue(ph::COD_IVA, newIvastr);
+        queryUpdateIva.bindValue(ph::IVA, iva);
+        queryUpdateIva.bindValue(ph::PRZ_FIN, prezzo_finito);
+        queryUpdateIva.bindValue(ph::PRZ_VEN, prezzo_vendita);
         if (!queryUpdateIva.exec()) {
             showDialogError(this, "Errore",
                             "Errore nell'aggiornamento della tabella articolo");
@@ -96,8 +96,8 @@ void codIvaUpdateDialog::updateIva(void)
 
         QSqlQuery query_check_storico;
         query_check_storico.prepare(magazzino::CHECK_STORICO);
-        query_check_storico.bindValue(magazzino::PH_ID_ART, id);
-        query_check_storico.bindValue(magazzino::PH_DATA, data);
+        query_check_storico.bindValue(ph::ID_ART, id);
+        query_check_storico.bindValue(ph::DATA_ARRIVO, data);
         query_check_storico.exec();
 
         QSqlQuery queryInsertStorico;
@@ -106,17 +106,17 @@ void codIvaUpdateDialog::updateIva(void)
         else
             queryInsertStorico.prepare(magazzino::INSERT_STORICO);
 
-        queryInsertStorico.bindValue(magazzino::PH_ID_ART, id);
-        queryInsertStorico.bindValue(magazzino::PH_DATA, data);
-        queryInsertStorico.bindValue(magazzino::PH_QUANTIT, quantita);
-        queryInsertStorico.bindValue(magazzino::PH_PRZ_FAT, prezzo_fattura);
-        queryInsertStorico.bindValue(magazzino::PH_SCONTO, sconto);
-        queryInsertStorico.bindValue(magazzino::PH_RICARIC, ricarico);
-        queryInsertStorico.bindValue(magazzino::PH_PRZ_ACQ, prezzo_acquisto);
-        queryInsertStorico.bindValue(magazzino::PH_IVA, iva);
-        queryInsertStorico.bindValue(magazzino::PH_PRZ_FIN, prezzo_finito);
-        queryInsertStorico.bindValue(magazzino::PH_PRZ_VEN, prezzo_vendita);
-        queryInsertStorico.bindValue(magazzino::PH_FATTURA, fattura);
+        queryInsertStorico.bindValue(ph::ID_ART, id);
+        queryInsertStorico.bindValue(ph::DATA_ARRIVO, data);
+        queryInsertStorico.bindValue(ph::QUANTIT, quantita);
+        queryInsertStorico.bindValue(ph::PRZ_FAT, prezzo_fattura);
+        queryInsertStorico.bindValue(ph::SCONTO, sconto);
+        queryInsertStorico.bindValue(ph::RICARIC, ricarico);
+        queryInsertStorico.bindValue(ph::PRZ_ACQ, prezzo_acquisto);
+        queryInsertStorico.bindValue(ph::IVA, iva);
+        queryInsertStorico.bindValue(ph::PRZ_FIN, prezzo_finito);
+        queryInsertStorico.bindValue(ph::PRZ_VEN, prezzo_vendita);
+        queryInsertStorico.bindValue(ph::FATTURA, fattura);
         if (!queryInsertStorico.exec()) {
             showDialogError(this, "Errore",
                             "Errore nell'aggiornamento della tabella storico");

@@ -86,7 +86,7 @@ void AgentiViewDialog::removeRecord(void)
 
     QSqlQuery query;
     query.prepare(agenti::DELETE_QUERY);
-    query.bindValue(agenti::PH_ID, id);
+    query.bindValue(ph::ID, id);
     if (!query.exec()) {
         showDialogError(this, ERR014, MSG003, query.lastError().text()); //NOTE codice errore 014
         return;

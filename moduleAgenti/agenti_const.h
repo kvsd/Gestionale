@@ -61,15 +61,6 @@ namespace agenti {
     const QString COL_FAX = "fax";
     const QString COL_CEL = "cel";
     const QString COL_EMAIL = "email";
-
-    //PH PlaceHolder
-    const QString PH_ID = ":id";
-    const QString PH_NOME = ":nome";
-    const QString PH_COGNOME = ":cognome";
-    const QString PH_TEL = ":tel";
-    const QString PH_FAX = ":fax";
-    const QString PH_CEL = ":cel";
-    const QString PH_EMAIL = ":email";
 }
 
 #endif // AGENTI_CONST_H

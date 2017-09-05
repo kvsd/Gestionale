@@ -20,7 +20,7 @@ void AgentiAddDialog::setValue(QString id)
     qDebug() << "AgentiAddDialog::setValue()";
     QSqlQuery query;
     query.prepare(agenti::SELECT_FROM_ID);
-    query.bindValue(agenti::PH_ID, id);
+    query.bindValue(ph::ID, id);
     query.exec();
     query.first();
     ui->nomeLineEdit->setText(query.value(agenti::COL_NOME).toString());
@@ -29,40 +29,40 @@ void AgentiAddDialog::setValue(QString id)
     ui->faxLineEdit->setText(query.value(agenti::COL_FAX).toString());
     ui->celLineEdit->setText(query.value(agenti::COL_CEL).toString());
     ui->emailLineEdit->setText(query.value(agenti::COL_EMAIL).toString());
-    mapAgente[agenti::PH_ID] = id;
+    mapAgente[ph::ID] = id;
 }
 
 void AgentiAddDialog::save(void)
 {
     qDebug() << "AgentiAddDialog::save()";
-    mapAgente[agenti::PH_NOME] = ui->nomeLineEdit->text();
-    mapAgente[agenti::PH_COGNOME] = ui->cognomeLineEdit->text();
-    mapAgente[agenti::PH_TEL] = ui->telLineEdit->text();
-    mapAgente[agenti::PH_FAX] = ui->faxLineEdit->text();
-    mapAgente[agenti::PH_CEL] = ui->celLineEdit->text();
-    mapAgente[agenti::PH_EMAIL] = ui->emailLineEdit->text();
+    mapAgente[ph::NOME] = ui->nomeLineEdit->text();
+    mapAgente[ph::COGNOME] = ui->cognomeLineEdit->text();
+    mapAgente[ph::TEL] = ui->telLineEdit->text();
+    mapAgente[ph::FAX] = ui->faxLineEdit->text();
+    mapAgente[ph::CEL] = ui->celLineEdit->text();
+    mapAgente[ph::EMAIL] = ui->emailLineEdit->text();
 
-    if (mapAgente[agenti::PH_COGNOME].isEmpty()) {
+    if (mapAgente[ph::COGNOME].isEmpty()) {
         showDialogError(this, ERR008, MSG021); //NOTE codice errore 008
         ui->cognomeLineEdit->setStyleSheet(agenti::CSS_WARNING_STYLE);
         return;
     }
 
     QSqlQuery query;
-    if (mapAgente.contains(agenti::PH_ID)) {
+    if (mapAgente.contains(ph::ID)) {
         query.prepare(agenti::UPDATE_QUERY);
-        query.bindValue(agenti::PH_ID, mapAgente[agenti::PH_ID]);
+        query.bindValue(ph::ID, mapAgente[ph::ID]);
     }
     else {
         query.prepare(agenti::INSERT_QUERY);
     }
 
-    query.bindValue(agenti::PH_NOME, mapAgente[agenti::PH_NOME]);
-    query.bindValue(agenti::PH_COGNOME, mapAgente[agenti::PH_COGNOME]);
-    query.bindValue(agenti::PH_TEL, mapAgente[agenti::PH_TEL]);
-    query.bindValue(agenti::PH_FAX, mapAgente[agenti::PH_FAX]);
-    query.bindValue(agenti::PH_CEL, mapAgente[agenti::PH_CEL]);
-    query.bindValue(agenti::PH_EMAIL, mapAgente[agenti::PH_EMAIL]);
+    query.bindValue(ph::NOME, mapAgente[ph::NOME]);
+    query.bindValue(ph::COGNOME, mapAgente[ph::COGNOME]);
+    query.bindValue(ph::TEL, mapAgente[ph::TEL]);
+    query.bindValue(ph::FAX, mapAgente[ph::FAX]);
+    query.bindValue(ph::CEL, mapAgente[ph::CEL]);
+    query.bindValue(ph::EMAIL, mapAgente[ph::EMAIL]);
 
     if (!query.exec()) {
         showDialogError(this, ERR009, MSG022, query.lastError().text()); //NOTE codice errore 009

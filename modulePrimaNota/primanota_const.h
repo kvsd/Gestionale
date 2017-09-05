@@ -99,15 +99,6 @@ namespace primanota {
     const QString COL_DB_USC_CASSA = "uscita_cassa";
     const QString COL_DB_ENT_BANCA = "entrata_banca";
     const QString COL_DB_USC_BANCA = "uscita_banca";
-
-    //PLACEHOLDER SQL
-    const QString PH_ID = ":id";
-    const QString PH_DATE = ":date";
-    const QString PH_DESCR = ":descr";
-    const QString PH_ENT_CASSA = ":ent_cassa";
-    const QString PH_ENT_BANCA = ":ent_banca";
-    const QString PH_USC_CASSA = ":usc_cassa";
-    const QString PH_USC_BANCA = ":usc_banca";
 }
 
 #endif // PRIMANOTA_CONST

@@ -328,7 +328,7 @@ void MagazzinoWindow::removeRecord(void)
     QString id = articoloModel->record(index.row()).value(magazzino::COL_ID).toString();
     QSqlQuery query;
     query.prepare(magazzino::DELETE_ARTICOLO);
-    query.bindValue(magazzino::PH_ID, id);
+    query.bindValue(ph::ID, id);
     if (!query.exec())
         showDialogError(this, ERR037, MSG003, query.lastError().text()); //NOTE codice errore 037
 

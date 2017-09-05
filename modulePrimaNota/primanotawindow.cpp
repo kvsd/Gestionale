@@ -184,7 +184,7 @@ void PrimaNotaWindow::removeNote()
     QString id = primaNotaModel->record(index.row()).value(primanota::COL_DB_ID).toString();
     QSqlQuery query;
     query.prepare(primanota::DELETE_NOTE);
-    query.bindValue(primanota::PH_ID, id);
+    query.bindValue(ph::ID, id);
     if (!query.exec())
         showDialogError(this, ERR049, MSG003, query.lastError().text()); //NOTE codice errore 049
 

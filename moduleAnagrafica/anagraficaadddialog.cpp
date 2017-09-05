@@ -29,7 +29,7 @@ void AnagraficaAddDialog::setValue(QString id)
     qDebug() << "AnagraficaAddDialog::setValue()";
     QSqlQuery query;
     query.prepare(anagrafica::SELECT_FROM_ID);
-    query.bindValue(anagrafica::PH_ID, id);
+    query.bindValue(ph::ID, id);
     query.exec();
     query.first();
 
@@ -93,7 +93,7 @@ void AnagraficaAddDialog::setValue(QString id)
     ui->te_destinazione_merce->setText(query.value(anagrafica::COL_DESTINAZIONE_MERCE).toString());
     ui->te_note->setText(query.value(anagrafica::COL_NOTE).toString());
 
-    mapPersona[anagrafica::PH_ID]=id;
+    mapPersona[ph::ID]=id;
 }
 
 void AnagraficaAddDialog::initModel()
@@ -152,44 +152,44 @@ void AnagraficaAddDialog::prepareMap(void)
     //Popolo la mappa mapPersona<Qstring,QString> con i valori
     //dei vari widget. Verra usata in seguito nel metodo prepareQuery.
     qDebug() << "AnagraficaAddDialog::prepareMap()";
-    mapPersona[anagrafica::PH_RAG_SOCIALE] = ui->le_rag_sociale->text();
+    mapPersona[ph::RAG_SOCIALE] = ui->le_rag_sociale->text();
 
     int row = ui->cb_tipo_ditta->currentIndex();
-    mapPersona[anagrafica::PH_TIPO_DITTA] = modelDitta->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::TIPO_DITTA] = modelDitta->record(row).value(anagrafica::COL_ID).toString();
 
-    mapPersona[anagrafica::PH_CLIENTE] = ui->cliente_cb->isChecked() ? "y" : "n";
-    mapPersona[anagrafica::PH_FORNITORE] = ui->fornitore_cb->isChecked() ? "y" : "n";
-    mapPersona[anagrafica::PH_NOME] = ui->le_nome->text();
-    mapPersona[anagrafica::PH_COGNOME] = ui->le_cognome->text();
-    mapPersona[anagrafica::PH_PRT_IVA] = ui->le_piva->text();
-    mapPersona[anagrafica::PH_COD_FISCALE] = ui->le_cod_fiscale->text();
+    mapPersona[ph::CLIENTE] = ui->cliente_cb->isChecked() ? "y" : "n";
+    mapPersona[ph::FORNITORE] = ui->fornitore_cb->isChecked() ? "y" : "n";
+    mapPersona[ph::NOME] = ui->le_nome->text();
+    mapPersona[ph::COGNOME] = ui->le_cognome->text();
+    mapPersona[ph::PRT_IVA] = ui->le_piva->text();
+    mapPersona[ph::COD_FISCALE] = ui->le_cod_fiscale->text();
 
     row = ui->cb_agente->currentIndex();
-    mapPersona[anagrafica::PH_AGENTE] = modelAgente->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::AGENTE] = modelAgente->record(row).value(anagrafica::COL_ID).toString();
 
-    mapPersona[anagrafica::PH_INDIRIZZO] = ui->le_indirizzo->text();
+    mapPersona[ph::INDIRIZZO] = ui->le_indirizzo->text();
 
     row = ui->cb_citta->currentIndex();
-    mapPersona[anagrafica::PH_CITTA] = modelCitta->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::CITTA] = modelCitta->record(row).value(anagrafica::COL_ID).toString();
     row = ui->cb_provincia->currentIndex();
-    mapPersona[anagrafica::PH_PROVINCIA] = modelProvincia->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::PROVINCIA] = modelProvincia->record(row).value(anagrafica::COL_ID).toString();
     row = ui->cb_cap->currentIndex();
-    mapPersona[anagrafica::PH_CAP]= modelCap->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::CAP]= modelCap->record(row).value(anagrafica::COL_ID).toString();
     row = ui->cb_stato->currentIndex();
-    mapPersona[anagrafica::PH_STATO]= modelStato->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::STATO]= modelStato->record(row).value(anagrafica::COL_ID).toString();
 
-    mapPersona[anagrafica::PH_TEL]= ui->le_tel->text();
-    mapPersona[anagrafica::PH_CEL]= ui->le_cel->text();
-    mapPersona[anagrafica::PH_FAX] = ui->le_fax->text();
-    mapPersona[anagrafica::PH_EMAIL] = ui->le_email->text();
-    mapPersona[anagrafica::PH_SITO_WEB] = ui->le_web->text();
-    mapPersona[anagrafica::PH_BANCA] = ui->le_banca->text();
-    mapPersona[anagrafica::PH_AGENZIA] = ui->le_agenzia->text();
-    mapPersona[anagrafica::PH_CONTO] = ui->le_conto->text();
-    mapPersona[anagrafica::PH_SWIFT] = ui->le_swift->text();
-    mapPersona[anagrafica::PH_IBAN] = ui->le_iban->text();
-    mapPersona[anagrafica::PH_DEST_MERCE] = ui->te_destinazione_merce->toPlainText();
-    mapPersona[anagrafica::PH_NOTE] = ui->te_note->toPlainText();
+    mapPersona[ph::TEL]= ui->le_tel->text();
+    mapPersona[ph::CEL]= ui->le_cel->text();
+    mapPersona[ph::FAX] = ui->le_fax->text();
+    mapPersona[ph::EMAIL] = ui->le_email->text();
+    mapPersona[ph::SITO_WEB] = ui->le_web->text();
+    mapPersona[ph::BANCA] = ui->le_banca->text();
+    mapPersona[ph::AGENZIA] = ui->le_agenzia->text();
+    mapPersona[ph::CONTO] = ui->le_conto->text();
+    mapPersona[ph::SWIFT] = ui->le_swift->text();
+    mapPersona[ph::IBAN] = ui->le_iban->text();
+    mapPersona[ph::DEST_MERCE] = ui->te_destinazione_merce->toPlainText();
+    mapPersona[ph::NOTE] = ui->te_note->toPlainText();
 }
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
@@ -202,9 +202,9 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
     //mappa mapPersona.
     qDebug() << "AnagraficaAddDialog::prepareQuery()";
     QSqlQuery query;
-    if (mapPersona.contains(anagrafica::PH_ID)) {
+    if (mapPersona.contains(ph::ID)) {
         query.prepare(anagrafica::UPDATE_QUERY);
-        query.bindValue(anagrafica::PH_ID, mapPersona[anagrafica::PH_ID]);
+        query.bindValue(ph::ID, mapPersona[ph::ID]);
     }
     else {
         query.prepare(anagrafica::INSERT_QUERY);
@@ -227,35 +227,35 @@ void AnagraficaAddDialog::save(void)
     qDebug() << "AnagraficaAddDialog::save()";
     prepareMap();
 
-    if (mapPersona[anagrafica::PH_RAG_SOCIALE].isEmpty()) {
+    if (mapPersona[ph::RAG_SOCIALE].isEmpty()) {
         showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
         ui->le_rag_sociale->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
-    else if (mapPersona[anagrafica::PH_CLIENTE] == "n" &&
-             mapPersona[anagrafica::PH_FORNITORE] == "n") {
+    else if (mapPersona[ph::CLIENTE] == "n" &&
+             mapPersona[ph::FORNITORE] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
         ui->cliente_cb->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         ui->fornitore_cb->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
-    else if (mapPersona[anagrafica::PH_COD_FISCALE].isEmpty() ||
-             mapPersona[anagrafica::PH_PRT_IVA].isEmpty()) {
+    else if (mapPersona[ph::COD_FISCALE].isEmpty() ||
+             mapPersona[ph::PRT_IVA].isEmpty()) {
         showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
         ui->le_cod_fiscale->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         ui->le_piva->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
-    if (!controlloPartitaIva(mapPersona[anagrafica::PH_PRT_IVA])) {
+    if (!controlloPartitaIva(mapPersona[ph::PRT_IVA])) {
         if (!showDialogWarning(this, ERR023, MSG019)) //NOTE codice errore 023
             return;
     }
 
-    if (mapPersona[anagrafica::PH_COD_FISCALE] != mapPersona[anagrafica::PH_PRT_IVA]) {
-        if (!controlloCodiceFiscale(mapPersona[anagrafica::PH_COD_FISCALE])) {
+    if (mapPersona[ph::COD_FISCALE] != mapPersona[ph::PRT_IVA]) {
+        if (!controlloCodiceFiscale(mapPersona[ph::COD_FISCALE])) {
             if (!showDialogWarning(this, ERR024, MSG020)) //NOTE codice errore 024
                 return;
         }
@@ -263,7 +263,7 @@ void AnagraficaAddDialog::save(void)
 
     QSqlQuery query = prepareQuery();
     if (!query.exec()) {
-        if (mapPersona.contains(anagrafica::PH_ID)) {
+        if (mapPersona.contains(ph::ID)) {
             showDialogError(this, ERR011, MSG005, query.lastError().text()); //NOTE codice errore 011
         }
         else {

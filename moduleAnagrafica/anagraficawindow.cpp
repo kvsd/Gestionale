@@ -183,7 +183,7 @@ void AnagraficaWindow::removeRecord(void)
 
     QSqlQuery query;
     query.prepare(anagrafica::DELETE_QUERY);
-    query.bindValue(anagrafica::PH_ID, id);
+    query.bindValue(ph::ID, id);
     if (!query.exec()) {
         showDialogError(this, ERR028, MSG003, query.lastError().text()); //NOTE codice errore 028
     }

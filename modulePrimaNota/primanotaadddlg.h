@@ -8,6 +8,7 @@
 #include <QSqlError>
 
 #include "primanota_const.h"
+#include "libs/gestionale_const.h"
 #include "libs/utils.h"
 
 namespace Ui {

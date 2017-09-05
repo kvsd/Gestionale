@@ -90,34 +90,6 @@ namespace anagrafica {
     //Delete utilizzata in AnagraficaWindow per cancellare un cliente/fornitore
     const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
 
-    //PLACEHOLDERS SQL utilizzate nelle query insert/update/delete
-    const QString PH_ID = ":id";
-    const QString PH_FORNITORE = ":fornitore";
-    const QString PH_CLIENTE = ":cliente";
-    const QString PH_RAG_SOCIALE = ":rag_sociale";
-    const QString PH_TIPO_DITTA = ":id_tipo_ditta";
-    const QString PH_NOME = ":nome";
-    const QString PH_COGNOME = ":cognome";
-    const QString PH_INDIRIZZO = ":indirizzo";
-    const QString PH_CITTA = ":id_citta";
-    const QString PH_PROVINCIA = ":id_provincia";
-    const QString PH_CAP = ":id_cap";
-    const QString PH_STATO = ":id_stato";
-    const QString PH_COD_FISCALE = ":cod_fisc";
-    const QString PH_PRT_IVA = ":prt_iva";
-    const QString PH_AGENTE = ":id_agente";
-    const QString PH_TEL = ":tel";
-    const QString PH_FAX = ":fax";
-    const QString PH_CEL = ":cel";
-    const QString PH_EMAIL = ":email";
-    const QString PH_SITO_WEB = ":sito_web";
-    const QString PH_BANCA = ":banca";
-    const QString PH_AGENZIA = ":agenzia";
-    const QString PH_CONTO = ":conto";
-    const QString PH_SWIFT = ":swift";
-    const QString PH_IBAN = ":iban";
-    const QString PH_DEST_MERCE = ":dest_merce";
-    const QString PH_NOTE = ":note";
 
     //COLS
     enum columns {COL_TABLE_ID = 0,

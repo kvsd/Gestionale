@@ -30,24 +30,5 @@ namespace azienda {
                   COL_CCIAA,
                   COL_REG_IMPRESE,
                   COL_LOGO};
-
-    const QString PH_ID = ":id";
-    const QString PH_RAG_SOCIALE = ":rag_sociale";
-    const QString PH_NOME = ":nome";
-    const QString PH_COGNOME = ":cognome";
-    const QString PH_INDIRIZZO = ":indirizzo";
-    const QString PH_CITTA = ":id_citta";
-    const QString PH_PROVINCIA = ":id_provincia";
-    const QString PH_CAP = ":id_cap";
-    const QString PH_STATO = ":id_stato";
-    const QString PH_TEL = ":tel";
-    const QString PH_FAX = ":fax";
-    const QString PH_EMAIL = ":email";
-    const QString PH_PRT_IVA = ":prt_iva";
-    const QString PH_COD_FISC = ":cod_fisc";
-    const QString PH_ISCR_TRIB = ":iscr_trib";
-    const QString PH_CCIAA = ":cciaa";
-    const QString PH_REG_IMPRESE = ":reg_imprese";
-    const QString PH_LOGO = ":logo";
 }
 #endif // AZIENDA_CONST_H

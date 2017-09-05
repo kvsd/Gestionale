@@ -27,13 +27,13 @@ void PrimaNotaAddDlg::setValue(QString id)
     qDebug() << "PrimaNotaAddDlg::setValue()";
     QSqlQuery query;
     query.prepare(primanota::SELECT_FROM_ID);
-    query.bindValue(primanota::PH_ID, id);
+    query.bindValue(ph::ID, id);
     if (!query.exec()) {
         showDialogError(this, ERR053, MSG010, query.lastError().text()); // NOTE codice errore 053
     }
 
     query.first();
-    m_mapQuery[primanota::PH_ID] = id;
+    m_mapQuery[ph::ID] = id;
 
     QDate data = query.value(primanota::COL_DB_DATA).toDate();
     QString descr = query.value(primanota::COL_DB_DESCR).toString();
@@ -56,20 +56,20 @@ void PrimaNotaAddDlg::prepareMap()
 {
     qDebug() << "PrimaNotaAddDlg::prepareMap()";
 
-    m_mapQuery[primanota::PH_DATE] = ui->dateEdit->text();
-    m_mapQuery[primanota::PH_DESCR] = ui->comboBox->currentText();
+    m_mapQuery[ph::DATE] = ui->dateEdit->text();
+    m_mapQuery[ph::DESCR] = ui->comboBox->currentText();
 
     double entCassa = stringToDouble(ui->entCassaLineEdit->text());
-    m_mapQuery[primanota::PH_ENT_CASSA] = QString().setNum(entCassa);
+    m_mapQuery[ph::ENT_CASSA] = QString().setNum(entCassa);
 
     double entBanca = stringToDouble(ui->entBancaLineEdit->text());
-    m_mapQuery[primanota::PH_ENT_BANCA] = QString().setNum(entBanca);
+    m_mapQuery[ph::ENT_BANCA] = QString().setNum(entBanca);
 
     double uscCassa = stringToDouble(ui->uscCassaLineEdit->text());
-    m_mapQuery[primanota::PH_USC_CASSA] = QString().setNum(uscCassa);
+    m_mapQuery[ph::USC_CASSA] = QString().setNum(uscCassa);
 
     double uscBanca = stringToDouble(ui->uscBancaLineEdit->text());
-    m_mapQuery[primanota::PH_USC_BANCA] = QString().setNum(uscBanca);
+    m_mapQuery[ph::USC_BANCA] = QString().setNum(uscBanca);
 }
 
 QSqlQuery PrimaNotaAddDlg::prepareQuery()
@@ -78,9 +78,9 @@ QSqlQuery PrimaNotaAddDlg::prepareQuery()
     prepareMap();
 
     QSqlQuery query;
-    if (m_mapQuery.contains(primanota::PH_ID)) {
+    if (m_mapQuery.contains(ph::ID)) {
         query.prepare(primanota::UPDATE_NOTE);
-        query.bindValue(primanota::PH_ID, m_mapQuery[primanota::PH_ID]);
+        query.bindValue(ph::ID, m_mapQuery[ph::ID]);
     }
     else
         query.prepare(primanota::INSERT_NOTE);
@@ -99,7 +99,7 @@ void PrimaNotaAddDlg::save()
     qDebug() << "PrimaNotaAddDlg::save()";
     QSqlQuery query = prepareQuery();
 
-    if (m_mapQuery[primanota::PH_DESCR].isEmpty()) {
+    if (m_mapQuery[ph::DESCR].isEmpty()) {
         showDialogError(this, ERR051, MSG013); //NOTE codice errore 051
         return;
     }

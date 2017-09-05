@@ -165,33 +165,6 @@ namespace magazzino {
         COL_TABLE_DESCRIZIONE = 1
                  };
 
-    //PH SQL PlaceHolder vengono utilizzate nella preparazione delle query
-    const QString PH_ID      = ":id";
-    const QString PH_DESCR   = ":descr";
-    const QString PH_ID_FORN = ":id_fornitore";
-    const QString PH_ID_MARC = ":id_marca";
-    const QString PH_MODELLO = ":modello";
-    const QString PH_COD_ART = ":cod_articolo";
-    const QString PH_COD_FRN = ":cod_fornitore";
-    const QString PH_COD_EAN = ":cod_barre";
-    const QString PH_ID_MERC = ":id_merce";
-    const QString PH_COD_IVA = ":cod_iva";
-    const QString PH_ID_UM   = ":id_unita_merce";
-    const QString PH_SCORTA  = ":scorta_minima";
-    const QString PH_QUANTIT = ":quantita";
-    const QString PH_PRZ_FAT = ":prezzo_fattura";
-    const QString PH_SCONTO  = ":sconto_fornitore";
-    const QString PH_PRZ_ACQ = ":prezzo_acquisto";
-    const QString PH_RICARIC = ":ricarico";
-    const QString PH_IVA     = ":iva";
-    const QString PH_PRZ_FIN = ":prezzo_finito";
-    const QString PH_PRZ_VEN = ":prezzo_vendita";
-    const QString PH_FATTURA = ":fattura";
-    const QString PH_DATA    = ":data_arrivo";
-    const QString PH_ID_SEDE = ":id_sede_magazzino";
-    const QString PH_NOTE    = ":note";
-    const QString PH_ID_ART  = ":id_articolo";
-
     //Nome delle colonne della tabella magazzino e storico, vengono usate per
     //recupera i dati dalle query.
     const QString COL_ID = "id";
