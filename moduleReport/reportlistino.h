@@ -3,7 +3,6 @@
 
 #include "report_const.h"
 #include "magazzino_const.h"
-#include "configprintdialog.h"
 #include "report.h"
 #include "reportbase.h"
 
@@ -12,9 +11,6 @@
 #include <QSqlQueryModel>
 #include <QStandardItemModel>
 #include <QSqlRecord>
-#include <QPrintDialog>
-#include <QDesktopServices>
-#include <QUrl>
 #include <QFont>
 
 namespace Ui {

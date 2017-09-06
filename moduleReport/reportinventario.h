@@ -4,13 +4,11 @@
 #include "reportbase.h"
 #include "report.h"
 #include "error.h"
-#include "configprintdialog.h"
+#include "report_const.h"
 
 #include <QDialog>
 #include <QDebug>
-#include <QPrintDialog>
-#include <QDesktopServices>
-#include <QUrl>
+#include <QSqlQuery>
 
 namespace Ui {
 class ReportInventario;
@@ -26,6 +24,7 @@ public:
 
 private:
     Ui::ReportInventario *ui;
+    QString getTotale();
 
 private slots:
     void print();
