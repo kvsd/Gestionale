@@ -10,6 +10,10 @@ ReportBase::ReportBase(QWidget *parent) :
     m_currentYears = QDate::currentDate().toString("yyyy");
 }
 
+ReportBase::~ReportBase()
+{
+    qDebug() << "ReportBase::~ReportBase()";
+}
 
 QStringList ReportBase::getFields(QSqlRecord &record)
 {
@@ -23,15 +27,42 @@ QStringList ReportBase::getFields(QSqlRecord &record)
     return list;
 }
 
-void ReportBase::launchConfigDlg()
-{
-    qDebug() << "ReportBase::launchConfigDlg() *";
-    ConfigPrintDialog dlg(this);
-    dlg.exec();
-    setReport();
-}
-
 void ReportBase::setReport()
 {
     qDebug() << "ReportBase::setReport() *";
+}
+
+void ReportBase::setupPrint()
+{
+    qDebug() << "ReportBase::setupPrint()";
+    m_printer = new QPrinter(QPrinter::HighResolution);
+    QPrintDialog dlg(m_printer, this);
+    if (!(dlg.exec() == QPrintDialog::Accepted))
+        return;
+
+    m_painter = new QPainter(m_printer);
+
+    m_report = new Report(m_painter, m_printer, m_stretchVector, this);
+    m_report->startPrinting();
+    m_report->setPen(Qt::darkBlue);
+    m_report->setFont("fixed", 8); //Creare pannello di configurazione per questa
+    m_report->setTitle(m_titleStr);
+    m_report->setHeaderNames(m_headerName);
+}
+
+void ReportBase::endPrinting(bool status)
+{
+    qDebug() << "ReportBase::endPrinting()*";
+    if (status) {
+        if (m_printer->outputFileName() != "")
+            QDesktopServices::openUrl(QUrl(m_printer->outputFileName()));
+        else
+            showDialogInfo(this, "info", "Stampa avviata");
+    }
+    else
+        showDialogInfo(this, "Info", "Nulla da stampare");
+
+    delete m_painter;
+    delete m_printer;
+    delete m_report;
 }
