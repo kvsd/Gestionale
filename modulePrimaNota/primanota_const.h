@@ -90,15 +90,6 @@ namespace primanota {
     const QString COL_VW_USC_CASSA = "Uscita Cassa";
     const QString COL_VW_ENT_BANCA = "Entrata Banca";
     const QString COL_VW_USC_BANCA = "Uscita Banca";
-
-    //Nome colonne della tabella prima_nota
-    const QString COL_DB_ID = "id";
-    const QString COL_DB_DATA = "data";
-    const QString COL_DB_DESCR = "descr";
-    const QString COL_DB_ENT_CASSA = "entrata_cassa";
-    const QString COL_DB_USC_CASSA = "uscita_cassa";
-    const QString COL_DB_ENT_BANCA = "entrata_banca";
-    const QString COL_DB_USC_BANCA = "uscita_banca";
 }
 
 #endif // PRIMANOTA_CONST

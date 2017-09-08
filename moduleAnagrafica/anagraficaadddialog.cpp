@@ -33,65 +33,65 @@ void AnagraficaAddDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    ui->le_rag_sociale->setText(query.value(anagrafica::COL_RAGIONE_SOCIALE).toString());
-    ui->cliente_cb->setChecked(query.value(anagrafica::COL_CLIENTE).toBool());
-    ui->fornitore_cb->setChecked(query.value(anagrafica::COL_FORNITORE).toBool());
+    ui->le_rag_sociale->setText(query.value(col::RAGIONE_SOCIALE).toString());
+    ui->cliente_cb->setChecked(query.value(col::CLIENTE).toBool());
+    ui->fornitore_cb->setChecked(query.value(col::FORNITORE).toBool());
     if (ui->fornitore_cb->isChecked()) {
         ui->lb_agente->show();
         ui->cb_agente->show();
     }
 
     ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_TABLE_ID);
-    int index = ui->cb_tipo_ditta->findText(query.value(anagrafica::COL_ID_TIPO_DITTA).toString());
+    int index = ui->cb_tipo_ditta->findText(query.value(col::ID_TIPO_DITTA).toString());
     ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
     ui->cb_tipo_ditta->setCurrentIndex(index);
 
-    ui->le_nome->setText(query.value(anagrafica::COL_NOME).toString());
-    ui->le_cognome->setText(query.value(anagrafica::COL_COGNOME).toString());
-    ui->le_piva->setText(query.value(anagrafica::COL_PARTITA_IVA).toString());
-    ui->le_cod_fiscale->setText(query.value(anagrafica::COL_CODICE_FISCALE).toString());
+    ui->le_nome->setText(query.value(col::NOME).toString());
+    ui->le_cognome->setText(query.value(col::COGNOME).toString());
+    ui->le_piva->setText(query.value(col::PARTITA_IVA).toString());
+    ui->le_cod_fiscale->setText(query.value(col::CODICE_FISCALE).toString());
 
     ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_agente->findText(query.value(anagrafica::COL_ID_AGENTE).toString());
+    index = ui->cb_agente->findText(query.value(col::ID_AGENTE).toString());
     ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_COGNOME);
     ui->cb_agente->setCurrentIndex(index);
 
-    ui->le_indirizzo->setText(query.value(anagrafica::COL_INDIRIZZO).toString());
+    ui->le_indirizzo->setText(query.value(col::INDIRIZZO).toString());
 
     ui->cb_citta->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_citta->findText(query.value(anagrafica::COL_ID_CITTA).toString());
+    index = ui->cb_citta->findText(query.value(col::ID_CITTA).toString());
     ui->cb_citta->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
     ui->cb_citta->setCurrentIndex(index);
 
     ui->cb_provincia->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_provincia->findText(query.value(anagrafica::COL_ID_PROVINCIA).toString());
+    index = ui->cb_provincia->findText(query.value(col::ID_PROVINCIA).toString());
     ui->cb_provincia->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
     ui->cb_provincia->setCurrentIndex(index);
 
     ui->cb_cap->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_cap->findText(query.value(anagrafica::COL_ID_CAP).toString());
+    index = ui->cb_cap->findText(query.value(col::ID_CAP).toString());
     ui->cb_cap->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
     ui->cb_cap->setCurrentIndex(index);
 
     ui->cb_stato->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_stato->findText(query.value(anagrafica::COL_ID_STATO).toString());
+    index = ui->cb_stato->findText(query.value(col::ID_STATO).toString());
     ui->cb_stato->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
     ui->cb_stato->setCurrentIndex(index);
 
-    ui->le_tel->setText(query.value(anagrafica::COL_TELEFONO).toString());
-    ui->le_cel->setText(query.value(anagrafica::COL_CELLULARE).toString());
-    ui->le_fax->setText(query.value(anagrafica::COL_FAX).toString());
-    ui->le_email->setText(query.value(anagrafica::COL_EMAIL).toString());
-    ui->le_web->setText(query.value(anagrafica::COL_SITO_WEB).toString());
+    ui->le_tel->setText(query.value(col::TEL).toString());
+    ui->le_cel->setText(query.value(col::CEL).toString());
+    ui->le_fax->setText(query.value(col::FAX).toString());
+    ui->le_email->setText(query.value(col::EMAIL).toString());
+    ui->le_web->setText(query.value(col::SITO_WEB).toString());
 
-    ui->le_banca->setText(query.value(anagrafica::COL_BANCA).toString());
-    ui->le_agenzia->setText(query.value(anagrafica::COL_AGENZIA).toString());
-    ui->le_conto->setText(query.value(anagrafica::COL_CONTO).toString());
-    ui->le_swift->setText(query.value(anagrafica::COL_SWIFT).toString());
-    ui->le_iban->setText(query.value(anagrafica::COL_IBAN).toString());
+    ui->le_banca->setText(query.value(col::BANCA).toString());
+    ui->le_agenzia->setText(query.value(col::AGENZIA).toString());
+    ui->le_conto->setText(query.value(col::CONTO).toString());
+    ui->le_swift->setText(query.value(col::SWIFT).toString());
+    ui->le_iban->setText(query.value(col::IBAN).toString());
 
-    ui->te_destinazione_merce->setText(query.value(anagrafica::COL_DESTINAZIONE_MERCE).toString());
-    ui->te_note->setText(query.value(anagrafica::COL_NOTE).toString());
+    ui->te_destinazione_merce->setText(query.value(col::DESTINAZIONE_MERCE).toString());
+    ui->te_note->setText(query.value(col::NOTE).toString());
 
     mapPersona[ph::ID]=id;
 }
@@ -155,7 +155,7 @@ void AnagraficaAddDialog::prepareMap(void)
     mapPersona[ph::RAG_SOCIALE] = ui->le_rag_sociale->text();
 
     int row = ui->cb_tipo_ditta->currentIndex();
-    mapPersona[ph::TIPO_DITTA] = modelDitta->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::TIPO_DITTA] = modelDitta->record(row).value(col::ID).toString();
 
     mapPersona[ph::CLIENTE] = ui->cliente_cb->isChecked() ? "y" : "n";
     mapPersona[ph::FORNITORE] = ui->fornitore_cb->isChecked() ? "y" : "n";
@@ -165,18 +165,18 @@ void AnagraficaAddDialog::prepareMap(void)
     mapPersona[ph::COD_FISCALE] = ui->le_cod_fiscale->text();
 
     row = ui->cb_agente->currentIndex();
-    mapPersona[ph::AGENTE] = modelAgente->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::AGENTE] = modelAgente->record(row).value(col::ID).toString();
 
     mapPersona[ph::INDIRIZZO] = ui->le_indirizzo->text();
 
     row = ui->cb_citta->currentIndex();
-    mapPersona[ph::CITTA] = modelCitta->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::CITTA] = modelCitta->record(row).value(col::ID).toString();
     row = ui->cb_provincia->currentIndex();
-    mapPersona[ph::PROVINCIA] = modelProvincia->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::PROVINCIA] = modelProvincia->record(row).value(col::ID).toString();
     row = ui->cb_cap->currentIndex();
-    mapPersona[ph::CAP]= modelCap->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::CAP]= modelCap->record(row).value(col::ID).toString();
     row = ui->cb_stato->currentIndex();
-    mapPersona[ph::STATO]= modelStato->record(row).value(anagrafica::COL_ID).toString();
+    mapPersona[ph::STATO]= modelStato->record(row).value(col::ID).toString();
 
     mapPersona[ph::TEL]= ui->le_tel->text();
     mapPersona[ph::CEL]= ui->le_cel->text();

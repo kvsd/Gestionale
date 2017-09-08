@@ -164,34 +164,5 @@ namespace magazzino {
         COL_TABLE_ID = 0,
         COL_TABLE_DESCRIZIONE = 1
                  };
-
-    //Nome delle colonne della tabella magazzino e storico, vengono usate per
-    //recupera i dati dalle query.
-    const QString COL_ID = "id";
-    const QString COL_DESCRIZIONE = "descr";
-    const QString COL_ID_FORNITORE = "id_fornitore";
-    const QString COL_ID_MARCA = "id_marca";
-    const QString COL_MODELLO = "modello";
-    const QString COL_CODICE_ARTICOLO = "cod_articolo";
-    const QString COL_CODICE_FORNITORE = "cod_fornitore";
-    const QString COL_CODICE_BARRE = "cod_barre";
-    const QString COL_ID_MERCE = "id_merce";
-    const QString COL_CODICE_IVA = "cod_iva";
-    const QString COL_ID_UNITA = "id_unita_misura";
-    const QString COL_SCORTA_MINIMA = "scorta_minima";
-    const QString COL_QUANTITA = "quantita";
-    const QString COL_PREZZO_FATTURA = "prezzo_fattura";
-    const QString COL_SCONTO_FORNITORE = "sconto_fornitore";
-    const QString COL_PREZZO_ACQUISTO = "prezzo_acquisto";
-    const QString COL_RICARICO = "ricarico";
-    const QString COL_IVA = "iva";
-    const QString COL_PREZZO_FINITO = "prezzo_finito";
-    const QString COL_PREZZO_VENDITA = "prezzo_vendita";
-    const QString COL_FATTURA = "fattura";
-    const QString COL_DATA_ARRIVO = "data_arrivo";
-    const QString COL_ID_SEDE_MAGAZZINO = "id_sede_magazzino";
-    const QString COL_NOTE = "note";
-    const QString COL_ID_ARTICOLO = "id_articolo";
-
 }
 #endif // MAGAZZINO_CONST_H

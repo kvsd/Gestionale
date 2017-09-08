@@ -14,12 +14,6 @@ namespace anagrafica {
     const QString CSS_WARNING_STYLE = "background-color:yellow";
     const QString ANGRFC_STATUS ="AnagraficaColsStatus";
     const QString ANGRFC_COLORS = "AnagraficaColsColors";
-    //const QString ANGRFC_HEADER = "AnagraficaWindow.header";
-    //const QString GEOMETRY = "AnagraficaWindow.size";
-    //const QString SPLITTER_FILTRI_STATE = "AnagraficaWindow.splitter_filtri";
-    //const QString SPLITTER_DOCS_STATE = "AnagraficaWindow.splitter_docs";
-
-    //const QRect DEFAULT_GEOMETRY = QRect(0, 0, 700, 500);
 
     //SQL
 
@@ -96,35 +90,6 @@ namespace anagrafica {
                   COL_TABLE_DESCRIZIONE = 1,
                   COL_TABLE_COGNOME = 2 //tabella agenti
                  };
-
-    //Nomi delle colonne della tabella anagrafica.
-    const QString COL_ID = "id";
-    const QString COL_FORNITORE = "fornitore";
-    const QString COL_CLIENTE = "cliente";
-    const QString COL_RAGIONE_SOCIALE = "rag_sociale";
-    const QString COL_ID_TIPO_DITTA = "id_tipo_ditta";
-    const QString COL_NOME = "nome";
-    const QString COL_COGNOME = "cognome";
-    const QString COL_INDIRIZZO = "indirizzo";
-    const QString COL_ID_CITTA = "id_citta";
-    const QString COL_ID_PROVINCIA = "id_provincia";
-    const QString COL_ID_CAP = "id_cap";
-    const QString COL_ID_STATO = "id_stato";
-    const QString COL_CODICE_FISCALE = "cod_fisc";
-    const QString COL_PARTITA_IVA = "prt_iva";
-    const QString COL_ID_AGENTE = "id_agente";
-    const QString COL_TELEFONO = "tel";
-    const QString COL_FAX = "fax";
-    const QString COL_CELLULARE = "cel";
-    const QString COL_EMAIL = "email";
-    const QString COL_SITO_WEB = "sito_web";
-    const QString COL_BANCA = "banca";
-    const QString COL_AGENZIA = "agenzia";
-    const QString COL_CONTO = "conto";
-    const QString COL_SWIFT = "swift";
-    const QString COL_IBAN = "iban";
-    const QString COL_DESTINAZIONE_MERCE = "dest_merce";
-    const QString COL_NOTE = "note";
 }
 
 #endif // ANAGRAFICA_CONST_H

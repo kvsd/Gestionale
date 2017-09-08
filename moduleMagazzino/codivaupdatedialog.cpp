@@ -65,18 +65,18 @@ void codIvaUpdateDialog::updateIva(void)
     query.bindValue(ph::COD_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
-        QString id = query.value(magazzino::COL_ID).toString();
+        QString id = query.value(col::ID).toString();
         QString data = QDate::currentDate().toString("dd/MM/yyyy");
-        QString quantita = query.value(magazzino::COL_QUANTITA).toString();
-        QString prezzo_fattura = query.value(magazzino::COL_PREZZO_FATTURA).toString();
-        QString sconto = query.value(magazzino::COL_SCONTO_FORNITORE).toString();
-        QString ricarico = query.value(magazzino::COL_RICARICO).toString();
-        QString fattura = query.value(magazzino::COL_FATTURA).toString();
-        double prezzo_acquisto = query.value(magazzino::COL_PREZZO_ACQUISTO).toDouble();
+        QString quantita = query.value(col::QUANTITA).toString();
+        QString prezzo_fattura = query.value(col::PREZZO_FATTURA).toString();
+        QString sconto = query.value(col::SCONTO_FORNITORE).toString();
+        QString ricarico = query.value(col::RICARICO).toString();
+        QString fattura = query.value(col::FATTURA).toString();
+        double prezzo_acquisto = query.value(col::PREZZO_ACQUISTO).toDouble();
         double prezzo_ricarico = setRicarico(prezzo_acquisto, ricarico);
         double iva = prezzo_ricarico*newIvastr/100.0;
         double prezzo_finito = prezzo_ricarico+iva;
-        double prezzo_vendita = query.value(magazzino::COL_PREZZO_VENDITA).toDouble();
+        double prezzo_vendita = query.value(col::PREZZO_VENDITA).toDouble();
         if (prezzo_finito > prezzo_vendita)
             prezzo_vendita = prezzo_finito;
 

@@ -23,12 +23,12 @@ void AgentiAddDialog::setValue(QString id)
     query.bindValue(ph::ID, id);
     query.exec();
     query.first();
-    ui->nomeLineEdit->setText(query.value(agenti::COL_NOME).toString());
-    ui->cognomeLineEdit->setText(query.value(agenti::COL_COGNOME).toString());
-    ui->telLineEdit->setText(query.value(agenti::COL_TEL).toString());
-    ui->faxLineEdit->setText(query.value(agenti::COL_FAX).toString());
-    ui->celLineEdit->setText(query.value(agenti::COL_CEL).toString());
-    ui->emailLineEdit->setText(query.value(agenti::COL_EMAIL).toString());
+    ui->nomeLineEdit->setText(query.value(col::NOME).toString());
+    ui->cognomeLineEdit->setText(query.value(col::COGNOME).toString());
+    ui->telLineEdit->setText(query.value(col::TEL).toString());
+    ui->faxLineEdit->setText(query.value(col::FAX).toString());
+    ui->celLineEdit->setText(query.value(col::CEL).toString());
+    ui->emailLineEdit->setText(query.value(col::EMAIL).toString());
     mapAgente[ph::ID] = id;
 }
 

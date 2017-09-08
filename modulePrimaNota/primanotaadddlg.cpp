@@ -35,12 +35,12 @@ void PrimaNotaAddDlg::setValue(QString id)
     query.first();
     m_mapQuery[ph::ID] = id;
 
-    QDate data = query.value(primanota::COL_DB_DATA).toDate();
-    QString descr = query.value(primanota::COL_DB_DESCR).toString();
-    QString entCassa = query.value(primanota::COL_DB_ENT_CASSA).toString();
-    QString entBanca = query.value(primanota::COL_DB_ENT_BANCA).toString();
-    QString uscCassa = query.value(primanota::COL_DB_USC_CASSA).toString();
-    QString uscBanca = query.value(primanota::COL_DB_USC_BANCA).toString();
+    QDate data = query.value(col::DATA).toDate();
+    QString descr = query.value(col::DESCRIZIONE).toString();
+    QString entCassa = query.value(col::ENT_CASSA).toString();
+    QString entBanca = query.value(col::ENT_BANCA).toString();
+    QString uscCassa = query.value(col::USC_CASSA).toString();
+    QString uscBanca = query.value(col::USC_BANCA).toString();
 
     ui->dateEdit->setDate(data);
     ui->comboBox->setCurrentText(descr);

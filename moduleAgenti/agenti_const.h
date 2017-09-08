@@ -52,15 +52,6 @@ namespace agenti {
     //SETTINGS
     const QString CSS_WARNING_STYLE = "background-color: yellow";
     const QString WINDOW_SIZE = "AgentiViewDlg.size";
-
-    //Nomi colonne tabella agenti
-    const QString COL_ID = "id";
-    const QString COL_NOME = "nome";
-    const QString COL_COGNOME = "cognome";
-    const QString COL_TEL = "tel";
-    const QString COL_FAX = "fax";
-    const QString COL_CEL = "cel";
-    const QString COL_EMAIL = "email";
 }
 
 #endif // AGENTI_CONST_H
