@@ -68,11 +68,11 @@ INSERT INTO aspetto_beni VALUES (0, '-----');
 CREATE TABLE azienda (id INTEGER PRIMARY KEY, 
                       rag_sociale TEXT UNIQUE NOT NULL,
                       nome TEXT,
-		      cognome TEXT,
+					  cognome TEXT,
                       indirizzo TEXT NOT NULL,
                       id_citta INTEGER REFERENCES citta(id) DEFAULT 0,
                       id_provincia INTEGER REFERENCES provincia(id) DEFAULT 0,
-		      id_cap INTEGER REFERENCES cap(id) DEFAULT 0,
+		      		  id_cap INTEGER REFERENCES cap(id) DEFAULT 0,
                       id_stato INTEGER REFERENCES stato(id) DEFAULT 0,
                       tel TEXT,
                       fax TEXT,
@@ -81,8 +81,8 @@ CREATE TABLE azienda (id INTEGER PRIMARY KEY,
                       cod_fisc TEXT UNIQUE NOT NULL,
                       iscr_trib TEXT NOT NULL, --iscrizione tribunale
                       cciaa TEXT NOT NULL, --Camera di commercio, industria artigianato e agricoltura
-		      reg_imprese TEXT NOT NULL,
-		      logo BYTEA);
+		      		  reg_imprese TEXT NOT NULL,
+		      		  logo BYTEA);
 INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, iscr_trib, cciaa, reg_imprese)
 			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '000000', '00000', '00000');
 --##############################################################################
@@ -90,7 +90,7 @@ CREATE TABLE agenti(id SERIAL PRIMARY KEY,
                     nome TEXT,
                     cognome TEXT NOT NULL,
                     tel TEXT,
-		    fax TEXT,
+	    		    fax TEXT,
                     cel TEXT,
                     email TEXT);
 INSERT INTO agenti(id, nome, cognome) VALUES(0, '-----', '-----');
@@ -140,7 +140,7 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         prezzo_fattura DECIMAL NOT NULL,
                         sconto_fornitore TEXT,
                         prezzo_acquisto DECIMAL,
-			ricarico TEXT,
+						ricarico TEXT,
                         iva DECIMAL,
                         prezzo_finito DECIMAL,
                         prezzo_vendita DECIMAL,
@@ -149,28 +149,13 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         id_sede_magazzino INTEGER references sede_magazzino(id) DEFAULT 0,
                         note TEXT);
 --######################################################################################
-CREATE VIEW vw_magazzino ("Id", "Descrizione", "Fornitore", "Marca", "Modello", "Cod.Articolo", "Cod.Fornitore",
-                          "Cod.EAN", "Cat.Merce", "Cod.IVA", "UM", "Scorta Minima", "Quantità", "Prezzo Fattura", "Sconto", 
-                          "Prezzo Acquisto", "Ricarico", "Iva", "Prezzo Finito", "Prezzo Vendità", "Nr.Fattura", "Data Arrivo", "Sede Magazzino",
-                          "Note") AS
-SELECT mgz.id, mgz.descr, anag.rag_sociale, marca.descr, mgz.modello, mgz.cod_articolo, mgz.cod_fornitore, mgz.cod_barre,
-       cat_merce.descr, format('%s%%', mgz.cod_iva), um.descr, mgz.scorta_minima, mgz.quantita, mgz.prezzo_fattura::money, mgz.sconto_fornitore,
-       mgz.prezzo_acquisto::money, mgz.ricarico, mgz.iva::money, mgz.prezzo_finito::money, mgz.prezzo_vendita::money, mgz.fattura, mgz.data_arrivo, sm.descr,
-       mgz.note FROM magazzino AS mgz, anagrafica AS anag, marca, cat_merce, unita_misura AS um, sede_magazzino AS sm
-WHERE anag.id = mgz.id_fornitore AND
-      marca.id = mgz.id_marca AND
-      cat_merce.id = mgz.id_merce AND
-      um.id = mgz.id_unita_misura AND
-      sm.id = id_sede_magazzino
-ORDER BY mgz.id;
---######################################################################################
 CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino(id) ON DELETE CASCADE,
                               data_arrivo DATE DEFAULT current_date,
                               quantita DECIMAL NOT NULL,
                               prezzo_fattura DECIMAL NOT NULL,
                               sconto_fornitore TEXT,
                               prezzo_acquisto DECIMAL,
-			      ricarico TEXT,
+			      			  ricarico TEXT,
                               iva DECIMAL,
                               prezzo_finito DECIMAL,
                               prezzo_vendita DECIMAL,
