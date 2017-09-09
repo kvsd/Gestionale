@@ -30,7 +30,8 @@ void ReportInventario::print()
 {
     qDebug() << "ReportInventario::print()";
 
-    setupPrint();
+    if (!setupPrint())
+        return;
 
     QVector <Qt::Alignment> v_align = {Align::right, Align::left, Align::right, Align::right};
     int maxrow = m_printModel->rowCount();

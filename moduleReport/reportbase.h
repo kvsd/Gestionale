@@ -40,7 +40,7 @@ protected:
 
     QStringList getFields(QSqlRecord &record);
     void setReport();
-    void setupPrint();
+    bool setupPrint();
     void endPrinting(bool status);
 
 signals:

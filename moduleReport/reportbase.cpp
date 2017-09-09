@@ -32,13 +32,13 @@ void ReportBase::setReport()
     qDebug() << "ReportBase::setReport() *";
 }
 
-void ReportBase::setupPrint()
+bool ReportBase::setupPrint()
 {
     qDebug() << "ReportBase::setupPrint()";
     m_printer = new QPrinter(QPrinter::HighResolution);
     QPrintDialog dlg(m_printer, this);
     if (!(dlg.exec() == QPrintDialog::Accepted))
-        return;
+        return false;
 
     m_painter = new QPainter(m_printer);
 
@@ -48,6 +48,7 @@ void ReportBase::setupPrint()
     m_report->setFont("fixed", 8); //Creare pannello di configurazione per questa
     m_report->setTitle(m_titleStr);
     m_report->setHeaderNames(m_headerName);
+    return true;
 }
 
 void ReportBase::endPrinting(bool status)

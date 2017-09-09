@@ -33,7 +33,8 @@ void ReportListino::initComboBox()
 void ReportListino::print()
 {
     qDebug() << "ReportListino::print()";
-    setupPrint();
+    if (!setupPrint())
+        return;
 
     int maxrow = m_printModel->rowCount();
     for (int i=0; i<maxrow; i++) {
