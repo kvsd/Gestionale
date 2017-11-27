@@ -14,7 +14,8 @@ namespace agenti {
                                           ":tel, "
                                           ":fax,"
                                           ":cel, "
-                                          ":email)";
+                                          ":email) "
+                                 "RETURNING id";
 
     //Query usata da AgentiViewDialog per cancellare un record
     const QString DELETE_QUERY = "DELETE FROM agenti WHERE id=:id";

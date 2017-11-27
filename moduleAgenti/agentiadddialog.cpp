@@ -3,7 +3,8 @@
 
 AgentiAddDialog::AgentiAddDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AgentiAddDialog)
+    ui(new Ui::AgentiAddDialog),
+    id("-1")
 {
     qDebug() << "AgentiAddDialog()";
     ui->setupUi(this);
@@ -30,6 +31,12 @@ void AgentiAddDialog::setValue(QString id)
     ui->celLineEdit->setText(query.value(col::CEL).toString());
     ui->emailLineEdit->setText(query.value(col::EMAIL).toString());
     mapAgente[ph::ID] = id;
+}
+
+QString AgentiAddDialog::getId()
+{
+    qDebug() << "AgentiAddDialog::getValue()";
+    return id;
 }
 
 void AgentiAddDialog::save(void)
@@ -68,6 +75,9 @@ void AgentiAddDialog::save(void)
         showDialogError(this, ERR009, MSG022, query.lastError().text()); //NOTE codice errore 009
         return;
     }
+
+    while (query.next())
+        id = query.value("id").toString();
 
     this->accept();
 }

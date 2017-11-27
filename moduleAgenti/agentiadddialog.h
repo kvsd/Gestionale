@@ -23,10 +23,12 @@ public:
     explicit AgentiAddDialog(QWidget *parent = 0);
     ~AgentiAddDialog();
     void setValue(QString id="");
+    QString getId();
 
 private:
     Ui::AgentiAddDialog *ui;
     QMap <QString, QString> mapAgente;
+    QString id;
 
 public slots:
     void save(void);
