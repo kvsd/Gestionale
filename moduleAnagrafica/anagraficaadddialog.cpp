@@ -290,7 +290,6 @@ void AnagraficaAddDialog::openAddCitta(void)
     QString value = allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
     if (!value.isEmpty())
         ui->cb_citta->setCurrentText(value);
-
 }
 
 void AnagraficaAddDialog::openAddProvincia(void)
@@ -322,17 +321,11 @@ void AnagraficaAddDialog::openAddAgente(void)
     qDebug() << "AnagraficaAddDialog::openAddAgente()";
     AgentiAddDialog dlg(this);
     bool ok = dlg.exec();
-    if (ok) {
-        modelAgente->select();
-    }
+    if (!ok)
+        return;
 
-    //Trovo l'ultimo id inserito nel database
-    QSqlQuery query;
-    query.prepare("SELECT * FROM lastval();");
-    query.exec();
-    query.first();
-    QString id = query.value(anagrafica::COL_TABLE_ID).toString();
-
+    modelAgente->select();
+    QString id = dlg.getId();
     //Seleziono il valore immesso
     ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_ID);
     ui->cb_agente->setCurrentText(id);

@@ -26,7 +26,6 @@ namespace anagrafica {
            "anagrafica.indirizzo AS \"Indirizzo\", "
            "anagrafica.cod_fisc AS \"Codice fiscale\", "
            "anagrafica.prt_iva AS \"Partita Iva\", "
-           "agenti.cognome AS \"Agente\", "
            "anagrafica.tel AS \"Telefono\", "
            "anagrafica.fax AS \"Fax\", "
            "anagrafica.cel AS \"Cellulare\", "
