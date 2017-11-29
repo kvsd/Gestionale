@@ -10,6 +10,7 @@
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QStringListModel>
 
 namespace Ui {
 class TableSetupDialog;
@@ -29,6 +30,7 @@ private:
     QSqlQueryModel *model;
     QString currentTable;
     QHash<QString, QString> mapTables;
+    QStringListModel *m_tableModel;
 
 public slots:
     void changeTable(QString tbname);

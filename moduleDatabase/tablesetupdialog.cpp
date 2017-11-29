@@ -39,9 +39,9 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
     mapTables["Vettore"] = table::VETTORE;
     mapTables["Aspetto dei beni"] = table::ASPETTO_BENI;
 
-
-    ui->comboBox->addItems(mapTables.keys());
-    ui->comboBox->setCurrentIndex(0);
+    m_tableModel = new QStringListModel(mapTables.keys(), this);
+    m_tableModel->sort(0);
+    ui->comboBox->setModel(m_tableModel);
     changeTable(ui->comboBox->currentText());
 
     connect(ui->comboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(changeTable(QString)));
@@ -90,12 +90,6 @@ void TableSetupDialog::removeRecord(void)
     //Se non viene selezionato niente il valore e' uguale a una stringa vuota
     if (id != "") {
         QSqlQuery query;
-        /*C'e' un bug nel driver x postgres, la query deve essere preparata e poi
-          eseguita con exec. Se viene eseguita senza prepararla la query viene
-          eseguita ma il valore ritornato da exec e' sempre falso e in caso di
-          errore chiamando lasterror non viene ritornato l'ultimo errore. Eseguendo
-          direttamente lastError senza prima aver usato exec sembra aggirare il
-          problema almeno per postgres, non ho provato altri driver*/
         query.prepare(REMOVEQUERY.arg(currentTable));
         query.bindValue(":id", id);
         if (!query.exec()) {
