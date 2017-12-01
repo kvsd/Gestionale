@@ -14,13 +14,13 @@ public:
     explicit CustomModel(Qt::AlignmentFlag textAlignment, QObject *parent = 0);
     QVariant data(const QModelIndex &item, int role) const;
 
-    void setAlignMap(const QMap <QString, Qt::AlignmentFlag> &map);
-    void setBgMap(const QMap <QString, QBrush> &map);
-    void setFgMap(const QMap<QString, QBrush> &map);
+    void setAlignMap(const QMap <QString, Qt::AlignmentFlag> &map){alignMap = map;}
+    void setBgMap(const QMap <QString, QBrush> &map){bgColorsMap = map;}
+    void setFgMap(const QMap<QString, QBrush> &map){fgColorsMap = map;}
 
-    void setDefaultAlignment(Qt::AlignmentFlag flag);
-    void setDefaultFgColor(QBrush brush);
-    void setDefaultBgColor(QBrush brush);
+    void setDefaultAlignment(Qt::AlignmentFlag flag){defaultAlign = flag;}
+    void setDefaultFgColor(QBrush brush){defaultFgColor = brush;}
+    void setDefaultBgColor(QBrush brush){defaultBgColor = brush;}
 
     Qt::AlignmentFlag getDefaultAlignment(void) const {return defaultAlign;}
     QBrush getDefaultBgColor(void) const {return defaultBgColor;}

@@ -37,32 +37,3 @@ QVariant CustomModel::data(const QModelIndex &item, int role) const
 
     return value;
 }
-
-void CustomModel::setBgMap(const QMap<QString, QBrush> &map) {
-    bgColorsMap = map;
-}
-
-void CustomModel::setAlignMap(const QMap<QString, Qt::AlignmentFlag> &map)
-{
-    alignMap = map;
-}
-
-void CustomModel::setFgMap(const QMap<QString, QBrush> &map)
-{
-    fgColorsMap = map;
-}
-
-void CustomModel::setDefaultAlignment(Qt::AlignmentFlag flag)
-{
-    defaultAlign = flag;
-}
-
-void CustomModel::setDefaultFgColor(QBrush brush)
-{
-    defaultFgColor = brush;
-}
-
-void CustomModel::setDefaultBgColor(QBrush brush)
-{
-    defaultBgColor = brush;
-}
