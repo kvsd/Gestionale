@@ -9,9 +9,8 @@ QMap<int,QString> prepareMapsFromModel(QSqlQueryModel *model)
     QMap <int,QString> mapNameCols;
 
     int nrCols = model->columnCount();
-    for (int i=0; i<nrCols; i++) {
+    for (int i=0; i<nrCols; i++)
         mapNameCols[i] = model->headerData(i, Qt::Horizontal).toString();
-    }
 
     return mapNameCols;
 }
@@ -22,16 +21,14 @@ double stringToDouble(QString string)
     **convertire la stringa ritorna il double convertito, altrimenti ritorna
     **il varole 0.*/
     qDebug() << "stringToDouble()";
-    if (string.isEmpty()) {
+    if (string.isEmpty())
         return 0;
-    }
 
     QString symbol = QLocale().currencySymbol();
-    if (string.contains(symbol)) {
+    if (string.contains(symbol))
         string = string.replace(symbol, "");
-    }
 
-    bool ok = 0;
+    bool ok = false;
     double number = 0;
     number = string.toDouble(&ok);
     if (ok)
@@ -48,21 +45,18 @@ bool controlloPartitaIva(QString s)
 {
     qDebug() << "controlloPartitaIva()";
     //La partita iva ha una lunghezza di 11 cifre
-    if (s.length() != LENGHT_PAR_IVA) {
+    if (s.length() != LENGHT_PAR_IVA)
         return false;
-    }
 
     //Tutti i caratteri della partita iva sono cifre
-    for (int i=0; i<LENGHT_PAR_IVA; i++) {
+    for (int i=0; i<LENGHT_PAR_IVA; i++)
         if (s[i].isLetter())
             return false;
-    }
 
     //Somma delle Cifre dispari
     int x=0;
-    for (int i=0; i<LENGHT_PAR_IVA-1; i+=2) {
+    for (int i=0; i<LENGHT_PAR_IVA-1; i+=2)
         x += s[i].digitValue();
-    }
 
     //Somma delle Cifre pari
     int y=0;
@@ -151,7 +145,7 @@ double setRicarico(double prezzo, QString ricarico)
             prezzo += prezzo * stringToDouble(s) / 100.0;
         return prezzo;
     }
-    return prezzo + (prezzo*ricarico.toDouble()/100.0);
+    return prezzo + (prezzo*stringToDouble(ricarico)/100.0);
 }
 
 double setSconto(double prezzo, QString sconto)
@@ -162,5 +156,5 @@ double setSconto(double prezzo, QString sconto)
             prezzo -= prezzo * stringToDouble(s) / 100.0;
         return prezzo;
     }
-    return prezzo - (prezzo*sconto.toDouble()/100.0);
+    return prezzo - (prezzo*stringToDouble(sconto)/100.0);
 }
