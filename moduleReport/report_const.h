@@ -14,11 +14,11 @@ namespace report {
 
     //SELECT utilizzata per la stampa del listino completo
     const QString SELECT_ALL_ARTICLE_FROM_FORNITORE = magazzino::SELECT_ARTICOLI_ALL +
-            " AND an.rag_sociale='%1'";
+            " AND an.rag_sociale='%1' ORDER BY descr";
 
     //SELECT utilizzata per la stampa del listino con data odierna
     const QString SELECT_ARTICLE_WITH_CURRENT_DATE = magazzino::SELECT_ARTICOLI_ALL +
-            "AND an.rag_sociale='%1' AND data_arrivo=current_date";
+            "AND an.rag_sociale='%1' AND data_arrivo=current_date ORDER BY descr";
 
 
     //Select utilizzata per la stampa dell'inventario
