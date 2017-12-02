@@ -38,6 +38,10 @@ void UserDbDialog::userAdd()
     QString password_1 = QInputDialog::getText(this, "Password", "Immettere la password:", QLineEdit::Password);
     QString password_2 = QInputDialog::getText(this, "Password", "Reimmettere la password(verifica):", QLineEdit::Password);
 
+    if (password_1.isEmpty()) {
+        showDialogError(this, "Errore", "La password non è stata inserita");
+        return;
+    }
     if (password_1 != password_2) {
         showDialogError(this, "ERRORE", "le password non coincidono");
         return;
