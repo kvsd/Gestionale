@@ -123,6 +123,7 @@ void ArticoloDialog::setValue(QString id, bool update)
     ui->le_scorta->setText(query.value(col::SCORTA_MINIMA).toString());
     ui->le_quantita->setText(query.value(col::QUANTITA).toString());
     ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(col::PREZZO_FATTURA).toDouble()));
+    freezeLineEdit(ui->le_prezzo_acquisto, !ui->le_prezzo_fattura->text().isEmpty());
     ui->le_sconto->setText(query.value(col::SCONTO_FORNITORE).toString());
     ui->le_ricarico->setText(query.value(col::RICARICO).toString());
     ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(col::PREZZO_ACQUISTO).toDouble()));
@@ -283,8 +284,7 @@ void ArticoloDialog::updatePrezzoFattura(void)
     qDebug() << "ArticoloDialog::updatePrezzoFattura()";
     QString prezzo_str = ui->le_prezzo_fattura->text();
     if (prezzo_str.isEmpty()) {
-        ui->le_prezzo_acquisto->setReadOnly(false);
-        ui->le_prezzo_acquisto->setStyleSheet("");
+        freezeLineEdit(ui->le_prezzo_acquisto, false);
         return;
     }
 
@@ -292,13 +292,20 @@ void ArticoloDialog::updatePrezzoFattura(void)
     ui->le_prezzo_fattura->setText(prezzo_str);
 
     calculatePrezzoAcquisto();
-    ui->le_prezzo_acquisto->setReadOnly(true);
-    ui->le_prezzo_acquisto->setStyleSheet("background:yellow");
+    freezeLineEdit(ui->le_prezzo_acquisto, true);
+}
+
+void ArticoloDialog::freezeLineEdit(QLineEdit *le, bool status)
+{
+    qDebug() << "ArticoloDialog::freezeLineEdit()";
+    le->setReadOnly(status);
+    le->blockSignals(status);
+    le->setStyleSheet(status ? "background:yellow" : "");
 }
 
 void ArticoloDialog::calculatePrezzoAcquisto(void)
 {
-    qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
+    qDebug() << "ArticoloDialog::calculatePrezzoAcquisto()";
     QString prezzo_str = ui->le_prezzo_fattura->text();
     if (prezzo_str.isEmpty()) {
         return;

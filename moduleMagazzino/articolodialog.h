@@ -46,6 +46,7 @@ private:
     void prepareMap(void);
     QSqlQuery prepareQueryArticolo(void);
     QSqlQuery prepareQueryStorico(void);
+    void freezeLineEdit(QLineEdit *le, bool);
 
 public slots:
     void updatePrezzoFattura(void);

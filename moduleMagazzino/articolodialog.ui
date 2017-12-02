@@ -627,26 +627,32 @@
   <tabstop>cb_unitamisura</tabstop>
   <tabstop>pb_unita_dlg</tabstop>
   <tabstop>le_scorta</tabstop>
+  <tabstop>scrollArea_2</tabstop>
   <tabstop>cb_fornitore</tabstop>
   <tabstop>pb_fornitore_dlg</tabstop>
   <tabstop>le_cod_fornitore</tabstop>
+  <tabstop>pb_copy_cod_art</tabstop>
   <tabstop>le_quantita</tabstop>
   <tabstop>le_prezzo_fattura</tabstop>
   <tabstop>le_sconto</tabstop>
+  <tabstop>le_prezzo_acquisto</tabstop>
   <tabstop>le_ricarico</tabstop>
   <tabstop>cb_codiva</tabstop>
+  <tabstop>le_iva</tabstop>
   <tabstop>pb_iva_dlg</tabstop>
+  <tabstop>le_prezzo_finito</tabstop>
+  <tabstop>le_prezzo_vendita</tabstop>
+  <tabstop>scrollArea_3</tabstop>
   <tabstop>cb_sede</tabstop>
   <tabstop>pb_sede_dlg</tabstop>
   <tabstop>le_data</tabstop>
+  <tabstop>le_fattura</tabstop>
   <tabstop>groupBox</tabstop>
   <tabstop>te_note</tabstop>
-  <tabstop>pb_save</tabstop>
-  <tabstop>scrollArea_2</tabstop>
-  <tabstop>le_iva</tabstop>
+  <tabstop>updateStoricoCheckBox</tabstop>
   <tabstop>pb_close</tabstop>
   <tabstop>pb_clear</tabstop>
-  <tabstop>scrollArea_3</tabstop>
+  <tabstop>pb_save</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -705,8 +711,8 @@
    <slot>calculatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>194</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
@@ -721,8 +727,8 @@
    <slot>updatePrezzoFattura()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>165</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
@@ -737,8 +743,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>218</x>
-     <y>281</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
@@ -753,8 +759,8 @@
    <slot>updatePrezzoFinito()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>310</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -833,8 +839,8 @@
    <slot>openAddFornitore()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>77</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
@@ -849,8 +855,8 @@
    <slot>openAddIVA()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>280</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -881,8 +887,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>642</x>
-     <y>252</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>360</x>
@@ -897,8 +903,8 @@
    <slot>updatePrezzoVendita()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>642</x>
-     <y>339</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>360</x>
@@ -913,8 +919,8 @@
    <slot>copyCodArt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>665</x>
-     <y>102</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
@@ -929,8 +935,8 @@
    <slot>updatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>393</x>
-     <y>212</y>
+     <x>129</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>360</x>
