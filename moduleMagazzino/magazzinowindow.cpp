@@ -424,15 +424,15 @@ void MagazzinoWindow::launchReportConfig(void)
 void MagazzinoWindow::launchReportListino()
 {
     qDebug() << "MagazzinoWindow::launchReportListino()";
-    ReportListino dlg(this);
-    dlg.exec();
+//    ReportListino dlg(this);
+//    dlg.exec();
 }
 
 void MagazzinoWindow::launchReportInventario()
 {
     qDebug() << "MagazzinoWindow::launchReportInventario()";
-    ReportInventario dlg(this);
-    dlg.exec();
+//    ReportInventario dlg(this);
+//    dlg.exec();
 }
 
 void MagazzinoWindow::findCodBarre()

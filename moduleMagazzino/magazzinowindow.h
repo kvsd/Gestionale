@@ -10,8 +10,6 @@
 #include "magazzino_const.h"
 #include "codivaupdatedialog.h"
 #include "configprintdialog.h"
-#include "reportlistino.h"
-#include "reportinventario.h"
 
 #include <QSqlQueryModel>
 #include <QMap>
