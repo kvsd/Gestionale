@@ -10,6 +10,7 @@
 #include "magazzino_const.h"
 #include "codivaupdatedialog.h"
 #include "configprintdialog.h"
+#include "moduleReport/listinodlg.h"
 
 #include <QSqlQueryModel>
 #include <QMap>

@@ -424,8 +424,8 @@ void MagazzinoWindow::launchReportConfig(void)
 void MagazzinoWindow::launchReportListino()
 {
     qDebug() << "MagazzinoWindow::launchReportListino()";
-//    ReportListino dlg(this);
-//    dlg.exec();
+    ListinoDlg dlg(this);
+    dlg.exec();
 }
 
 void MagazzinoWindow::launchReportInventario()

@@ -61,7 +61,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     libs/customwindow.h \
     moduleReport/cell.h \
     moduleReport/page.h \
-    moduleReport/row.h
+    moduleReport/row.h \
+    moduleReport/listinodlg.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -79,7 +80,8 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleReport/configprintdialog.ui \
     modulePrimaNota/primanotawindow.ui \
     modulePrimaNota/primanotaadddlg.ui \
-    moduleDatabase/userdbdialog.ui
+    moduleDatabase/userdbdialog.ui \
+    moduleReport/listinodlg.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \
@@ -107,4 +109,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     libs/customwindow.cpp \
     moduleReport/cell.cpp \
     moduleReport/page.cpp \
-    moduleReport/row.cpp
+    moduleReport/row.cpp \
+    moduleReport/listinodlg.cpp
