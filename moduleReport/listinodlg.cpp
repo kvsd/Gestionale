@@ -8,10 +8,11 @@ ListinoDlg::ListinoDlg(QWidget *parent) :
     qDebug() << "ListinoDlg::ListinoDlg()";
     ui->setupUi(this);
     m_printer = new QPrinter(QPrinter::HighResolution);
-    //QMargins margin(3.5, 3.5, 3.5, 3.5);
-    //m_printer->setPageMargins(margin);
+    QMargins margin(3.53, 3.53, 3.53, 3.53);
+    m_printer->setPageMargins(margin, QPageLayout::Millimeter);
     m_printer->setOutputFileName("./listino.pdf");
     initFornitoreCb();
+    getColsLayout();
 }
 
 ListinoDlg::~ListinoDlg()
@@ -27,6 +28,14 @@ void ListinoDlg::getColsLayout()
     m_colsName.clear();
     m_stretchValues.clear();
     m_viewName.clear();
+    m_settings.beginGroup(report::listinoCols);
+    for (auto s : m_settings.allKeys()) {
+         QStringList value = m_settings.value(s).toStringList();
+         m_colsName.append(value.at(0));
+         m_stretchValues.append(value.at(1).toInt());
+         m_viewName.append(value.at(2));
+    }
+    m_settings.endGroup();
 }
 
 void ListinoDlg::nextPage()
@@ -50,7 +59,16 @@ void ListinoDlg::draw()
     m_painter = new QPainter(m_printer);
 
     //----------------Print Here
-
+    QSqlQuery query;
+    query.prepare(magazzino::SELECT_ARTICOLI_ALL + "AND rag_sociale=:rag_sociale");
+    query.bindValue(":rag_sociale", ui->fornitoreCb->currentText());
+    query.exec();
+    while (query.next()) {
+        QStringList x;
+        for (auto i : m_colsName)
+            x.append(query.record().value(i).toString());
+        qDebug() << x.join(" | ");
+    }
     m_painter->end();
 }
 
