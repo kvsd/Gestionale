@@ -41,7 +41,7 @@ private:
     QStringList m_viewName;        // nomi delle colonne da visualizzare nella stampa
     QSettings m_settings;
 
-    void getColsLayout();
+    void setColsLayout();
     void initFornitoreCb();
     void nextPage();
 

@@ -12,7 +12,7 @@ ListinoDlg::ListinoDlg(QWidget *parent) :
     m_printer->setPageMargins(margin, QPageLayout::Millimeter);
     m_printer->setOutputFileName("./listino.pdf");
     initFornitoreCb();
-    getColsLayout();
+    setColsLayout();
 }
 
 ListinoDlg::~ListinoDlg()
@@ -22,7 +22,7 @@ ListinoDlg::~ListinoDlg()
     delete m_printer;
 }
 
-void ListinoDlg::getColsLayout()
+void ListinoDlg::setColsLayout()
 {
     qDebug() << "ListinoDlg::getColsLayout()";
     m_colsName.clear();
@@ -59,16 +59,34 @@ void ListinoDlg::draw()
     m_painter = new QPainter(m_printer);
 
     //----------------Print Here
+    Cell cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
+    cell.setColorBg(Qt::lightGray);
+    cell.setColorLine(Qt::transparent);
+    cell.setTextFont(QFont("fixed", 16), true);
+    cell.setText("titolo listino");
+
+    Row header(m_stretchValues, QPoint(0,cell.getBottom()), m_printer->width(), 1, m_painter, this);
+    header.setText(m_viewName);
+    header.setTextFont(m_painter->font(), true);
+
+    Row row(m_stretchValues, QPoint(0,header.getBottom()), m_printer->width(), 1, m_painter, this);
+
     QSqlQuery query;
-    query.prepare(magazzino::SELECT_ARTICOLI_ALL + "AND rag_sociale=:rag_sociale");
-    query.bindValue(":rag_sociale", ui->fornitoreCb->currentText());
+    query.prepare(sql::SELECT_ARTICOLI_ALL + "AND rag_sociale=:rag_sociale");
+    query.bindValue(ph::RAG_SOCIALE, ui->fornitoreCb->currentText());
     query.exec();
+
+    cell.draw();
+    header.draw();
     while (query.next()) {
         QStringList x;
         for (auto i : m_colsName)
             x.append(query.record().value(i).toString());
-        qDebug() << x.join(" | ");
+        row.setText(x);
+        row.draw();
+        row.moveRow({row.getLeft(), row.getBottom()});
     }
+
     m_painter->end();
 }
 
