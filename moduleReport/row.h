@@ -22,6 +22,7 @@ public:
     void moveRow(QPointF origin);
     void setHeader(QStringList textList);
     void setText(QStringList textList);
+    void setTextFont(QFont font, bool bold);
     void draw();
 
     QPointF getOrigin() const {return m_origin;}

@@ -53,6 +53,13 @@ void Row::setText(QStringList textList)
     }
 }
 
+void Row::setTextFont(QFont font, bool bold)
+{
+    qDebug() << "Row::setTextFont(font, bold)";
+    for (Cell *cell : m_vector)
+        cell->setTextFont(font, bold);
+}
+
 void Row::draw()
 {
     qDebug() << "Row::draw()";
