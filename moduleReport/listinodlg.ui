@@ -67,7 +67,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="fatturaLE">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -103,7 +103,7 @@
      <item>
       <widget class="QPushButton" name="closeButton">
        <property name="text">
-        <string>Chiudi</string>
+        <string>&amp;Chiudi</string>
        </property>
       </widget>
      </item>
@@ -123,14 +123,14 @@
      <item>
       <widget class="QPushButton" name="configButton">
        <property name="text">
-        <string>Stampante</string>
+        <string>Stam&amp;pante</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="saveButton">
+      <widget class="QPushButton" name="printButton">
        <property name="text">
-        <string>Salva</string>
+        <string>&amp;Stampa</string>
        </property>
       </widget>
      </item>
@@ -138,17 +138,27 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>fornitoreCb</tabstop>
+  <tabstop>printAllRb</tabstop>
+  <tabstop>printFromDateRb</tabstop>
+  <tabstop>printFromFatturaRb</tabstop>
+  <tabstop>fatturaLE</tabstop>
+  <tabstop>closeButton</tabstop>
+  <tabstop>configButton</tabstop>
+  <tabstop>printButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>saveButton</sender>
+   <sender>printButton</sender>
    <signal>clicked()</signal>
    <receiver>ListinoDlg</receiver>
    <slot>draw()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>394</x>
-     <y>257</y>
+     <x>457</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
      <x>404</x>
@@ -163,8 +173,8 @@
    <slot>config()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>257</y>
+     <x>371</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
      <x>322</x>
@@ -179,8 +189,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>243</y>
+     <x>89</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
      <x>106</x>
@@ -191,7 +201,7 @@
   <connection>
    <sender>printFromFatturaRb</sender>
    <signal>toggled(bool)</signal>
-   <receiver>lineEdit</receiver>
+   <receiver>fatturaLE</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
