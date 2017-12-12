@@ -57,13 +57,15 @@ void ListinoDlg::draw()
 {
     qDebug() << "ListinoDlg::draw()";
     m_painter = new QPainter(m_printer);
+    QString fornitore = ui->fornitoreCb->currentText();
+    QString data = QDate::currentDate().toString("dd/MM/yyyy");
 
     //----------------Print Here
     Cell cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
     cell.setColorBg(Qt::lightGray);
     cell.setColorLine(Qt::transparent);
     cell.setTextFont(QFont("fixed", 16), true);
-    cell.setText("titolo listino");
+    cell.setText(QString("Listino di %1 del %2").arg(fornitore, data));
 
     Row header(m_stretchValues, QPoint(0,cell.getBottom()), m_printer->width(), 1, m_painter, this);
     header.setText(m_viewName);
@@ -72,8 +74,17 @@ void ListinoDlg::draw()
     Row row(m_stretchValues, QPoint(0,header.getBottom()), m_printer->width(), 1, m_painter, this);
 
     QSqlQuery query;
-    query.prepare(sql::SELECT_ARTICOLI_ALL + "AND rag_sociale=:rag_sociale");
+    if (ui->printAllRb->isChecked())
+        query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FORNITORE);
+    else if (ui->printFromDateRb->isChecked())
+        query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_CURRENT_DATE);
+    else if (ui->printFromFatturaRb->isChecked()) {
+        query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FATTURA);
+    }
+
     query.bindValue(ph::RAG_SOCIALE, ui->fornitoreCb->currentText());
+    query.bindValue(ph::DATA_ARRIVO, data);
+    query.bindValue(ph::FATTURA, QString("%%1%").arg(ui->fatturaLE->text()));
     query.exec();
 
     cell.draw();

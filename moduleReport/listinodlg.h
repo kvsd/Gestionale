@@ -11,6 +11,7 @@
 #include <QMargins>
 #include <QSettings>
 #include <QDebug>
+#include <QDate>
 
 #include "report_const.h"
 #include "moduleMagazzino/magazzino_const.h"
