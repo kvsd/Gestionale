@@ -35,6 +35,13 @@ void Row::moveRow(QPointF origin)
     }
 }
 
+void Row::setTextAlignment(QVector<Qt::Alignment> aligns)
+{
+    qDebug() << "Row::setAlignment(aligns)";
+    for (int i=0; i<aligns.count(); i++)
+        m_vector[i]->setTextAlignment(aligns.value(i, Qt::AlignLeft));
+}
+
 void Row::setHeader(QStringList textList)
 {
     qDebug() << "Row::setHeader(textList)";
