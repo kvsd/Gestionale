@@ -6,6 +6,20 @@
 #include <QRect>
 #include <QMap>
 
+namespace sql {
+    //Filtro fornitore.
+    const QString FILTER_FORNITORE = "AND an.rag_sociale=:rag_sociale ORDER BY mg.descr";
+
+    //Filtro fornitore e data corrente.
+    const QString FILTER_CURRENT_DATE =
+            "AND an.rag_sociale=:rag_sociale AND mg.data_arrivo=current_date "
+            "ORDER BY mg.descr";
+
+    //Filtro fornitore e numero fattura.
+    const QString FILTER_FATTURA = " AND rag_sociale=:rag_sociale"
+            " AND fattura ILIKE :fattura ORDER BY descr";
+}
+
 namespace report {
 
     //SETTINGS
@@ -19,10 +33,6 @@ namespace report {
     const QString SQL_INVENTARIO_TOT =
             QString::fromUtf8("SELECT sum(\"SubTotale\") AS \"Totale\" "
                               "FROM vw_inventario");
-
-    //Select utilizzata per la stampa degli ordini
-    const QString SELECT_ORDINE = magazzino::SELECT_ARTICOLI_ALL +
-            QString::fromUtf8(" AND an.rag_sociale = '%1'");
 
     const QString LISTINO = "Listino";
     const QString INVENTARIO = "Inventario";

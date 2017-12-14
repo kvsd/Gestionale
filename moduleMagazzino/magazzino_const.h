@@ -6,6 +6,37 @@
 #include <QMap>
 #include <QSqlQueryModel>
 
+namespace sql {
+    //Select utilizzata in MagazzinoWindow, elenca tutti gli articoli in magazzino
+    const QString SELECT_ARTICOLI_ALL =
+            QString::fromUtf8("SELECT mg.id As \"Id\", "
+                              "mg.descr As \"Descrizione\", "
+                              "an.rag_sociale AS \"Fornitore\", "
+                              "mg.modello As \"Modello\", "
+                              "mg.cod_articolo AS \"Cod.Articolo\", "
+                              "mg.cod_fornitore AS \"Cod.Fornitore\", "
+                              "mg.cod_barre AS \"Cod.EAN\", "
+                              "format('%s%%', mg.cod_iva) AS \"Cod.IVA\", "
+                              "mg.scorta_minima As \"Scorta Minima\", "
+                              "mg.quantita AS \"Quantità\", "
+                              "mg.prezzo_fattura::money As \"Prezzo Fattura\", "
+                              "format('%s%%', mg.sconto_fornitore) As \"Sconto Fornitore\", "
+                              "mg.prezzo_acquisto::money As \"Prezzo Acquisto\", "
+                              "format('%s%%', mg.ricarico) As \"Ricarico\", "
+                              "mg.iva::money As \"Iva\", "
+                              "mg.prezzo_finito::money As \"Prezzo Finito\", "
+                              "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
+                              "mg.fattura As \"Nr.Fattura\", "
+                              "mg.data_arrivo As \"Data Arrivo\", "
+                              "mg.note As \"Note\" "
+                              "FROM magazzino AS mg, anagrafica AS an "
+                              "WHERE mg.id_fornitore=an.id ");
+
+    //Select usata nei combobox per la selezione del fornitore.
+    const QString SELECT_FORNITORE = "SELECT id, rag_sociale FROM anagrafica "
+                                     "WHERE fornitore=true ORDER BY rag_sociale";
+}
+
 namespace magazzino {
 
     const QString CSS_WARNING_STYLE = "background-color:yellow";
@@ -24,14 +55,7 @@ namespace magazzino {
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
 
 
-    //SQL
-    //Select usata:
-    // *Nel combobox in MagazzinoWindow per il filtro fornitore.
-    // *Nel combobox in ArticoloDialog per la selezione del fornitore
 
-    const QString SELECT_FORNITORE = "SELECT id, rag_sociale "
-                                            "FROM anagrafica WHERE fornitore=true "
-                                            "ORDER BY rag_sociale";
 
     //Insert utilizzata per aggiungere un record in listino_storico
     //Viene utilizzata in ArticoloDialog, MagazzinoWindows(cvs) e CodIvaUpdateDialog
@@ -130,33 +154,6 @@ namespace magazzino {
                                  "prezzo_finito=:prezzo_finito, "
                                  "prezzo_vendita=:prezzo_vendita "
             "WHERE id=:id";
-
-    //Select utilizzata in MagazzinoWindow, elenca tutti gli articoli in magazzino
-    //sostituisce vw_magazzino
-    const QString SELECT_ARTICOLI_ALL =
-            QString::fromUtf8("SELECT mg.id As \"Id\", "
-                                     "mg.descr As \"Descrizione\", "
-                                     "an.rag_sociale AS \"Fornitore\", "
-                                     "mg.modello As \"Modello\", "
-                                     "mg.cod_articolo AS \"Cod.Articolo\", "
-                                     "mg.cod_fornitore AS \"Cod.Fornitore\", "
-                                     "mg.cod_barre AS \"Cod.EAN\", "
-                                     "format('%s%%', mg.cod_iva) AS \"Cod.IVA\", "
-                                     "mg.scorta_minima As \"Scorta Minima\", "
-                                     "mg.quantita AS \"Quantità\", "
-                                     "mg.prezzo_fattura::money As \"Prezzo Fattura\", "
-                                     "format('%s%%', mg.sconto_fornitore) As \"Sconto Fornitore\", "
-                                     "mg.prezzo_acquisto::money As \"Prezzo Acquisto\", "
-                                     "format('%s%%', mg.ricarico) As \"Ricarico\", "
-                                     "mg.iva::money As \"Iva\", "
-                                     "mg.prezzo_finito::money As \"Prezzo Finito\", "
-                                     "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
-                                     "mg.fattura As \"Nr.Fattura\", "
-                                     "mg.data_arrivo As \"Data Arrivo\", "
-                                     "mg.note As \"Note\" "
-                              "FROM magazzino AS mg, anagrafica AS an "
-                              "WHERE mg.id_fornitore=an.id ");
-
 
     //Queste sono le colonne dei model di selezione dei combobox,
     //solitamente sono piccole tabelle di due colonne id e descrizione.

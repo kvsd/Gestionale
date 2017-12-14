@@ -151,43 +151,4 @@ namespace col {
     const QString USC_CASSA = "uscita_cassa";
 }
 
-namespace sql {
-    //Select utilizzata in MagazzinoWindow, elenca tutti gli articoli in magazzino
-    const QString SELECT_ARTICOLI_ALL =
-            QString::fromUtf8("SELECT mg.id As \"Id\", "
-                              "mg.descr As \"Descrizione\", "
-                              "an.rag_sociale AS \"Fornitore\", "
-                              "mg.modello As \"Modello\", "
-                              "mg.cod_articolo AS \"Cod.Articolo\", "
-                              "mg.cod_fornitore AS \"Cod.Fornitore\", "
-                              "mg.cod_barre AS \"Cod.EAN\", "
-                              "format('%s%%', mg.cod_iva) AS \"Cod.IVA\", "
-                              "mg.scorta_minima As \"Scorta Minima\", "
-                              "mg.quantita AS \"Quantità\", "
-                              "mg.prezzo_fattura::money As \"Prezzo Fattura\", "
-                              "format('%s%%', mg.sconto_fornitore) As \"Sconto Fornitore\", "
-                              "mg.prezzo_acquisto::money As \"Prezzo Acquisto\", "
-                              "format('%s%%', mg.ricarico) As \"Ricarico\", "
-                              "mg.iva::money As \"Iva\", "
-                              "mg.prezzo_finito::money As \"Prezzo Finito\", "
-                              "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
-                              "mg.fattura As \"Nr.Fattura\", "
-                              "mg.data_arrivo As \"Data Arrivo\", "
-                              "mg.note As \"Note\" "
-                              "FROM magazzino AS mg, anagrafica AS an "
-                              "WHERE mg.id_fornitore=an.id ");
-
-    //Filtro fornitore.
-    const QString FILTER_FORNITORE = "AND an.rag_sociale=:rag_sociale ORDER BY mg.descr";
-
-    //Filtro fornitore e data corrente.
-    const QString FILTER_CURRENT_DATE =
-            "AND an.rag_sociale=:rag_sociale AND mg.data_arrivo=current_date "
-            "ORDER BY mg.descr";
-
-    //Filtro fornitore e numero fattura.
-    const QString FILTER_FATTURA = " AND rag_sociale=:rag_sociale"
-            " AND fattura ILIKE :fattura ORDER BY descr";
-}
-
 #endif // GESTIONALE_CONST_H
