@@ -60,7 +60,6 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     libs/optionsdialog.h \
     libs/customwindow.h \
     moduleReport/cell.h \
-    moduleReport/page.h \
     moduleReport/row.h \
     moduleReport/listinodlg.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
@@ -108,6 +107,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     libs/optionsdialog.cpp \
     libs/customwindow.cpp \
     moduleReport/cell.cpp \
-    moduleReport/page.cpp \
     moduleReport/row.cpp \
     moduleReport/listinodlg.cpp
