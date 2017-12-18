@@ -20,6 +20,7 @@ public:
 
     Cell * at(int index);
     void moveRow(QPointF origin);
+    void moveRow(float x, float y);
     void setTextAlignment(QVector<Qt::Alignment> aligns);
     void setHeader(QStringList textList);
     void setText(QStringList textList);

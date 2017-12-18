@@ -35,6 +35,14 @@ void Row::moveRow(QPointF origin)
     }
 }
 
+void Row::moveRow(float x, float y)
+{
+    qDebug() << "Row::moveRow(float x, float y)";
+    m_origin = QPointF(x, y);
+    for (Cell *c : m_vector)
+        c->moveCell(c->getLeft(), y);
+}
+
 void Row::setTextAlignment(QVector<Qt::Alignment> aligns)
 {
     qDebug() << "Row::setAlignment(aligns)";
