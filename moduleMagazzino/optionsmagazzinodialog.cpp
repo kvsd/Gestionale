@@ -14,7 +14,7 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     codIvaModel->setTable(table::CODICE_IVA);
     codIvaModel->select();
 
-    articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+    articoloModel->setQuery(sql::SELECT_ARTICOLI_ALL);
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 
     ui->codIvaComboBox->setModel(codIvaModel);

@@ -34,7 +34,7 @@ void ArticoloDialog::initModel(void)
     modelCodIva->select();
 
     modelFornitore = new QSqlQueryModel(this);
-    modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
+    modelFornitore->setQuery(sql::SELECT_FORNITORE);
 
     modelMarca = new QSqlTableModel(this);
     modelMarca->setTable(table::MARCA);
@@ -418,7 +418,7 @@ void ArticoloDialog::openAddFornitore()
     QString id = query.value(0).toString();
 
     //Ricarico la query e seleziono il valore immesso
-    modelFornitore->setQuery(magazzino::SELECT_FORNITORE);
+    modelFornitore->setQuery(sql::SELECT_FORNITORE);
     ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_ID);
     ui->cb_fornitore->setCurrentText(id);
     ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);

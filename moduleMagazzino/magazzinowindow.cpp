@@ -46,7 +46,7 @@ void MagazzinoWindow::initModel()
     ui->articoloView->setModel(articoloModel);
     ui->storicoView->setModel(storicoModel);
 
-    fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
+    fornitoreModel->setQuery(sql::SELECT_FORNITORE);
 
     categoriaModel->setTable(table::CATEGORIA_MERCE);
     categoriaModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
@@ -84,7 +84,7 @@ void MagazzinoWindow::updateModel()
     QString marcaText = ui->marcaComboBox->currentText();
     QString sedeText = ui->sedeComboBox->currentText();
 
-    fornitoreModel->setQuery(magazzino::SELECT_FORNITORE);
+    fornitoreModel->setQuery(sql::SELECT_FORNITORE);
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
@@ -344,7 +344,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
     QString filter3 = giacenzaString();
     QString order = orderString();
 
-    QString query = magazzino::SELECT_ARTICOLI_ALL;
+    QString query = sql::SELECT_ARTICOLI_ALL;
     QStringList filterList;
     if (!filter1.isEmpty())
         filterList.append(filter1);
@@ -439,7 +439,7 @@ void MagazzinoWindow::findCodBarre()
 {
     //Slot che ricerca tutti gli articoli senza codice a barre.
     qDebug() << "MagazzinoWindow::findCodBarre()";
-    QSqlQuery SELECT_COD_BARRE = QSqlQuery(magazzino::SELECT_ARTICOLI_ALL +
+    QSqlQuery SELECT_COD_BARRE = QSqlQuery(sql::SELECT_ARTICOLI_ALL +
                                            " AND cod_barre='' " +
                                            orderString());
     articoloModel->setQuery(SELECT_COD_BARRE);
