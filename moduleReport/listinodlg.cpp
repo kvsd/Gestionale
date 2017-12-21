@@ -12,7 +12,7 @@ ListinoDlg::ListinoDlg(QWidget *parent) :
     m_printer->setPageMargins(margin, QPageLayout::Millimeter);
     m_printer->setOutputFileName("./listino.pdf");
     initFornitoreCb();
-    setColsLayout();
+    configLayout();
 }
 
 ListinoDlg::~ListinoDlg()
@@ -22,35 +22,45 @@ ListinoDlg::~ListinoDlg()
     delete m_printer;
 }
 
-void ListinoDlg::setColsLayout()
+void ListinoDlg::configLayout()
 {
     qDebug() << "ListinoDlg::getColsLayout()";
     m_colsName.clear();
     m_stretchValues.clear();
     m_viewName.clear();
-    m_settings.beginGroup(report::listinoCols);
+    m_settings.beginGroup(settings::listinoCols);
     for (auto s : m_settings.allKeys()) {
          QStringList value = m_settings.value(s).toStringList();
-         m_colsName.append(value.at(0));
-         m_stretchValues.append(value.at(1).toInt());
-         m_viewName.append(value.at(2));
+         m_colsName.append(value.at(CPD::DESCR));
+         m_stretchValues.append(value.at(CPD::STRETCH).toInt());
+         m_viewName.append(value.at(CPD::VIEW));
+         QString a = value.at(CPD::ALIGN);
+         if (a == "Sinistra")
+             m_align.append(Qt::AlignLeft);
+         else if (a == "Destra")
+             m_align.append(Qt::AlignRight);
+         else
+             m_align.append(Qt::AlignHCenter);
     }
     m_settings.endGroup();
-}
-
-void ListinoDlg::nextPage()
-{
-    qDebug() << "ListinoDlg::~nextPage()";
-    m_printer->newPage();
 }
 
 void ListinoDlg::initFornitoreCb()
 {
     qDebug() << "ListinoDlg::initFornitoreCb()";
     m_modelFornitori = new QSqlQueryModel(this);
-    m_modelFornitori->setQuery(magazzino::SELECT_FORNITORE);
+    m_modelFornitori->setQuery(sql::SELECT_FORNITORE);
     ui->fornitoreCb->setModel(m_modelFornitori);
     ui->fornitoreCb->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+}
+
+void ListinoDlg::nextPage()
+{
+    qDebug() << "ListinoDlg::nextPage()";
+    m_printer->newPage();
+    title->draw();
+    header->draw();
+    row->moveRow(header->getLeft(), header->getBottom());
 }
 
 void ListinoDlg::draw()
@@ -60,45 +70,48 @@ void ListinoDlg::draw()
     QString fornitore = ui->fornitoreCb->currentText();
     QString data = QDate::currentDate().toString("dd/MM/yyyy");
 
-    //----------------Print Here
-    Cell cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
-    cell.setColorBg(Qt::lightGray);
-    cell.setColorLine(Qt::transparent);
-    cell.setTextFont(QFont("fixed", 16), true);
-    cell.setText(QString("Listino di %1 del %2").arg(fornitore, data));
+    title = new Cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
+    title->setColorBg(Qt::lightGray);
+    title->setColorLine(Qt::transparent);
+    title->setTextFont(QFont("fixed", 16), true);
+    title->setText(QString("Listino di %1 del %2").arg(fornitore, data));
 
-    Row header(m_stretchValues, QPoint(0,cell.getBottom()), m_printer->width(), 1, m_painter, this);
-    header.setText(m_viewName);
-    header.setTextFont(m_painter->font(), true);
+    header = new Row(m_stretchValues, QPoint(0,title->getBottom()), m_printer->width(), 1, m_painter, this);
+    header->setText(m_viewName);
+    header->setTextFont(m_painter->font(), true);
+    header->setTextAlignment(QVector<Qt::Alignment>(4, Qt::AlignHCenter));
 
-    Row row(m_stretchValues, QPoint(0,header.getBottom()), m_printer->width(), 1, m_painter, this);
-
+    row = new Row(m_stretchValues, QPoint(0,header->getBottom()), m_printer->width(), 1, m_painter, this);
+    row->setTextAlignment(m_align);
+    //Selezione e configurazione delle query
     QSqlQuery query;
     if (ui->printAllRb->isChecked())
         query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FORNITORE);
     else if (ui->printFromDateRb->isChecked())
         query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_CURRENT_DATE);
-    else if (ui->printFromFatturaRb->isChecked()) {
+    else if (ui->printFromFatturaRb->isChecked())
         query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FATTURA);
-    }
 
     query.bindValue(ph::RAG_SOCIALE, ui->fornitoreCb->currentText());
     query.bindValue(ph::DATA_ARRIVO, data);
     query.bindValue(ph::FATTURA, QString("%%1%").arg(ui->fatturaLE->text()));
     query.exec();
 
-    cell.draw();
-    header.draw();
+    //Inizio stampa
+    title->draw();
+    header->draw();
     while (query.next()) {
-        QStringList x;
+        QStringList list;
         for (auto i : m_colsName)
-            x.append(query.record().value(i).toString());
-        row.setText(x);
-        row.draw();
-        row.moveRow({row.getLeft(), row.getBottom()});
+            list.append(query.record().value(i).toString());
+        row->setText(list);
+        row->draw();
+        row->moveRow(row->getLeft(), row->getBottom());
+        if (row->getBottom() > m_printer->height())
+            nextPage();
     }
 
-    m_painter->end();
+    delete m_painter;
 }
 
 void ListinoDlg::config()
