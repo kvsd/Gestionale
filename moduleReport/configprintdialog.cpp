@@ -7,6 +7,8 @@ ConfigPrintDialog::ConfigPrintDialog(QWidget *parent) :
 {
     qDebug() << "ConfigPrintDialog()";
     ui->setupUi(this);
+    //rimuovo il tab di configurazione dell'ordine, devo decidere.
+    ui->tabWidget->removeTab(1);
     initModel();
     loadSettings();
 }
@@ -26,7 +28,7 @@ void ConfigPrintDialog::initModel()
 {
     qDebug() << "ConfigPrintDialog::initModel()";
     model = new QSqlQueryModel(this);
-    model->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+    model->setQuery(sql::SELECT_ARTICOLI_ALL);
     headerMap = prepareMapsFromModel(model);
     colsModel = new QStringListModel(headerMap.values(), this);
 }
@@ -37,6 +39,8 @@ void ConfigPrintDialog::loadTableSettings(QTableWidget *table, QString settingsN
     settings.beginGroup(settingsName);
     for (QString key : settings.allKeys()) {
         QStringList values = settings.value(key).toStringList();
+        if (values.size() != table->columnCount())
+            break;
         addRow(table);
         setRow(table, key.toInt(), values);
     }
@@ -46,8 +50,8 @@ void ConfigPrintDialog::loadTableSettings(QTableWidget *table, QString settingsN
 void ConfigPrintDialog::loadSettings()
 {
     qDebug() << "ConfigPrintDialog::loadSettings()";
-    loadTableSettings(ui->listinoTableWidget, report::listinoCols);
-    loadTableSettings(ui->ordineTableWidget, report::ordineCols);
+    loadTableSettings(ui->listinoTableWidget, settings::listinoCols);
+    loadTableSettings(ui->ordineTableWidget, settings::ordineCols);
 }
 
 void ConfigPrintDialog::addRow(QTableWidget *table)
@@ -56,10 +60,13 @@ void ConfigPrintDialog::addRow(QTableWidget *table)
     int row = table->rowCount();
     table->insertRow(row);
     for (int col=0; col<table->columnCount(); col++) {
-        if (col==0) {
+        if (col==CPD::DESCR || col==CPD::ALIGN) {
             table->setCellWidget(row, col, new QComboBox);
             auto cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
-            cb->setModel(colsModel);
+            if (col==CPD::DESCR)
+                cb->setModel(colsModel);
+            else if (col==CPD::ALIGN)
+                cb->addItems({"Sinistra", "Destra", "Centrale"});
         }
         else {
             table->setCellWidget(row, col, new QLineEdit);
@@ -77,8 +84,8 @@ void ConfigPrintDialog::setRow(QTableWidget *table, int row, QStringList values)
 {
     qDebug() << "ConfigPrintDialog::setRow()";
     for (int col=0; col<table->columnCount(); col++) {
-        if (col == 0) {
-            QComboBox *cb = qobject_cast<QComboBox *>(table->cellWidget(row, 0));
+        if (col == CPD::DESCR || col == CPD::ALIGN) {
+            QComboBox *cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
             cb->setCurrentText(values[col]);
         }
         else {
@@ -92,21 +99,25 @@ void ConfigPrintDialog::saveSettings(QTableWidget *table, QString settingsName)
 {
     qDebug() << "ConfigPrintDialog::saveSetting()";
     settings.beginGroup(settingsName);
-    settings.remove(""); //passando una stringa vuota rimuove tutto
+    //Passando una stringa vuota rimuove tutti le voci del gruppo. L'iterazione è
+    //eseguita sulle colonne della tablewidget, valori precedentemente salvati non
+    //verrebbero sovrascritti.
+    settings.remove("");
     for (int row=0; row<table->rowCount(); row++) {
-        QStringList values; //[ColsName, Stretch Factor, Display Name]
+        //formato values -> [ColsName, Stretch Factor, Display Name, Alignment]
+        QStringList values;
         for (int col=0; col<table->columnCount(); col++) {
-            if (col==0) {
+            if (col==CPD::DESCR || col==CPD::ALIGN) {
                 auto cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
                 values << cb->currentText();
             }
             else {
                 auto le = qobject_cast<QLineEdit *>(table->cellWidget(row, col));
                 QString val = le->text();
-                if (col==1 && val.isEmpty())
+                if (col==CPD::STRETCH && val.isEmpty())
                     val = "1"; //Valore di default Stretch Factor
-                else if (col==2 && val.isEmpty())
-                    val = values[0]; //Valore di default Display Name
+                else if (col==CPD::VIEW && val.isEmpty())
+                    val = values[CPD::DESCR]; //Valore di default Display Name
                 values << val;
             }
         }
@@ -147,7 +158,7 @@ void ConfigPrintDialog::save()
 {
     qDebug() << "ConfigPrintDialog::save()";
     //Configura listino
-    saveSettings(ui->listinoTableWidget, report::listinoCols);
-    saveSettings(ui->ordineTableWidget, report::ordineCols);
+    saveSettings(ui->listinoTableWidget, settings::listinoCols);
+    saveSettings(ui->ordineTableWidget, settings::ordineCols);
 }
 

@@ -44,6 +44,11 @@
            <string>Nome</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>Allineamento</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item>
