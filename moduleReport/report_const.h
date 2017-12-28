@@ -30,6 +30,8 @@ namespace settings {
     //SETTINGS
     const QString listinoCols = "Listino.cols";
     const QString ordineCols = "Ordine.cols";
+    const QString listinoFont = "Listino.font";
+    const QString ordineFont = "ordine.font";
 }
 
 namespace CPD {
@@ -41,4 +43,11 @@ namespace CPD {
         ALIGN = 3
     };
 }
+
+namespace align {
+    const QString left = "Sinistra";
+    const QString right = "Destra";
+    const QString center = "Centrale";
+}
+
 #endif // REPORT_CONST_H

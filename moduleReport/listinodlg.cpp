@@ -35,9 +35,9 @@ void ListinoDlg::configLayout()
          m_stretchValues.append(value.at(CPD::STRETCH).toInt());
          m_viewName.append(value.at(CPD::VIEW));
          QString a = value.at(CPD::ALIGN);
-         if (a == "Sinistra")
+         if (a == align::left)
              m_align.append(Qt::AlignLeft);
-         else if (a == "Destra")
+         else if (a == align::right)
              m_align.append(Qt::AlignRight);
          else
              m_align.append(Qt::AlignHCenter);
@@ -70,19 +70,23 @@ void ListinoDlg::draw()
     QString fornitore = ui->fornitoreCb->currentText();
     QString data = QDate::currentDate().toString("dd/MM/yyyy");
 
+    //Configuro l'intestazione del listino
     title = new Cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
     title->setColorBg(Qt::lightGray);
-    title->setColorLine(Qt::transparent);
+    title->setColorLine(Qt::transparent);;
     title->setTextFont(QFont("fixed", 16), true);
     title->setText(QString("Listino di %1 del %2").arg(fornitore, data));
 
+    //Configuro l'header della tabella
     header = new Row(m_stretchValues, QPoint(0,title->getBottom()), m_printer->width(), 1, m_painter, this);
     header->setText(m_viewName);
     header->setTextFont(m_painter->font(), true);
     header->setTextAlignment(QVector<Qt::Alignment>(4, Qt::AlignHCenter));
 
+    //Configuro la riga che stampera i risultati
     row = new Row(m_stretchValues, QPoint(0,header->getBottom()), m_printer->width(), 1, m_painter, this);
     row->setTextAlignment(m_align);
+
     //Selezione e configurazione delle query
     QSqlQuery query;
     if (ui->printAllRb->isChecked())
@@ -92,7 +96,7 @@ void ListinoDlg::draw()
     else if (ui->printFromFatturaRb->isChecked())
         query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FATTURA);
 
-    query.bindValue(ph::RAG_SOCIALE, ui->fornitoreCb->currentText());
+    query.bindValue(ph::RAG_SOCIALE, fornitore);
     query.bindValue(ph::DATA_ARRIVO, data);
     query.bindValue(ph::FATTURA, QString("%%1%").arg(ui->fatturaLE->text()));
     query.exec();

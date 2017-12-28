@@ -13,6 +13,7 @@
 #include <QStringListModel>
 #include <QLineEdit>
 #include <QTableWidget>
+#include <QFontDialog>
 
 namespace Ui {
 class ConfigPrintDialog;
@@ -29,10 +30,10 @@ public:
 
 private:
     Ui::ConfigPrintDialog *ui;
-    QSettings settings;
-    QSqlQueryModel *model;
-    QMap <int, QString> headerMap;
-    QStringListModel *colsModel;
+    QSettings m_settings;
+    QSqlQueryModel *m_model;
+    QMap <int, QString> m_headerMap;
+    QStringListModel *m_colsModel;
 
     void initModel();
     void loadTableSettings(QTableWidget *table, QString settingsName);
@@ -46,6 +47,7 @@ private slots:
     void addColumn();
     void removeColumn();
     void save();
+    void openFontDlg();
 };
 
 #endif // CONFIGPRINTDIALOG_H
