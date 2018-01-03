@@ -94,51 +94,51 @@ void ArticoloDialog::setValue(QString id, bool update)
     query.first();
     if (update)
         articoloMap[ph::ID] = id;
-    ui->le_descrizione->setText(query.value(col::DESCRIZIONE).toString());
+    ui->le_descrizione->setText(query.value(coldb::DESCRIZIONE).toString());
 
     ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_ID);
-    ui->cb_fornitore->setCurrentText(query.value(col::ID_FORNITORE).toString());
+    ui->cb_fornitore->setCurrentText(query.value(coldb::ID_FORNITORE).toString());
     ui->cb_fornitore->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     ui->cb_marca->setModelColumn(magazzino::COL_TABLE_ID);
-    ui->cb_marca->setCurrentText(query.value(col::ID_MARCA).toString());
+    ui->cb_marca->setCurrentText(query.value(coldb::ID_MARCA).toString());
     ui->cb_marca->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->le_modello->setText(query.value(col::MODELLO).toString());
-    ui->le_cod_articolo->setText(query.value(col::CODICE_ARTICOLO).toString());
-    ui->le_cod_fornitore->setText(query.value(col::CODICE_FORNITORE).toString());
-    ui->le_cod_barre->setText(query.value(col::CODICE_BARRE).toString());
+    ui->le_modello->setText(query.value(coldb::MODELLO).toString());
+    ui->le_cod_articolo->setText(query.value(coldb::CODICE_ARTICOLO).toString());
+    ui->le_cod_fornitore->setText(query.value(coldb::CODICE_FORNITORE).toString());
+    ui->le_cod_barre->setText(query.value(coldb::CODICE_BARRE).toString());
 
     ui->cb_catmerce->setModelColumn(magazzino::COL_TABLE_ID);
-    ui->cb_catmerce->setCurrentText(query.value(col::ID_MERCE).toString());
+    ui->cb_catmerce->setCurrentText(query.value(coldb::ID_MERCE).toString());
     ui->cb_catmerce->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
     ui->cb_codiva->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
-    ui->cb_codiva->setCurrentText(query.value(col::CODICE_IVA).toString());
+    ui->cb_codiva->setCurrentText(query.value(coldb::CODICE_IVA).toString());
 
     ui->cb_unitamisura->setModelColumn(magazzino::COL_TABLE_ID);
-    ui->cb_unitamisura->setCurrentText(query.value(col::ID_UNITA).toString());
+    ui->cb_unitamisura->setCurrentText(query.value(coldb::ID_UNITA).toString());
     ui->cb_unitamisura->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->le_scorta->setText(query.value(col::SCORTA_MINIMA).toString());
-    ui->le_quantita->setText(query.value(col::QUANTITA).toString());
-    ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(col::PREZZO_FATTURA).toDouble()));
+    ui->le_scorta->setText(query.value(coldb::SCORTA_MINIMA).toString());
+    ui->le_quantita->setText(query.value(coldb::QUANTITA).toString());
+    ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FATTURA).toDouble()));
     freezeLineEdit(ui->le_prezzo_acquisto, !ui->le_prezzo_fattura->text().isEmpty());
-    ui->le_sconto->setText(query.value(col::SCONTO_FORNITORE).toString());
-    ui->le_ricarico->setText(query.value(col::RICARICO).toString());
-    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(col::PREZZO_ACQUISTO).toDouble()));
-    ui->le_iva->setText(locale().toCurrencyString(query.value(col::IVA).toDouble()));
+    ui->le_sconto->setText(query.value(coldb::SCONTO_FORNITORE).toString());
+    ui->le_ricarico->setText(query.value(coldb::RICARICO).toString());
+    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(coldb::PREZZO_ACQUISTO).toDouble()));
+    ui->le_iva->setText(locale().toCurrencyString(query.value(coldb::IVA).toDouble()));
 
-    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(col::PREZZO_FINITO).toDouble()));
-    ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(col::PREZZO_VENDITA).toDouble()));
-    ui->le_fattura->setText(query.value(col::FATTURA).toString());
+    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FINITO).toDouble()));
+    ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA).toDouble()));
+    ui->le_fattura->setText(query.value(coldb::FATTURA).toString());
     ui->le_data->setDate(QDate::currentDate());
 
     ui->cb_sede->setModelColumn(magazzino::COL_TABLE_ID);
-    ui->cb_sede->setCurrentText(query.value(col::ID_SEDE_MAGAZZINO).toString());
+    ui->cb_sede->setCurrentText(query.value(coldb::ID_SEDE_MAGAZZINO).toString());
     ui->cb_sede->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
 
-    ui->te_note->setText(query.value(col::NOTE).toString());
+    ui->te_note->setText(query.value(coldb::NOTE).toString());
 }
 
 void ArticoloDialog::prepareMap()

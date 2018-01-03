@@ -162,7 +162,7 @@ void PrimaNotaWindow::updateNote()
         return;
     }
 
-    QString id = primaNotaModel->record(index.row()).value(col::ID).toString();
+    QString id = primaNotaModel->record(index.row()).value(coldb::ID).toString();
     PrimaNotaAddDlg dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Nota");
@@ -181,7 +181,7 @@ void PrimaNotaWindow::removeNote()
         showDialogError(this, ERR048, MSG012); //NOTE codice errore 048
         return;
     }
-    QString id = primaNotaModel->record(index.row()).value(col::ID).toString();
+    QString id = primaNotaModel->record(index.row()).value(coldb::ID).toString();
     QSqlQuery query;
     query.prepare(primanota::DELETE_NOTE);
     query.bindValue(ph::ID, id);

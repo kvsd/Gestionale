@@ -92,7 +92,7 @@ namespace ph {
     const QString USC_BANCA = ":usc_banca";
 }
 
-namespace col {
+namespace coldb {
     //Nome colonne database
     const QString AGENZIA = "agenzia";
     const QString BANCA = "banca";
@@ -151,4 +151,7 @@ namespace col {
     const QString USC_CASSA = "uscita_cassa";
 }
 
+namespace colview {
+//Nome colonne tableview/tablewidget
+}
 #endif // GESTIONALE_CONST_H

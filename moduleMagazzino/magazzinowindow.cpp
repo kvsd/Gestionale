@@ -151,16 +151,16 @@ QString MagazzinoWindow::searchString(void) {
     QStringList filter;
     QString pattern = "%1 ILIKE '%%2%'";
     if (ui->actionDescrizione->isChecked())
-        filter.append(pattern.arg(col::DESCRIZIONE));
+        filter.append(pattern.arg(coldb::DESCRIZIONE));
 
     if (ui->actionCod_Fornitore->isChecked())
-        filter.append(pattern.arg(col::CODICE_FORNITORE));
+        filter.append(pattern.arg(coldb::CODICE_FORNITORE));
 
     if (ui->actionCod_Articolo->isChecked())
-        filter.append(pattern.arg(col::CODICE_ARTICOLO));
+        filter.append(pattern.arg(coldb::CODICE_ARTICOLO));
 
     if (ui->actionEAN->isChecked())
-        filter.append(pattern.arg(col::CODICE_BARRE));
+        filter.append(pattern.arg(coldb::CODICE_BARRE));
 
     if (filter.isEmpty())
         return "";
@@ -177,25 +177,25 @@ QString MagazzinoWindow::filterString(void) {
     if (ui->fornitoreComboBox->isEnabled()) {
         int index = ui->fornitoreComboBox->currentIndex();
         QString id = fornitoreModel->record(index).value(magazzino::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_FORNITORE).arg(id));
+        filter.append(pattern.arg(coldb::ID_FORNITORE).arg(id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
         int index = ui->categoriaComboBox->currentIndex();
         QString id = categoriaModel->record(index).value(magazzino::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_MERCE).arg(id));
+        filter.append(pattern.arg(coldb::ID_MERCE).arg(id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
         int index = ui->marcaComboBox->currentIndex();
         QString id = marcaModel->record(index).value(magazzino::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_MARCA).arg(id));
+        filter.append(pattern.arg(coldb::ID_MARCA).arg(id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
         int index = ui->sedeComboBox->currentIndex();
         QString id = sedeModel->record(index).value(magazzino::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_SEDE_MAGAZZINO).arg(id));
+        filter.append(pattern.arg(coldb::ID_SEDE_MAGAZZINO).arg(id));
     }
 
     if (ui->fatturaLineEdit->isEnabled()) {
@@ -206,7 +206,7 @@ QString MagazzinoWindow::filterString(void) {
 
     if (ui->currentDateEnabler->isChecked()) {
         QString currentDate = QDate::currentDate().toString("dd/MM/yy");
-        filter.append(pattern.arg(col::DATA_ARRIVO).arg(currentDate));
+        filter.append(pattern.arg(coldb::DATA_ARRIVO).arg(currentDate));
     }
     else if (ui->rangeDateEnabler->isChecked()) {
         QString data1 = ui->data1LineEdit->text();
@@ -228,11 +228,11 @@ QString MagazzinoWindow::giacenzaString(void)
     QString result = "";
 
     if (ui->radioGiacenzaPos->isChecked())
-        result = QString("%1 >= %2").arg(col::QUANTITA).arg(col::SCORTA_MINIMA);
+        result = QString("%1 >= %2").arg(coldb::QUANTITA, coldb::SCORTA_MINIMA);
     else if (ui->radioGiacenzaNeg->isChecked())
-        result = QString("%1 < %2").arg(col::QUANTITA).arg(col::SCORTA_MINIMA);
+        result = QString("%1 < %2").arg(coldb::QUANTITA, coldb::SCORTA_MINIMA);
     else if (ui->radioGiacenza0->isChecked())
-        result = QString("%1 = 0").arg(col::QUANTITA);
+        result = QString("%1 = 0").arg(coldb::QUANTITA);
 
     return result;
 }
@@ -246,7 +246,7 @@ QString MagazzinoWindow::orderString()
     if (ui->orderbyComboBox->isEnabled())
         return str.arg(ui->orderbyComboBox->currentText());
     else
-        return str.arg(col::DESCRIZIONE);
+        return str.arg(coldb::DESCRIZIONE);
 }
 
 void MagazzinoWindow::closeEvent(QCloseEvent *event)
@@ -284,7 +284,7 @@ void MagazzinoWindow::updateRecord(void)
         return;
     }
 
-    QString id = articoloModel->record(index.row()).value(col::ID).toString();
+    QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
     ArticoloDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Articolo");
@@ -306,7 +306,7 @@ void MagazzinoWindow::cloneRecord(void)
         return;
     }
 
-    QString id = articoloModel->record(index.row()).value(col::ID).toString();
+    QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
     ArticoloDialog dlg(this);
     dlg.setValue(id, false);
     bool ok = dlg.exec();
@@ -325,7 +325,7 @@ void MagazzinoWindow::removeRecord(void)
         showDialogError(this, ERR036, MSG009); //NOTE codice errore 036
         return;
     }
-    QString id = articoloModel->record(index.row()).value(col::ID).toString();
+    QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
     QSqlQuery query;
     query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(ph::ID, id);
@@ -387,7 +387,7 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
         storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
         return;
     }
-    QString id = articoloModel->record(index.row()).value(col::ID).toString();
+    QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);

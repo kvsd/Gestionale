@@ -160,7 +160,7 @@ void AnagraficaWindow::updateRecord(void)
         showDialogError(this, ERR026, MSG007, ""); //NOTE codice errore 026
         return;
     }
-    QString id = anagraficaModel->record(index.row()).value(col::ID).toString();
+    QString id = anagraficaModel->record(index.row()).value(coldb::ID).toString();
     AnagraficaAddDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Cliente Fornitore");
@@ -179,7 +179,7 @@ void AnagraficaWindow::removeRecord(void)
         showDialogError(this, ERR027, MSG004, ""); //NOTE codice errore 027
         return;
     }
-    QString id = anagraficaModel->record(index.row()).value(col::ID).toString();
+    QString id = anagraficaModel->record(index.row()).value(coldb::ID).toString();
 
     QSqlQuery query;
     query.prepare(anagrafica::DELETE_QUERY);
@@ -201,17 +201,17 @@ QString AnagraficaWindow::getSearchString()
     QString pattern = "%1 ILIKE '%%2%'";
     QStringList list;
     if (ui->actionRagioneSociale->isChecked())
-        list.append(pattern.arg(col::RAGIONE_SOCIALE));
+        list.append(pattern.arg(coldb::RAGIONE_SOCIALE));
 
     if (ui->actionCognome->isChecked())
         //WARNING CONFLITTO con la tabella agenti, campo cognome uguale.
-        list.append(pattern.arg("anagrafica."+col::COGNOME));
+        list.append(pattern.arg("anagrafica."+coldb::COGNOME));
 
     if (ui->actionCodiceFiscale->isChecked())
-        list.append(pattern.arg(col::CODICE_FISCALE));
+        list.append(pattern.arg(coldb::CODICE_FISCALE));
 
     if (ui->actionPartitaIVA->isChecked())
-        list.append(pattern.arg(col::PARTITA_IVA));
+        list.append(pattern.arg(coldb::PARTITA_IVA));
 
     return list.join(" OR ").arg(value);
 
@@ -225,17 +225,17 @@ QString AnagraficaWindow::getFilterString1()
     bool fornitore = ui->fornitoriCheckBox->isChecked();
     bool cliente = ui->clientiCheckBox->isChecked();
 
-    filter.append(pattern.arg(col::CLIENTE, QVariant(cliente).toString()));
-    filter.append(pattern.arg(col::FORNITORE, QVariant(fornitore).toString()));
+    filter.append(pattern.arg(coldb::CLIENTE, QVariant(cliente).toString()));
+    filter.append(pattern.arg(coldb::FORNITORE, QVariant(fornitore).toString()));
 
     if (fornitore==true && cliente==true) {
         return filter.join(" OR ");
     }
     else if (fornitore==true) {
-        return pattern.arg(col::FORNITORE, QVariant(fornitore).toString());
+        return pattern.arg(coldb::FORNITORE, QVariant(fornitore).toString());
     }
     else if (cliente==true) {
-        return pattern.arg(col::CLIENTE, QVariant(cliente).toString());
+        return pattern.arg(coldb::CLIENTE, QVariant(cliente).toString());
     }
     else
         return filter.join(" AND ");
@@ -250,25 +250,25 @@ QString AnagraficaWindow::getFilterString2()
     if (ui->cittaEnabler->isChecked()) {
         int row = ui->cittaComboBox->currentIndex();
         QString id = cittaModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_CITTA, id));
+        filter.append(pattern.arg(coldb::ID_CITTA, id));
     }
 
     if (ui->provinciaEnabler->isChecked()) {
         int row = ui->provinciaComboBox->currentIndex();
         QString id = provinciaModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_PROVINCIA, id));
+        filter.append(pattern.arg(coldb::ID_PROVINCIA, id));
     }
 
     if (ui->statoEnabler->isChecked()) {
         int row = ui->statoComboBox->currentIndex();
         QString id = statoModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_STATO, id));
+        filter.append(pattern.arg(coldb::ID_STATO, id));
     }
 
     if (ui->agenteEnabler->isChecked()) {
         int row = ui->agenteComboBox->currentIndex();
         QString id = agenteModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
-        filter.append(pattern.arg(col::ID_AGENTE, id));
+        filter.append(pattern.arg(coldb::ID_AGENTE, id));
     }
 
     return filter.join(" AND ");
