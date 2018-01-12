@@ -162,15 +162,6 @@ CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino
                               fattura TEXT,
 			      UNIQUE(id_articolo, data_arrivo));
 --########################################################################################
-CREATE VIEW vw_listino_storico ("Id Articolo", "Data", "Quantità", "Prezzo Fattura", 
-				"Sconto", "Prezzo Acquisto", "Ricarico", "IVA", 
-				"Prezzo finito", "Prezzo Vendità", "Nr. Fattura") AS 
-SELECT ls.id_articolo, ls.data_arrivo, ls.quantita, ls.prezzo_fattura::money, 
-        format('%s%%',ls.sconto_fornitore), ls.prezzo_acquisto::money, format('%s%%',ls.ricarico),
-        ls.iva::money, ls.prezzo_finito::money, ls.prezzo_vendita::money, ls.fattura
-FROM listino_storico AS ls 
-ORDER BY ls.id_articolo, ls.data_arrivo;
---##########################################################################################
 CREATE VIEW vw_inventario AS
 SELECT quantita AS "Quantità",
        descr AS "Descrizione",
