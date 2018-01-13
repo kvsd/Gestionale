@@ -36,26 +36,25 @@ void MagazzinoWindow::initModel()
 
     articoloModel = new CustomModel(Qt::AlignRight, this);
     articoloModel->setAlignMap(map);
+    ui->articoloView->setModel(articoloModel);
 
     storicoModel = new CustomModel(Qt::AlignRight, this);
-    fornitoreModel = new QSqlQueryModel(this);
-    categoriaModel = new QSqlTableModel(this);
-    marcaModel = new QSqlTableModel(this);
-    sedeModel = new QSqlTableModel(this);
-
-    ui->articoloView->setModel(articoloModel);
     ui->storicoView->setModel(storicoModel);
 
-    fornitoreModel->setQuery(sql::SELECT_FORNITORE);
+    fornitoreModel = new QSqlQueryModel(this);
+    fornitoreModel->setQuery(sql::SELECT_CB_FORNITORE);
 
+    categoriaModel = new QSqlTableModel(this);
     categoriaModel->setTable(table::CATEGORIA_MERCE);
-    categoriaModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
+    categoriaModel->setSort(CBM::DESCR, Qt::AscendingOrder);
 
+    marcaModel = new QSqlTableModel(this);
     marcaModel->setTable(table::MARCA);
-    marcaModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
+    marcaModel->setSort(CBM::DESCR, Qt::AscendingOrder);
 
+    sedeModel = new QSqlTableModel(this);
     sedeModel->setTable(table::SEDE_MAGAZZINO);
-    sedeModel->setSort(magazzino::COL_TABLE_DESCRIZIONE, Qt::AscendingOrder);
+    sedeModel->setSort(CBM::DESCR, Qt::AscendingOrder);
 
     updateModel();
 }
@@ -64,27 +63,28 @@ void MagazzinoWindow::initComboBox()
 {
     qDebug() << "MagazzinoWindow::initComboBox()";
     ui->fornitoreComboBox->setModel(fornitoreModel);
-    ui->fornitoreComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->fornitoreComboBox->setModelColumn(CBM::DESCR);
 
     ui->categoriaComboBox->setModel(categoriaModel);
-    ui->categoriaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->categoriaComboBox->setModelColumn(CBM::DESCR);
 
     ui->marcaComboBox->setModel(marcaModel);
-    ui->marcaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->marcaComboBox->setModelColumn(CBM::DESCR);
 
     ui->sedeComboBox->setModel(sedeModel);
-    ui->sedeComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->sedeComboBox->setModelColumn(CBM::DESCR);
 }
 
 void MagazzinoWindow::updateModel()
 {
     qDebug() << "MagazzinoWindow::updateModel()";
+    //Aggiorno i model usati nei filtri dopo l'inserimento di un record.
     QString fornitoreText = ui->fornitoreComboBox->currentText();
     QString categoriaText = ui->categoriaComboBox->currentText();
     QString marcaText = ui->marcaComboBox->currentText();
     QString sedeText = ui->sedeComboBox->currentText();
 
-    fornitoreModel->setQuery(sql::SELECT_FORNITORE);
+    fornitoreModel->setQuery(sql::SELECT_CB_FORNITORE);
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
@@ -108,20 +108,20 @@ void MagazzinoWindow::loadConfigSettings()
     loadTableViewSettings();
 
     //Carico la visibilita delle colonne della vista articolo e storico
-    loadColumnVisibility(ui->articoloView, magazzino::ARTICOLO_STATUS);
-    loadColumnVisibility(ui->storicoView, magazzino::STORICO_STATUS);
+    loadColumnVisibility(ui->articoloView, settings::ARTICOLO_STATUS);
+    loadColumnVisibility(ui->storicoView, settings::STORICO_STATUS);
 
     //Carico il colore dello sfondo delle colonne. (Si e' gestito dai model)
     //articoloModel->setDefaultBgColor(QColor(255,255,180));
-    articoloModel->setBgMap(getBgSettings(magazzino::ARTICOLO_COLORS));
+    articoloModel->setBgMap(getBgSettings(settings::ARTICOLO_COLORS));
     //storicoModel->setDefaultBgColor(QColor(220,220,180));
-    storicoModel->setBgMap(getBgSettings(magazzino::STORICO_COLORS));
+    storicoModel->setBgMap(getBgSettings(settings::STORICO_COLORS));
 
     //Carico le impostazioni del menu ricerca
-    ui->actionDescrizione->setChecked(settings.value(magazzino::SEARCH_DESCR, true).toBool());
-    ui->actionCod_Articolo->setChecked(settings.value(magazzino::SEARCH_COD_ART, false).toBool());
-    ui->actionCod_Fornitore->setChecked(settings.value(magazzino::SEARCH_COD_FRN, false).toBool());
-    ui->actionEAN->setChecked(settings.value(magazzino::SEARCH_COD_EAN, false).toBool());
+    ui->actionDescrizione->setChecked(m_settings.value(settings::SEARCH_DESCR, true).toBool());
+    ui->actionCod_Articolo->setChecked(m_settings.value(settings::SEARCH_COD_ART, false).toBool());
+    ui->actionCod_Fornitore->setChecked(m_settings.value(settings::SEARCH_COD_FRN, false).toBool());
+    ui->actionEAN->setChecked(m_settings.value(settings::SEARCH_COD_EAN, false).toBool());
 }
 
 void MagazzinoWindow::saveConfigSettings()
@@ -133,10 +133,10 @@ void MagazzinoWindow::saveConfigSettings()
     saveTableViewSettings();
 
     //Salvo le impostazioni del menu Ricerca
-    settings.setValue(magazzino::SEARCH_DESCR, ui->actionDescrizione->isChecked());
-    settings.setValue(magazzino::SEARCH_COD_ART, ui->actionCod_Articolo->isChecked());
-    settings.setValue(magazzino::SEARCH_COD_FRN, ui->actionCod_Fornitore->isChecked());
-    settings.setValue(magazzino::SEARCH_COD_EAN, ui->actionEAN->isChecked());
+    m_settings.setValue(settings::SEARCH_DESCR, ui->actionDescrizione->isChecked());
+    m_settings.setValue(settings::SEARCH_COD_ART, ui->actionCod_Articolo->isChecked());
+    m_settings.setValue(settings::SEARCH_COD_FRN, ui->actionCod_Fornitore->isChecked());
+    m_settings.setValue(settings::SEARCH_COD_EAN, ui->actionEAN->isChecked());
 }
 
 QString MagazzinoWindow::searchString(void) {
@@ -176,25 +176,25 @@ QString MagazzinoWindow::filterString(void) {
     QString pattern = "%1 = '%2'";
     if (ui->fornitoreComboBox->isEnabled()) {
         int index = ui->fornitoreComboBox->currentIndex();
-        QString id = fornitoreModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        QString id = fornitoreModel->record(index).value(CBM::ID).toString();
         filter.append(pattern.arg(coldb::ID_FORNITORE).arg(id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
         int index = ui->categoriaComboBox->currentIndex();
-        QString id = categoriaModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        QString id = categoriaModel->record(index).value(CBM::ID).toString();
         filter.append(pattern.arg(coldb::ID_MERCE).arg(id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
         int index = ui->marcaComboBox->currentIndex();
-        QString id = marcaModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        QString id = marcaModel->record(index).value(CBM::ID).toString();
         filter.append(pattern.arg(coldb::ID_MARCA).arg(id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
         int index = ui->sedeComboBox->currentIndex();
-        QString id = sedeModel->record(index).value(magazzino::COL_TABLE_ID).toString();
+        QString id = sedeModel->record(index).value(CBM::ID).toString();
         filter.append(pattern.arg(coldb::ID_SEDE_MAGAZZINO).arg(id));
     }
 
@@ -257,10 +257,11 @@ void MagazzinoWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void MagazzinoWindow::showEvent(QShowEvent *)
+void MagazzinoWindow::showEvent(QShowEvent *event)
 {
     qDebug() << "MagazzinoWindow::showEvent()";
     updateViewMagazzino();
+    event->accept();
 }
 
 void MagazzinoWindow::addRecord()
@@ -327,7 +328,7 @@ void MagazzinoWindow::removeRecord(void)
     }
     QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
     QSqlQuery query;
-    query.prepare(magazzino::DELETE_ARTICOLO);
+    query.prepare(sql::DELETE_ARTICOLO);
     query.bindValue(ph::ID, id);
     if (!query.exec())
         showDialogError(this, ERR037, MSG003, query.lastError().text()); //NOTE codice errore 037
@@ -375,7 +376,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
        corrotto il file di configurazione. Questa impostazione permette di avere
        il model impostato senza valori ed evitare la corruzione dei dati di
        configurazione*/
-    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
+    storicoModel->setQuery(sql::SELECT_STORICO.arg(-1));
 }
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
@@ -384,11 +385,11 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     //articolo nella view Articolo.
     qDebug() << "MagazzinoWindow::updateViewStorico()";
     if (!index.isValid()) {
-        storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
+        storicoModel->setQuery(sql::SELECT_STORICO.arg(-1));
         return;
     }
     QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
-    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
+    storicoModel->setQuery(sql::SELECT_STORICO.arg(id));
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }

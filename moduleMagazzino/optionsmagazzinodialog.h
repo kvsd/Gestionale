@@ -25,6 +25,7 @@ private:
     QSqlTableModel *codIvaModel;
     QSqlQueryModel *articoloModel;
     QSqlQueryModel *storicoModel;
+    QSettings m_settings;
 
 public slots:
     void saveConfig(void);

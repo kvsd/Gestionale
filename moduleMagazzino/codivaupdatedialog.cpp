@@ -34,10 +34,10 @@ void codIvaUpdateDialog::initComboBox(void)
 {
     qDebug() << "codIvaUpdateDialog::initComboBox()";
     ui->oldCodIvaComboBox->setModel(oldIvaModel);
-    ui->oldCodIvaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->oldCodIvaComboBox->setModelColumn(CBM::DESCR);
 
     ui->newCodIvaComboBox->setModel(newIvaModel);
-    ui->newCodIvaComboBox->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
+    ui->newCodIvaComboBox->setModelColumn(CBM::DESCR);
 }
 
 void codIvaUpdateDialog::updateIva(void)
@@ -46,8 +46,8 @@ void codIvaUpdateDialog::updateIva(void)
     int oldIvaIndex = ui->oldCodIvaComboBox->currentIndex();
     int newIvaIndex = ui->newCodIvaComboBox->currentIndex();
 
-    int oldIvastr = oldIvaModel->record(oldIvaIndex).value(magazzino::COL_TABLE_DESCRIZIONE).toInt();
-    int newIvastr = newIvaModel->record(newIvaIndex).value(magazzino::COL_TABLE_DESCRIZIONE).toInt();
+    int oldIvastr = oldIvaModel->record(oldIvaIndex).value(CBM::DESCR).toInt();
+    int newIvastr = newIvaModel->record(newIvaIndex).value(CBM::DESCR).toInt();
 
     if (oldIvastr == newIvastr) {
         showDialogError(this, ERR057, MSG030);
@@ -61,7 +61,7 @@ void codIvaUpdateDialog::updateIva(void)
     qDebug() << "Transaction start:" << db.transaction();
 
     QSqlQuery query;
-    query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);
+    query.prepare(sql::SELECT_ARTICOLI_FROM_IVA);
     query.bindValue(ph::COD_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
@@ -81,7 +81,7 @@ void codIvaUpdateDialog::updateIva(void)
             prezzo_vendita = prezzo_finito;
 
         QSqlQuery queryUpdateIva;
-        queryUpdateIva.prepare(magazzino::UPDATE_ARTICOLI_FROM_IVA);
+        queryUpdateIva.prepare(sql::UPDATE_ARTICOLI_FROM_IVA);
         queryUpdateIva.bindValue(ph::ID, id);
         queryUpdateIva.bindValue(ph::COD_IVA, newIvastr);
         queryUpdateIva.bindValue(ph::IVA, iva);
@@ -95,16 +95,16 @@ void codIvaUpdateDialog::updateIva(void)
         }
 
         QSqlQuery query_check_storico;
-        query_check_storico.prepare(magazzino::CHECK_STORICO);
+        query_check_storico.prepare(sql::CHECK_STORICO);
         query_check_storico.bindValue(ph::ID_ART, id);
         query_check_storico.bindValue(ph::DATA_ARRIVO, data);
         query_check_storico.exec();
 
         QSqlQuery queryInsertStorico;
         if (query_check_storico.first())
-            queryInsertStorico.prepare(magazzino::UPDATE_STORICO);
+            queryInsertStorico.prepare(sql::UPDATE_STORICO);
         else
-            queryInsertStorico.prepare(magazzino::INSERT_STORICO);
+            queryInsertStorico.prepare(sql::INSERT_STORICO);
 
         queryInsertStorico.bindValue(ph::ID_ART, id);
         queryInsertStorico.bindValue(ph::DATA_ARRIVO, data);

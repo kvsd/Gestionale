@@ -32,14 +32,14 @@ public:
 
 private:
     Ui::ArticoloDialog *ui;
-    QSqlTableModel *modelCatMerce;
-    QSqlTableModel *modelCodIva;
-    QSqlQueryModel *modelFornitore;
-    QSqlTableModel *modelMarca;
-    QSqlTableModel *modelSede;
-    QSqlTableModel *modelUnita;
-    QMap <QString,QString> articoloMap;
-    QSettings settings;
+    QSqlTableModel *m_modelCatMerce;
+    QSqlTableModel *m_modelCodIva;
+    QSqlQueryModel *m_modelFornitore;
+    QSqlTableModel *m_modelMarca;
+    QSqlTableModel *m_modelSede;
+    QSqlTableModel *m_modelUnita;
+    QMap <QString,QString> m_articoloMap;
+    QSettings m_settings;
 
     void initModel(void);
     void initComboBox(void);

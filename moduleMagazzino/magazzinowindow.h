@@ -40,6 +40,7 @@ private:
     QSqlTableModel *categoriaModel;
     QSqlTableModel *marcaModel;
     QSqlTableModel *sedeModel;
+    QSettings m_settings;
 
     void initModel();
     void initComboBox();
@@ -53,7 +54,7 @@ private:
 
 protected:
     void closeEvent(QCloseEvent *event);
-    void showEvent(QShowEvent *);
+    void showEvent(QShowEvent *event);
 
 public slots:
     void addRecord();
