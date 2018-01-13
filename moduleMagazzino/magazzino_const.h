@@ -32,30 +32,71 @@ namespace sql {
                               "FROM magazzino AS mg, anagrafica AS an "
                               "WHERE mg.id_fornitore=an.id ");
 
+    //Insert utilizzata in ArticoloDialog per l'inserimento di nuovi articoli
+    const QString INSERT_ARTICOLO =
+            "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, "
+                                   "cod_articolo, cod_fornitore, cod_barre ,"
+                                   "id_merce, cod_iva, id_unita_misura, "
+                                   "scorta_minima, quantita, prezzo_fattura, "
+                                   "sconto_fornitore, prezzo_acquisto, ricarico, "
+                                   "iva, prezzo_finito, prezzo_vendita, fattura, "
+                                   "data_arrivo, id_sede_magazzino, note) "
+            "VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, "
+                    ":cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, "
+                    ":scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, "
+                    ":prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, "
+                    ":fattura, :data_arrivo, :id_sede_magazzino, :note) "
+            "RETURNING id";
+
+    //Update usata in ArticoloDialog per aggiornare l'articolo selezionato
+    const QString UPDATE_ARTICOLO =
+            "UPDATE magazzino SET descr=:descr, "
+                                 "id_fornitore=:id_fornitore, "
+                                 "id_marca=:id_marca, modello=:modello, "
+                                 "cod_articolo=:cod_articolo, "
+                                 "cod_fornitore=:cod_fornitore, "
+                                 "cod_barre=:cod_barre, "
+                                 "id_merce=:id_merce, "
+                                 "cod_iva=:cod_iva, "
+                                 "id_unita_misura=:id_unita_merce, "
+                                 "scorta_minima=:scorta_minima, "
+                                 "quantita=:quantita, "
+                                 "prezzo_fattura=:prezzo_fattura, "
+                                 "sconto_fornitore=:sconto_fornitore, "
+                                 "ricarico=:ricarico, "
+                                 "prezzo_acquisto=:prezzo_acquisto, "
+                                 "iva=:iva, "
+                                 "prezzo_finito=:prezzo_finito, "
+                                 "prezzo_vendita=:prezzo_vendita, "
+                                 "fattura=:fattura, "
+                                 "data_arrivo=:data_arrivo, "
+                                 "id_sede_magazzino=:id_sede_magazzino, "
+                                 "note=:note "
+            "WHERE id=:id";
+
+    //Delete usata in MagazzinoWindow per eliminare l'articolo selezionato
+    const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
+
     //Select usata nei combobox per la selezione del fornitore.
-    const QString SELECT_FORNITORE = "SELECT id, rag_sociale FROM anagrafica "
-                                     "WHERE fornitore=true ORDER BY rag_sociale";
-}
+    const QString SELECT_CB_FORNITORE = "SELECT id, rag_sociale FROM anagrafica "
+                                        "WHERE fornitore=true ORDER BY rag_sociale";
 
-namespace magazzino {
-
-    const QString CSS_WARNING_STYLE = "background-color:yellow";
-
-    //SETTINGS
-    const QString DEFAULT_IVA = "default.civa";
-    const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
-    const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
-
-    const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
-    const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
-
-    const QString SEARCH_DESCR = "MagazzinoWindow.search.descrizione";
-    const QString SEARCH_COD_ART = "MagazzinoWindow.search.codarticolo";
-    const QString SEARCH_COD_FRN = "MagazzinoWindow.search.codfornitore";
-    const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
-
-
-
+    //Select utilizzata in MagazzinoWindow per visualizzare lo storico
+    //del'articolo selezionato
+    const QString SELECT_STORICO = "SELECT id_articolo AS \"Id Articolo\","
+                                          "data_arrivo AS \"Data\","
+                                          "quantita AS \"Quantità\","
+                                          "prezzo_fattura::money AS \"Prezzo Fattura\","
+                                          "format('%s%%', sconto_fornitore) AS \"Sconto Fornitore\","
+                                          "prezzo_acquisto::money AS \"Prezzo Acquisto\","
+                                          "format('%s%%', ricarico) AS \"Ricarico\","
+                                          "iva::money AS \"IVA\","
+                                          "prezzo_finito::money AS \"Prezzo Finito\","
+                                          "prezzo_vendita::money AS \"Prezzo Vendita\","
+                                          "fattura AS \"Nr.Fattura\""
+                                   "FROM listino_storico "
+                                   "WHERE id_articolo='%1'"
+                                   "ORDER BY data_arrivo DESC";
 
     //Insert utilizzata per aggiungere un record in listino_storico
     //Viene utilizzata in ArticoloDialog, MagazzinoWindows(cvs) e CodIvaUpdateDialog
@@ -89,60 +130,9 @@ namespace magazzino {
             "SELECT * FROM listino_storico WHERE id_articolo=:id_articolo AND "
                                                  "data_arrivo=:data_arrivo";
 
-    //Select utilizzata in MagazzinoWindow per visualizzare lo storico
-    //del'articolo selezionato
-    const QString SELECT_STORICO = "SELECT * FROM vw_listino_storico "
-                                   "WHERE \"Id Articolo\"='%1' "
-                                   "ORDER BY \"Data\" DESC, "
-                                            "\"Prezzo Acquisto\" DESC";
-
-    //Insert utilizzata in ArticoloDialog per l'inserimento di nuovi articoli
-    const QString INSERT_ARTICOLO =
-            "INSERT INTO magazzino (descr, id_fornitore, id_marca, modello, "
-                                   "cod_articolo, cod_fornitore, cod_barre ,"
-                                   "id_merce, cod_iva, id_unita_misura, "
-                                   "scorta_minima, quantita, prezzo_fattura, "
-                                   "sconto_fornitore, prezzo_acquisto, ricarico, "
-                                   "iva, prezzo_finito, prezzo_vendita, fattura, "
-                                   "data_arrivo, id_sede_magazzino, note) "
-            "VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, "
-                    ":cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, "
-                    ":scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, "
-                    ":prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, "
-                    ":fattura, :data_arrivo, :id_sede_magazzino, :note)";
-
-    //Delete usata in MagazzinoWindow per eliminare l'articolo selezionato
-    const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
-
-    //Update usata in ArticoloDialog per aggiornare l'articolo selezionato
-    const QString UPDATE_ARTICOLO =
-            "UPDATE magazzino SET descr=:descr, "
-                                 "id_fornitore=:id_fornitore, "
-                                 "id_marca=:id_marca, modello=:modello, "
-                                 "cod_articolo=:cod_articolo, "
-                                 "cod_fornitore=:cod_fornitore, "
-                                 "cod_barre=:cod_barre, "
-                                 "id_merce=:id_merce, "
-                                 "cod_iva=:cod_iva, "
-                                 "id_unita_misura=:id_unita_merce, "
-                                 "scorta_minima=:scorta_minima, "
-                                 "quantita=:quantita, "
-                                 "prezzo_fattura=:prezzo_fattura, "
-                                 "sconto_fornitore=:sconto_fornitore, "
-                                 "ricarico=:ricarico, "
-                                 "prezzo_acquisto=:prezzo_acquisto, "
-                                 "iva=:iva, "
-                                 "prezzo_finito=:prezzo_finito, "
-                                 "prezzo_vendita=:prezzo_vendita, "
-                                 "fattura=:fattura, "
-                                 "data_arrivo=:data_arrivo, "
-                                 "id_sede_magazzino=:id_sede_magazzino, "
-                                 "note=:note "
-            "WHERE id=:id";
-
     //Select usata in ArticoloDialog per caricare tutti i dati per la modifica
     //di un articolo
-    const QString SELECT_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
+    const QString SELECT_ARTICOLO_FROM_ID = "SELECT * FROM magazzino WHERE id = :id";
 
     //Select utilizzata in CodIvaUpdateDialog
     const QString SELECT_ARTICOLI_FROM_IVA = "SELECT * FROM magazzino WHERE cod_iva=:cod_iva";
@@ -154,12 +144,32 @@ namespace magazzino {
                                  "prezzo_finito=:prezzo_finito, "
                                  "prezzo_vendita=:prezzo_vendita "
             "WHERE id=:id";
+}
 
-    //Queste sono le colonne dei model di selezione dei combobox,
-    //solitamente sono piccole tabelle di due colonne id e descrizione.
-    enum Columns {
-        COL_TABLE_ID = 0,
-        COL_TABLE_DESCRIZIONE = 1
-                 };
+namespace settings {
+    //SETTINGS
+    const QString DEFAULT_IVA = "default.civa";
+    const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
+    const QString ARTICOLO_STATUS = "MagazzinoWindow.cols.status.articolo";
+
+    const QString STORICO_COLORS = "MagazzinoWindow.cols.colors.storico";
+    const QString STORICO_STATUS = "MagazzinoWindow.cols.status.storico";
+
+    const QString SEARCH_DESCR = "MagazzinoWindow.search.descrizione";
+    const QString SEARCH_COD_ART = "MagazzinoWindow.search.codarticolo";
+    const QString SEARCH_COD_FRN = "MagazzinoWindow.search.codfornitore";
+    const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
+}
+
+namespace css{
+    const QString WARNING_STYLE = "background-color:yellow";
+}
+
+namespace CBM {
+    //colonne dei model usati nei combobox
+    enum col {
+        ID = 0,
+        DESCR = 1
+        };
 }
 #endif // MAGAZZINO_CONST_H
