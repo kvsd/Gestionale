@@ -37,6 +37,7 @@ private:
     QPrinter *m_printer;
     QPainter *m_painter;
     QSqlQueryModel *m_modelFornitori;
+    int m_current_page;            // pagina corrente.
     QStringList m_colsName;        // contiene i nomi delle colonne db.
     QVector<int> m_stretchValues;  // il fattore di larghezza delle colonne.
     QStringList m_viewName;        // nomi delle colonne da visualizzare nella stampa.
@@ -46,9 +47,11 @@ private:
     Row *header;
     Row *row;
 
-    void configLayout();
     void initFornitoreCb();
     void nextPage();
+    void configLayout();
+    void configPage(QString str);
+    QSqlQuery configQuery(QString fornitore, QString data);
 
 private slots:
     void draw();

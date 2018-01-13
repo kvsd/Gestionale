@@ -3,7 +3,8 @@
 
 ListinoDlg::ListinoDlg(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ListinoDlg)
+    ui(new Ui::ListinoDlg),
+    m_current_page(1)
 {
     qDebug() << "ListinoDlg::ListinoDlg()";
     ui->setupUi(this);
@@ -22,6 +23,25 @@ ListinoDlg::~ListinoDlg()
     delete m_printer;
 }
 
+void ListinoDlg::initFornitoreCb()
+{
+    qDebug() << "ListinoDlg::initFornitoreCb()";
+    m_modelFornitori = new QSqlQueryModel(this);
+    m_modelFornitori->setQuery(sql::SELECT_CB_FORNITORE);
+    ui->fornitoreCb->setModel(m_modelFornitori);
+    ui->fornitoreCb->setModelColumn(CBM::DESCR);
+}
+
+void ListinoDlg::nextPage()
+{
+    qDebug() << "ListinoDlg::nextPage()";
+    m_printer->newPage();
+    title->draw();
+    header->draw();
+    row->moveRow(header->getLeft(), header->getBottom());
+    m_current_page++;
+}
+
 void ListinoDlg::configLayout()
 {
     qDebug() << "ListinoDlg::getColsLayout()";
@@ -34,10 +54,10 @@ void ListinoDlg::configLayout()
          m_colsName.append(value.at(CPD::DESCR));
          m_stretchValues.append(value.at(CPD::STRETCH).toInt());
          m_viewName.append(value.at(CPD::VIEW));
-         QString a = value.at(CPD::ALIGN);
-         if (a == align::left)
+         QString alignment = value.at(CPD::ALIGN);
+         if (alignment == align::left)
              m_align.append(Qt::AlignLeft);
-         else if (a == align::right)
+         else if (alignment == align::right)
              m_align.append(Qt::AlignRight);
          else
              m_align.append(Qt::AlignHCenter);
@@ -45,37 +65,15 @@ void ListinoDlg::configLayout()
     m_settings.endGroup();
 }
 
-void ListinoDlg::initFornitoreCb()
+void ListinoDlg::configPage(QString str)
 {
-    qDebug() << "ListinoDlg::initFornitoreCb()";
-    m_modelFornitori = new QSqlQueryModel(this);
-    m_modelFornitori->setQuery(sql::SELECT_FORNITORE);
-    ui->fornitoreCb->setModel(m_modelFornitori);
-    ui->fornitoreCb->setModelColumn(magazzino::COL_TABLE_DESCRIZIONE);
-}
-
-void ListinoDlg::nextPage()
-{
-    qDebug() << "ListinoDlg::nextPage()";
-    m_printer->newPage();
-    title->draw();
-    header->draw();
-    row->moveRow(header->getLeft(), header->getBottom());
-}
-
-void ListinoDlg::draw()
-{
-    qDebug() << "ListinoDlg::draw()";
-    m_painter = new QPainter(m_printer);
-    QString fornitore = ui->fornitoreCb->currentText();
-    QString data = QDate::currentDate().toString("dd/MM/yyyy");
-
+    qDebug() << "ListinoDlg::configTitle()";
     //Configuro l'intestazione del listino
     title = new Cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
     title->setColorBg(Qt::lightGray);
     title->setColorLine(Qt::transparent);;
     title->setTextFont(QFont("fixed", 16), true);
-    title->setText(QString("Listino di %1 del %2").arg(fornitore, data));
+    title->setText(str);
 
     //Configuro l'header della tabella
     header = new Row(m_stretchValues, QPoint(0,title->getBottom()), m_printer->width(), 1, m_painter, this);
@@ -86,7 +84,11 @@ void ListinoDlg::draw()
     //Configuro la riga che stampera i risultati
     row = new Row(m_stretchValues, QPoint(0,header->getBottom()), m_printer->width(), 1, m_painter, this);
     row->setTextAlignment(m_align);
+}
 
+QSqlQuery ListinoDlg::configQuery(QString fornitore, QString data)
+{
+    qDebug() << "ListinoDlg::configQuery()";
     //Selezione e configurazione delle query
     QSqlQuery query;
     if (ui->printAllRb->isChecked())
@@ -99,6 +101,20 @@ void ListinoDlg::draw()
     query.bindValue(ph::RAG_SOCIALE, fornitore);
     query.bindValue(ph::DATA_ARRIVO, data);
     query.bindValue(ph::FATTURA, QString("%%1%").arg(ui->fatturaLE->text()));
+
+    return query;
+}
+
+void ListinoDlg::draw()
+{
+    qDebug() << "ListinoDlg::draw()";
+    m_painter = new QPainter(m_printer);
+    QString fornitore = ui->fornitoreCb->currentText();
+    QString data = QDate::currentDate().toString("dd/MM/yyyy");
+
+    configPage(QString("Listino di %1 del %2").arg(fornitore, data));
+
+    QSqlQuery query = configQuery(fornitore, data);
     query.exec();
 
     //Inizio stampa
