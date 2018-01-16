@@ -8,32 +8,32 @@ CustomWindow::CustomWindow(QWidget *parent)
 void CustomWindow::loadColumnVisibility(QTableView *view, QString groupSettings)
 {
     qDebug() << objectName() + "::loadColumnVisibility() *";
-    settings.beginGroup(groupSettings);
+    m_settings.beginGroup(groupSettings);
 
-    QStringList cols = settings.allKeys();
+    QStringList cols = m_settings.allKeys();
     if (!cols.isEmpty()) {
         for (auto i : cols) {
             int col = QVariant(i).toInt();
-            bool value = settings.value(i).toBool();
+            bool value = m_settings.value(i).toBool();
             view->setColumnHidden(col, !value);
         }
     }
-    settings.endGroup();
+    m_settings.endGroup();
 }
 
 QMap<QString, QBrush> CustomWindow::getBgSettings(QString groupName)
 {
     qDebug() << objectName() + "::getBgMap() *";
     QMap<QString, QBrush> map;
-    settings.beginGroup(groupName);
+    m_settings.beginGroup(groupName);
 
-    for (auto key : settings.allKeys()) {
-        QString value = settings.value(key, "-1").toString();
+    for (auto key : m_settings.allKeys()) {
+        QString value = m_settings.value(key, "-1").toString();
         if (value != "-1")
             map[key] = QBrush(QColor(value));
     }
 
-    settings.endGroup();
+    m_settings.endGroup();
     return map;
 }
 
@@ -46,7 +46,7 @@ void CustomWindow::saveWindowGeometry()
     qDebug() << objectName()+"::saveWindowGeometry() *";
     //Salvo la dimensione della finestra
     QString winKey = winKeyStr.arg(objectName());
-    settings.setValue(winKey, this->geometry());
+    m_settings.setValue(winKey, this->geometry());
 }
 
 void CustomWindow::loadWindowGeometry()
@@ -54,7 +54,7 @@ void CustomWindow::loadWindowGeometry()
     qDebug() << objectName()+"::loadWindowGeometry() *";
     //Carico la dimensione della finestra
     QString winKey = winKeyStr.arg(objectName());
-    QRect winRect = settings.value(winKey, QRect(0,0,640,480)).toRect();
+    QRect winRect = m_settings.value(winKey, QRect(0,0,640,480)).toRect();
     setGeometry(winRect);
 }
 
@@ -65,7 +65,7 @@ void CustomWindow::saveSplittersState()
     QList <QSplitter *> list = findChildren<QSplitter *> ();
     for (auto splitter : list) {
         QString key = splitterKeyStr.arg(objectName(), splitter->objectName());
-        settings.setValue(key, splitter->saveState());
+        m_settings.setValue(key, splitter->saveState());
     }
 }
 
@@ -76,7 +76,7 @@ void CustomWindow::loadSplittersState()
     QList <QSplitter *> list = findChildren<QSplitter *> ();
     for (auto splitter : list) {
         QString key = splitterKeyStr.arg(objectName(), splitter->objectName());
-        QByteArray state = settings.value(key).toByteArray();
+        QByteArray state = m_settings.value(key).toByteArray();
         splitter->restoreState(state);
     }
 }
@@ -88,7 +88,7 @@ void CustomWindow::saveTableViewSettings()
     QList <QTableView *> list = findChildren<QTableView *>();
     for (auto view : list) {
         QString key = headerKeyStr.arg(objectName(), view->objectName());
-        settings.setValue(key, view->horizontalHeader()->saveState());
+        m_settings.setValue(key, view->horizontalHeader()->saveState());
     }
 }
 
@@ -100,8 +100,8 @@ void CustomWindow::loadTableViewSettings()
     for (auto view : list) {
         QString key = headerKeyStr.arg(objectName(), view->objectName());
         view->horizontalHeader()->setSectionsMovable(true);
-        if (settings.contains(key)) {
-            QByteArray array = settings.value(key).toByteArray();
+        if (m_settings.contains(key)) {
+            QByteArray array = m_settings.value(key).toByteArray();
             view->horizontalHeader()->restoreState(array);
         }
     }
