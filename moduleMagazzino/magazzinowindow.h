@@ -40,7 +40,6 @@ private:
     QSqlTableModel *categoriaModel;
     QSqlTableModel *marcaModel;
     QSqlTableModel *sedeModel;
-    QSettings m_settings;
 
     void initModel();
     void initComboBox();

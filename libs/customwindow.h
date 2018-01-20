@@ -15,7 +15,7 @@ public:
     explicit CustomWindow(QWidget *parent = 0);
 
 protected:
-    QSettings settings;
+    QSettings m_settings;
 
     void loadColumnVisibility(QTableView *view, QString groupSettings);
     QMap<QString, QBrush> getBgSettings(QString groupName);
