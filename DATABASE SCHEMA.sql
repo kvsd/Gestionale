@@ -144,6 +144,7 @@ CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         iva DECIMAL,
                         prezzo_finito DECIMAL,
                         prezzo_vendita DECIMAL,
+						prezzo_vendita_b DECIMAL,
                         fattura TEXT,
                         data_arrivo DATE DEFAULT current_date,
                         id_sede_magazzino INTEGER references sede_magazzino(id) DEFAULT 0,
@@ -159,6 +160,7 @@ CREATE TABLE listino_storico (id_articolo INTEGER  NOT NULL references magazzino
                               iva DECIMAL,
                               prezzo_finito DECIMAL,
                               prezzo_vendita DECIMAL,
+							  prezzo_vendita_b DECIMAL,
                               fattura TEXT,
 			      UNIQUE(id_articolo, data_arrivo));
 --########################################################################################

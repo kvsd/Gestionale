@@ -77,6 +77,7 @@ namespace ph {
     const QString PRZ_FAT = ":prezzo_fattura";
     const QString PRZ_FIN = ":prezzo_finito";
     const QString PRZ_VEN = ":prezzo_vendita";
+    const QString PRZ_VEN_B = ":prezzo_vendita_b";
     const QString QUANTIT = ":quantita";
     const QString RAG_SOCIALE = ":rag_sociale";
     const QString REG_IMPRESE = ":reg_imprese";
@@ -139,6 +140,7 @@ namespace coldb {
     const QString PREZZO_FATTURA = "prezzo_fattura";
     const QString PREZZO_FINITO = "prezzo_finito";
     const QString PREZZO_VENDITA = "prezzo_vendita";
+    const QString PREZZO_VENDITA_B = "prezzo_vendita_b";
     const QString QUANTITA = "quantita";
     const QString RAGIONE_SOCIALE = "rag_sociale";
     const QString RICARICO = "ricarico";

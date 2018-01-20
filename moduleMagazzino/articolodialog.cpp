@@ -127,9 +127,9 @@ void ArticoloDialog::setValue(QString id, bool update)
     ui->le_ricarico->setText(query.value(coldb::RICARICO).toString());
     ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(coldb::PREZZO_ACQUISTO).toDouble()));
     ui->le_iva->setText(locale().toCurrencyString(query.value(coldb::IVA).toDouble()));
-
     ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FINITO).toDouble()));
     ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA).toDouble()));
+    ui->le_prezzo_venditaB->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA_B).toDouble()));
     ui->le_fattura->setText(query.value(coldb::FATTURA).toString());
     ui->le_data->setDate(QDate::currentDate());
 
@@ -176,6 +176,8 @@ void ArticoloDialog::prepareMap()
     m_articoloMap[ph::IVA] = QString().setNum(iva);
     double prezzo_vend = stringToDouble(ui->le_prezzo_vendita->text());
     m_articoloMap[ph::PRZ_VEN] = QString().setNum(prezzo_vend);
+    double prezzo_vend_b = stringToDouble(ui->le_prezzo_venditaB->text());
+    m_articoloMap[ph::PRZ_VEN_B] = QString().setNum(prezzo_vend_b);
     double prezzo_fin = stringToDouble(ui->le_prezzo_finito->text());
     m_articoloMap[ph::PRZ_FIN] = QString().setNum(prezzo_fin);
 
@@ -284,7 +286,7 @@ void ArticoloDialog::freezeLineEdit(QLineEdit *le, bool status)
     qDebug() << "ArticoloDialog::freezeLineEdit()";
     le->setReadOnly(status);
     le->blockSignals(status);
-    le->setStyleSheet(status ? "background:yellow" : "");
+    le->setStyleSheet(status ? css::WARNING_STYLE : "");
 }
 
 void ArticoloDialog::calculatePrezzoAcquisto(void)
@@ -333,11 +335,14 @@ void ArticoloDialog::updateIva(void)
     double prezzo_vendita = stringToDouble(ui->le_prezzo_vendita->text());
     if (prezzo_vendita < prezzo_finito)
         ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_finito));
+    if (ui->le_prezzo_venditaB->text().isEmpty())
+        ui->le_prezzo_venditaB->setText(locale().toCurrencyString(prezzo_finito));
 }
 
 void ArticoloDialog::updatePrezzoFinito(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoFinito()";
+    //Slot collegato a le_prezzo_finito.
     if (ui->le_prezzo_fattura->text().isEmpty())
         return;
 
@@ -349,10 +354,25 @@ void ArticoloDialog::updatePrezzoFinito(void)
 void ArticoloDialog::updatePrezzoVendita(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoVendita()";
-    QString prezzo_str = ui->le_prezzo_vendita->text();
+    //Slot collegato a le_prezzo_vendita.
+    QString prezzo_ven = ui->le_prezzo_vendita->text();
 
-    if (!prezzo_str.contains(locale().currencySymbol()))
-            ui->le_prezzo_vendita->setText(locale().toCurrencyString(stringToDouble(prezzo_str)));
+    if (!prezzo_ven.contains(locale().currencySymbol())) {
+        prezzo_ven = locale().toCurrencyString(stringToDouble(prezzo_ven));
+        ui->le_prezzo_vendita->setText(prezzo_ven);
+    }
+}
+
+void ArticoloDialog::updatePrezzoVenditaB(void)
+{
+    qDebug() << "ArticoloDialog::updatePrezzoVenditaB()";
+    //Slot collegato a le_prezzo_venditaB.
+    QString prezzo_ven = ui->le_prezzo_venditaB->text();
+
+    if (!prezzo_ven.contains(locale().currencySymbol())) {
+        prezzo_ven = locale().toCurrencyString(stringToDouble(prezzo_ven));
+        ui->le_prezzo_venditaB->setText(prezzo_ven);
+    }
 }
 
 void ArticoloDialog::openAddMarca()

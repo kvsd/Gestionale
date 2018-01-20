@@ -26,6 +26,7 @@ namespace sql {
                               "mg.iva::money As \"Iva\", "
                               "mg.prezzo_finito::money As \"Prezzo Finito\", "
                               "mg.prezzo_vendita::money As \"Prezzo Vendità\", "
+                              "mg.prezzo_vendita_b::money As \"Prezzo Vendità B\", "
                               "mg.fattura As \"Nr.Fattura\", "
                               "mg.data_arrivo As \"Data Arrivo\", "
                               "mg.note As \"Note\" "
@@ -39,13 +40,13 @@ namespace sql {
                                    "id_merce, cod_iva, id_unita_misura, "
                                    "scorta_minima, quantita, prezzo_fattura, "
                                    "sconto_fornitore, prezzo_acquisto, ricarico, "
-                                   "iva, prezzo_finito, prezzo_vendita, fattura, "
-                                   "data_arrivo, id_sede_magazzino, note) "
+                                   "iva, prezzo_finito, prezzo_vendita, prezzo_vendita_b, "
+                                   "fattura, data_arrivo, id_sede_magazzino, note) "
             "VALUES (:descr, :id_fornitore, :id_marca, :modello, :cod_articolo, "
                     ":cod_fornitore, :cod_barre, :id_merce, :cod_iva, :id_unita_merce, "
                     ":scorta_minima, :quantita, :prezzo_fattura, :sconto_fornitore, "
                     ":prezzo_acquisto, :ricarico, :iva, :prezzo_finito, :prezzo_vendita, "
-                    ":fattura, :data_arrivo, :id_sede_magazzino, :note) "
+                    ":prezzo_vendita_b, :fattura, :data_arrivo, :id_sede_magazzino, :note) "
             "RETURNING id";
 
     //Update usata in ArticoloDialog per aggiornare l'articolo selezionato
@@ -68,6 +69,7 @@ namespace sql {
                                  "iva=:iva, "
                                  "prezzo_finito=:prezzo_finito, "
                                  "prezzo_vendita=:prezzo_vendita, "
+                                 "prezzo_vendita_b=:prezzo_vendita_b, "
                                  "fattura=:fattura, "
                                  "data_arrivo=:data_arrivo, "
                                  "id_sede_magazzino=:id_sede_magazzino, "
@@ -93,6 +95,7 @@ namespace sql {
                                           "iva::money AS \"IVA\","
                                           "prezzo_finito::money AS \"Prezzo Finito\","
                                           "prezzo_vendita::money AS \"Prezzo Vendita\","
+                                          "prezzo_vendita_b::money AS \"Prezzo Vendita B\","
                                           "fattura AS \"Nr.Fattura\""
                                    "FROM listino_storico "
                                    "WHERE id_articolo='%1'"
@@ -104,10 +107,11 @@ namespace sql {
             "INSERT INTO listino_storico (id_articolo, data_arrivo, quantita, "
                                          "prezzo_fattura, sconto_fornitore, "
                                          "prezzo_acquisto, ricarico, iva, "
-                                         "prezzo_finito, prezzo_vendita, fattura) "
+                                         "prezzo_finito, prezzo_vendita, "
+                                         "prezzo_vendita_b, fattura) "
             "VALUES (:id_articolo, :data_arrivo, :quantita, :prezzo_fattura, "
                     ":sconto_fornitore, :prezzo_acquisto, :ricarico, :iva, "
-                    ":prezzo_finito, :prezzo_vendita, :fattura)";
+                    ":prezzo_finito, :prezzo_vendita, :prezzo_vendita_b, :fattura)";
 
     //Update utilizzata per aggiornare un record in listino_storico
     //Viene utilizzata in ArticoloDialog al posto della insert se
@@ -121,6 +125,7 @@ namespace sql {
                                         "iva=:iva, "
                                         "prezzo_finito=:prezzo_finito, "
                                         "prezzo_vendita=:prezzo_vendita, "
+                                        "prezzo_vendita_b=:prezzo_vendita_b, "
                                         "fattura=:fattura "
             "WHERE id_articolo=:id_articolo AND data_arrivo=:data_arrivo";
 
@@ -142,7 +147,8 @@ namespace sql {
             "UPDATE magazzino SET cod_iva=:cod_iva, "
                                  "iva=:iva, "
                                  "prezzo_finito=:prezzo_finito, "
-                                 "prezzo_vendita=:prezzo_vendita "
+                                 "prezzo_vendita=:prezzo_vendita, "
+                                 "prezzo_vendita_b=:prezzo_vendita_b "
             "WHERE id=:id";
 }
 

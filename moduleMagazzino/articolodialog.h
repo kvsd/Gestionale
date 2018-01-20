@@ -55,6 +55,7 @@ public slots:
     void updateIva(void);
     void updatePrezzoFinito(void);
     void updatePrezzoVendita(void);
+    void updatePrezzoVenditaB(void);
     void save(void);
     void openAddMarca();
     void openAddCategoria();

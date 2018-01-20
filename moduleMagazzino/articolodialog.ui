@@ -932,6 +932,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>le_prezzo_venditaB</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updatePrezzoVenditaB()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>601</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>updatePrezzoFattura()</slot>
@@ -948,5 +964,6 @@
   <slot>updatePrezzoVendita()</slot>
   <slot>copyCodArt()</slot>
   <slot>calculatePrezzoAcquisto()</slot>
+  <slot>updatePrezzoVenditaB()</slot>
  </slots>
 </ui>
