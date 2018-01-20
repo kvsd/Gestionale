@@ -263,6 +263,9 @@ void ArticoloDialog::save(void)
 void ArticoloDialog::updatePrezzoFattura(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoFattura()";
+    //Slot usato da le_prezzo_fattura. Aggiunge il simbolo della moneta
+    //al prezzo inserito, calcola il prezzo d'acquisto e mette in sola
+    //scrittura le_prezzo_acquisto.
     QString prezzo_str = ui->le_prezzo_fattura->text();
     if (prezzo_str.isEmpty()) {
         freezeLineEdit(ui->le_prezzo_acquisto, false);
@@ -287,10 +290,11 @@ void ArticoloDialog::freezeLineEdit(QLineEdit *le, bool status)
 void ArticoloDialog::calculatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::calculatePrezzoAcquisto()";
+    //Slot usata da le_sconto e dallo slot updatePrezzoFattura per calcolare
+    //il prezzo d'acquisto e scriverlo in le_prezzo_acquisto.
     QString prezzo_str = ui->le_prezzo_fattura->text();
-    if (prezzo_str.isEmpty()) {
+    if (prezzo_str.isEmpty())
         return;
-    }
 
     QString sconto_str = ui->le_sconto->text().replace("%", "");
     double prezzo = stringToDouble(prezzo_str);
@@ -302,7 +306,7 @@ void ArticoloDialog::calculatePrezzoAcquisto(void)
 void ArticoloDialog::updatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
-    ui->le_prezzo_fattura->clear();
+    //Slot usato da le_prezzo_acquisto se non e' in modalita solo lettura.
     ui->le_sconto->clear();
     QString prezzo = ui->le_prezzo_acquisto->text();
     if (!prezzo.contains(locale().currencySymbol()))

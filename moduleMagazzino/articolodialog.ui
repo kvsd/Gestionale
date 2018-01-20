@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>413</height>
+    <width>778</width>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,8 +40,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>315</height>
+            <width>736</width>
+            <height>342</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -50,13 +50,13 @@
            </property>
            <item>
             <layout class="QGridLayout" name="gridLayout">
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_7">
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_6">
                <property name="text">
-                <string>Marca:</string>
+                <string>Categoria:</string>
                </property>
                <property name="buddy">
-                <cstring>cb_marca</cstring>
+                <cstring>cb_catmerce</cstring>
                </property>
               </widget>
              </item>
@@ -70,8 +70,18 @@
                </property>
               </widget>
              </item>
-             <item row="7" column="1">
-              <widget class="QLineEdit" name="le_scorta"/>
+             <item row="5" column="1">
+              <widget class="QComboBox" name="cb_catmerce"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="le_descrizione"/>
+             </item>
+             <item row="5" column="2">
+              <widget class="QToolButton" name="pb_catmerce_dlg">
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
              </item>
              <item row="7" column="0">
               <widget class="QLabel" name="label_18">
@@ -83,15 +93,25 @@
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_3">
+             <item row="6" column="2">
+              <widget class="QToolButton" name="pb_unita_dlg">
                <property name="text">
-                <string>Codice Articolo:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_cod_articolo</cstring>
+                <string>...</string>
                </property>
               </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Marca:</string>
+               </property>
+               <property name="buddy">
+                <cstring>cb_marca</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="le_scorta"/>
              </item>
              <item row="1" column="2">
               <widget class="QToolButton" name="pb_marca_dlg">
@@ -100,24 +120,8 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QComboBox" name="cb_marca"/>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="le_modello"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Modello:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_modello</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="1">
-              <widget class="QComboBox" name="cb_unitamisura"/>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="le_cod_articolo"/>
              </item>
              <item row="4" column="0">
               <widget class="QLabel" name="label_5">
@@ -126,39 +130,6 @@
                </property>
                <property name="buddy">
                 <cstring>le_cod_barre</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="le_descrizione"/>
-             </item>
-             <item row="5" column="1">
-              <widget class="QComboBox" name="cb_catmerce"/>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="le_cod_articolo"/>
-             </item>
-             <item row="6" column="2">
-              <widget class="QToolButton" name="pb_unita_dlg">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QToolButton" name="pb_catmerce_dlg">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>Categoria:</string>
-               </property>
-               <property name="buddy">
-                <cstring>cb_catmerce</cstring>
                </property>
               </widget>
              </item>
@@ -172,8 +143,54 @@
                </property>
               </widget>
              </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Codice Articolo:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_cod_articolo</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QComboBox" name="cb_unitamisura"/>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="le_modello"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="cb_marca"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Modello:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_modello</cstring>
+               </property>
+              </widget>
+             </item>
              <item row="4" column="1">
               <widget class="QLineEdit" name="le_cod_barre"/>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Sede Magazzino:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QComboBox" name="cb_sede"/>
+             </item>
+             <item row="8" column="2">
+              <widget class="QToolButton" name="pb_sede_dlg">
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -211,17 +228,115 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>315</height>
+            <width>736</width>
+            <height>342</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <layout class="QGridLayout" name="gridLayout_3">
-             <item row="3" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_prezzo_fattura">
-               <property name="placeholderText">
-                <string/>
+             <item row="8" column="3">
+              <widget class="QLineEdit" name="le_iva">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 127);</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="3">
+              <widget class="QLineEdit" name="le_prezzo_acquisto">
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="1">
+              <widget class="QLineEdit" name="le_prezzo_vendita">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Prezzo fattura:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_prezzo_fattura</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" colspan="3">
+              <widget class="QLineEdit" name="le_quantita"/>
+             </item>
+             <item row="5" column="1" colspan="3">
+              <widget class="QLineEdit" name="le_sconto"/>
+             </item>
+             <item row="7" column="1" colspan="3">
+              <widget class="QLineEdit" name="le_ricarico"/>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_19">
+               <property name="text">
+                <string>Prezzo acquisto:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_prezzo_acquisto</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="2">
+              <widget class="QLabel" name="label_25">
+               <property name="text">
+                <string>IVA:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="buddy">
+                <cstring>le_iva</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Codice Fornitore:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_cod_fornitore</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="4">
+              <widget class="QToolButton" name="pb_iva_dlg">
+               <property name="text">
+                <string>...</string>
+               </property>
+               <property name="arrowType">
+                <enum>Qt::NoArrow</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="3">
+              <widget class="QComboBox" name="cb_fornitore"/>
+             </item>
+             <item row="8" column="1">
+              <widget class="QComboBox" name="cb_codiva"/>
+             </item>
+             <item row="10" column="0">
+              <widget class="QLabel" name="label_23">
+               <property name="text">
+                <string>Prezzo finito:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_prezzo_finito</cstring>
                </property>
               </widget>
              </item>
@@ -235,47 +350,10 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Codice Fornitore:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_cod_fornitore</cstring>
-               </property>
-              </widget>
+             <item row="11" column="3">
+              <widget class="QLineEdit" name="le_prezzo_venditaB"/>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_13">
-               <property name="text">
-                <string>Quantita:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_quantita</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_14">
-               <property name="text">
-                <string>Prezzo fattura:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_prezzo_fattura</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_15">
-               <property name="text">
-                <string>Sconto fornitore:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_sconto</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
+             <item row="7" column="0">
               <widget class="QLabel" name="label_17">
                <property name="text">
                 <string>Ricarico:</string>
@@ -285,72 +363,27 @@
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
+             <item row="8" column="0">
               <widget class="QLabel" name="label_16">
                <property name="text">
-                <string>IVA</string>
+                <string>Cod. IVA:</string>
                </property>
                <property name="buddy">
                 <cstring>cb_codiva</cstring>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" colspan="2">
+             <item row="4" column="1" colspan="3">
+              <widget class="QLineEdit" name="le_prezzo_fattura">
+               <property name="placeholderText">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" colspan="3">
               <widget class="QLineEdit" name="le_cod_fornitore"/>
              </item>
-             <item row="0" column="3">
-              <widget class="QToolButton" name="pb_fornitore_dlg">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" colspan="2">
-              <widget class="QComboBox" name="cb_fornitore"/>
-             </item>
-             <item row="2" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_quantita"/>
-             </item>
-             <item row="4" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_sconto"/>
-             </item>
-             <item row="9" column="1">
-              <widget class="QComboBox" name="cb_codiva"/>
-             </item>
-             <item row="9" column="2">
-              <widget class="QLineEdit" name="le_iva">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 127);</string>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="3">
-              <widget class="QToolButton" name="pb_iva_dlg">
-               <property name="text">
-                <string>...</string>
-               </property>
-               <property name="arrowType">
-                <enum>Qt::NoArrow</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_ricarico"/>
-             </item>
-             <item row="10" column="0">
-              <widget class="QLabel" name="label_23">
-               <property name="text">
-                <string>Prezzo finito:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_prezzo_finito</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="12" column="0">
+             <item row="11" column="0">
               <widget class="QLabel" name="label_24">
                <property name="text">
                 <string>Prezzo vendità:</string>
@@ -360,17 +393,27 @@
                </property>
               </widget>
              </item>
-             <item row="12" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_prezzo_vendita">
-               <property name="styleSheet">
-                <string notr="true"/>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>Quantita:</string>
                </property>
-               <property name="readOnly">
-                <bool>false</bool>
+               <property name="buddy">
+                <cstring>le_quantita</cstring>
                </property>
               </widget>
              </item>
-             <item row="10" column="1" colspan="2">
+             <item row="11" column="2">
+              <widget class="QLabel" name="label_22">
+               <property name="text">
+                <string>Prezzo vendita B:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_prezzo_venditaB</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1" colspan="3">
               <widget class="QLineEdit" name="le_prezzo_finito">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(255, 255, 127);</string>
@@ -380,24 +423,24 @@
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_19">
+             <item row="0" column="4">
+              <widget class="QToolButton" name="pb_fornitore_dlg">
                <property name="text">
-                <string>Prezzo acquisto</string>
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_15">
+               <property name="text">
+                <string>Sconto fornitore:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_acquisto</cstring>
+                <cstring>le_sconto</cstring>
                </property>
               </widget>
              </item>
-             <item row="5" column="1" colspan="2">
-              <widget class="QLineEdit" name="le_prezzo_acquisto">
-               <property name="readOnly">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
+             <item row="2" column="4">
               <widget class="QToolButton" name="pb_copy_cod_art">
                <property name="toolTip">
                 <string>Copia codice articolo</string>
@@ -409,6 +452,35 @@
                 <enum>Qt::LeftArrow</enum>
                </property>
               </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_20">
+               <property name="text">
+                <string>Numero Fattura:</string>
+               </property>
+               <property name="buddy">
+                <cstring>le_fattura</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="le_fattura"/>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Data arrivo:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="buddy">
+                <cstring>le_data</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QDateEdit" name="le_data"/>
              </item>
             </layout>
            </item>
@@ -446,85 +518,11 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
-            <height>315</height>
+            <width>736</width>
+            <height>342</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_12">
-               <property name="text">
-                <string>Sede magazzino:</string>
-               </property>
-               <property name="buddy">
-                <cstring>cb_sede</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>Data arrivo:</string>
-               </property>
-               <property name="buddy">
-                <cstring>le_data</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="cb_sede"/>
-             </item>
-             <item row="0" column="2">
-              <widget class="QToolButton" name="pb_sede_dlg">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QDateEdit" name="le_data">
-               <property name="displayFormat">
-                <string>dd/MM/yyyy</string>
-               </property>
-               <property name="calendarPopup">
-                <bool>true</bool>
-               </property>
-               <property name="date">
-                <date>
-                 <year>2000</year>
-                 <month>1</month>
-                 <day>1</day>
-                </date>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>Numero fattura:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="le_fattura"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>49</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item>
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
@@ -617,9 +615,13 @@
   <tabstop>cb_unitamisura</tabstop>
   <tabstop>pb_unita_dlg</tabstop>
   <tabstop>le_scorta</tabstop>
+  <tabstop>cb_sede</tabstop>
+  <tabstop>pb_sede_dlg</tabstop>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>cb_fornitore</tabstop>
   <tabstop>pb_fornitore_dlg</tabstop>
+  <tabstop>le_fattura</tabstop>
+  <tabstop>le_data</tabstop>
   <tabstop>le_cod_fornitore</tabstop>
   <tabstop>pb_copy_cod_art</tabstop>
   <tabstop>le_quantita</tabstop>
@@ -632,11 +634,8 @@
   <tabstop>pb_iva_dlg</tabstop>
   <tabstop>le_prezzo_finito</tabstop>
   <tabstop>le_prezzo_vendita</tabstop>
+  <tabstop>le_prezzo_venditaB</tabstop>
   <tabstop>scrollArea_3</tabstop>
-  <tabstop>cb_sede</tabstop>
-  <tabstop>pb_sede_dlg</tabstop>
-  <tabstop>le_data</tabstop>
-  <tabstop>le_fattura</tabstop>
   <tabstop>groupBox</tabstop>
   <tabstop>te_note</tabstop>
   <tabstop>pb_close</tabstop>
@@ -656,8 +655,8 @@
      <y>180</y>
     </hint>
     <hint type="destinationlabel">
-     <x>129</x>
-     <y>180</y>
+     <x>152</x>
+     <y>255</y>
     </hint>
    </hints>
   </connection>
@@ -669,11 +668,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>80</x>
-     <y>402</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>122</x>
-     <y>544</y>
+     <y>439</y>
     </hint>
    </hints>
   </connection>
@@ -685,43 +684,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>48</x>
-     <y>402</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>103</x>
      <y>428</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>le_sconto</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>calculatePrezzoAcquisto()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>719</x>
-     <y>186</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>le_prezzo_fattura</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoFattura()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>719</x>
-     <y>160</y>
     </hint>
    </hints>
   </connection>
@@ -732,28 +699,12 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>367</x>
+     <y>311</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
      <y>384</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>le_prezzo_finito</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoFinito()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>717</x>
-     <y>324</y>
     </hint>
    </hints>
   </connection>
@@ -765,7 +716,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>704</x>
-     <y>390</y>
+     <y>414</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -780,8 +731,8 @@
    <slot>openAddMarca()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>93</y>
+     <x>746</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -796,8 +747,8 @@
    <slot>openAddCategoria()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>214</y>
+     <x>746</x>
+     <y>222</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -812,7 +763,7 @@
    <slot>openAddMisura()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>690</x>
+     <x>746</x>
      <y>251</y>
     </hint>
     <hint type="destinationlabel">
@@ -828,8 +779,8 @@
    <slot>openAddFornitore()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>746</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
@@ -844,60 +795,12 @@
    <slot>openAddIVA()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>746</x>
+     <y>310</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
      <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_sede_dlg</sender>
-   <signal>clicked()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>openAddSede()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>719</x>
-     <y>7</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>le_ricarico</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updateIva()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>360</x>
-     <y>206</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>le_prezzo_vendita</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoVendita()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>360</x>
-     <y>206</y>
     </hint>
    </hints>
   </connection>
@@ -908,12 +811,28 @@
    <slot>copyCodArt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>742</x>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
      <x>718</x>
      <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_prezzo_fattura</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updatePrezzoFattura()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>428</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -924,12 +843,92 @@
    <slot>updatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>84</y>
+     <x>428</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>360</x>
-     <y>206</y>
+     <x>388</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_sconto</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>calculatePrezzoAcquisto()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>428</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_prezzo_finito</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updatePrezzoFinito()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>329</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_prezzo_vendita</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updatePrezzoVendita()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_ricarico</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>updateIva()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_sede_dlg</sender>
+   <signal>clicked()</signal>
+   <receiver>ArticoloDialog</receiver>
+   <slot>openAddSede()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>732</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
