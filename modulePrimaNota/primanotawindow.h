@@ -14,13 +14,14 @@
 #include "primanota_const.h"
 #include "primanotaadddlg.h"
 #include "libs/custommodel.h"
+#include "libs/customwindow.h"
 #include "libs/error.h"
 
 namespace Ui {
 class PrimaNotaWindow;
 }
 
-class PrimaNotaWindow : public QMainWindow
+class PrimaNotaWindow : public CustomWindow
 {
     Q_OBJECT
 
@@ -34,8 +35,8 @@ protected:
 
 private:
     Ui::PrimaNotaWindow *ui;
-    QSettings settings;
-    CustomModel *primaNotaModel;
+    QSettings m_settings;
+    CustomModel *m_primaNotaModel;
 
     void initModel();
     void initComboBox();

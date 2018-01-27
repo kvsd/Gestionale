@@ -156,7 +156,7 @@
      <item>
       <widget class="QPushButton" name="closeButton">
        <property name="text">
-        <string>Chiudi</string>
+        <string>&amp;Chiudi</string>
        </property>
       </widget>
      </item>
@@ -176,7 +176,7 @@
      <item>
       <widget class="QPushButton" name="clearButton">
        <property name="text">
-        <string>Cancella</string>
+        <string>C&amp;ancella</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>
@@ -186,7 +186,7 @@
      <item>
       <widget class="QPushButton" name="saveButton">
        <property name="text">
-        <string>Salva</string>
+        <string>&amp;Salva</string>
        </property>
        <property name="default">
         <bool>true</bool>

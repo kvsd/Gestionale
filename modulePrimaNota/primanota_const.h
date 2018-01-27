@@ -3,19 +3,9 @@
 
 #include <QString>
 
-namespace primanota {
-    //CSS
-    const QString positive_css = "QLabel {color:blue}";
-    const QString negative_css = "QLabel {color:red}";
-
-    //Costanti di configurazione
-    const QString SPLITTER_SIZE = "primanota.splitter";
-    const QString WINDOW_SIZE = "primanota.window.size";
-
-    //SQL
+namespace sql {
     //Select tabella prima nota per la table view
-    //const QString SELECT_ALL = "SELECT * FROM vw_prima_nota";
-    const QString SELECT_ALL =
+    const QString SELECT_PN =
             "SELECT id AS \"Id\","
                    "data AS \"Data\","
                    "descr AS \"Descrizione\","
@@ -25,71 +15,68 @@ namespace primanota {
                    "uscita_banca::money AS \"Uscita Banca\""
             "FROM prima_nota";
 
-    //ORDER FILTER usato per ordinare la table view
-    const QString ORDER_BY = " ORDER BY \"data\", \"descr\"";
-
-    //SEARCH FILTER usato per la ricerca nella table view
-    const QString SEARCH_STR = "\"descr\" ILIKE '%%1%'";
-
-    //MONTH FILTER
-    const QString MONTH_STR = "EXTRACT (MONTH FROM \"data\") = '%1' AND EXTRACT (YEARS FROM \"data\") = '%2'";
-
-    //YEARS FILTER
-    const QString YEARS_STR = "EXTRACT (YEARS FROM \"data\") = '%1'";
-
-    //RANGE FILTER
-    const QString RANGE_STR = "\"data\" >= '%1' AND \"data\" <= '%2'";
-
-    //Effettua la somma delle colonne entrate e uscite
-    //utilizzata nelle label della finestra principale
-    const QString SELECT_SUM = "SELECT sum(entrata_cassa)::money, "
-                                      "sum(entrata_banca)::money,"
-                                      "sum(uscita_cassa)::money,"
-                                      "sum(uscita_banca)::money "
-                               "FROM prima_nota";
-
-    //DELETE per tabella prima_nota
-    const QString DELETE_NOTE = "DELETE FROM prima_nota WHERE id = :id";
-
     //INSERT utilizzata in PrimaNotaAddDialog
-    const QString INSERT_NOTE = "INSERT INTO prima_nota(data,"
-                                                       "descr,"
-                                                       "entrata_cassa,"
-                                                       "entrata_banca,"
-                                                       "uscita_cassa,"
-                                                       "uscita_banca)"
-                                "VALUES(:date,"
-                                       ":descr,"
-                                       ":ent_cassa,"
-                                       ":ent_banca,"
-                                       ":usc_cassa,"
-                                       ":usc_banca)";
+    const QString INSERT_PN =
+            "INSERT INTO prima_nota(data, descr,entrata_cassa, entrata_banca,"
+                                   "uscita_cassa, uscita_banca)"
+            "VALUES(:date, :descr, :ent_cassa, :ent_banca, :usc_cassa, :usc_banca)";
 
     //UPDATE utilizzata in PrimaNotaAddDialog
-    const QString UPDATE_NOTE = "UPDATE prima_nota SET data=:date,"
-                                                      "descr=:descr,"
-                                                      "entrata_cassa=:ent_cassa,"
-                                                      "entrata_banca=:ent_banca,"
-                                                      "uscita_cassa=:usc_cassa,"
-                                                      "uscita_banca=:usc_banca "
-                                "WHERE id=:id";
+    const QString UPDATE_PN =
+            "UPDATE prima_nota SET data=:date, descr=:descr, entrata_cassa=:ent_cassa,"
+                                  "entrata_banca=:ent_banca, uscita_cassa=:usc_cassa,"
+                                  "uscita_banca=:usc_banca "
+            "WHERE id=:id";
 
-    //SELECT utilizzata nel combobox in PrimaNotaAddDialog
-    const QString SELECT_DESCR = "SELECT DISTINCT descr FROM prima_nota ORDER BY descr";
+    //DELETE per tabella prima_nota
+    const QString DELETE_PN = "DELETE FROM prima_nota WHERE id = :id";
 
     //SELECT utilizzata in PrimaNotaAddDialog per recuperare i
     //valori della nota selezionata
-    //const QString SELECT_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
-    const QString SELECT_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
+    const QString SELECT_PN_FROM_ID = "SELECT * FROM prima_nota WHERE id=:id";
 
+    //Effettua la somma delle colonne entrate e uscite
+    //utilizzata nelle label della finestra principale
+    const QString SELECT_PN_TOTAL = "SELECT sum(entrata_cassa)::money AS entrata_cassa, "
+                                           "sum(entrata_banca)::money AS entrata_banca,"
+                                           "sum(uscita_cassa)::money AS uscita_cassa,"
+                                           "sum(uscita_banca)::money AS uscita_banca "
+                                    "FROM prima_nota";
+
+    //SELECT utilizzata nel combobox in PrimaNotaAddDialog
+    const QString SELECT_NOTE_DISTINCT = "SELECT DISTINCT descr FROM prima_nota ORDER BY descr";
+
+    //ORDER FILTER usato per ordinare la table view
+    const QString PN_ORDER = " ORDER BY \"data\", \"descr\"";
+
+    //SEARCH FILTER usato per la ricerca nella table view
+    const QString PN_DESCR = "\"descr\" ILIKE '%%1%'";
+
+    //MONTH FILTER
+    const QString PN_MONTH = "EXTRACT (MONTH FROM \"data\") = '%1' AND EXTRACT (YEARS FROM \"data\") = '%2'";
+
+    //YEARS FILTER
+    const QString PN_YEARS = "EXTRACT (YEARS FROM \"data\") = '%1'";
+
+    //RANGE FILTER
+    const QString PN_RANGE = "\"data\" >= '%1' AND \"data\" <= '%2'";
+}
+
+namespace css {
+    //CSS
+    const QString positive_css = "QLabel {color:blue}";
+    const QString negative_css = "QLabel {color:red}";
+}
+
+namespace NTV {
     //Nome colonne vista noteTableView
-    const QString COL_VW_ID = "Id";
-    const QString COL_VW_DATA = "Data";
-    const QString COL_VW_DESCR = "Descrizione";
-    const QString COL_VW_ENT_CASSA = "Entrata Cassa";
-    const QString COL_VW_USC_CASSA = "Uscita Cassa";
-    const QString COL_VW_ENT_BANCA = "Entrata Banca";
-    const QString COL_VW_USC_BANCA = "Uscita Banca";
+    const QString ID = "Id";
+    const QString DATA = "Data";
+    const QString DESCR = "Descrizione";
+    const QString ENT_CASSA = "Entrata Cassa";
+    const QString USC_CASSA = "Uscita Cassa";
+    const QString ENT_BANCA = "Entrata Banca";
+    const QString USC_BANCA = "Uscita Banca";
 }
 
 #endif // PRIMANOTA_CONST

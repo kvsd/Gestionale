@@ -11,7 +11,7 @@ PrimaNotaAddDlg::PrimaNotaAddDlg(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate());
 
     m_descrModel = new QSqlQueryModel(this);
-    m_descrModel->setQuery(primanota::SELECT_DESCR);
+    m_descrModel->setQuery(sql::SELECT_NOTE_DISTINCT);
     ui->comboBox->setModel(m_descrModel);
     updateLineEdit();
 }
@@ -26,11 +26,11 @@ void PrimaNotaAddDlg::setValue(QString id)
 {
     qDebug() << "PrimaNotaAddDlg::setValue()";
     QSqlQuery query;
-    query.prepare(primanota::SELECT_FROM_ID);
+    query.prepare(sql::SELECT_PN_FROM_ID);
     query.bindValue(ph::ID, id);
-    if (!query.exec()) {
-        showDialogError(this, ERR053, MSG010, query.lastError().text()); // NOTE codice errore 053
-    }
+    if (!query.exec())
+        // NOTE codice errore 053
+        showDialogError(this, ERR053, MSG010, query.lastError().text());
 
     query.first();
     m_mapQuery[ph::ID] = id;
@@ -79,17 +79,14 @@ QSqlQuery PrimaNotaAddDlg::prepareQuery()
 
     QSqlQuery query;
     if (m_mapQuery.contains(ph::ID)) {
-        query.prepare(primanota::UPDATE_NOTE);
+        query.prepare(sql::UPDATE_PN);
         query.bindValue(ph::ID, m_mapQuery[ph::ID]);
     }
     else
-        query.prepare(primanota::INSERT_NOTE);
+        query.prepare(sql::INSERT_PN);
 
-    QMap<QString, QString>::const_iterator i = m_mapQuery.begin();
-    while (i!=m_mapQuery.end()) {
-        query.bindValue(i.key(), i.value());
-        i++;
-    }
+    for (QString &key : m_mapQuery.keys())
+        query.bindValue(key, m_mapQuery[key]);
 
     return query;
 }
@@ -106,15 +103,17 @@ void PrimaNotaAddDlg::save()
 
     bool ok = query.exec();
     if (!ok) {
-        showDialogError(this, ERR052, MSG010, query.lastError().text()); //NOTE codice errore 052
+        //NOTE codice errore 052
+        showDialogError(this, ERR052, MSG010, query.lastError().text());
         return;
     }
     this->accept();
 }
 
+
 void PrimaNotaAddDlg::updateLineEdit()
 {
-    qDebug() << "PrimaNotaAddDlg::updatePrezzo()";
+    qDebug() << "PrimaNotaAddDlg::updateLineEdit()";
     QString enCassa = ui->entCassaLineEdit->text();
     QString enBanca = ui->entBancaLineEdit->text();
     QString uscCassa = ui->uscCassaLineEdit->text();

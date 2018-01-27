@@ -68,7 +68,7 @@
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
           <item row="0" column="0">
-           <widget class="QRadioButton" name="allRadioButton">
+           <widget class="QRadioButton" name="allResultRb">
             <property name="text">
              <string>Qualsiasi</string>
             </property>
@@ -308,7 +308,7 @@
      <x>0</x>
      <y>0</y>
      <width>985</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -316,7 +316,7 @@
  <tabstops>
   <tabstop>searchLineEdit</tabstop>
   <tabstop>noteTableView</tabstop>
-  <tabstop>allRadioButton</tabstop>
+  <tabstop>allResultRb</tabstop>
   <tabstop>monthRadioButton</tabstop>
   <tabstop>monthDateEdit</tabstop>
   <tabstop>yearRadioButton</tabstop>
@@ -428,7 +428,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>allRadioButton</sender>
+   <sender>allResultRb</sender>
    <signal>clicked()</signal>
    <receiver>PrimaNotaWindow</receiver>
    <slot>updateViewNote()</slot>
