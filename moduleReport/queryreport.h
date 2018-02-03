@@ -1,83 +1,78 @@
-#include "queryreport.h"
+#ifndef QUERYREPORT_H
+#define QUERYREPORT_H
 
-QueryReport::QueryReport(QPrinter *printer, QPainter *painter, QObject *parent)
-    : QObject(parent),
-      m_printer(printer),
-      m_painter(painter),
-      m_current_page(1)
+#include <QObject>
+#include <QSqlQuery>
+#include <QPainter>
+#include <QPrinter>
+#include <QPointF>
+#include "row.h"
+
+class QueryReport : public QObject
 {
-    qDebug() << "QueryReport::QueryReport()";
-}
+    Q_OBJECT
+public:
+    explicit QueryReport(QPrinter *printer, QPainter *painter, QObject *parent = 0);
+    ~QueryReport();
 
-QueryReport::~QueryReport()
-{
-    qDebug() << "QueryReport::~QueryReport()";
-    delete m_titleRow;
-    delete m_displayPage;
-    delete m_headerRow;
-    delete m_dataRow;
-}
+    void setTitle(QString title) {m_titleStr = title;}
+    QString getTitle() const {return m_titleStr;}
 
-void QueryReport::nextPage()
-{
-    qDebug() << "ListinoDlg::nextPage()";
-    m_printer->newPage();
-    m_current_page++;
-    m_titleRow->draw();
-    m_displayPage->setText(QString("Pag.%1").arg(m_current_page));
-    m_displayPage->draw();
-    m_headerRow->draw();
-    m_dataRow->moveRow(m_headerRow->getLeft(), m_headerRow->getBottom());
-}
+    void setOrigin(QPointF origin) {m_origin = origin;}
+    QPointF getOrigin() const {return m_origin;}
 
-void QueryReport::configPage()
-{
-    qDebug() << "Query::configTitle()";
-    //Configuro il titolo del report
-    m_titleRow = new Row({5,1}, m_origin, m_width, 1, m_painter, this);
-    m_titleRow->setColorBg(m_titleColor);
-    m_titleRow->setColorLine(m_titleColor);
-    m_titleRow->setTextFont(m_titleFont, true);
-    m_titleRow->setText({m_titleStr});
+    void setWidth(float width) {m_width = width;}
+    float getwitdh() const {return m_width;}
 
-    //Configuro la numerazione pagina.
-    QPointF t = {m_titleRow->at(1)->getLeft(), m_titleRow->getTop()};
-    m_displayPage = new Cell(t, m_titleRow->at(1)->getWidth(), 1, m_painter, this);
-    m_displayPage->setTextFont(QFont("fixed", 8));
-    m_displayPage->setColorLine(Qt::transparent);
-    m_displayPage->setTextAlignment(Qt::AlignRight);
-    m_displayPage->setText(QString("(Pag.%1)").arg(m_current_page));
+    void setTitleColor(QColor color=Qt::transparent) {m_titleColor = color;}
+    QColor getTitleColor() const {return m_titleColor;}
 
-    //Configuro l'header della tabella
-    m_headerRow = new Row(m_stretchValues, QPoint(m_origin.x(),m_titleRow->getBottom()), m_width, 1, m_painter, this);
-    if (m_headerNames.isEmpty())
-        m_headerNames = m_queryCols;
-    m_headerRow->setText(m_headerNames);
-    m_headerRow->setTextFont(m_painter->font(), true);
-    m_headerRow->setTextAlignment(QVector<Qt::Alignment>(m_headerNames.count(), Qt::AlignHCenter));
+    void setTitleFont(QFont font){m_titleFont = font;}
+    QFont getTitleFont() const {return m_titleFont;}
 
-    //Configuro la riga che stampera i risultati
-    m_dataRow = new Row(m_stretchValues, QPoint(m_origin.x(),m_headerRow->getBottom()), m_width, 1, m_painter, this);
-    m_dataRow->setTextAlignment(m_alignCols);
-}
+    void setQuery(QString query){m_query = query;}
+    QString getQuery() const {return m_query;}
 
-void QueryReport::draw()
-{
-    qDebug() << "QueryReport::draw()";
-    configPage();
-    QSqlQuery query;
-    query.exec(m_query);
-    m_titleRow->draw();
-    m_displayPage->draw();
-    m_headerRow->draw();
-    while (query.next()) {
-        QStringList values;
-        for (QString &col : m_queryCols)
-            values << query.value(col).toString();
-        m_dataRow->setText(values);
-        m_dataRow->draw();
-        m_dataRow->moveRow(m_dataRow->getLeft(), m_dataRow->getBottom());
-        if (m_dataRow->getBottom() > m_printer->height())
-            nextPage();
-    }
-}
+    void setQueryCols(QStringList list) {m_queryCols = list;}
+    QStringList getQueryCols() const {return m_queryCols;}
+
+    void setStretchValues(QVector<int>list){m_stretchValues = list;}
+    QVector<int> getStretchValues() const {return m_stretchValues;}
+
+    void setAlignCols(QVector<Qt::Alignment> list) {m_alignCols = list;}
+    QVector<Qt::Alignment> getAlignCols() {return m_alignCols;}
+
+    void draw();
+
+private:
+    QPrinter *m_printer;
+    QPainter *m_painter;
+
+    QString m_query;
+    int m_current_page;
+    QString m_titleStr;
+
+    QColor m_titleColor;
+    QFont m_titleFont;
+
+    QVector<int>m_stretchValues;
+    QStringList m_headerNames;
+    QStringList m_queryCols;
+    QVector<Qt::Alignment>m_alignCols;
+
+    QPointF m_origin;
+    float m_width;
+    Cell *m_displayPage;
+    Row *m_titleRow;
+    Row *m_headerRow;
+    Row *m_dataRow;
+
+    void nextPage();
+    void configPage();
+
+signals:
+
+public slots:
+};
+
+#endif // QUERYREPORT_H

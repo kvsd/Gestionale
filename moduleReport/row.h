@@ -1,126 +1,59 @@
-#include "row.h"
+#ifndef ROW_H
+#define ROW_H
 
-Row::Row(QVector<int> colsStretch, QPointF origin, float width,
-         int textLines, QPainter *painter, QObject *parent)
-    :QObject(parent),
-      m_painter(painter),
-      m_origin(origin),
-      m_width(width),
-      m_textLines(textLines)
+#include <QPainter>
+#include <QObject>
+#include <QVector>
+#include <QDebug>
+#include <QPointF>
+#include "cell.h"
+
+class Row : public QObject
 {
-    qDebug() << "Row::Row()";
-    makeCols(colsStretch);
-}
+    Q_OBJECT
 
-Row::~Row()
-{
-    qDebug() << "Row::~Row()";
-}
+public:
+    explicit Row(QVector<int> colsStretch, QPointF origin, float width,
+                 int textLines, QPainter *painter, QObject *parent = 0);
+    Row() =delete;
+    ~Row();
 
-Cell * Row::at(int index)
-{
-    qDebug() << "Row::at(index)";
-    if (index < m_vector.count())
-        return m_vector.at(index);
-    else
-        return nullptr;
-}
+    Cell * at(int index);
+    void moveRow(QPointF origin);
+    void moveRow(float x, float y);
+    void setColorBg(QColor color=Qt::transparent);
+    void setColorLine(QColor color=Qt::black);
+    void setTextAlignment(QVector<Qt::Alignment> aligns);
+    void setHeader(QStringList textList);
+    void setText(QStringList textList);
+    void setTextFont(QFont font, bool bold);
+    void draw();
 
-void Row::moveRow(QPointF origin)
-{
-    qDebug() << "Row::moveRow(origin)";
-    m_origin = origin;
-    for (Cell *c : m_vector) {
-        c->moveCell(c->getLeft(), origin.y());
-    }
-}
+    QPointF getOrigin() const {return m_origin;}
 
-void Row::moveRow(float x, float y)
-{
-    qDebug() << "Row::moveRow(float x, float y)";
-    m_origin = QPointF(x, y);
-    for (Cell *c : m_vector)
-        c->moveCell(c->getLeft(), y);
-}
+    float getBottom() const {return m_vector.first()->getBottom();}
+    float getLeft() const {return m_origin.x();}
+    float getRight() const {return m_vector.last()->getRight();}
+    float getHeight() const {return m_vector.first()->getHeight();}
+    float getTop() const {return m_origin.y();}
+    float getWidth() const {return m_vector.last()->getRight() - m_vector.first()->getLeft();}
 
-void Row::setColorBg(QColor color)
-{
-    qDebug() << "Row::setColorBg()";
-    for (Cell *c : m_vector)
-        c->setColorBg(color);
-}
+    int getColsNumber() const {return m_vector.count();}
 
-void Row::setColorLine(QColor color)
-{
-    qDebug() << "Row::setColorLine()";
-    for (Cell *c : m_vector)
-        c->setColorLine(color);
-}
+private:
+    QPainter *m_painter;
+    QVector<Cell *> m_vector;   //QVector che contiene le celle della riga
+    QPointF m_origin;           //Coordinate in alto/sinistra
+    float m_width;              //Larghezza della riga
+    float m_colWidth;           //Larghezza di una colonna
+    float m_textLines;          //Numero di righe di testo
+    QStringList m_textList;
 
-void Row::setTextAlignment(QVector<Qt::Alignment> aligns)
-{
-    qDebug() << "Row::setAlignment(aligns)";
-    for (int i=0; i<m_vector.count(); i++)
-        m_vector[i]->setTextAlignment(aligns.value(i, Qt::AlignLeft));
-}
+    void makeCols(QVector<int> colsStretch);
 
-void Row::setHeader(QStringList textList)
-{
-    qDebug() << "Row::setHeader(textList)";
-    for (int i=0; i<m_vector.count(); i++) {
-        QString text = textList.value(i, "");
-        m_vector.at(i)->setHeader(text);
-    }
-}
+signals:
 
-void Row::setText(QStringList textList)
-{
-    qDebug() << "Row::setText(textList)";
-    for (int i=0; i<m_vector.count(); i++) {
-        QString text = textList.value(i, "");
-        m_vector.at(i)->setText(text);
-    }
-}
+public slots:
+};
 
-void Row::setTextFont(QFont font, bool bold)
-{
-    qDebug() << "Row::setTextFont(font, bold)";
-    for (Cell *cell : m_vector)
-        cell->setTextFont(font, bold);
-}
-
-void Row::draw()
-{
-    qDebug() << "Row::draw()";
-    for (Cell *c : m_vector) {
-        c->draw();
-    }
-}
-
-void Row::makeCols(QVector<int> colsStretch)
-{
-    qDebug() << "Row::makeCols()";
-    m_vector.clear();
-    if (colsStretch.isEmpty())
-        colsStretch = {1};
-
-    //Pulisco il vettore colsStretch e ottengo la quantita di colonne
-    int cols = 0;
-    for (int &i : colsStretch) {
-        i = (i>0) ? i : 1;
-        cols += i;
-    }
-
-    m_colWidth = m_width/cols;
-
-    //Creo le celle e le aggiungo al vettore m_vector
-    float x = m_origin.x();
-    float y = m_origin.y();
-    for (int i=0; i<colsStretch.count(); i++) {
-        QPointF origin(x, y);
-        float cellWidth = m_colWidth*colsStretch[i];
-        Cell *c = new Cell(origin, cellWidth, m_textLines, m_painter, this);
-        x += cellWidth;
-        m_vector.append(c);
-    }
-}
+#endif // ROW_H
