@@ -18,12 +18,12 @@ public:
     void draw();
     void moveCell(float x, float y);
     void moveCell(QPointF point);
-    void setColorBg(QColor color=Qt::transparent){m_brush = QBrush(color);}
-    void setColorHeader(QColor color=Qt::black) {m_pen_header = color;}
-    void setColorLine(QColor color=Qt::black) {m_pen_line = color;}
-    void setColorText(QColor color=Qt::black) {m_pen_text = color;}
+    void setBgColor(QColor color=Qt::transparent){m_brush = QBrush(color);}
+    void setFgColor(QColor color=Qt::black) {m_pen_text = color;}
     void setHeader(QString text) {m_header = text;}
+    void setHeaderColor(QColor color=Qt::black) {m_pen_header = color;}
     void setHeaderFont(QFont font, bool bold=true);
+    void setLineColor(QColor color=Qt::black) {m_pen_line = color;}
     void setRowHeight(int rowNumber);
     void setText(QString text) {m_text = text;}
     void setTextFont(QFont font, bool bold=false);

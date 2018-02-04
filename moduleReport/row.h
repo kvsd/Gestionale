@@ -21,8 +21,9 @@ public:
     Cell * at(int index);
     void moveRow(QPointF origin);
     void moveRow(float x, float y);
-    void setColorBg(QColor color=Qt::transparent);
-    void setColorLine(QColor color=Qt::black);
+    void setBgColor(QColor color=Qt::transparent);
+    void setFgColor(QColor color=Qt::black);
+    void setLineColor(QColor color=Qt::black);
     void setTextAlignment(QVector<Qt::Alignment> aligns);
     void setHeader(QStringList textList);
     void setText(QStringList textList);

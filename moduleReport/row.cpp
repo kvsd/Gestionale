@@ -43,18 +43,25 @@ void Row::moveRow(float x, float y)
         c->moveCell(c->getLeft(), y);
 }
 
-void Row::setColorBg(QColor color)
+void Row::setBgColor(QColor color)
 {
     qDebug() << "Row::setColorBg()";
     for (Cell *c : m_vector)
-        c->setColorBg(color);
+        c->setBgColor(color);
 }
 
-void Row::setColorLine(QColor color)
+void Row::setFgColor(QColor color)
+{
+    qDebug() << "void Row::setColorText(QColor color)";
+    for (Cell *c : m_vector)
+        c->setFgColor(color);
+}
+
+void Row::setLineColor(QColor color)
 {
     qDebug() << "Row::setColorLine()";
     for (Cell *c : m_vector)
-        c->setColorLine(color);
+        c->setLineColor(color);
 }
 
 void Row::setTextAlignment(QVector<Qt::Alignment> aligns)
