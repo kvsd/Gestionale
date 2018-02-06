@@ -9,11 +9,11 @@
 #include <QSettings>
 #include <QDebug>
 #include <QSqlQueryModel>
-#include <QComboBox>
 #include <QStringListModel>
 #include <QLineEdit>
 #include <QTableWidget>
-#include <QFontDialog>
+#include <QFontComboBox>
+#include <QSpinBox>
 
 namespace Ui {
 class ConfigPrintDialog;
@@ -37,17 +37,18 @@ private:
 
     void initModel();
     void loadTableSettings(QTableWidget *table, QString settingsName);
+    void loadFont(QFontComboBox *box, QSpinBox *spin, QString setting_key);
     void loadSettings();
     void addRow(QTableWidget *table);
     void removeRow(QTableWidget *table);
     void setRow(QTableWidget *table, int row, QStringList values);
-    void saveSettings(QTableWidget *table, QString settingsName);
+    void saveTableSettings(QTableWidget *table, QString settingsName);
+    void saveFont(QFontComboBox *box, QSpinBox *spin, QString setting_key);
 
 private slots:
     void addColumn();
     void removeColumn();
     void save();
-    void openFontDlg();
 };
 
 #endif // CONFIGPRINTDIALOG_H

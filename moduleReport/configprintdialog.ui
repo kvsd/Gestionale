@@ -95,7 +95,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0,0">
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
@@ -107,9 +107,16 @@
           <widget class="QFontComboBox" name="listinoFontCB"/>
          </item>
          <item>
-          <widget class="QPushButton" name="listinoFontDlg">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Font</string>
+            <string>Dimensione:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="listinoFontSize">
+           <property name="value">
+            <number>14</number>
            </property>
           </widget>
          </item>
@@ -193,7 +200,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0,0">
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
@@ -205,9 +212,16 @@
           <widget class="QFontComboBox" name="ordineFontCB"/>
          </item>
          <item>
-          <widget class="QPushButton" name="ordineFontDlg">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Font</string>
+            <string>Dimensione:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="ordineFontSize">
+           <property name="value">
+            <number>14</number>
            </property>
           </widget>
          </item>
@@ -364,43 +378,10 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>listinoFontDlg</sender>
-   <signal>clicked()</signal>
-   <receiver>ConfigPrintDialog</receiver>
-   <slot>openFontDlg()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>467</x>
-     <y>293</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>264</x>
-     <y>178</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ordineFontDlg</sender>
-   <signal>clicked()</signal>
-   <receiver>ConfigPrintDialog</receiver>
-   <slot>openFontDlg()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>467</x>
-     <y>293</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>264</x>
-     <y>178</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>addColumn()</slot>
   <slot>removeColumn()</slot>
   <slot>save()</slot>
-  <slot>openFontDlg()</slot>
  </slots>
 </ui>

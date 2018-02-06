@@ -50,21 +50,23 @@ void ConfigPrintDialog::loadTableSettings(QTableWidget *table, QString settingsN
     m_settings.endGroup();
 }
 
+void ConfigPrintDialog::loadFont(QFontComboBox *box, QSpinBox *spin, QString setting_key)
+{
+    qDebug() << "ConfigPrintDialog::loadFont()";
+    QString fontStr = m_settings.value(setting_key, "fixed").toString();
+    QFont font;
+    font.fromString(fontStr);
+    box->setCurrentFont(font);
+    spin->setValue(font.pointSize());
+}
+
 void ConfigPrintDialog::loadSettings()
 {
     qDebug() << "ConfigPrintDialog::loadSettings()";
     loadTableSettings(ui->listinoTableWidget, settings::listinoCols);
     loadTableSettings(ui->ordineTableWidget, settings::ordineCols);
-
-    QString listinofontStr = m_settings.value(settings::listinoFont, "fixed").toString();
-    QFont listinoFont;
-    listinoFont.fromString(listinofontStr);
-    ui->listinoFontCB->setCurrentFont(listinoFont);
-
-    QString ordinefontStr = m_settings.value(settings::ordineFont, "fixed").toString();
-    QFont ordinefont;
-    ordinefont.fromString(ordinefontStr);
-    ui->ordineFontCB->setCurrentFont(ordinefont);
+    loadFont(ui->listinoFontCB, ui->listinoFontSize, settings::listinoFont);
+    loadFont(ui->ordineFontCB, ui->ordineFontSize, settings::ordineFont);
 }
 
 void ConfigPrintDialog::addRow(QTableWidget *table)
@@ -114,7 +116,7 @@ void ConfigPrintDialog::setRow(QTableWidget *table, int row, QStringList values)
     }
 }
 
-void ConfigPrintDialog::saveSettings(QTableWidget *table, QString settingsName)
+void ConfigPrintDialog::saveTableSettings(QTableWidget *table, QString settingsName)
 {
     qDebug() << "ConfigPrintDialog::saveSetting()";
     //Salva i dati delle colonne create nella QTableWidget table nel
@@ -143,6 +145,14 @@ void ConfigPrintDialog::saveSettings(QTableWidget *table, QString settingsName)
         m_settings.setValue(QString("%1").arg(row), values);
     }
     m_settings.endGroup();
+}
+
+void ConfigPrintDialog::saveFont(QFontComboBox *box, QSpinBox *spin, QString setting_key)
+{
+    qDebug() << "ConfigPrintDialog::saveFont()";
+    QFont titleFont = box->currentFont();
+    titleFont.setPointSize(spin->value());
+    m_settings.setValue(setting_key, titleFont.toString());
 }
 
 void ConfigPrintDialog::addColumn()
@@ -181,30 +191,9 @@ void ConfigPrintDialog::save()
 {
     qDebug() << "ConfigPrintDialog::save()";
     //Slot collegato al pulsante save.
-    saveSettings(ui->listinoTableWidget, settings::listinoCols);
-    saveSettings(ui->ordineTableWidget, settings::ordineCols);
+    saveTableSettings(ui->listinoTableWidget, settings::listinoCols);
+    saveTableSettings(ui->ordineTableWidget, settings::ordineCols);
 
-    m_settings.setValue(settings::listinoFont, ui->listinoFontCB->currentFont().toString());
-    m_settings.setValue(settings::ordineFont, ui->ordineFontCB->currentFont().toString());
+    saveFont(ui->listinoFontCB, ui->listinoFontSize, settings::listinoFont);
+    saveFont(ui->ordineFontCB, ui->ordineFontSize, settings::ordineFont);
 }
-
-void ConfigPrintDialog::openFontDlg()
-{
-    qDebug() << "ConfigPrintDialog::openFontDlg()";
-    /* Slot che apre un QFontDialog e prende il font iniziale dal
-     * QFontComboBox visibile per poi riscrive il font selezionato */
-    QFontComboBox *cb = 0;
-    QList<QFontComboBox *>list = this->findChildren<QFontComboBox *>();
-    for (QFontComboBox *x : list)
-        if (x->isVisible())
-            cb = x;
-
-    if (!cb)
-        return;
-
-    bool ok;
-    QFont font = QFontDialog::getFont(&ok, cb->currentFont(), this);
-    if (ok)
-        cb->setCurrentFont(font);
-}
-
