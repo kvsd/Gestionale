@@ -6,16 +6,16 @@
 
 namespace sql {
     //Filtro fornitore.
-    const QString FILTER_FORNITORE = "AND an.rag_sociale=:rag_sociale ORDER BY mg.descr";
+    const QString FILTER_FORNITORE = "AND an.rag_sociale='%1' ORDER BY mg.descr";
 
     //Filtro fornitore e data corrente.
     const QString FILTER_CURRENT_DATE =
-            "AND an.rag_sociale=:rag_sociale AND mg.data_arrivo=current_date "
+            "AND an.rag_sociale='%1' AND mg.data_arrivo=current_date "
             "ORDER BY mg.descr";
 
     //Filtro fornitore e numero fattura.
-    const QString FILTER_FATTURA = " AND rag_sociale=:rag_sociale"
-            " AND fattura ILIKE :fattura ORDER BY descr";
+    const QString FILTER_FATTURA = " AND rag_sociale='%1' "
+            " AND fattura ILIKE '%%2%' ORDER BY descr";
 
     //Select utilizzata per la stampa dell'inventario
     const QString SELECT_INVENTARIO = "SELECT * FROM vw_inventario WHERE \"Quantità\"!=0";

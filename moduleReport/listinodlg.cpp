@@ -3,8 +3,7 @@
 
 ListinoDlg::ListinoDlg(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ListinoDlg),
-    m_current_page(1)
+    ui(new Ui::ListinoDlg)
 {
     qDebug() << "ListinoDlg::ListinoDlg()";
     ui->setupUi(this);
@@ -32,16 +31,6 @@ void ListinoDlg::initFornitoreCb()
     ui->fornitoreCb->setModelColumn(CBM::DESCR);
 }
 
-void ListinoDlg::nextPage()
-{
-    qDebug() << "ListinoDlg::nextPage()";
-    m_printer->newPage();
-    title->draw();
-    header->draw();
-    row->moveRow(header->getLeft(), header->getBottom());
-    m_current_page++;
-}
-
 void ListinoDlg::configLayout()
 {
     qDebug() << "ListinoDlg::getColsLayout()";
@@ -63,44 +52,25 @@ void ListinoDlg::configLayout()
              m_align.append(Qt::AlignHCenter);
     }
     m_settings.endGroup();
+    listinoFont.fromString(m_settings.value(settings::listinoFont, "fixed").toString());
 }
 
-void ListinoDlg::configPage(QString str)
-{
-    qDebug() << "ListinoDlg::configTitle()";
-    //Configuro l'intestazione del listino
-    title = new Cell(QPoint(0,0), m_printer->width(), 1, m_painter, this);
-    title->setColorBg(Qt::lightGray);
-    title->setColorLine(Qt::transparent);;
-    title->setTextFont(QFont("fixed", 16), true);
-    title->setText(str);
-
-    //Configuro l'header della tabella
-    header = new Row(m_stretchValues, QPoint(0,title->getBottom()), m_printer->width(), 1, m_painter, this);
-    header->setText(m_viewName);
-    header->setTextFont(m_painter->font(), true);
-    header->setTextAlignment(QVector<Qt::Alignment>(4, Qt::AlignHCenter));
-
-    //Configuro la riga che stampera i risultati
-    row = new Row(m_stretchValues, QPoint(0,header->getBottom()), m_printer->width(), 1, m_painter, this);
-    row->setTextAlignment(m_align);
-}
-
-QSqlQuery ListinoDlg::configQuery(QString fornitore, QString data)
+QString ListinoDlg::configQuery(QString fornitore)
 {
     qDebug() << "ListinoDlg::configQuery()";
     //Selezione e configurazione delle query
-    QSqlQuery query;
+    QString query;
     if (ui->printAllRb->isChecked())
-        query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FORNITORE);
+        query = QString(sql::SELECT_ARTICOLI_ALL+
+                        sql::FILTER_FORNITORE).arg(fornitore);
     else if (ui->printFromDateRb->isChecked())
-        query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_CURRENT_DATE);
-    else if (ui->printFromFatturaRb->isChecked())
-        query.prepare(sql::SELECT_ARTICOLI_ALL + sql::FILTER_FATTURA);
-
-    query.bindValue(ph::RAG_SOCIALE, fornitore);
-    query.bindValue(ph::DATA_ARRIVO, data);
-    query.bindValue(ph::FATTURA, QString("%%1%").arg(ui->fatturaLE->text()));
+        query = QString(sql::SELECT_ARTICOLI_ALL+
+                        sql::FILTER_CURRENT_DATE).arg(fornitore);
+    else if (ui->printFromFatturaRb->isChecked()) {
+        QString fattura = ui->fatturaLE->text();
+        query = QString(sql::SELECT_ARTICOLI_ALL+
+                        sql::FILTER_FATTURA).arg(fornitore, fattura);
+    }
 
     return query;
 }
@@ -111,25 +81,23 @@ void ListinoDlg::draw()
     m_painter = new QPainter(m_printer);
     QString fornitore = ui->fornitoreCb->currentText();
     QString data = QDate::currentDate().toString("dd/MM/yyyy");
+    QString title = QString("Listino di %1 del %2").arg(fornitore, data);
+    QString query = configQuery(fornitore);
 
-    configPage(QString("Listino di %1 del %2").arg(fornitore, data));
-
-    QSqlQuery query = configQuery(fornitore, data);
-    query.exec();
-
-    //Inizio stampa
-    title->draw();
-    header->draw();
-    while (query.next()) {
-        QStringList list;
-        for (auto i : m_colsName)
-            list.append(query.record().value(i).toString());
-        row->setText(list);
-        row->draw();
-        row->moveRow(row->getLeft(), row->getBottom());
-        if (row->getBottom() > m_printer->height())
-            nextPage();
-    }
+    QueryReport *report = new QueryReport(m_printer, m_painter, this);
+    report->setTitle(title);
+    report->setTitleBgColor(Qt::gray);
+    QFont titleFont = listinoFont;
+    titleFont.setPointSize(listinoFont.pointSize()+4);
+    report->setTitleFont(titleFont);
+    report->setHeaderFont(listinoFont);
+    report->setRowFont(listinoFont);
+    report->setStretchValues(m_stretchValues);
+    report->setQuery(query);
+    report->setQueryCols(m_colsName);
+    report->setHeaderNames(m_viewName);
+    report->setAlignCols(m_align);
+    report->draw();
 
     delete m_painter;
 }
