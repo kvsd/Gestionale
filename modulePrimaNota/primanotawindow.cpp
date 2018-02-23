@@ -39,14 +39,14 @@ void PrimaNotaWindow::initModel()
 {
     qDebug() << "PrimaNotaWindow::initModel()";
     QMap <QString, Qt::AlignmentFlag> alignMap;
-    alignMap[NTV::DATA] = Qt::AlignLeft;
-    alignMap[NTV::DESCR] = Qt::AlignLeft;
+    alignMap[colview::DATA] = Qt::AlignLeft;
+    alignMap[colview::DESCRIZIONE] = Qt::AlignLeft;
 
     QMap <QString, QBrush> fgColorMap;
-    fgColorMap[NTV::ENT_CASSA] = QBrush(Qt::blue);
-    fgColorMap[NTV::ENT_BANCA] = QBrush(Qt::blue);
-    fgColorMap[NTV::USC_CASSA] = QBrush(Qt::red);
-    fgColorMap[NTV::USC_BANCA] = QBrush(Qt::red);
+    fgColorMap[colview::ENT_CASSA] = QBrush(Qt::blue);
+    fgColorMap[colview::ENT_BANCA] = QBrush(Qt::blue);
+    fgColorMap[colview::USC_CASSA] = QBrush(Qt::red);
+    fgColorMap[colview::USC_BANCA] = QBrush(Qt::red);
 
     m_primaNotaModel = new CustomModel(Qt::AlignRight, this);
     m_primaNotaModel->setAlignMap(alignMap);

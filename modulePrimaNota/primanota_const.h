@@ -68,16 +68,5 @@ namespace css {
     const QString negative_css = "QLabel {color:red}";
 }
 
-namespace NTV {
-    //Nome colonne vista noteTableView
-    const QString ID = "Id";
-    const QString DATA = "Data";
-    const QString DESCR = "Descrizione";
-    const QString ENT_CASSA = "Entrata Cassa";
-    const QString USC_CASSA = "Uscita Cassa";
-    const QString ENT_BANCA = "Entrata Banca";
-    const QString USC_BANCA = "Uscita Banca";
-}
-
 #endif // PRIMANOTA_CONST
 
