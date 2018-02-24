@@ -29,8 +29,9 @@ void MagazzinoWindow::initModel()
 
     QMap <QString, Qt::AlignmentFlag> map;
     QStringList cols;
-    cols << "Descrizione" << "Fornitore" << "Note" << "Modello"
-         << "Cod.Articolo" << "Cod.Fornitore";
+    cols << colview::DESCRIZIONE << colview::FORNITORE << colview::NOTE
+         << colview::MODELLO << colview::CODICE_ARTICOLO << colview::CODICE_FORNITORE;
+
     for (auto col : cols)
         map[col] = Qt::AlignLeft;
 
@@ -88,10 +89,6 @@ void MagazzinoWindow::updateModel()
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
-
-    if (fornitoreText.isEmpty() || categoriaText.isEmpty() ||
-            marcaText.isEmpty() || sedeText.isEmpty())
-        return;
 
     ui->fornitoreComboBox->setCurrentText(fornitoreText);
     ui->categoriaComboBox->setCurrentText(categoriaText);
