@@ -174,25 +174,25 @@ QString MagazzinoWindow::filterString(void) {
     if (ui->fornitoreComboBox->isEnabled()) {
         int index = ui->fornitoreComboBox->currentIndex();
         QString id = fornitoreModel->record(index).value(CBM::ID).toString();
-        filter.append(pattern.arg(coldb::ID_FORNITORE).arg(id));
+        filter.append(pattern.arg(coldb::ID_FORNITORE, id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
         int index = ui->categoriaComboBox->currentIndex();
         QString id = categoriaModel->record(index).value(CBM::ID).toString();
-        filter.append(pattern.arg(coldb::ID_MERCE).arg(id));
+        filter.append(pattern.arg(coldb::ID_MERCE, id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
         int index = ui->marcaComboBox->currentIndex();
         QString id = marcaModel->record(index).value(CBM::ID).toString();
-        filter.append(pattern.arg(coldb::ID_MARCA).arg(id));
+        filter.append(pattern.arg(coldb::ID_MARCA, id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
         int index = ui->sedeComboBox->currentIndex();
         QString id = sedeModel->record(index).value(CBM::ID).toString();
-        filter.append(pattern.arg(coldb::ID_SEDE_MAGAZZINO).arg(id));
+        filter.append(pattern.arg(coldb::ID_SEDE_MAGAZZINO, id));
     }
 
     if (ui->fatturaLineEdit->isEnabled()) {
@@ -203,7 +203,7 @@ QString MagazzinoWindow::filterString(void) {
 
     if (ui->currentDateEnabler->isChecked()) {
         QString currentDate = QDate::currentDate().toString("dd/MM/yy");
-        filter.append(pattern.arg(coldb::DATA_ARRIVO).arg(currentDate));
+        filter.append(pattern.arg(coldb::DATA_ARRIVO, currentDate));
     }
     else if (ui->rangeDateEnabler->isChecked()) {
         QString data1 = ui->data1LineEdit->text();
