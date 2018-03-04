@@ -140,6 +140,36 @@ void ArticoloDialog::setValue(QString id, bool update)
     ui->te_note->setText(query.value(coldb::NOTE).toString());
 }
 
+void ArticoloDialog::setFornitore(QString str)
+{
+    qDebug() << "ArticoloDialog::setFornitore()";
+    ui->cb_fornitore->setCurrentText(str);
+}
+
+void ArticoloDialog::setCategoria(QString str)
+{
+    qDebug() << "ArticoloDialog::setCategoria()";
+    ui->cb_catmerce->setCurrentText(str);
+}
+
+void ArticoloDialog::setMarca(QString str)
+{
+    qDebug() << "ArticoloDialog::setMarca()";
+    ui->cb_marca->setCurrentText(str);
+}
+
+void ArticoloDialog::setSede(QString str)
+{
+    qDebug() << "ArticoloDialog::setSede()";
+    ui->cb_sede->setCurrentText(str);
+}
+
+void ArticoloDialog::setFattura(QString str)
+{
+    qDebug() << "ArticoloDialog::setFattura()";
+    ui->le_fattura->setText(str);
+}
+
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";

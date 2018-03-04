@@ -29,6 +29,11 @@ public:
     explicit ArticoloDialog(QWidget *parent = 0);
     ~ArticoloDialog();
     void setValue(QString id, bool update=true);
+    void setFornitore(QString str);
+    void setCategoria(QString str);
+    void setMarca(QString str);
+    void setSede(QString str);
+    void setFattura(QString str);
 
 private:
     Ui::ArticoloDialog *ui;
