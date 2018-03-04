@@ -265,6 +265,16 @@ void MagazzinoWindow::addRecord()
 {
     qDebug() << "MagazzinoWindow::addRecord()";
     ArticoloDialog dlg(this);
+    if (ui->fornitoreComboBox->isEnabled())
+        dlg.setFornitore(ui->fornitoreComboBox->currentText());
+    if (ui->categoriaComboBox->isEnabled())
+        dlg.setCategoria(ui->categoriaComboBox->currentText());
+    if (ui->marcaComboBox->isEnabled())
+        dlg.setMarca(ui->marcaComboBox->currentText());
+    if (ui->sedeComboBox->isEnabled())
+        dlg.setSede(ui->sedeComboBox->currentText());
+    if (ui->fatturaLineEdit->isEnabled() && !ui->fatturaLineEdit->text().isEmpty())
+        dlg.setFattura(ui->fatturaLineEdit->text());
     bool ok = dlg.exec();
     if (!ok)
         return;
