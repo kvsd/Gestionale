@@ -11,7 +11,7 @@ ArticoloDialog::ArticoloDialog(QWidget *parent) :
     initModel();
     initComboBox();
 
-    ui->le_data->setDate(QDate::currentDate());
+    ui->dataLE->setDate(QDate::currentDate());
 }
 
 ArticoloDialog::~ArticoloDialog()
@@ -55,30 +55,30 @@ void ArticoloDialog::initModel(void)
 void ArticoloDialog::initComboBox(void)
 {
     qDebug() << "ArticoloDialog::initComboBox()";
-    ui->cb_catmerce->setModel(m_modelCatMerce);
-    ui->cb_catmerce->setModelColumn(CBM::DESCR);
+    ui->catmerceCB->setModel(m_modelCatMerce);
+    ui->catmerceCB->setModelColumn(CBM::DESCR);
 
     //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
     //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
     //genera un segnale.
-    ui->cb_codiva->blockSignals(true);
-    ui->cb_codiva->setModel(m_modelCodIva);
-    ui->cb_codiva->setModelColumn(CBM::DESCR);
-    int index = ui->cb_codiva->findText(m_settings.value(settings::DEFAULT_IVA).toString());
-    ui->cb_codiva->setCurrentIndex(index);
-    ui->cb_codiva->blockSignals(false);
+    ui->codivaCB->blockSignals(true);
+    ui->codivaCB->setModel(m_modelCodIva);
+    ui->codivaCB->setModelColumn(CBM::DESCR);
+    int index = ui->codivaCB->findText(m_settings.value(settings::DEFAULT_IVA).toString());
+    ui->codivaCB->setCurrentIndex(index);
+    ui->codivaCB->blockSignals(false);
 
-    ui->cb_fornitore->setModel(m_modelFornitore);
-    ui->cb_fornitore->setModelColumn(CBM::DESCR);
+    ui->fornitoreCB->setModel(m_modelFornitore);
+    ui->fornitoreCB->setModelColumn(CBM::DESCR);
 
-    ui->cb_marca->setModel(m_modelMarca);
-    ui->cb_marca->setModelColumn(CBM::DESCR);
+    ui->marcaCB->setModel(m_modelMarca);
+    ui->marcaCB->setModelColumn(CBM::DESCR);
 
-    ui->cb_sede->setModel(m_modelSede);
-    ui->cb_sede->setModelColumn(CBM::DESCR);
+    ui->sedeCB->setModel(m_modelSede);
+    ui->sedeCB->setModelColumn(CBM::DESCR);
 
-    ui->cb_unitamisura->setModel(m_modelUnita);
-    ui->cb_unitamisura->setModelColumn(CBM::DESCR);
+    ui->unitamisuraCB->setModel(m_modelUnita);
+    ui->unitamisuraCB->setModelColumn(CBM::DESCR);
 }
 
 void ArticoloDialog::setValue(QString id, bool update)
@@ -93,128 +93,128 @@ void ArticoloDialog::setValue(QString id, bool update)
     query.first();
     if (update)
         m_articoloMap[ph::ID] = id;
-    ui->le_descrizione->setText(query.value(coldb::DESCRIZIONE).toString());
+    ui->descrizioneLE->setText(query.value(coldb::DESCRIZIONE).toString());
 
-    ui->cb_fornitore->setModelColumn(CBM::ID);
-    ui->cb_fornitore->setCurrentText(query.value(coldb::ID_FORNITORE).toString());
-    ui->cb_fornitore->setModelColumn(CBM::DESCR);
+    ui->fornitoreCB->setModelColumn(CBM::ID);
+    ui->fornitoreCB->setCurrentText(query.value(coldb::ID_FORNITORE).toString());
+    ui->fornitoreCB->setModelColumn(CBM::DESCR);
 
-    ui->cb_marca->setModelColumn(CBM::ID);
-    ui->cb_marca->setCurrentText(query.value(coldb::ID_MARCA).toString());
-    ui->cb_marca->setModelColumn(CBM::DESCR);
+    ui->marcaCB->setModelColumn(CBM::ID);
+    ui->marcaCB->setCurrentText(query.value(coldb::ID_MARCA).toString());
+    ui->marcaCB->setModelColumn(CBM::DESCR);
 
-    ui->le_modello->setText(query.value(coldb::MODELLO).toString());
-    ui->le_cod_articolo->setText(query.value(coldb::CODICE_ARTICOLO).toString());
-    ui->le_cod_fornitore->setText(query.value(coldb::CODICE_FORNITORE).toString());
-    ui->le_cod_barre->setText(query.value(coldb::CODICE_BARRE).toString());
+    ui->modelloLE->setText(query.value(coldb::MODELLO).toString());
+    ui->codArticoloLE->setText(query.value(coldb::CODICE_ARTICOLO).toString());
+    ui->codFornitoreLE->setText(query.value(coldb::CODICE_FORNITORE).toString());
+    ui->codBarreLE->setText(query.value(coldb::CODICE_BARRE).toString());
 
-    ui->cb_catmerce->setModelColumn(CBM::ID);
-    ui->cb_catmerce->setCurrentText(query.value(coldb::ID_MERCE).toString());
-    ui->cb_catmerce->setModelColumn(CBM::DESCR);
+    ui->catmerceCB->setModelColumn(CBM::ID);
+    ui->catmerceCB->setCurrentText(query.value(coldb::ID_MERCE).toString());
+    ui->catmerceCB->setModelColumn(CBM::DESCR);
 
-    ui->cb_codiva->setModelColumn(CBM::DESCR);
-    ui->cb_codiva->setCurrentText(query.value(coldb::CODICE_IVA).toString());
+    ui->codivaCB->setModelColumn(CBM::DESCR);
+    ui->codivaCB->setCurrentText(query.value(coldb::CODICE_IVA).toString());
 
-    ui->cb_unitamisura->setModelColumn(CBM::ID);
-    ui->cb_unitamisura->setCurrentText(query.value(coldb::ID_UNITA).toString());
-    ui->cb_unitamisura->setModelColumn(CBM::DESCR);
+    ui->unitamisuraCB->setModelColumn(CBM::ID);
+    ui->unitamisuraCB->setCurrentText(query.value(coldb::ID_UNITA).toString());
+    ui->unitamisuraCB->setModelColumn(CBM::DESCR);
 
-    ui->le_scorta->setText(query.value(coldb::SCORTA_MINIMA).toString());
-    ui->le_quantita->setText(query.value(coldb::QUANTITA).toString());
-    ui->le_prezzo_fattura->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FATTURA).toDouble()));
-    freezeLineEdit(ui->le_prezzo_acquisto, !ui->le_prezzo_fattura->text().isEmpty());
-    ui->le_sconto->setText(query.value(coldb::SCONTO_FORNITORE).toString());
-    ui->le_ricarico->setText(query.value(coldb::RICARICO).toString());
-    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(query.value(coldb::PREZZO_ACQUISTO).toDouble()));
-    ui->le_iva->setText(locale().toCurrencyString(query.value(coldb::IVA).toDouble()));
-    ui->le_prezzo_finito->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FINITO).toDouble()));
-    ui->le_prezzo_vendita->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA).toDouble()));
-    ui->le_prezzo_venditaB->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA_B).toDouble()));
-    ui->le_fattura->setText(query.value(coldb::FATTURA).toString());
-    ui->le_data->setDate(QDate::currentDate());
+    ui->scortaLE->setText(query.value(coldb::SCORTA_MINIMA).toString());
+    ui->quantitaLE->setText(query.value(coldb::QUANTITA).toString());
+    ui->prezzoFatturaLE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FATTURA).toDouble()));
+    freezeLineEdit(ui->prezzoAcquistoLE, !ui->prezzoFatturaLE->text().isEmpty());
+    ui->scontoLE->setText(query.value(coldb::SCONTO_FORNITORE).toString());
+    ui->ricaricoLE->setText(query.value(coldb::RICARICO).toString());
+    ui->prezzoAcquistoLE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_ACQUISTO).toDouble()));
+    ui->ivaLE->setText(locale().toCurrencyString(query.value(coldb::IVA).toDouble()));
+    ui->prezzoFinitoLE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FINITO).toDouble()));
+    ui->prezzoVendita1LE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA).toDouble()));
+    ui->prezzoVendita2LE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA_B).toDouble()));
+    ui->fatturaLE->setText(query.value(coldb::FATTURA).toString());
+    ui->dataLE->setDate(QDate::currentDate());
 
-    ui->cb_sede->setModelColumn(CBM::ID);
-    ui->cb_sede->setCurrentText(query.value(coldb::ID_SEDE_MAGAZZINO).toString());
-    ui->cb_sede->setModelColumn(CBM::DESCR);
+    ui->sedeCB->setModelColumn(CBM::ID);
+    ui->sedeCB->setCurrentText(query.value(coldb::ID_SEDE_MAGAZZINO).toString());
+    ui->sedeCB->setModelColumn(CBM::DESCR);
 
-    ui->te_note->setText(query.value(coldb::NOTE).toString());
+    ui->noteTE->setText(query.value(coldb::NOTE).toString());
 }
 
 void ArticoloDialog::setFornitore(QString str)
 {
     qDebug() << "ArticoloDialog::setFornitore()";
-    ui->cb_fornitore->setCurrentText(str);
+    ui->fornitoreCB->setCurrentText(str);
 }
 
 void ArticoloDialog::setCategoria(QString str)
 {
     qDebug() << "ArticoloDialog::setCategoria()";
-    ui->cb_catmerce->setCurrentText(str);
+    ui->catmerceCB->setCurrentText(str);
 }
 
 void ArticoloDialog::setMarca(QString str)
 {
     qDebug() << "ArticoloDialog::setMarca()";
-    ui->cb_marca->setCurrentText(str);
+    ui->marcaCB->setCurrentText(str);
 }
 
 void ArticoloDialog::setSede(QString str)
 {
     qDebug() << "ArticoloDialog::setSede()";
-    ui->cb_sede->setCurrentText(str);
+    ui->sedeCB->setCurrentText(str);
 }
 
 void ArticoloDialog::setFattura(QString str)
 {
     qDebug() << "ArticoloDialog::setFattura()";
-    ui->le_fattura->setText(str);
+    ui->fatturaLE->setText(str);
 }
 
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
-    m_articoloMap[ph::DESCR] = ui->le_descrizione->text();
-    m_articoloMap[ph::ID_MARC] = m_modelMarca->index(ui->cb_marca->currentIndex(), CBM::ID).data().toString();
-    m_articoloMap[ph::MODELLO] = ui->le_modello->text();
-    m_articoloMap[ph::COD_ART] = ui->le_cod_articolo->text();
-    m_articoloMap[ph::COD_EAN] = ui->le_cod_barre->text();
-    m_articoloMap[ph::ID_MERC] = m_modelCatMerce->index(ui->cb_catmerce->currentIndex(), CBM::ID).data().toString();
-    m_articoloMap[ph::ID_UM] = m_modelUnita->index(ui->cb_unitamisura->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::DESCR] = ui->descrizioneLE->text();
+    m_articoloMap[ph::ID_MARC] = m_modelMarca->index(ui->marcaCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::MODELLO] = ui->modelloLE->text();
+    m_articoloMap[ph::COD_ART] = ui->codArticoloLE->text();
+    m_articoloMap[ph::COD_EAN] = ui->codBarreLE->text();
+    m_articoloMap[ph::ID_MERC] = m_modelCatMerce->index(ui->catmerceCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::ID_UM] = m_modelUnita->index(ui->unitamisuraCB->currentIndex(), CBM::ID).data().toString();
 
     //Per i tipi numeri devo usare il locale C. Maledetto postgresql
-    double scorta = stringToDouble(ui->le_scorta->text());
+    double scorta = stringToDouble(ui->scortaLE->text());
     m_articoloMap[ph::SCORTA] = QString().setNum(scorta);
 
-    m_articoloMap[ph::ID_FORN] = m_modelFornitore->index(ui->cb_fornitore->currentIndex(), CBM::ID).data().toString();
-    m_articoloMap[ph::COD_FRN] = ui->le_cod_fornitore->text();
+    m_articoloMap[ph::ID_FORN] = m_modelFornitore->index(ui->fornitoreCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::COD_FRN] = ui->codFornitoreLE->text();
 
-    double quantita = stringToDouble(ui->le_quantita->text());
+    double quantita = stringToDouble(ui->quantitaLE->text());
     m_articoloMap[ph::QUANTIT] = QString().setNum(quantita);
 
-    double prezzo_fattura = stringToDouble(ui->le_prezzo_fattura->text());
+    double prezzo_fattura = stringToDouble(ui->prezzoFatturaLE->text());
     m_articoloMap[ph::PRZ_FAT] = QString().setNum(prezzo_fattura);
 
-    QString sconto = ui->le_sconto->text();
+    QString sconto = ui->scontoLE->text();
     m_articoloMap[ph::SCONTO] = sconto.isEmpty() ? "0" : sconto;
-    QString ricarico = ui->le_ricarico->text();
+    QString ricarico = ui->ricaricoLE->text();
     m_articoloMap[ph::RICARIC] = ricarico.isEmpty() ? "0" : ricarico;
 
-    double prezzo_acquisto = stringToDouble(ui->le_prezzo_acquisto->text());
+    double prezzo_acquisto = stringToDouble(ui->prezzoAcquistoLE->text());
     m_articoloMap[ph::PRZ_ACQ] = QString().setNum(prezzo_acquisto);
-    m_articoloMap[ph::COD_IVA] = ui->cb_codiva->currentText();
-    double iva = stringToDouble(ui->le_iva->text());
+    m_articoloMap[ph::COD_IVA] = ui->codivaCB->currentText();
+    double iva = stringToDouble(ui->ivaLE->text());
     m_articoloMap[ph::IVA] = QString().setNum(iva);
-    double prezzo_vend = stringToDouble(ui->le_prezzo_vendita->text());
+    double prezzo_vend = stringToDouble(ui->prezzoVendita1LE->text());
     m_articoloMap[ph::PRZ_VEN] = QString().setNum(prezzo_vend);
-    double prezzo_vend_b = stringToDouble(ui->le_prezzo_venditaB->text());
+    double prezzo_vend_b = stringToDouble(ui->prezzoVendita2LE->text());
     m_articoloMap[ph::PRZ_VEN_B] = QString().setNum(prezzo_vend_b);
-    double prezzo_fin = stringToDouble(ui->le_prezzo_finito->text());
+    double prezzo_fin = stringToDouble(ui->prezzoFinitoLE->text());
     m_articoloMap[ph::PRZ_FIN] = QString().setNum(prezzo_fin);
 
-    m_articoloMap[ph::ID_SEDE] = m_modelSede->index(ui->cb_sede->currentIndex(), CBM::ID).data().toString();
-    m_articoloMap[ph::DATA_ARRIVO] = ui->le_data->date().toString("dd/MM/yyyy");
-    m_articoloMap[ph::FATTURA] = ui->le_fattura->text();
-    m_articoloMap[ph::NOTE] = ui->te_note->toPlainText();
+    m_articoloMap[ph::ID_SEDE] = m_modelSede->index(ui->sedeCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::DATA_ARRIVO] = ui->dataLE->date().toString("dd/MM/yyyy");
+    m_articoloMap[ph::FATTURA] = ui->fatturaLE->text();
+    m_articoloMap[ph::NOTE] = ui->noteTE->toPlainText();
 }
 
 QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
@@ -264,7 +264,8 @@ void ArticoloDialog::save(void)
 
     if (m_articoloMap[ph::DESCR].isEmpty()) {
         showDialogError(this, ERR050, MSG013); //NOTE codice errore 050
-        ui->le_descrizione->setStyleSheet(css::WARNING_STYLE);
+        ui->descrizioneLE->setStyleSheet(css::WARNING_STYLE);
+        db.rollback();
         return;
     }
 
@@ -298,17 +299,17 @@ void ArticoloDialog::updatePrezzoFattura(void)
     //Slot usato da le_prezzo_fattura. Aggiunge il simbolo della moneta
     //al prezzo inserito, calcola il prezzo d'acquisto e mette in sola
     //scrittura le_prezzo_acquisto.
-    QString prezzo_str = ui->le_prezzo_fattura->text();
+    QString prezzo_str = ui->prezzoFatturaLE->text();
     if (prezzo_str.isEmpty()) {
-        freezeLineEdit(ui->le_prezzo_acquisto, false);
+        freezeLineEdit(ui->prezzoAcquistoLE, false);
         return;
     }
 
     prezzo_str = locale().toCurrencyString(stringToDouble(prezzo_str));
-    ui->le_prezzo_fattura->setText(prezzo_str);
+    ui->prezzoFatturaLE->setText(prezzo_str);
 
     calculatePrezzoAcquisto();
-    freezeLineEdit(ui->le_prezzo_acquisto, true);
+    freezeLineEdit(ui->prezzoAcquistoLE, true);
 }
 
 void ArticoloDialog::freezeLineEdit(QLineEdit *le, bool status)
@@ -324,14 +325,14 @@ void ArticoloDialog::calculatePrezzoAcquisto(void)
     qDebug() << "ArticoloDialog::calculatePrezzoAcquisto()";
     //Slot usata da le_sconto e dallo slot updatePrezzoFattura per calcolare
     //il prezzo d'acquisto e scriverlo in le_prezzo_acquisto.
-    QString prezzo_str = ui->le_prezzo_fattura->text();
+    QString prezzo_str = ui->prezzoFatturaLE->text();
     if (prezzo_str.isEmpty())
         return;
 
-    QString sconto_str = ui->le_sconto->text().replace("%", "");
+    QString sconto_str = ui->scontoLE->text().replace("%", "");
     double prezzo = stringToDouble(prezzo_str);
     double prezzo_acquisto = setSconto(prezzo, sconto_str);
-    ui->le_prezzo_acquisto->setText(locale().toCurrencyString(prezzo_acquisto));
+    ui->prezzoAcquistoLE->setText(locale().toCurrencyString(prezzo_acquisto));
     updateIva();
 }
 
@@ -339,57 +340,57 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
     //Slot usato da le_prezzo_acquisto se non e' in modalita solo lettura.
-    ui->le_sconto->clear();
-    QString prezzo = ui->le_prezzo_acquisto->text();
+    ui->scontoLE->clear();
+    QString prezzo = ui->prezzoAcquistoLE->text();
     if (!prezzo.contains(locale().currencySymbol()))
-        ui->le_prezzo_acquisto->setText((locale().toCurrencyString(stringToDouble(prezzo))));
+        ui->prezzoAcquistoLE->setText((locale().toCurrencyString(stringToDouble(prezzo))));
     updateIva();
 }
 
 void ArticoloDialog::updateIva(void)
 {
     qDebug() << "ArticoloDialog::updateIva()";
-    if (ui->le_prezzo_acquisto->text().isEmpty() || ui->le_ricarico->text().isEmpty())
+    if (ui->prezzoAcquistoLE->text().isEmpty() || ui->ricaricoLE->text().isEmpty())
         return;
 
-    double prezzo = stringToDouble(ui->le_prezzo_acquisto->text());
-    QString ricarico_str = ui->le_ricarico->text().replace("%","");
+    double prezzo = stringToDouble(ui->prezzoAcquistoLE->text());
+    QString ricarico_str = ui->ricaricoLE->text().replace("%","");
     double prezzo_acquisto = setRicarico(prezzo, ricarico_str);
 
-    double codiva = stringToDouble(ui->cb_codiva->currentText())/100.0;
+    double codiva = stringToDouble(ui->codivaCB->currentText())/100.0;
     double iva = prezzo_acquisto*codiva;
-    ui->le_iva->setText(locale().toCurrencyString(iva));
+    ui->ivaLE->setText(locale().toCurrencyString(iva));
 
     double prezzo_finito = prezzo_acquisto+iva;
-    ui->le_prezzo_finito->setText(locale().toCurrencyString(prezzo_finito));
-    double prezzo_vendita = stringToDouble(ui->le_prezzo_vendita->text());
+    ui->prezzoFinitoLE->setText(locale().toCurrencyString(prezzo_finito));
+    double prezzo_vendita = stringToDouble(ui->prezzoVendita1LE->text());
     if (prezzo_vendita < prezzo_finito)
-        ui->le_prezzo_vendita->setText(locale().toCurrencyString(prezzo_finito));
-    if (ui->le_prezzo_venditaB->text().isEmpty())
-        ui->le_prezzo_venditaB->setText(locale().toCurrencyString(prezzo_finito));
+        ui->prezzoVendita1LE->setText(locale().toCurrencyString(prezzo_finito));
+    if (ui->prezzoVendita2LE->text().isEmpty())
+        ui->prezzoVendita2LE->setText(locale().toCurrencyString(prezzo_finito));
 }
 
 void ArticoloDialog::updatePrezzoFinito(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoFinito()";
     //Slot collegato a le_prezzo_finito.
-    if (ui->le_prezzo_fattura->text().isEmpty())
+    if (ui->prezzoFatturaLE->text().isEmpty())
         return;
 
-    QString prezzo = ui->le_prezzo_finito->text();
+    QString prezzo = ui->prezzoFinitoLE->text();
     if (!prezzo.contains(locale().currencySymbol()))
-        ui->le_prezzo_finito->setText(locale().toCurrencyString(stringToDouble(prezzo)));
+        ui->prezzoFinitoLE->setText(locale().toCurrencyString(stringToDouble(prezzo)));
 }
 
 void ArticoloDialog::updatePrezzoVendita(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoVendita()";
     //Slot collegato a le_prezzo_vendita.
-    QString prezzo_ven = ui->le_prezzo_vendita->text();
+    QString prezzo_ven = ui->prezzoVendita1LE->text();
 
     if (!prezzo_ven.contains(locale().currencySymbol())) {
         prezzo_ven = locale().toCurrencyString(stringToDouble(prezzo_ven));
-        ui->le_prezzo_vendita->setText(prezzo_ven);
+        ui->prezzoVendita1LE->setText(prezzo_ven);
     }
 }
 
@@ -397,11 +398,11 @@ void ArticoloDialog::updatePrezzoVenditaB(void)
 {
     qDebug() << "ArticoloDialog::updatePrezzoVenditaB()";
     //Slot collegato a le_prezzo_venditaB.
-    QString prezzo_ven = ui->le_prezzo_venditaB->text();
+    QString prezzo_ven = ui->prezzoVendita2LE->text();
 
     if (!prezzo_ven.contains(locale().currencySymbol())) {
         prezzo_ven = locale().toCurrencyString(stringToDouble(prezzo_ven));
-        ui->le_prezzo_venditaB->setText(prezzo_ven);
+        ui->prezzoVendita2LE->setText(prezzo_ven);
     }
 }
 
@@ -410,7 +411,7 @@ void ArticoloDialog::openAddMarca()
     qDebug() << "ArticoloDialog::openAddMarca()";
     QString newValue = allDlg(this, m_modelMarca, ADD_MARCA_QUERY, "Marca", ERR042); //NOTE codice errore 042
     if (!newValue.isEmpty())
-        ui->cb_marca->setCurrentText(newValue);
+        ui->marcaCB->setCurrentText(newValue);
 }
 
 void ArticoloDialog::openAddCategoria()
@@ -418,7 +419,7 @@ void ArticoloDialog::openAddCategoria()
     qDebug() << "ArticoloDialog::openAddCategoria()";
     QString newValue = allDlg(this, m_modelCatMerce, ADD_CAT_MERCE_QUERY, "Categoria merce", ERR043); //NOTE codice errore 043
     if (!newValue.isEmpty())
-        ui->cb_catmerce->setCurrentText(newValue);
+        ui->catmerceCB->setCurrentText(newValue);
 }
 
 void ArticoloDialog::openAddMisura()
@@ -426,7 +427,7 @@ void ArticoloDialog::openAddMisura()
     qDebug() << "ArticoloDialog::openAddMisura()";
     QString newValue = allDlg(this, m_modelUnita, ADD_UM_QUERY, "Unita di misura", ERR044); //NOTE codice errore 044
     if (!newValue.isEmpty())
-        ui->cb_unitamisura->setCurrentText(newValue);
+        ui->unitamisuraCB->setCurrentText(newValue);
 }
 
 void ArticoloDialog::openAddFornitore()
@@ -437,6 +438,8 @@ void ArticoloDialog::openAddFornitore()
     if (!ok)
         return;
 
+    //TODO modificare la query insert di AnagraficaAddDialog
+    //in modo che ritorni l'id
     //Trovo l'ultimo id inserito nel database
     QSqlQuery query;
     query.prepare("select * from lastval();");
@@ -446,9 +449,9 @@ void ArticoloDialog::openAddFornitore()
 
     //Ricarico la query e seleziono il valore immesso
     m_modelFornitore->setQuery(sql::SELECT_CB_FORNITORE);
-    ui->cb_fornitore->setModelColumn(CBM::ID);
-    ui->cb_fornitore->setCurrentText(id);
-    ui->cb_fornitore->setModelColumn(CBM::DESCR);
+    ui->fornitoreCB->setModelColumn(CBM::ID);
+    ui->fornitoreCB->setCurrentText(id);
+    ui->fornitoreCB->setModelColumn(CBM::DESCR);
 }
 
 void ArticoloDialog::openAddIVA()
@@ -456,7 +459,7 @@ void ArticoloDialog::openAddIVA()
     qDebug() << "ArticoloDialog::openAddIVA()";
     QString newValue = allDlg(this, m_modelCodIva, ADD_IVA_QUERY, "Codice IVA", ERR045); //NOTE codice errore 045
     if (!newValue.isEmpty())
-        ui->cb_codiva->setCurrentText(newValue);
+        ui->codivaCB->setCurrentText(newValue);
 }
 
 void ArticoloDialog::openAddSede()
@@ -464,12 +467,12 @@ void ArticoloDialog::openAddSede()
     qDebug() << "ArticoloDialog::openAddSede()";
     QString newValue = allDlg(this, m_modelSede, ADD_SEDE_QUERY, "Sede magazzino", ERR046); //NOTE codice errore 046
     if (!newValue.isEmpty())
-        ui->cb_sede->setCurrentText(newValue);
+        ui->sedeCB->setCurrentText(newValue);
 }
 
 void ArticoloDialog::copyCodArt()
 {
     qDebug() << "ArticoloDialog::copyCodArt()";
-    QString codArticolo = ui->le_cod_articolo->text();
-    ui->le_cod_fornitore->setText(codArticolo);
+    QString codArticolo = ui->codArticoloLE->text();
+    ui->codFornitoreLE->setText(codArticolo);
 }

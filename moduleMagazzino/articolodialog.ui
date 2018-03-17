@@ -56,7 +56,7 @@
                 <string>Categoria:</string>
                </property>
                <property name="buddy">
-                <cstring>cb_catmerce</cstring>
+                <cstring>catmerceCB</cstring>
                </property>
               </widget>
              </item>
@@ -66,18 +66,18 @@
                 <string>Unità di misura:</string>
                </property>
                <property name="buddy">
-                <cstring>cb_unitamisura</cstring>
+                <cstring>unitamisuraCB</cstring>
                </property>
               </widget>
              </item>
              <item row="5" column="1">
-              <widget class="QComboBox" name="cb_catmerce"/>
+              <widget class="QComboBox" name="catmerceCB"/>
              </item>
              <item row="0" column="1">
-              <widget class="QLineEdit" name="le_descrizione"/>
+              <widget class="QLineEdit" name="descrizioneLE"/>
              </item>
              <item row="5" column="2">
-              <widget class="QToolButton" name="pb_catmerce_dlg">
+              <widget class="QToolButton" name="catmerceDlgPB">
                <property name="text">
                 <string>...</string>
                </property>
@@ -89,12 +89,12 @@
                 <string>Scorta minima:</string>
                </property>
                <property name="buddy">
-                <cstring>le_scorta</cstring>
+                <cstring>scortaLE</cstring>
                </property>
               </widget>
              </item>
              <item row="6" column="2">
-              <widget class="QToolButton" name="pb_unita_dlg">
+              <widget class="QToolButton" name="unitaDlgPB">
                <property name="text">
                 <string>...</string>
                </property>
@@ -106,22 +106,22 @@
                 <string>Marca:</string>
                </property>
                <property name="buddy">
-                <cstring>cb_marca</cstring>
+                <cstring>marcaCB</cstring>
                </property>
               </widget>
              </item>
              <item row="7" column="1">
-              <widget class="QLineEdit" name="le_scorta"/>
+              <widget class="QLineEdit" name="scortaLE"/>
              </item>
              <item row="1" column="2">
-              <widget class="QToolButton" name="pb_marca_dlg">
+              <widget class="QToolButton" name="marcaDlgPB">
                <property name="text">
                 <string>...</string>
                </property>
               </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QLineEdit" name="le_cod_articolo"/>
+              <widget class="QLineEdit" name="codArticoloLE"/>
              </item>
              <item row="4" column="0">
               <widget class="QLabel" name="label_5">
@@ -129,7 +129,7 @@
                 <string>Codice a barre:</string>
                </property>
                <property name="buddy">
-                <cstring>le_cod_barre</cstring>
+                <cstring>codBarreLE</cstring>
                </property>
               </widget>
              </item>
@@ -139,7 +139,7 @@
                 <string>Descrizione :</string>
                </property>
                <property name="buddy">
-                <cstring>le_descrizione</cstring>
+                <cstring>descrizioneLE</cstring>
                </property>
               </widget>
              </item>
@@ -149,18 +149,18 @@
                 <string>Codice Articolo:</string>
                </property>
                <property name="buddy">
-                <cstring>le_cod_articolo</cstring>
+                <cstring>codArticoloLE</cstring>
                </property>
               </widget>
              </item>
              <item row="6" column="1">
-              <widget class="QComboBox" name="cb_unitamisura"/>
+              <widget class="QComboBox" name="unitamisuraCB"/>
              </item>
              <item row="2" column="1">
-              <widget class="QLineEdit" name="le_modello"/>
+              <widget class="QLineEdit" name="modelloLE"/>
              </item>
              <item row="1" column="1">
-              <widget class="QComboBox" name="cb_marca"/>
+              <widget class="QComboBox" name="marcaCB"/>
              </item>
              <item row="2" column="0">
               <widget class="QLabel" name="label_8">
@@ -168,12 +168,12 @@
                 <string>Modello:</string>
                </property>
                <property name="buddy">
-                <cstring>le_modello</cstring>
+                <cstring>modelloLE</cstring>
                </property>
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QLineEdit" name="le_cod_barre"/>
+              <widget class="QLineEdit" name="codBarreLE"/>
              </item>
              <item row="8" column="0">
               <widget class="QLabel" name="label_11">
@@ -183,10 +183,10 @@
               </widget>
              </item>
              <item row="8" column="1">
-              <widget class="QComboBox" name="cb_sede"/>
+              <widget class="QComboBox" name="sedeCB"/>
              </item>
              <item row="8" column="2">
-              <widget class="QToolButton" name="pb_sede_dlg">
+              <widget class="QToolButton" name="sedeDlgPB">
                <property name="text">
                 <string>...</string>
                </property>
@@ -236,7 +236,7 @@
            <item>
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="8" column="3">
-              <widget class="QLineEdit" name="le_iva">
+              <widget class="QLineEdit" name="ivaLE">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(255, 255, 127);</string>
                </property>
@@ -246,14 +246,14 @@
               </widget>
              </item>
              <item row="6" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_prezzo_acquisto">
+              <widget class="QLineEdit" name="prezzoAcquistoLE">
                <property name="readOnly">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
              <item row="11" column="1">
-              <widget class="QLineEdit" name="le_prezzo_vendita">
+              <widget class="QLineEdit" name="prezzoVendita1LE">
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -268,18 +268,18 @@
                 <string>Prezzo fattura:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_fattura</cstring>
+                <cstring>prezzoFatturaLE</cstring>
                </property>
               </widget>
              </item>
              <item row="3" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_quantita"/>
+              <widget class="QLineEdit" name="quantitaLE"/>
              </item>
              <item row="5" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_sconto"/>
+              <widget class="QLineEdit" name="scontoLE"/>
              </item>
              <item row="7" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_ricarico"/>
+              <widget class="QLineEdit" name="ricaricoLE"/>
              </item>
              <item row="6" column="0">
               <widget class="QLabel" name="label_19">
@@ -287,7 +287,7 @@
                 <string>Prezzo acquisto:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_acquisto</cstring>
+                <cstring>prezzoAcquistoLE</cstring>
                </property>
               </widget>
              </item>
@@ -300,7 +300,7 @@
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="buddy">
-                <cstring>le_iva</cstring>
+                <cstring>ivaLE</cstring>
                </property>
               </widget>
              </item>
@@ -310,12 +310,12 @@
                 <string>Codice Fornitore:</string>
                </property>
                <property name="buddy">
-                <cstring>le_cod_fornitore</cstring>
+                <cstring>codFornitoreLE</cstring>
                </property>
               </widget>
              </item>
              <item row="8" column="4">
-              <widget class="QToolButton" name="pb_iva_dlg">
+              <widget class="QToolButton" name="ivaDlgPB">
                <property name="text">
                 <string>...</string>
                </property>
@@ -325,10 +325,10 @@
               </widget>
              </item>
              <item row="0" column="1" colspan="3">
-              <widget class="QComboBox" name="cb_fornitore"/>
+              <widget class="QComboBox" name="fornitoreCB"/>
              </item>
              <item row="8" column="1">
-              <widget class="QComboBox" name="cb_codiva"/>
+              <widget class="QComboBox" name="codivaCB"/>
              </item>
              <item row="10" column="0">
               <widget class="QLabel" name="label_23">
@@ -336,7 +336,7 @@
                 <string>Prezzo finito:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_finito</cstring>
+                <cstring>prezzoFinitoLE</cstring>
                </property>
               </widget>
              </item>
@@ -346,12 +346,12 @@
                 <string>Fornitore:</string>
                </property>
                <property name="buddy">
-                <cstring>cb_fornitore</cstring>
+                <cstring>fornitoreCB</cstring>
                </property>
               </widget>
              </item>
              <item row="11" column="3">
-              <widget class="QLineEdit" name="le_prezzo_venditaB"/>
+              <widget class="QLineEdit" name="prezzoVendita2LE"/>
              </item>
              <item row="7" column="0">
               <widget class="QLabel" name="label_17">
@@ -359,7 +359,7 @@
                 <string>Ricarico:</string>
                </property>
                <property name="buddy">
-                <cstring>le_ricarico</cstring>
+                <cstring>ricaricoLE</cstring>
                </property>
               </widget>
              </item>
@@ -369,27 +369,27 @@
                 <string>Cod. IVA:</string>
                </property>
                <property name="buddy">
-                <cstring>cb_codiva</cstring>
+                <cstring>codivaCB</cstring>
                </property>
               </widget>
              </item>
              <item row="4" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_prezzo_fattura">
+              <widget class="QLineEdit" name="prezzoFatturaLE">
                <property name="placeholderText">
                 <string/>
                </property>
               </widget>
              </item>
              <item row="2" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_cod_fornitore"/>
+              <widget class="QLineEdit" name="codFornitoreLE"/>
              </item>
              <item row="11" column="0">
               <widget class="QLabel" name="label_24">
                <property name="text">
-                <string>Prezzo vendità:</string>
+                <string>Prezzo vendità 1:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_vendita</cstring>
+                <cstring>prezzoVendita1LE</cstring>
                </property>
               </widget>
              </item>
@@ -399,22 +399,22 @@
                 <string>Quantita:</string>
                </property>
                <property name="buddy">
-                <cstring>le_quantita</cstring>
+                <cstring>quantitaLE</cstring>
                </property>
               </widget>
              </item>
              <item row="11" column="2">
               <widget class="QLabel" name="label_22">
                <property name="text">
-                <string>Prezzo vendita B:</string>
+                <string>Prezzo vendità 2:</string>
                </property>
                <property name="buddy">
-                <cstring>le_prezzo_venditaB</cstring>
+                <cstring>prezzoVendita2LE</cstring>
                </property>
               </widget>
              </item>
              <item row="10" column="1" colspan="3">
-              <widget class="QLineEdit" name="le_prezzo_finito">
+              <widget class="QLineEdit" name="prezzoFinitoLE">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(255, 255, 127);</string>
                </property>
@@ -424,7 +424,7 @@
               </widget>
              </item>
              <item row="0" column="4">
-              <widget class="QToolButton" name="pb_fornitore_dlg">
+              <widget class="QToolButton" name="fornitoreDlgPB">
                <property name="text">
                 <string>...</string>
                </property>
@@ -436,12 +436,12 @@
                 <string>Sconto fornitore:</string>
                </property>
                <property name="buddy">
-                <cstring>le_sconto</cstring>
+                <cstring>scontoLE</cstring>
                </property>
               </widget>
              </item>
              <item row="2" column="4">
-              <widget class="QToolButton" name="pb_copy_cod_art">
+              <widget class="QToolButton" name="copyCodArtPB">
                <property name="toolTip">
                 <string>Copia codice articolo</string>
                </property>
@@ -459,12 +459,12 @@
                 <string>Numero Fattura:</string>
                </property>
                <property name="buddy">
-                <cstring>le_fattura</cstring>
+                <cstring>fatturaLE</cstring>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLineEdit" name="le_fattura"/>
+              <widget class="QLineEdit" name="fatturaLE"/>
              </item>
              <item row="1" column="2">
               <widget class="QLabel" name="label_10">
@@ -475,12 +475,12 @@
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="buddy">
-                <cstring>le_data</cstring>
+                <cstring>dataLE</cstring>
                </property>
               </widget>
              </item>
              <item row="1" column="3">
-              <widget class="QDateEdit" name="le_data"/>
+              <widget class="QDateEdit" name="dataLE"/>
              </item>
             </layout>
            </item>
@@ -536,7 +536,7 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
-               <widget class="QTextEdit" name="te_note"/>
+               <widget class="QTextEdit" name="noteTE"/>
               </item>
              </layout>
             </widget>
@@ -552,7 +552,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pb_close">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>Chiudi</string>
        </property>
@@ -575,7 +575,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_clear">
+      <widget class="QPushButton" name="clearButton">
        <property name="text">
         <string>Cancella</string>
        </property>
@@ -585,7 +585,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_save">
+      <widget class="QPushButton" name="saveButton">
        <property name="text">
         <string>Salva</string>
        </property>
@@ -604,50 +604,50 @@
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>scrollArea</tabstop>
-  <tabstop>le_descrizione</tabstop>
-  <tabstop>cb_marca</tabstop>
-  <tabstop>pb_marca_dlg</tabstop>
-  <tabstop>le_modello</tabstop>
-  <tabstop>le_cod_articolo</tabstop>
-  <tabstop>le_cod_barre</tabstop>
-  <tabstop>cb_catmerce</tabstop>
-  <tabstop>pb_catmerce_dlg</tabstop>
-  <tabstop>cb_unitamisura</tabstop>
-  <tabstop>pb_unita_dlg</tabstop>
-  <tabstop>le_scorta</tabstop>
-  <tabstop>cb_sede</tabstop>
-  <tabstop>pb_sede_dlg</tabstop>
+  <tabstop>descrizioneLE</tabstop>
+  <tabstop>marcaCB</tabstop>
+  <tabstop>marcaDlgPB</tabstop>
+  <tabstop>modelloLE</tabstop>
+  <tabstop>codArticoloLE</tabstop>
+  <tabstop>codBarreLE</tabstop>
+  <tabstop>catmerceCB</tabstop>
+  <tabstop>catmerceDlgPB</tabstop>
+  <tabstop>unitamisuraCB</tabstop>
+  <tabstop>unitaDlgPB</tabstop>
+  <tabstop>scortaLE</tabstop>
+  <tabstop>sedeCB</tabstop>
+  <tabstop>sedeDlgPB</tabstop>
   <tabstop>scrollArea_2</tabstop>
-  <tabstop>cb_fornitore</tabstop>
-  <tabstop>pb_fornitore_dlg</tabstop>
-  <tabstop>le_fattura</tabstop>
-  <tabstop>le_data</tabstop>
-  <tabstop>le_cod_fornitore</tabstop>
-  <tabstop>pb_copy_cod_art</tabstop>
-  <tabstop>le_quantita</tabstop>
-  <tabstop>le_prezzo_fattura</tabstop>
-  <tabstop>le_sconto</tabstop>
-  <tabstop>le_prezzo_acquisto</tabstop>
-  <tabstop>le_ricarico</tabstop>
-  <tabstop>cb_codiva</tabstop>
-  <tabstop>le_iva</tabstop>
-  <tabstop>pb_iva_dlg</tabstop>
-  <tabstop>le_prezzo_finito</tabstop>
-  <tabstop>le_prezzo_vendita</tabstop>
-  <tabstop>le_prezzo_venditaB</tabstop>
+  <tabstop>fornitoreCB</tabstop>
+  <tabstop>fornitoreDlgPB</tabstop>
+  <tabstop>fatturaLE</tabstop>
+  <tabstop>dataLE</tabstop>
+  <tabstop>codFornitoreLE</tabstop>
+  <tabstop>copyCodArtPB</tabstop>
+  <tabstop>quantitaLE</tabstop>
+  <tabstop>prezzoFatturaLE</tabstop>
+  <tabstop>scontoLE</tabstop>
+  <tabstop>prezzoAcquistoLE</tabstop>
+  <tabstop>ricaricoLE</tabstop>
+  <tabstop>codivaCB</tabstop>
+  <tabstop>ivaLE</tabstop>
+  <tabstop>ivaDlgPB</tabstop>
+  <tabstop>prezzoFinitoLE</tabstop>
+  <tabstop>prezzoVendita1LE</tabstop>
+  <tabstop>prezzoVendita2LE</tabstop>
   <tabstop>scrollArea_3</tabstop>
   <tabstop>groupBox</tabstop>
-  <tabstop>te_note</tabstop>
-  <tabstop>pb_close</tabstop>
-  <tabstop>pb_clear</tabstop>
-  <tabstop>pb_save</tabstop>
+  <tabstop>noteTE</tabstop>
+  <tabstop>closeButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>saveButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
    <sender>groupBox</sender>
    <signal>clicked(bool)</signal>
-   <receiver>te_note</receiver>
+   <receiver>noteTE</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -661,7 +661,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>close()</slot>
@@ -677,7 +677,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>reject()</slot>
@@ -693,7 +693,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>cb_codiva</sender>
+   <sender>codivaCB</sender>
    <signal>currentIndexChanged(QString)</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updateIva()</slot>
@@ -709,7 +709,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_save</sender>
+   <sender>saveButton</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>save()</slot>
@@ -725,7 +725,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_marca_dlg</sender>
+   <sender>marcaDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>openAddMarca()</slot>
@@ -741,7 +741,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_catmerce_dlg</sender>
+   <sender>catmerceDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>openAddCategoria()</slot>
@@ -757,7 +757,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_unita_dlg</sender>
+   <sender>unitaDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>openAddMisura()</slot>
@@ -773,7 +773,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_fornitore_dlg</sender>
+   <sender>fornitoreDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>openAddFornitore()</slot>
@@ -789,7 +789,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_iva_dlg</sender>
+   <sender>ivaDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>openAddIVA()</slot>
@@ -805,7 +805,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_copy_cod_art</sender>
+   <sender>copyCodArtPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>copyCodArt()</slot>
@@ -821,7 +821,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_prezzo_fattura</sender>
+   <sender>prezzoFatturaLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updatePrezzoFattura()</slot>
@@ -837,7 +837,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_prezzo_acquisto</sender>
+   <sender>prezzoAcquistoLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updatePrezzoAcquisto()</slot>
@@ -853,7 +853,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_sconto</sender>
+   <sender>scontoLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>calculatePrezzoAcquisto()</slot>
@@ -869,7 +869,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_prezzo_finito</sender>
+   <sender>prezzoFinitoLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updatePrezzoFinito()</slot>
@@ -885,7 +885,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_prezzo_vendita</sender>
+   <sender>prezzoVendita1LE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updatePrezzoVendita()</slot>
@@ -901,7 +901,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_ricarico</sender>
+   <sender>ricaricoLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updateIva()</slot>
@@ -917,7 +917,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_sede_dlg</sender>
+   <sender>sedeDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>openAddSede()</slot>
@@ -933,7 +933,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>le_prezzo_venditaB</sender>
+   <sender>prezzoVendita2LE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
    <slot>updatePrezzoVenditaB()</slot>
