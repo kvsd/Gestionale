@@ -31,13 +31,13 @@ public:
     
 private:
     Ui::AnagraficaAddDialog *ui;
-    QMap <QString, QString> mapPersona;
-    QSqlTableModel *modelDitta;
-    QSqlTableModel *modelCitta;
-    QSqlTableModel *modelProvincia;
-    QSqlTableModel *modelCap;
-    QSqlTableModel *modelStato;
-    QSqlTableModel *modelAgente;
+    QMap <QString, QString> m_mapPersona;
+    QSqlTableModel *m_modelDitta;
+    QSqlTableModel *m_modelCitta;
+    QSqlTableModel *m_modelProvincia;
+    QSqlTableModel *m_modelCap;
+    QSqlTableModel *m_modelStato;
+    QSqlTableModel *m_modelAgente;
 
     void initModel(void);
     void initComboBox(void);

@@ -11,8 +11,8 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     initModel();
     initComboBox();
 
-    ui->lb_agente->hide();
-    ui->pb_agenti_dlg->hide();
+    ui->agenteLB->hide();
+    ui->agentiDlgPB->hide();
 }
 
 AnagraficaAddDialog::~AnagraficaAddDialog()
@@ -33,118 +33,118 @@ void AnagraficaAddDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    ui->le_rag_sociale->setText(query.value(coldb::RAGIONE_SOCIALE).toString());
-    ui->cliente_cb->setChecked(query.value(coldb::CLIENTE).toBool());
-    ui->fornitore_cb->setChecked(query.value(coldb::FORNITORE).toBool());
-    if (ui->fornitore_cb->isChecked()) {
-        ui->lb_agente->show();
-        ui->cb_agente->show();
+    ui->ragSocialeLE->setText(query.value(coldb::RAGIONE_SOCIALE).toString());
+    ui->clienteCKB->setChecked(query.value(coldb::CLIENTE).toBool());
+    ui->fornitoreCKB->setChecked(query.value(coldb::FORNITORE).toBool());
+    if (ui->fornitoreCKB->isChecked()) {
+        ui->agenteLB->show();
+        ui->agenteCB->show();
     }
 
-    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_TABLE_ID);
-    int index = ui->cb_tipo_ditta->findText(query.value(coldb::ID_TIPO_DITTA).toString());
-    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cb_tipo_ditta->setCurrentIndex(index);
+    ui->tipoDittaCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    int index = ui->tipoDittaCB->findText(query.value(coldb::ID_TIPO_DITTA).toString());
+    ui->tipoDittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->tipoDittaCB->setCurrentIndex(index);
 
-    ui->le_nome->setText(query.value(coldb::NOME).toString());
-    ui->le_cognome->setText(query.value(coldb::COGNOME).toString());
-    ui->le_piva->setText(query.value(coldb::PARTITA_IVA).toString());
-    ui->le_cod_fiscale->setText(query.value(coldb::CODICE_FISCALE).toString());
+    ui->nomeLE->setText(query.value(coldb::NOME).toString());
+    ui->cognomeLE->setText(query.value(coldb::COGNOME).toString());
+    ui->pivaLE->setText(query.value(coldb::PARTITA_IVA).toString());
+    ui->codFiscaleLE->setText(query.value(coldb::CODICE_FISCALE).toString());
 
-    ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_agente->findText(query.value(coldb::ID_AGENTE).toString());
-    ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_COGNOME);
-    ui->cb_agente->setCurrentIndex(index);
+    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    index = ui->agenteCB->findText(query.value(coldb::ID_AGENTE).toString());
+    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_COGNOME);
+    ui->agenteCB->setCurrentIndex(index);
 
-    ui->le_indirizzo->setText(query.value(coldb::INDIRIZZO).toString());
+    ui->indirizzoLE->setText(query.value(coldb::INDIRIZZO).toString());
 
-    ui->cb_citta->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_citta->findText(query.value(coldb::ID_CITTA).toString());
-    ui->cb_citta->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cb_citta->setCurrentIndex(index);
+    ui->cittaCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    index = ui->cittaCB->findText(query.value(coldb::ID_CITTA).toString());
+    ui->cittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->cittaCB->setCurrentIndex(index);
 
-    ui->cb_provincia->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_provincia->findText(query.value(coldb::ID_PROVINCIA).toString());
-    ui->cb_provincia->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cb_provincia->setCurrentIndex(index);
+    ui->provinciaCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    index = ui->provinciaCB->findText(query.value(coldb::ID_PROVINCIA).toString());
+    ui->provinciaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->provinciaCB->setCurrentIndex(index);
 
-    ui->cb_cap->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_cap->findText(query.value(coldb::ID_CAP).toString());
-    ui->cb_cap->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cb_cap->setCurrentIndex(index);
+    ui->capCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    index = ui->capCB->findText(query.value(coldb::ID_CAP).toString());
+    ui->capCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->capCB->setCurrentIndex(index);
 
-    ui->cb_stato->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cb_stato->findText(query.value(coldb::ID_STATO).toString());
-    ui->cb_stato->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cb_stato->setCurrentIndex(index);
+    ui->statoCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    index = ui->statoCB->findText(query.value(coldb::ID_STATO).toString());
+    ui->statoCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->statoCB->setCurrentIndex(index);
 
-    ui->le_tel->setText(query.value(coldb::TEL).toString());
-    ui->le_cel->setText(query.value(coldb::CEL).toString());
-    ui->le_fax->setText(query.value(coldb::FAX).toString());
-    ui->le_email->setText(query.value(coldb::EMAIL).toString());
-    ui->le_web->setText(query.value(coldb::SITO_WEB).toString());
+    ui->telLE->setText(query.value(coldb::TEL).toString());
+    ui->celLE->setText(query.value(coldb::CEL).toString());
+    ui->faxLE->setText(query.value(coldb::FAX).toString());
+    ui->emailLE->setText(query.value(coldb::EMAIL).toString());
+    ui->sitoWebLE->setText(query.value(coldb::SITO_WEB).toString());
 
-    ui->le_banca->setText(query.value(coldb::BANCA).toString());
-    ui->le_agenzia->setText(query.value(coldb::AGENZIA).toString());
-    ui->le_conto->setText(query.value(coldb::CONTO).toString());
-    ui->le_swift->setText(query.value(coldb::SWIFT).toString());
-    ui->le_iban->setText(query.value(coldb::IBAN).toString());
+    ui->bancaLE->setText(query.value(coldb::BANCA).toString());
+    ui->agenziaLE->setText(query.value(coldb::AGENZIA).toString());
+    ui->contoLE->setText(query.value(coldb::CONTO).toString());
+    ui->swiftLE->setText(query.value(coldb::SWIFT).toString());
+    ui->ibanLE->setText(query.value(coldb::IBAN).toString());
 
-    ui->te_destinazione_merce->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
-    ui->te_note->setText(query.value(coldb::NOTE).toString());
+    ui->destMerceTE->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
+    ui->noteTE->setText(query.value(coldb::NOTE).toString());
 
-    mapPersona[ph::ID]=id;
+    m_mapPersona[ph::ID]=id;
 }
 
 void AnagraficaAddDialog::initModel()
 {
     qDebug() << "AnagraficaAddDialog::initModel()";
-    modelDitta = new QSqlTableModel(this);
-    modelDitta->setTable(table::TIPO_DITTA);
-    modelDitta->select();
+    m_modelDitta = new QSqlTableModel(this);
+    m_modelDitta->setTable(table::TIPO_DITTA);
+    m_modelDitta->select();
 
-    modelCitta = new QSqlTableModel(this);
-    modelCitta->setTable(table::CITTA);
-    modelCitta->select();
+    m_modelCitta = new QSqlTableModel(this);
+    m_modelCitta->setTable(table::CITTA);
+    m_modelCitta->select();
 
-    modelProvincia = new QSqlTableModel(this);
-    modelProvincia->setTable(table::PROVINCIA);
-    modelProvincia->select();
+    m_modelProvincia = new QSqlTableModel(this);
+    m_modelProvincia->setTable(table::PROVINCIA);
+    m_modelProvincia->select();
 
-    modelCap = new QSqlTableModel(this);
-    modelCap->setTable(table::CAP);
-    modelCap->select();
+    m_modelCap = new QSqlTableModel(this);
+    m_modelCap->setTable(table::CAP);
+    m_modelCap->select();
 
-    modelStato = new QSqlTableModel(this);
-    modelStato->setTable(table::STATO);
-    modelStato->select();
+    m_modelStato = new QSqlTableModel(this);
+    m_modelStato->setTable(table::STATO);
+    m_modelStato->select();
 
-    modelAgente = new QSqlTableModel(this);
-    modelAgente->setTable(table::AGENTI);
-    modelAgente->select();
+    m_modelAgente = new QSqlTableModel(this);
+    m_modelAgente->setTable(table::AGENTI);
+    m_modelAgente->select();
 }
 
 void AnagraficaAddDialog::initComboBox()
 {
     qDebug() << "AnagraficaAddDialog::initComboBox()";
-    ui->cb_tipo_ditta->setModel(modelDitta);
-    ui->cb_tipo_ditta->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->tipoDittaCB->setModel(m_modelDitta);
+    ui->tipoDittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_citta->setModel(modelCitta);
-    ui->cb_citta->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->cittaCB->setModel(m_modelCitta);
+    ui->cittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_provincia->setModel(modelProvincia);
-    ui->cb_provincia->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->provinciaCB->setModel(m_modelProvincia);
+    ui->provinciaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_cap->setModel(modelCap);
-    ui->cb_cap->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->capCB->setModel(m_modelCap);
+    ui->capCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_stato->setModel(modelStato);
-    ui->cb_stato->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
+    ui->statoCB->setModel(m_modelStato);
+    ui->statoCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
 
-    ui->cb_agente->setModel(modelAgente);
-    ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_COGNOME);
-    ui->cb_agente->hide();
+    ui->agenteCB->setModel(m_modelAgente);
+    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_COGNOME);
+    ui->agenteCB->hide();
 }
 
 void AnagraficaAddDialog::prepareMap(void)
@@ -152,44 +152,44 @@ void AnagraficaAddDialog::prepareMap(void)
     //Popolo la mappa mapPersona<Qstring,QString> con i valori
     //dei vari widget. Verra usata in seguito nel metodo prepareQuery.
     qDebug() << "AnagraficaAddDialog::prepareMap()";
-    mapPersona[ph::RAG_SOCIALE] = ui->le_rag_sociale->text();
+    m_mapPersona[ph::RAG_SOCIALE] = ui->ragSocialeLE->text();
 
-    int row = ui->cb_tipo_ditta->currentIndex();
-    mapPersona[ph::TIPO_DITTA] = modelDitta->record(row).value(coldb::ID).toString();
+    int row = ui->tipoDittaCB->currentIndex();
+    m_mapPersona[ph::TIPO_DITTA] = m_modelDitta->record(row).value(coldb::ID).toString();
 
-    mapPersona[ph::CLIENTE] = ui->cliente_cb->isChecked() ? "y" : "n";
-    mapPersona[ph::FORNITORE] = ui->fornitore_cb->isChecked() ? "y" : "n";
-    mapPersona[ph::NOME] = ui->le_nome->text();
-    mapPersona[ph::COGNOME] = ui->le_cognome->text();
-    mapPersona[ph::PRT_IVA] = ui->le_piva->text();
-    mapPersona[ph::COD_FISCALE] = ui->le_cod_fiscale->text();
+    m_mapPersona[ph::CLIENTE] = ui->clienteCKB->isChecked() ? "y" : "n";
+    m_mapPersona[ph::FORNITORE] = ui->fornitoreCKB->isChecked() ? "y" : "n";
+    m_mapPersona[ph::NOME] = ui->nomeLE->text();
+    m_mapPersona[ph::COGNOME] = ui->cognomeLE->text();
+    m_mapPersona[ph::PRT_IVA] = ui->pivaLE->text();
+    m_mapPersona[ph::COD_FISCALE] = ui->codFiscaleLE->text();
 
-    row = ui->cb_agente->currentIndex();
-    mapPersona[ph::AGENTE] = modelAgente->record(row).value(coldb::ID).toString();
+    row = ui->agenteCB->currentIndex();
+    m_mapPersona[ph::AGENTE] = m_modelAgente->record(row).value(coldb::ID).toString();
 
-    mapPersona[ph::INDIRIZZO] = ui->le_indirizzo->text();
+    m_mapPersona[ph::INDIRIZZO] = ui->indirizzoLE->text();
 
-    row = ui->cb_citta->currentIndex();
-    mapPersona[ph::CITTA] = modelCitta->record(row).value(coldb::ID).toString();
-    row = ui->cb_provincia->currentIndex();
-    mapPersona[ph::PROVINCIA] = modelProvincia->record(row).value(coldb::ID).toString();
-    row = ui->cb_cap->currentIndex();
-    mapPersona[ph::CAP]= modelCap->record(row).value(coldb::ID).toString();
-    row = ui->cb_stato->currentIndex();
-    mapPersona[ph::STATO]= modelStato->record(row).value(coldb::ID).toString();
+    row = ui->cittaCB->currentIndex();
+    m_mapPersona[ph::CITTA] = m_modelCitta->record(row).value(coldb::ID).toString();
+    row = ui->provinciaCB->currentIndex();
+    m_mapPersona[ph::PROVINCIA] = m_modelProvincia->record(row).value(coldb::ID).toString();
+    row = ui->capCB->currentIndex();
+    m_mapPersona[ph::CAP]= m_modelCap->record(row).value(coldb::ID).toString();
+    row = ui->statoCB->currentIndex();
+    m_mapPersona[ph::STATO]= m_modelStato->record(row).value(coldb::ID).toString();
 
-    mapPersona[ph::TEL]= ui->le_tel->text();
-    mapPersona[ph::CEL]= ui->le_cel->text();
-    mapPersona[ph::FAX] = ui->le_fax->text();
-    mapPersona[ph::EMAIL] = ui->le_email->text();
-    mapPersona[ph::SITO_WEB] = ui->le_web->text();
-    mapPersona[ph::BANCA] = ui->le_banca->text();
-    mapPersona[ph::AGENZIA] = ui->le_agenzia->text();
-    mapPersona[ph::CONTO] = ui->le_conto->text();
-    mapPersona[ph::SWIFT] = ui->le_swift->text();
-    mapPersona[ph::IBAN] = ui->le_iban->text();
-    mapPersona[ph::DEST_MERCE] = ui->te_destinazione_merce->toPlainText();
-    mapPersona[ph::NOTE] = ui->te_note->toPlainText();
+    m_mapPersona[ph::TEL]= ui->telLE->text();
+    m_mapPersona[ph::CEL]= ui->celLE->text();
+    m_mapPersona[ph::FAX] = ui->faxLE->text();
+    m_mapPersona[ph::EMAIL] = ui->emailLE->text();
+    m_mapPersona[ph::SITO_WEB] = ui->sitoWebLE->text();
+    m_mapPersona[ph::BANCA] = ui->bancaLE->text();
+    m_mapPersona[ph::AGENZIA] = ui->agenziaLE->text();
+    m_mapPersona[ph::CONTO] = ui->contoLE->text();
+    m_mapPersona[ph::SWIFT] = ui->swiftLE->text();
+    m_mapPersona[ph::IBAN] = ui->ibanLE->text();
+    m_mapPersona[ph::DEST_MERCE] = ui->destMerceTE->toPlainText();
+    m_mapPersona[ph::NOTE] = ui->noteTE->toPlainText();
 }
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
@@ -202,19 +202,15 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
     //mappa mapPersona.
     qDebug() << "AnagraficaAddDialog::prepareQuery()";
     QSqlQuery query;
-    if (mapPersona.contains(ph::ID)) {
+    if (m_mapPersona.contains(ph::ID)) {
         query.prepare(anagrafica::UPDATE_QUERY);
-        query.bindValue(ph::ID, mapPersona[ph::ID]);
+        query.bindValue(ph::ID, m_mapPersona[ph::ID]);
     }
-    else {
+    else
         query.prepare(anagrafica::INSERT_QUERY);
-    }
 
-    QMapIterator <QString, QString> it(mapPersona);
-    while (it.hasNext()) {
-        it.next();
-        query.bindValue(it.key(), it.value());
-    }
+    for (auto key : m_mapPersona.keys())
+        query.bindValue(key, m_mapPersona[key]);
 
     return query;
 }
@@ -227,35 +223,35 @@ void AnagraficaAddDialog::save(void)
     qDebug() << "AnagraficaAddDialog::save()";
     prepareMap();
 
-    if (mapPersona[ph::RAG_SOCIALE].isEmpty()) {
+    if (m_mapPersona[ph::RAG_SOCIALE].isEmpty()) {
         showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
-        ui->le_rag_sociale->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->ragSocialeLE->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
-    else if (mapPersona[ph::CLIENTE] == "n" &&
-             mapPersona[ph::FORNITORE] == "n") {
+    else if (m_mapPersona[ph::CLIENTE] == "n" &&
+             m_mapPersona[ph::FORNITORE] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
-        ui->cliente_cb->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
-        ui->fornitore_cb->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->clienteCKB->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->fornitoreCKB->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
-    else if (mapPersona[ph::COD_FISCALE].isEmpty() ||
-             mapPersona[ph::PRT_IVA].isEmpty()) {
+    else if (m_mapPersona[ph::COD_FISCALE].isEmpty() ||
+             m_mapPersona[ph::PRT_IVA].isEmpty()) {
         showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
-        ui->le_cod_fiscale->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
-        ui->le_piva->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->codFiscaleLE->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->pivaLE->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
         return;
     }
 
-    if (!controlloPartitaIva(mapPersona[ph::PRT_IVA])) {
+    if (!controlloPartitaIva(m_mapPersona[ph::PRT_IVA])) {
         if (!showDialogWarning(this, ERR023, MSG019)) //NOTE codice errore 023
             return;
     }
 
-    if (mapPersona[ph::COD_FISCALE] != mapPersona[ph::PRT_IVA]) {
-        if (!controlloCodiceFiscale(mapPersona[ph::COD_FISCALE])) {
+    if (m_mapPersona[ph::COD_FISCALE] != m_mapPersona[ph::PRT_IVA]) {
+        if (!controlloCodiceFiscale(m_mapPersona[ph::COD_FISCALE])) {
             if (!showDialogWarning(this, ERR024, MSG020)) //NOTE codice errore 024
                 return;
         }
@@ -263,12 +259,11 @@ void AnagraficaAddDialog::save(void)
 
     QSqlQuery query = prepareQuery();
     if (!query.exec()) {
-        if (mapPersona.contains(ph::ID)) {
+        if (m_mapPersona.contains(ph::ID))
             showDialogError(this, ERR011, MSG005, query.lastError().text()); //NOTE codice errore 011
-        }
-        else {
+        else
             showDialogError(this, ERR025, MSG002, query.lastError().text()); //NOTE codice errore 025
-        }
+
         return;
     }
 
@@ -279,41 +274,41 @@ void AnagraficaAddDialog::save(void)
 void AnagraficaAddDialog::openAddTipoditta(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddTipoDitta()";
-    QString value = allDlg(this, modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
+    QString value = allDlg(this, m_modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
     if (!value.isEmpty())
-        ui->cb_tipo_ditta->setCurrentText(value);
+        ui->tipoDittaCB->setCurrentText(value);
 }
 
 void AnagraficaAddDialog::openAddCitta(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddCitta()";
-    QString value = allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
+    QString value = allDlg(this, m_modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
     if (!value.isEmpty())
-        ui->cb_citta->setCurrentText(value);
+        ui->cittaCB->setCurrentText(value);
 }
 
 void AnagraficaAddDialog::openAddProvincia(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddProvincia";
-    QString value = allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017
+    QString value = allDlg(this, m_modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017
     if (!value.isEmpty())
-        ui->cb_provincia->setCurrentText(value);
+        ui->provinciaCB->setCurrentText(value);
 }
 
 void AnagraficaAddDialog::openAddCap(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddCap()";
-    QString value = allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018
+    QString value = allDlg(this, m_modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018
     if (!value.isEmpty())
-        ui->cb_cap->setCurrentText(value);
+        ui->capCB->setCurrentText(value);
 }
 
 void AnagraficaAddDialog::openAddStato(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddStato()";
-    QString value = allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019
+    QString value = allDlg(this, m_modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019
     if (!value.isEmpty())
-        ui->cb_stato->setCurrentText(value);
+        ui->statoCB->setCurrentText(value);
 }
 
 void AnagraficaAddDialog::openAddAgente(void)
@@ -324,16 +319,16 @@ void AnagraficaAddDialog::openAddAgente(void)
     if (!ok)
         return;
 
-    modelAgente->select();
+    m_modelAgente->select();
     QString id = dlg.getId();
     //Seleziono il valore immesso
-    ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_ID);
-    ui->cb_agente->setCurrentText(id);
-    ui->cb_agente->setModelColumn(anagrafica::COL_TABLE_COGNOME);
+    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_ID);
+    ui->agenteCB->setCurrentText(id);
+    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_COGNOME);
 }
 
 void AnagraficaAddDialog::copyPrtIva(void)
 {
     qDebug() << "AnagraficaAddDialog::copyPrtIva()";
-    ui->le_cod_fiscale->setText(ui->le_piva->text());
+    ui->codFiscaleLE->setText(ui->pivaLE->text());
 }
