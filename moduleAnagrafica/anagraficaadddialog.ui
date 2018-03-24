@@ -289,13 +289,6 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="2">
-              <widget class="QToolButton" name="provinciaDlgPB">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
              <item row="3" column="0">
               <widget class="QLabel" name="label_25">
                <property name="text">
@@ -691,7 +684,6 @@
   <tabstop>cittaCB</tabstop>
   <tabstop>cittaDlgPB</tabstop>
   <tabstop>provinciaCB</tabstop>
-  <tabstop>provinciaDlgPB</tabstop>
   <tabstop>capCB</tabstop>
   <tabstop>capDlgPB</tabstop>
   <tabstop>statoCB</tabstop>
@@ -796,22 +788,6 @@
     <hint type="destinationlabel">
      <x>500</x>
      <y>117</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>provinciaDlgPB</sender>
-   <signal>clicked()</signal>
-   <receiver>AnagraficaAddDialog</receiver>
-   <slot>openAddProvincia()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>518</x>
-     <y>135</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>500</x>
-     <y>151</y>
     </hint>
    </hints>
   </connection>

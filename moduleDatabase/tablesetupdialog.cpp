@@ -29,7 +29,6 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
     mapTables["Marca"] = table::MARCA;
     mapTables["Tipo di ditta"] = table::TIPO_DITTA;
     mapTables["Citta"] = table::CITTA;
-    mapTables["Provincia"] = table::PROVINCIA;
     mapTables["CAP"] = table::CAP;
     mapTables["Stato"] = table::STATO;
     mapTables["Banca"] = table::BANCA;

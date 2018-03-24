@@ -30,8 +30,9 @@ CREATE TABLE citta(id SERIAL PRIMARY KEY,
 INSERT INTO citta VALUES (0, '-----');
 --##############################################################################
 CREATE TABLE provincia(id SERIAL PRIMARY KEY,
-                       descr TEXT UNIQUE NOT NULL);
-INSERT INTO provincia VALUES (0, '-----');
+                       descr TEXT UNIQUE NOT NULL, 
+					   sigla TEXT UNIQUE NOT NULL);
+INSERT INTO provincia VALUES (0, '-----', '-----');
 --##############################################################################
 CREATE TABLE cap(id SERIAL PRIMARY KEY,
                  descr TEXT UNIQUE NOT NULL);
