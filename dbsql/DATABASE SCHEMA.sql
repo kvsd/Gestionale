@@ -38,8 +38,9 @@ CREATE TABLE cap(id SERIAL PRIMARY KEY,
                  descr TEXT UNIQUE NOT NULL);
 INSERT INTO cap VALUES (0, '-----');
 --##############################################################################
-CREATE TABLE stato(id SERIAL PRIMARY KEY,
-                   descr TEXT UNIQUE NOT NULL);
+CREATE TABLE stato (id SERIAL PRIMARY KEY, 
+	                descr TEXT UNIQUE NOT NULL, 
+					sigla TEXT UNIQUE NOT NULL);
 INSERT INTO stato VALUES (0, '-----');
 --##############################################################################
 CREATE TABLE banca (id SERIAL PRIMARY KEY,
