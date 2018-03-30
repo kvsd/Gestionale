@@ -34,7 +34,7 @@ void ArticoloDialog::initModel(void)
     m_modelCodIva->select();
 
     m_modelFornitore = new QSqlQueryModel(this);
-    m_modelFornitore->setQuery(sql::SELECT_CB_FORNITORE);
+    m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
 
     m_modelMarca = new QSqlTableModel(this);
     m_modelMarca->setTable(table::MARCA);
@@ -64,7 +64,7 @@ void ArticoloDialog::initComboBox(void)
     ui->codivaCB->blockSignals(true);
     ui->codivaCB->setModel(m_modelCodIva);
     ui->codivaCB->setModelColumn(CBM::DESCR);
-    int index = ui->codivaCB->findText(m_settings.value(settings::DEFAULT_IVA).toString());
+    int index = ui->codivaCB->findText(m_settings.value(magazzino::DEFAULT_IVA).toString());
     ui->codivaCB->setCurrentIndex(index);
     ui->codivaCB->blockSignals(false);
 
@@ -85,7 +85,7 @@ void ArticoloDialog::setValue(QString id, bool update)
 {
     qDebug() << "ArticoloDialog::setValue()";
     QSqlQuery query;
-    query.prepare(sql::SELECT_ARTICOLO_FROM_ID);
+    query.prepare(magazzino::SELECT_ARTICOLO_FROM_ID);
     query.bindValue(ph::ID, id);
     if (!query.exec())
         showDialogError(this, ERR038, MSG010, query.lastError().text()); //NOTE codice errore 038
@@ -222,9 +222,9 @@ QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
     qDebug() << "ArticoloDialog::prepareQueryArticolo()";
     QSqlQuery query_articolo;
     if (m_articoloMap.contains(ph::ID))
-        query_articolo.prepare(sql::UPDATE_ARTICOLO);
+        query_articolo.prepare(magazzino::UPDATE_ARTICOLO);
     else
-        query_articolo.prepare(sql::INSERT_ARTICOLO);
+        query_articolo.prepare(magazzino::INSERT_ARTICOLO);
 
     for (QString &key : m_articoloMap.keys())
         query_articolo.bindValue(key, m_articoloMap[key]);
@@ -238,16 +238,16 @@ QSqlQuery ArticoloDialog::prepareQueryStorico(void)
     m_articoloMap[ph::ID_ART] = m_articoloMap[ph::ID];
 
     QSqlQuery query_check_storico;
-    query_check_storico.prepare(sql::CHECK_STORICO);
+    query_check_storico.prepare(magazzino::CHECK_STORICO);
     query_check_storico.bindValue(ph::ID_ART, m_articoloMap[ph::ID_ART]);
     query_check_storico.bindValue(ph::DATA_ARRIVO, m_articoloMap[ph::DATA_ARRIVO]);
     query_check_storico.exec();
 
     QSqlQuery query_storico;
     if (query_check_storico.first())
-        query_storico.prepare(sql::UPDATE_STORICO);
+        query_storico.prepare(magazzino::UPDATE_STORICO);
     else
-        query_storico.prepare(sql::INSERT_STORICO);
+        query_storico.prepare(magazzino::INSERT_STORICO);
 
     for (QString &key : m_articoloMap.keys())
         query_storico.bindValue(key, m_articoloMap.value(key));
@@ -264,7 +264,7 @@ void ArticoloDialog::save(void)
 
     if (m_articoloMap[ph::DESCR].isEmpty()) {
         showDialogError(this, ERR050, MSG013); //NOTE codice errore 050
-        ui->descrizioneLE->setStyleSheet(css::WARNING_STYLE);
+        ui->descrizioneLE->setStyleSheet(css::warning);
         db.rollback();
         return;
     }
@@ -317,7 +317,7 @@ void ArticoloDialog::freezeLineEdit(QLineEdit *le, bool status)
     qDebug() << "ArticoloDialog::freezeLineEdit()";
     le->setReadOnly(status);
     le->blockSignals(status);
-    le->setStyleSheet(status ? css::WARNING_STYLE : "");
+    le->setStyleSheet(status ? css::warning : "");
 }
 
 void ArticoloDialog::calculatePrezzoAcquisto(void)
@@ -448,7 +448,7 @@ void ArticoloDialog::openAddFornitore()
     QString id = query.value(0).toString();
 
     //Ricarico la query e seleziono il valore immesso
-    m_modelFornitore->setQuery(sql::SELECT_CB_FORNITORE);
+    m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
     ui->fornitoreCB->setModelColumn(CBM::ID);
     ui->fornitoreCB->setCurrentText(id);
     ui->fornitoreCB->setModelColumn(CBM::DESCR);

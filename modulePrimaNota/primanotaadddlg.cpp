@@ -11,7 +11,7 @@ PrimaNotaAddDlg::PrimaNotaAddDlg(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate());
 
     m_descrModel = new QSqlQueryModel(this);
-    m_descrModel->setQuery(sql::SELECT_NOTE_DISTINCT);
+    m_descrModel->setQuery(primanota::SELECT_NOTE_DISTINCT);
     ui->comboBox->setModel(m_descrModel);
     updateLineEdit();
 }
@@ -26,7 +26,7 @@ void PrimaNotaAddDlg::setValue(QString id)
 {
     qDebug() << "PrimaNotaAddDlg::setValue()";
     QSqlQuery query;
-    query.prepare(sql::SELECT_PN_FROM_ID);
+    query.prepare(primanota::SELECT_PN_FROM_ID);
     query.bindValue(ph::ID, id);
     if (!query.exec())
         // NOTE codice errore 053
@@ -79,11 +79,11 @@ QSqlQuery PrimaNotaAddDlg::prepareQuery()
 
     QSqlQuery query;
     if (m_mapQuery.contains(ph::ID)) {
-        query.prepare(sql::UPDATE_PN);
+        query.prepare(primanota::UPDATE_PN);
         query.bindValue(ph::ID, m_mapQuery[ph::ID]);
     }
     else
-        query.prepare(sql::INSERT_PN);
+        query.prepare(primanota::INSERT_PN);
 
     for (QString &key : m_mapQuery.keys())
         query.bindValue(key, m_mapQuery[key]);

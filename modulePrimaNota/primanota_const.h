@@ -3,7 +3,7 @@
 
 #include <QString>
 
-namespace sql {
+namespace primanota {
     //Select tabella prima nota per la table view
     const QString SELECT_PN =
             "SELECT id AS \"Id\","
@@ -60,12 +60,6 @@ namespace sql {
 
     //RANGE FILTER
     const QString PN_RANGE = "\"data\" >= '%1' AND \"data\" <= '%2'";
-}
-
-namespace css {
-    //CSS
-    const QString positive_css = "QLabel {color:blue}";
-    const QString negative_css = "QLabel {color:red}";
 }
 
 #endif // PRIMANOTA_CONST

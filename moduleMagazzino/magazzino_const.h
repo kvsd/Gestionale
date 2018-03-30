@@ -6,7 +6,7 @@
 #include <QMap>
 #include <QSqlQueryModel>
 
-namespace sql {
+namespace magazzino {
     //Select utilizzata in MagazzinoWindow, elenca tutti gli articoli in magazzino
     const QString SELECT_ARTICOLI_ALL =
             QString::fromUtf8("SELECT mg.id As \"Id\", "
@@ -150,9 +150,7 @@ namespace sql {
                                  "prezzo_vendita=:prezzo_vendita, "
                                  "prezzo_vendita_b=:prezzo_vendita_b "
             "WHERE id=:id";
-}
 
-namespace settings {
     //SETTINGS
     const QString DEFAULT_IVA = "default.civa";
     const QString ARTICOLO_COLORS = "MagazzinoWindow.cols.colors.articolo";
@@ -165,15 +163,9 @@ namespace settings {
     const QString SEARCH_COD_ART = "MagazzinoWindow.search.codarticolo";
     const QString SEARCH_COD_FRN = "MagazzinoWindow.search.codfornitore";
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
-}
 
-namespace css{
-    const QString WARNING_STYLE = "background-color:yellow";
-}
-
-namespace CBM {
     //colonne dei model usati nei combobox
-    enum col {
+    enum CBXCOLS {
         ID = 0,
         DESCR = 1
         };

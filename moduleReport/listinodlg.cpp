@@ -26,7 +26,7 @@ void ListinoDlg::initFornitoreCb()
 {
     qDebug() << "ListinoDlg::initFornitoreCb()";
     m_modelFornitori = new QSqlQueryModel(this);
-    m_modelFornitori->setQuery(sql::SELECT_CB_FORNITORE);
+    m_modelFornitori->setQuery(magazzino::SELECT_CB_FORNITORE);
     ui->fornitoreCb->setModel(m_modelFornitori);
     ui->fornitoreCb->setModelColumn(CBM::DESCR);
 }
@@ -37,7 +37,7 @@ void ListinoDlg::configLayout()
     m_colsName.clear();
     m_stretchValues.clear();
     m_viewName.clear();
-    m_settings.beginGroup(settings::listinoCols);
+    m_settings.beginGroup(report::listinoCols);
     for (auto s : m_settings.allKeys()) {
          QStringList value = m_settings.value(s).toStringList();
          m_colsName.append(value.at(CPD::DESCR));
@@ -52,7 +52,7 @@ void ListinoDlg::configLayout()
              m_align.append(Qt::AlignHCenter);
     }
     m_settings.endGroup();
-    listinoFont.fromString(m_settings.value(settings::listinoFont, "fixed").toString());
+    listinoFont.fromString(m_settings.value(report::listinoFont, "fixed").toString());
 }
 
 QString ListinoDlg::configQuery(QString fornitore)
@@ -61,15 +61,15 @@ QString ListinoDlg::configQuery(QString fornitore)
     //Selezione e configurazione delle query
     QString query;
     if (ui->printAllRb->isChecked())
-        query = QString(sql::SELECT_ARTICOLI_ALL+
-                        sql::FILTER_FORNITORE).arg(fornitore);
+        query = QString(magazzino::SELECT_ARTICOLI_ALL+
+                        report::FILTER_FORNITORE).arg(fornitore);
     else if (ui->printFromDateRb->isChecked())
-        query = QString(sql::SELECT_ARTICOLI_ALL+
-                        sql::FILTER_CURRENT_DATE).arg(fornitore);
+        query = QString(magazzino::SELECT_ARTICOLI_ALL+
+                        report::FILTER_CURRENT_DATE).arg(fornitore);
     else if (ui->printFromFatturaRb->isChecked()) {
         QString fattura = ui->fatturaLE->text();
-        query = QString(sql::SELECT_ARTICOLI_ALL+
-                        sql::FILTER_FATTURA).arg(fornitore, fattura);
+        query = QString(magazzino::SELECT_ARTICOLI_ALL+
+                        report::FILTER_FATTURA).arg(fornitore, fattura);
     }
 
     return query;

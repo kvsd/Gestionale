@@ -213,4 +213,11 @@ const QString USC_BANCA = "Uscita Banca";
 const QString USC_CASSA = "Uscita Cassa";
 }
 
+namespace css {
+    //CSS
+    const QString positive = "QLabel {color:blue}";
+    const QString negative = "QLabel {color:red}";
+    const QString warning = "background-color:yellow";
+}
+
 #endif // GESTIONALE_CONST_H

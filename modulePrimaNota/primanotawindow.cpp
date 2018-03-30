@@ -84,27 +84,28 @@ void PrimaNotaWindow::getInfoLabel()
     //Imposta le label dei totali nel pannello a destra
     qDebug() << "PrimaNotaWindow::getInfoLabel()";    
     QSqlQuery query;
-    query.prepare(sql::SELECT_PN_TOTAL + prepareFilterQuery());
+    query.prepare(primanota::SELECT_PN_TOTAL + prepareFilterQuery());
     query.exec();
     query.next();
 
     ui->ecLabel->setText(query.value(coldb::ENT_CASSA).toString());
-    ui->ecLabel->setStyleSheet(css::positive_css);
+    ui->ecLabel->setStyleSheet(css::positive);
 
     ui->ebLabel->setText(query.value(coldb::ENT_BANCA).toString());
-    ui->ebLabel->setStyleSheet(css::positive_css);
+    ui->ebLabel->setStyleSheet(css::positive);
 
     ui->ucLabel->setText(query.value(coldb::USC_CASSA).toString());
-    ui->ucLabel->setStyleSheet(css::negative_css);
+    ui->ucLabel->setStyleSheet(css::negative);
 
     ui->ubLabel->setText(query.value(coldb::USC_BANCA).toString());
-    ui->ubLabel->setStyleSheet(css::negative_css);
+    ui->ubLabel->setStyleSheet(css::negative);
 }
 
 void PrimaNotaWindow::updateViewNote()
 {
     qDebug() << "PrimaNotaWindow::updateViewNote()";
-    QString query = sql::SELECT_PN + prepareFilterQuery() + sql::PN_ORDER;
+    QString query = primanota::SELECT_PN + prepareFilterQuery() +
+                    primanota::PN_ORDER;
     m_primaNotaModel->setQuery(query);
     ui->noteTableView->resizeColumnsToContents();
     ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
@@ -118,22 +119,22 @@ QString PrimaNotaWindow::prepareFilterQuery()
 
     QString searchString = ui->searchLineEdit->text();
     if (!searchString.isEmpty())
-        list.append(sql::PN_DESCR.arg(searchString));
+        list.append(primanota::PN_DESCR.arg(searchString));
 
     if (ui->monthRadioButton->isChecked()) {
         QDate data = ui->monthDateEdit->date();
         QString month = QString().setNum(data.month());
         QString years = QString().setNum(data.year());
-        list.append(sql::PN_MONTH.arg(month).arg(years));
+        list.append(primanota::PN_MONTH.arg(month).arg(years));
     }
     else if (ui->yearRadioButton->isChecked()) {
         QString years = ui->yearDateEdit->text();
-        list.append(sql::PN_YEARS.arg(years));
+        list.append(primanota::PN_YEARS.arg(years));
     }
     else if (ui->rangeRadioButton->isChecked()) {
         QString fromDate = ui->fromDateEdit->text();
         QString toDate = ui->toDateEdit->text();
-        list.append(sql::PN_RANGE.arg(fromDate).arg(toDate));
+        list.append(primanota::PN_RANGE.arg(fromDate).arg(toDate));
     }
 
     if (list.length() >= 1)
@@ -184,7 +185,7 @@ void PrimaNotaWindow::removeNote()
     }
     QString id = m_primaNotaModel->record(index.row()).value(coldb::ID).toString();
     QSqlQuery query;
-    query.prepare(sql::DELETE_PN);
+    query.prepare(primanota::DELETE_PN);
     query.bindValue(ph::ID, id);
     if (!query.exec())
         showDialogError(this, ERR049, MSG003, query.lastError().text()); //NOTE codice errore 049

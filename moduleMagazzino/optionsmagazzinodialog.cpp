@@ -14,8 +14,8 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     codIvaModel->setTable(table::CODICE_IVA);
     codIvaModel->select();
 
-    articoloModel->setQuery(sql::SELECT_ARTICOLI_ALL);
-    storicoModel->setQuery(sql::SELECT_STORICO.arg(-1));
+    articoloModel->setQuery(magazzino::SELECT_ARTICOLI_ALL);
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 
     ui->codIvaComboBox->setModel(codIvaModel);
     ui->codIvaComboBox->setModelColumn(CBM::DESCR);
@@ -35,18 +35,18 @@ void OptionsMagazzinoDialog::saveConfig(void)
 {
     qDebug() << "OptionsMagazzinoDialog::saveConfig()";
     //Salvo la visibilita' delle colonne della vista Articolo
-    saveVisibility(ui->magazzinoListView, settings::ARTICOLO_STATUS);
+    saveVisibility(ui->magazzinoListView, magazzino::ARTICOLO_STATUS);
 
     //Salvo i colori della vista Articolo
-    saveBgColor(ui->magazzinoListView, settings::ARTICOLO_COLORS);
+    saveBgColor(ui->magazzinoListView, magazzino::ARTICOLO_COLORS);
 
     //Salvo la visibilita' delle colonne della vista Storico
-    saveVisibility(ui->storicoListView, settings::STORICO_STATUS);
+    saveVisibility(ui->storicoListView, magazzino::STORICO_STATUS);
 
     //Salvo i colori della vista Storico
-    saveBgColor(ui->storicoListView, settings::STORICO_COLORS);
+    saveBgColor(ui->storicoListView, magazzino::STORICO_COLORS);
 
-    settings.setValue(settings::DEFAULT_IVA, ui->codIvaComboBox->currentText());
+    settings.setValue(magazzino::DEFAULT_IVA, ui->codIvaComboBox->currentText());
 }
 
 void OptionsMagazzinoDialog::loadConfig(void)
@@ -54,18 +54,18 @@ void OptionsMagazzinoDialog::loadConfig(void)
     qDebug() << "OptionsMagazzinoDialog::loadConfig()";
 
     //Carico la visibilita' delle colonne della vista Articolo
-    loadVisibility(ui->magazzinoListView, settings::ARTICOLO_STATUS);
+    loadVisibility(ui->magazzinoListView, magazzino::ARTICOLO_STATUS);
 
     //Carico i colori della vista Articolo
-    loadBgColor(ui->magazzinoListView, settings::ARTICOLO_COLORS);
+    loadBgColor(ui->magazzinoListView, magazzino::ARTICOLO_COLORS);
 
     //Carico la visibilita' delle colonne della vista Storico
-    loadVisibility(ui->storicoListView, settings::STORICO_STATUS);
+    loadVisibility(ui->storicoListView, magazzino::STORICO_STATUS);
 
     //Carico i colori della vista Storico
-    loadBgColor(ui->storicoListView, settings::STORICO_COLORS);
+    loadBgColor(ui->storicoListView, magazzino::STORICO_COLORS);
 
-    int index = ui->codIvaComboBox->findText(m_settings.value(settings::DEFAULT_IVA).toString(), 0);
+    int index = ui->codIvaComboBox->findText(m_settings.value(magazzino::DEFAULT_IVA).toString(), 0);
     ui->codIvaComboBox->setCurrentIndex(index);
 }
 

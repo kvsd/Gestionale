@@ -61,7 +61,7 @@ void codIvaUpdateDialog::updateIva(void)
     qDebug() << "Transaction start:" << db.transaction();
 
     QSqlQuery query;
-    query.prepare(sql::SELECT_ARTICOLI_FROM_IVA);
+    query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);
     query.bindValue(ph::COD_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
@@ -81,7 +81,7 @@ void codIvaUpdateDialog::updateIva(void)
             prezzo_vendita = prezzo_finito;
 
         QSqlQuery queryUpdateIva;
-        queryUpdateIva.prepare(sql::UPDATE_ARTICOLI_FROM_IVA);
+        queryUpdateIva.prepare(magazzino::UPDATE_ARTICOLI_FROM_IVA);
         queryUpdateIva.bindValue(ph::ID, id);
         queryUpdateIva.bindValue(ph::COD_IVA, newIvastr);
         queryUpdateIva.bindValue(ph::IVA, iva);
@@ -95,16 +95,16 @@ void codIvaUpdateDialog::updateIva(void)
         }
 
         QSqlQuery query_check_storico;
-        query_check_storico.prepare(sql::CHECK_STORICO);
+        query_check_storico.prepare(magazzino::CHECK_STORICO);
         query_check_storico.bindValue(ph::ID_ART, id);
         query_check_storico.bindValue(ph::DATA_ARRIVO, data);
         query_check_storico.exec();
 
         QSqlQuery queryInsertStorico;
         if (query_check_storico.first())
-            queryInsertStorico.prepare(sql::UPDATE_STORICO);
+            queryInsertStorico.prepare(magazzino::UPDATE_STORICO);
         else
-            queryInsertStorico.prepare(sql::INSERT_STORICO);
+            queryInsertStorico.prepare(magazzino::INSERT_STORICO);
 
         queryInsertStorico.bindValue(ph::ID_ART, id);
         queryInsertStorico.bindValue(ph::DATA_ARRIVO, data);

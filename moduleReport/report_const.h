@@ -4,7 +4,7 @@
 #include "magazzino_const.h"
 #include <QString>
 
-namespace sql {
+namespace report {
     //Filtro fornitore.
     const QString FILTER_FORNITORE = "AND an.rag_sociale='%1' ORDER BY mg.descr";
 
@@ -24,19 +24,15 @@ namespace sql {
     const QString SQL_INVENTARIO_TOT =
             QString::fromUtf8("SELECT sum(\"SubTotale\") AS \"Totale\" "
                               "FROM vw_inventario");
-}
 
-namespace settings {
     //SETTINGS
     const QString listinoCols = "Listino.cols";
     const QString ordineCols = "Ordine.cols";
     const QString listinoFont = "Listino.font";
     const QString ordineFont = "ordine.font";
-}
 
-namespace CPD {
     //Colonne ConfigPrintDialog.TableWidget
-    enum col{
+    enum CPDCOLS{
         DESCR = 0,
         STRETCH = 1,
         VIEW = 2,

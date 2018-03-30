@@ -162,19 +162,19 @@ void AziendaDialog::save(void)
 
     if (mapAzienda[ph::RAG_SOCIALE].isEmpty()) {
         showDialogError(this, ERR029, MSG016); //NOTE codice errore 029
-        ui->le_rag_sociale->setStyleSheet(azienda::CSS_WARNING_STYLE);
+        ui->le_rag_sociale->setStyleSheet(css::warning);
         return;
     }
     else if (mapAzienda[ph::INDIRIZZO].isEmpty()) {
         showDialogError(this, ERR030, MSG014); //NOTE codice errore 030
-        ui->le_indirizzo->setStyleSheet(azienda::CSS_WARNING_STYLE);
+        ui->le_indirizzo->setStyleSheet(css::warning);
         return;
     }
     else if (mapAzienda[ph::PRT_IVA].isEmpty() ||
              mapAzienda[ph::COD_FISCALE].isEmpty()) {
         showDialogError(this, ERR031, MSG018); //NOTE codice errore 031
-        ui->le_prtiva->setStyleSheet(azienda::CSS_WARNING_STYLE);
-        ui->le_codfisc->setStyleSheet(azienda::CSS_WARNING_STYLE);
+        ui->le_prtiva->setStyleSheet(css::warning);
+        ui->le_codfisc->setStyleSheet(css::warning);
         return;
     }
 

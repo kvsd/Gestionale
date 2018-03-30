@@ -11,7 +11,6 @@ namespace anagrafica {
     const QString SEARCH_COGNOME = "AnagraficaWindow.search.cognome";
     const QString SEARCH_CODFISC = "AnagraficaWindow.search.codfisc";
     const QString SEARCH_PIVA = "AnagraficaWindow.search.piva";
-    const QString CSS_WARNING_STYLE = "background-color:yellow";
     const QString ANGRFC_STATUS ="AnagraficaColsStatus";
     const QString ANGRFC_COLORS = "AnagraficaColsColors";
 

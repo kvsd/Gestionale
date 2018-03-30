@@ -101,26 +101,32 @@ void AnagraficaAddDialog::initModel()
     qDebug() << "AnagraficaAddDialog::initModel()";
     m_modelDitta = new QSqlTableModel(this);
     m_modelDitta->setTable(table::TIPO_DITTA);
+    m_modelDitta->setSort(1, Qt::AscendingOrder);
     m_modelDitta->select();
 
     m_modelCitta = new QSqlTableModel(this);
     m_modelCitta->setTable(table::CITTA);
+    m_modelCitta->setSort(1, Qt::AscendingOrder);
     m_modelCitta->select();
 
     m_modelProvincia = new QSqlTableModel(this);
     m_modelProvincia->setTable(table::PROVINCIA);
+    m_modelProvincia->setSort(1, Qt::AscendingOrder);
     m_modelProvincia->select();
 
     m_modelCap = new QSqlTableModel(this);
     m_modelCap->setTable(table::CAP);
+    m_modelCap->setSort(1, Qt::AscendingOrder);
     m_modelCap->select();
 
     m_modelStato = new QSqlTableModel(this);
     m_modelStato->setTable(table::STATO);
+    m_modelStato->setSort(1, Qt::AscendingOrder);
     m_modelStato->select();
 
     m_modelAgente = new QSqlTableModel(this);
     m_modelAgente->setTable(table::AGENTI);
+    m_modelAgente->setSort(1, Qt::AscendingOrder);
     m_modelAgente->select();
 }
 
@@ -225,23 +231,23 @@ void AnagraficaAddDialog::save(void)
 
     if (m_mapPersona[ph::RAG_SOCIALE].isEmpty()) {
         showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
-        ui->ragSocialeLE->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->ragSocialeLE->setStyleSheet(css::warning);
         return;
     }
 
     else if (m_mapPersona[ph::CLIENTE] == "n" &&
              m_mapPersona[ph::FORNITORE] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
-        ui->clienteCKB->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
-        ui->fornitoreCKB->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->clienteCKB->setStyleSheet(css::warning);
+        ui->fornitoreCKB->setStyleSheet(css::warning);
         return;
     }
 
     else if (m_mapPersona[ph::COD_FISCALE].isEmpty() ||
              m_mapPersona[ph::PRT_IVA].isEmpty()) {
         showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
-        ui->codFiscaleLE->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
-        ui->pivaLE->setStyleSheet(anagrafica::CSS_WARNING_STYLE);
+        ui->codFiscaleLE->setStyleSheet(css::warning);
+        ui->pivaLE->setStyleSheet(css::warning);
         return;
     }
 

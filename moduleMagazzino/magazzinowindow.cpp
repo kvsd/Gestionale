@@ -43,7 +43,7 @@ void MagazzinoWindow::initModel()
     ui->storicoView->setModel(storicoModel);
 
     fornitoreModel = new QSqlQueryModel(this);
-    fornitoreModel->setQuery(sql::SELECT_CB_FORNITORE);
+    fornitoreModel->setQuery(magazzino::SELECT_CB_FORNITORE);
 
     categoriaModel = new QSqlTableModel(this);
     categoriaModel->setTable(table::CATEGORIA_MERCE);
@@ -85,7 +85,7 @@ void MagazzinoWindow::updateModel()
     QString marcaText = ui->marcaComboBox->currentText();
     QString sedeText = ui->sedeComboBox->currentText();
 
-    fornitoreModel->setQuery(sql::SELECT_CB_FORNITORE);
+    fornitoreModel->setQuery(magazzino::SELECT_CB_FORNITORE);
     categoriaModel->select();
     marcaModel->select();
     sedeModel->select();
@@ -105,20 +105,20 @@ void MagazzinoWindow::loadConfigSettings()
     loadTableViewSettings();
 
     //Carico la visibilita delle colonne della vista articolo e storico
-    loadColumnVisibility(ui->articoloView, settings::ARTICOLO_STATUS);
-    loadColumnVisibility(ui->storicoView, settings::STORICO_STATUS);
+    loadColumnVisibility(ui->articoloView, magazzino::ARTICOLO_STATUS);
+    loadColumnVisibility(ui->storicoView, magazzino::STORICO_STATUS);
 
     //Carico il colore dello sfondo delle colonne. (Si e' gestito dai model)
     //articoloModel->setDefaultBgColor(QColor(255,255,180));
-    articoloModel->setBgMap(getBgSettings(settings::ARTICOLO_COLORS));
+    articoloModel->setBgMap(getBgSettings(magazzino::ARTICOLO_COLORS));
     //storicoModel->setDefaultBgColor(QColor(220,220,180));
-    storicoModel->setBgMap(getBgSettings(settings::STORICO_COLORS));
+    storicoModel->setBgMap(getBgSettings(magazzino::STORICO_COLORS));
 
     //Carico le impostazioni del menu ricerca
-    ui->actionDescrizione->setChecked(m_settings.value(settings::SEARCH_DESCR, true).toBool());
-    ui->actionCod_Articolo->setChecked(m_settings.value(settings::SEARCH_COD_ART, false).toBool());
-    ui->actionCod_Fornitore->setChecked(m_settings.value(settings::SEARCH_COD_FRN, false).toBool());
-    ui->actionEAN->setChecked(m_settings.value(settings::SEARCH_COD_EAN, false).toBool());
+    ui->actionDescrizione->setChecked(m_settings.value(magazzino::SEARCH_DESCR, true).toBool());
+    ui->actionCod_Articolo->setChecked(m_settings.value(magazzino::SEARCH_COD_ART, false).toBool());
+    ui->actionCod_Fornitore->setChecked(m_settings.value(magazzino::SEARCH_COD_FRN, false).toBool());
+    ui->actionEAN->setChecked(m_settings.value(magazzino::SEARCH_COD_EAN, false).toBool());
 }
 
 void MagazzinoWindow::saveConfigSettings()
@@ -130,10 +130,10 @@ void MagazzinoWindow::saveConfigSettings()
     saveTableViewSettings();
 
     //Salvo le impostazioni del menu Ricerca
-    m_settings.setValue(settings::SEARCH_DESCR, ui->actionDescrizione->isChecked());
-    m_settings.setValue(settings::SEARCH_COD_ART, ui->actionCod_Articolo->isChecked());
-    m_settings.setValue(settings::SEARCH_COD_FRN, ui->actionCod_Fornitore->isChecked());
-    m_settings.setValue(settings::SEARCH_COD_EAN, ui->actionEAN->isChecked());
+    m_settings.setValue(magazzino::SEARCH_DESCR, ui->actionDescrizione->isChecked());
+    m_settings.setValue(magazzino::SEARCH_COD_ART, ui->actionCod_Articolo->isChecked());
+    m_settings.setValue(magazzino::SEARCH_COD_FRN, ui->actionCod_Fornitore->isChecked());
+    m_settings.setValue(magazzino::SEARCH_COD_EAN, ui->actionEAN->isChecked());
 }
 
 QString MagazzinoWindow::searchString(void) {
@@ -335,7 +335,7 @@ void MagazzinoWindow::removeRecord(void)
     }
     QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
     QSqlQuery query;
-    query.prepare(sql::DELETE_ARTICOLO);
+    query.prepare(magazzino::DELETE_ARTICOLO);
     query.bindValue(ph::ID, id);
     if (!query.exec())
         showDialogError(this, ERR037, MSG003, query.lastError().text()); //NOTE codice errore 037
@@ -352,7 +352,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
     QString filter3 = giacenzaString();
     QString order = orderString();
 
-    QString query = sql::SELECT_ARTICOLI_ALL;
+    QString query = magazzino::SELECT_ARTICOLI_ALL;
     QStringList filterList;
     if (!filter1.isEmpty())
         filterList.append(filter1);
@@ -383,7 +383,7 @@ void MagazzinoWindow::updateViewMagazzino(void)
        corrotto il file di configurazione. Questa impostazione permette di avere
        il model impostato senza valori ed evitare la corruzione dei dati di
        configurazione*/
-    storicoModel->setQuery(sql::SELECT_STORICO.arg(-1));
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 }
 
 void MagazzinoWindow::updateViewStorico(QModelIndex index)
@@ -392,11 +392,11 @@ void MagazzinoWindow::updateViewStorico(QModelIndex index)
     //articolo nella view Articolo.
     qDebug() << "MagazzinoWindow::updateViewStorico()";
     if (!index.isValid()) {
-        storicoModel->setQuery(sql::SELECT_STORICO.arg(-1));
+        storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
         return;
     }
     QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
-    storicoModel->setQuery(sql::SELECT_STORICO.arg(id));
+    storicoModel->setQuery(magazzino::SELECT_STORICO.arg(id));
     ui->storicoView->resizeColumnsToContents();
     ui->storicoView->horizontalHeader()->setStretchLastSection(true);
 }
@@ -447,7 +447,7 @@ void MagazzinoWindow::findCodBarre()
 {
     //Slot che ricerca tutti gli articoli senza codice a barre.
     qDebug() << "MagazzinoWindow::findCodBarre()";
-    QSqlQuery SELECT_COD_BARRE = QSqlQuery(sql::SELECT_ARTICOLI_ALL +
+    QSqlQuery SELECT_COD_BARRE = QSqlQuery(magazzino::SELECT_ARTICOLI_ALL +
                                            " AND cod_barre='' " +
                                            orderString());
     articoloModel->setQuery(SELECT_COD_BARRE);

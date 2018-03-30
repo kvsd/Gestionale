@@ -28,7 +28,7 @@ void ConfigPrintDialog::initModel()
 {
     qDebug() << "ConfigPrintDialog::initModel()";
     m_model = new QSqlQueryModel(this);
-    m_model->setQuery(sql::SELECT_ARTICOLI_ALL);
+    m_model->setQuery(magazzino::SELECT_ARTICOLI_ALL);
     m_headerMap = prepareMapsFromModel(m_model);
     m_colsModel = new QStringListModel(m_headerMap.values(), this);
 }
@@ -63,10 +63,10 @@ void ConfigPrintDialog::loadFont(QFontComboBox *box, QSpinBox *spin, QString set
 void ConfigPrintDialog::loadSettings()
 {
     qDebug() << "ConfigPrintDialog::loadSettings()";
-    loadTableSettings(ui->listinoTableWidget, settings::listinoCols);
-    loadTableSettings(ui->ordineTableWidget, settings::ordineCols);
-    loadFont(ui->listinoFontCB, ui->listinoFontSize, settings::listinoFont);
-    loadFont(ui->ordineFontCB, ui->ordineFontSize, settings::ordineFont);
+    loadTableSettings(ui->listinoTableWidget, report::listinoCols);
+    loadTableSettings(ui->ordineTableWidget, report::ordineCols);
+    loadFont(ui->listinoFontCB, ui->listinoFontSize, report::listinoFont);
+    loadFont(ui->ordineFontCB, ui->ordineFontSize, report::ordineFont);
 }
 
 void ConfigPrintDialog::addRow(QTableWidget *table)
@@ -191,9 +191,9 @@ void ConfigPrintDialog::save()
 {
     qDebug() << "ConfigPrintDialog::save()";
     //Slot collegato al pulsante save.
-    saveTableSettings(ui->listinoTableWidget, settings::listinoCols);
-    saveTableSettings(ui->ordineTableWidget, settings::ordineCols);
+    saveTableSettings(ui->listinoTableWidget, report::listinoCols);
+    saveTableSettings(ui->ordineTableWidget, report::ordineCols);
 
-    saveFont(ui->listinoFontCB, ui->listinoFontSize, settings::listinoFont);
-    saveFont(ui->ordineFontCB, ui->ordineFontSize, settings::ordineFont);
+    saveFont(ui->listinoFontCB, ui->listinoFontSize, report::listinoFont);
+    saveFont(ui->ordineFontCB, ui->ordineFontSize, report::ordineFont);
 }
