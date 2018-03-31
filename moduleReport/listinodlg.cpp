@@ -28,7 +28,7 @@ void ListinoDlg::initFornitoreCb()
     m_modelFornitori = new QSqlQueryModel(this);
     m_modelFornitori->setQuery(magazzino::SELECT_CB_FORNITORE);
     ui->fornitoreCb->setModel(m_modelFornitori);
-    ui->fornitoreCb->setModelColumn(CBM::DESCR);
+    ui->fornitoreCb->setModelColumn(report::DESCR);
 }
 
 void ListinoDlg::configLayout()
@@ -40,10 +40,10 @@ void ListinoDlg::configLayout()
     m_settings.beginGroup(report::listinoCols);
     for (auto s : m_settings.allKeys()) {
          QStringList value = m_settings.value(s).toStringList();
-         m_colsName.append(value.at(CPD::DESCR));
-         m_stretchValues.append(value.at(CPD::STRETCH).toInt());
-         m_viewName.append(value.at(CPD::VIEW));
-         QString alignment = value.at(CPD::ALIGN);
+         m_colsName.append(value.at(report::DESCR));
+         m_stretchValues.append(value.at(report::STRETCH).toInt());
+         m_viewName.append(value.at(report::VIEW));
+         QString alignment = value.at(report::ALIGN);
          if (alignment == align::left)
              m_align.append(Qt::AlignLeft);
          else if (alignment == align::right)

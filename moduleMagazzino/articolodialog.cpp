@@ -25,12 +25,12 @@ void ArticoloDialog::initModel(void)
     qDebug() << "ArticoloDialog::initModel()";
     m_modelCatMerce = new QSqlTableModel(this);
     m_modelCatMerce->setTable(table::CATEGORIA_MERCE);
-    m_modelCatMerce->setSort(CBM::DESCR, Qt::AscendingOrder);
+    m_modelCatMerce->setSort(magazzino::DESCR, Qt::AscendingOrder);
     m_modelCatMerce->select();
 
     m_modelCodIva = new QSqlTableModel(this);
     m_modelCodIva->setTable(table::CODICE_IVA);
-    m_modelCodIva->setSort(CBM::DESCR, Qt::AscendingOrder);
+    m_modelCodIva->setSort(magazzino::DESCR, Qt::AscendingOrder);
     m_modelCodIva->select();
 
     m_modelFornitore = new QSqlQueryModel(this);
@@ -38,17 +38,17 @@ void ArticoloDialog::initModel(void)
 
     m_modelMarca = new QSqlTableModel(this);
     m_modelMarca->setTable(table::MARCA);
-    m_modelMarca->setSort(CBM::DESCR, Qt::AscendingOrder);
+    m_modelMarca->setSort(magazzino::DESCR, Qt::AscendingOrder);
     m_modelMarca->select();
 
     m_modelSede = new QSqlTableModel(this);
     m_modelSede->setTable(table::SEDE_MAGAZZINO);
-    m_modelSede->setSort(CBM::DESCR, Qt::AscendingOrder);
+    m_modelSede->setSort(magazzino::DESCR, Qt::AscendingOrder);
     m_modelSede->select();
 
     m_modelUnita = new QSqlTableModel(this);
     m_modelUnita->setTable(table::UNITA_MISURA);
-    m_modelUnita->setSort(CBM::DESCR, Qt::AscendingOrder);
+    m_modelUnita->setSort(magazzino::DESCR, Qt::AscendingOrder);
     m_modelUnita->select();
 }
 
@@ -56,29 +56,29 @@ void ArticoloDialog::initComboBox(void)
 {
     qDebug() << "ArticoloDialog::initComboBox()";
     ui->catmerceCB->setModel(m_modelCatMerce);
-    ui->catmerceCB->setModelColumn(CBM::DESCR);
+    ui->catmerceCB->setModelColumn(magazzino::DESCR);
 
     //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
     //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
     //genera un segnale.
     ui->codivaCB->blockSignals(true);
     ui->codivaCB->setModel(m_modelCodIva);
-    ui->codivaCB->setModelColumn(CBM::DESCR);
+    ui->codivaCB->setModelColumn(magazzino::DESCR);
     int index = ui->codivaCB->findText(m_settings.value(magazzino::DEFAULT_IVA).toString());
     ui->codivaCB->setCurrentIndex(index);
     ui->codivaCB->blockSignals(false);
 
     ui->fornitoreCB->setModel(m_modelFornitore);
-    ui->fornitoreCB->setModelColumn(CBM::DESCR);
+    ui->fornitoreCB->setModelColumn(magazzino::DESCR);
 
     ui->marcaCB->setModel(m_modelMarca);
-    ui->marcaCB->setModelColumn(CBM::DESCR);
+    ui->marcaCB->setModelColumn(magazzino::DESCR);
 
     ui->sedeCB->setModel(m_modelSede);
-    ui->sedeCB->setModelColumn(CBM::DESCR);
+    ui->sedeCB->setModelColumn(magazzino::DESCR);
 
     ui->unitamisuraCB->setModel(m_modelUnita);
-    ui->unitamisuraCB->setModelColumn(CBM::DESCR);
+    ui->unitamisuraCB->setModelColumn(magazzino::DESCR);
 }
 
 void ArticoloDialog::setValue(QString id, bool update)
@@ -95,29 +95,29 @@ void ArticoloDialog::setValue(QString id, bool update)
         m_articoloMap[ph::ID] = id;
     ui->descrizioneLE->setText(query.value(coldb::DESCRIZIONE).toString());
 
-    ui->fornitoreCB->setModelColumn(CBM::ID);
+    ui->fornitoreCB->setModelColumn(magazzino::ID);
     ui->fornitoreCB->setCurrentText(query.value(coldb::ID_FORNITORE).toString());
-    ui->fornitoreCB->setModelColumn(CBM::DESCR);
+    ui->fornitoreCB->setModelColumn(magazzino::DESCR);
 
-    ui->marcaCB->setModelColumn(CBM::ID);
+    ui->marcaCB->setModelColumn(magazzino::ID);
     ui->marcaCB->setCurrentText(query.value(coldb::ID_MARCA).toString());
-    ui->marcaCB->setModelColumn(CBM::DESCR);
+    ui->marcaCB->setModelColumn(magazzino::DESCR);
 
     ui->modelloLE->setText(query.value(coldb::MODELLO).toString());
     ui->codArticoloLE->setText(query.value(coldb::CODICE_ARTICOLO).toString());
     ui->codFornitoreLE->setText(query.value(coldb::CODICE_FORNITORE).toString());
     ui->codBarreLE->setText(query.value(coldb::CODICE_BARRE).toString());
 
-    ui->catmerceCB->setModelColumn(CBM::ID);
+    ui->catmerceCB->setModelColumn(magazzino::ID);
     ui->catmerceCB->setCurrentText(query.value(coldb::ID_MERCE).toString());
-    ui->catmerceCB->setModelColumn(CBM::DESCR);
+    ui->catmerceCB->setModelColumn(magazzino::DESCR);
 
-    ui->codivaCB->setModelColumn(CBM::DESCR);
+    ui->codivaCB->setModelColumn(magazzino::DESCR);
     ui->codivaCB->setCurrentText(query.value(coldb::CODICE_IVA).toString());
 
-    ui->unitamisuraCB->setModelColumn(CBM::ID);
+    ui->unitamisuraCB->setModelColumn(magazzino::ID);
     ui->unitamisuraCB->setCurrentText(query.value(coldb::ID_UNITA).toString());
-    ui->unitamisuraCB->setModelColumn(CBM::DESCR);
+    ui->unitamisuraCB->setModelColumn(magazzino::DESCR);
 
     ui->scortaLE->setText(query.value(coldb::SCORTA_MINIMA).toString());
     ui->quantitaLE->setText(query.value(coldb::QUANTITA).toString());
@@ -133,9 +133,9 @@ void ArticoloDialog::setValue(QString id, bool update)
     ui->fatturaLE->setText(query.value(coldb::FATTURA).toString());
     ui->dataLE->setDate(QDate::currentDate());
 
-    ui->sedeCB->setModelColumn(CBM::ID);
+    ui->sedeCB->setModelColumn(magazzino::ID);
     ui->sedeCB->setCurrentText(query.value(coldb::ID_SEDE_MAGAZZINO).toString());
-    ui->sedeCB->setModelColumn(CBM::DESCR);
+    ui->sedeCB->setModelColumn(magazzino::DESCR);
 
     ui->noteTE->setText(query.value(coldb::NOTE).toString());
 }
@@ -174,18 +174,22 @@ void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
     m_articoloMap[ph::DESCR] = ui->descrizioneLE->text();
-    m_articoloMap[ph::ID_MARC] = m_modelMarca->index(ui->marcaCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::ID_MARC] = m_modelMarca->index(ui->marcaCB->currentIndex(),
+                                                     magazzino::ID).data().toString();
     m_articoloMap[ph::MODELLO] = ui->modelloLE->text();
     m_articoloMap[ph::COD_ART] = ui->codArticoloLE->text();
     m_articoloMap[ph::COD_EAN] = ui->codBarreLE->text();
-    m_articoloMap[ph::ID_MERC] = m_modelCatMerce->index(ui->catmerceCB->currentIndex(), CBM::ID).data().toString();
-    m_articoloMap[ph::ID_UM] = m_modelUnita->index(ui->unitamisuraCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::ID_MERC] = m_modelCatMerce->index(ui->catmerceCB->currentIndex(),
+                                                        magazzino::ID).data().toString();
+    m_articoloMap[ph::ID_UM] = m_modelUnita->index(ui->unitamisuraCB->currentIndex(),
+                                                   magazzino::ID).data().toString();
 
     //Per i tipi numeri devo usare il locale C. Maledetto postgresql
     double scorta = stringToDouble(ui->scortaLE->text());
     m_articoloMap[ph::SCORTA] = QString().setNum(scorta);
 
-    m_articoloMap[ph::ID_FORN] = m_modelFornitore->index(ui->fornitoreCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::ID_FORN] = m_modelFornitore->index(ui->fornitoreCB->currentIndex(),
+                                                         magazzino::ID).data().toString();
     m_articoloMap[ph::COD_FRN] = ui->codFornitoreLE->text();
 
     double quantita = stringToDouble(ui->quantitaLE->text());
@@ -211,7 +215,8 @@ void ArticoloDialog::prepareMap()
     double prezzo_fin = stringToDouble(ui->prezzoFinitoLE->text());
     m_articoloMap[ph::PRZ_FIN] = QString().setNum(prezzo_fin);
 
-    m_articoloMap[ph::ID_SEDE] = m_modelSede->index(ui->sedeCB->currentIndex(), CBM::ID).data().toString();
+    m_articoloMap[ph::ID_SEDE] = m_modelSede->index(ui->sedeCB->currentIndex(),
+                                                    magazzino::ID).data().toString();
     m_articoloMap[ph::DATA_ARRIVO] = ui->dataLE->date().toString("dd/MM/yyyy");
     m_articoloMap[ph::FATTURA] = ui->fatturaLE->text();
     m_articoloMap[ph::NOTE] = ui->noteTE->toPlainText();
@@ -446,12 +451,11 @@ void ArticoloDialog::openAddFornitore()
     query.exec();
     query.first();
     QString id = query.value(0).toString();
-
     //Ricarico la query e seleziono il valore immesso
     m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
-    ui->fornitoreCB->setModelColumn(CBM::ID);
+    ui->fornitoreCB->setModelColumn(magazzino::ID);
     ui->fornitoreCB->setCurrentText(id);
-    ui->fornitoreCB->setModelColumn(CBM::DESCR);
+    ui->fornitoreCB->setModelColumn(magazzino::DESCR);
 }
 
 void ArticoloDialog::openAddIVA()

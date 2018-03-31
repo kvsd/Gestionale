@@ -47,15 +47,15 @@ void MagazzinoWindow::initModel()
 
     categoriaModel = new QSqlTableModel(this);
     categoriaModel->setTable(table::CATEGORIA_MERCE);
-    categoriaModel->setSort(CBM::DESCR, Qt::AscendingOrder);
+    categoriaModel->setSort(magazzino::DESCR, Qt::AscendingOrder);
 
     marcaModel = new QSqlTableModel(this);
     marcaModel->setTable(table::MARCA);
-    marcaModel->setSort(CBM::DESCR, Qt::AscendingOrder);
+    marcaModel->setSort(magazzino::DESCR, Qt::AscendingOrder);
 
     sedeModel = new QSqlTableModel(this);
     sedeModel->setTable(table::SEDE_MAGAZZINO);
-    sedeModel->setSort(CBM::DESCR, Qt::AscendingOrder);
+    sedeModel->setSort(magazzino::DESCR, Qt::AscendingOrder);
 
     updateModel();
 }
@@ -64,16 +64,16 @@ void MagazzinoWindow::initComboBox()
 {
     qDebug() << "MagazzinoWindow::initComboBox()";
     ui->fornitoreComboBox->setModel(fornitoreModel);
-    ui->fornitoreComboBox->setModelColumn(CBM::DESCR);
+    ui->fornitoreComboBox->setModelColumn(magazzino::DESCR);
 
     ui->categoriaComboBox->setModel(categoriaModel);
-    ui->categoriaComboBox->setModelColumn(CBM::DESCR);
+    ui->categoriaComboBox->setModelColumn(magazzino::DESCR);
 
     ui->marcaComboBox->setModel(marcaModel);
-    ui->marcaComboBox->setModelColumn(CBM::DESCR);
+    ui->marcaComboBox->setModelColumn(magazzino::DESCR);
 
     ui->sedeComboBox->setModel(sedeModel);
-    ui->sedeComboBox->setModelColumn(CBM::DESCR);
+    ui->sedeComboBox->setModelColumn(magazzino::DESCR);
 }
 
 void MagazzinoWindow::updateModel()
@@ -173,25 +173,25 @@ QString MagazzinoWindow::filterString(void) {
     QString pattern = "%1 = '%2'";
     if (ui->fornitoreComboBox->isEnabled()) {
         int index = ui->fornitoreComboBox->currentIndex();
-        QString id = fornitoreModel->record(index).value(CBM::ID).toString();
+        QString id = fornitoreModel->record(index).value(magazzino::ID).toString();
         filter.append(pattern.arg(coldb::ID_FORNITORE, id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
         int index = ui->categoriaComboBox->currentIndex();
-        QString id = categoriaModel->record(index).value(CBM::ID).toString();
+        QString id = categoriaModel->record(index).value(magazzino::ID).toString();
         filter.append(pattern.arg(coldb::ID_MERCE, id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
         int index = ui->marcaComboBox->currentIndex();
-        QString id = marcaModel->record(index).value(CBM::ID).toString();
+        QString id = marcaModel->record(index).value(magazzino::ID).toString();
         filter.append(pattern.arg(coldb::ID_MARCA, id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
         int index = ui->sedeComboBox->currentIndex();
-        QString id = sedeModel->record(index).value(CBM::ID).toString();
+        QString id = sedeModel->record(index).value(magazzino::ID).toString();
         filter.append(pattern.arg(coldb::ID_SEDE_MAGAZZINO, id));
     }
 
