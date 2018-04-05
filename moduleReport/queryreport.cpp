@@ -4,6 +4,7 @@ QueryReport::QueryReport(QPrinter *printer, QPainter *painter, QObject *parent)
     : QObject(parent),
       m_printer(printer),
       m_painter(painter),
+      m_querySize(-1),
       m_current_page(1),
       m_titleBgColor(Qt::transparent),
       m_titleFgColor(Qt::black),
@@ -71,7 +72,9 @@ void QueryReport::draw()
     qDebug() << "QueryReport::draw()";
     configPage();
     QSqlQuery query;
-    query.exec(m_query);
+    if (!query.exec(m_query))
+        qDebug() << query.lastError().text();
+    m_querySize = query.size();
     m_titleRow->draw();
     m_headerRow->draw();
     while (query.next()) {

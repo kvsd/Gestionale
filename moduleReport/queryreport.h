@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QPrinter>
 #include <QPointF>
+#include <QSqlError>
 #include "row.h"
 
 class QueryReport : public QObject
@@ -35,6 +36,7 @@ public:
 
     void setQuery(QString query){m_query = query;}
     QString getQuery() const {return m_query;}
+    int getQuerySize() const {return m_querySize;}
 
     void setQueryCols(QStringList list) {m_queryCols = list;}
     QStringList getQueryCols() const {return m_queryCols;}
@@ -73,6 +75,7 @@ private:
     QPainter *m_painter;
 
     QString m_query;
+    int m_querySize;
     int m_current_page;
     QString m_titleStr;
 
