@@ -28,6 +28,8 @@ public:
     ~ConfigPrintDialog();
     void setPage(int page, bool status);
 
+    enum CPDCOLS{DESCR, STRETCH, VIEW, ALIGN};
+
 private:
     Ui::ConfigPrintDialog *ui;
     QSettings m_settings;

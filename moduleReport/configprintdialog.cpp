@@ -79,12 +79,12 @@ void ConfigPrintDialog::addRow(QTableWidget *table)
     int row = table->rowCount();
     table->insertRow(row);
     for (int col=0; col<table->columnCount(); col++) {
-        if (col==report::DESCR || col==report::ALIGN) {
+        if (col==DESCR || col==ALIGN) {
             table->setCellWidget(row, col, new QComboBox);
             auto cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
-            if (col==report::DESCR)
+            if (col==DESCR)
                 cb->setModel(m_colsModel);
-            else if (col==report::ALIGN)
+            else if (col==ALIGN)
                 cb->addItems({align::left, align::right, align::center});
         }
         else {
@@ -105,7 +105,7 @@ void ConfigPrintDialog::setRow(QTableWidget *table, int row, QStringList values)
     //Imposta i valori della QStringList values nella riga con indice row
     //della QTableWidget table.
     for (int col=0; col<table->columnCount(); col++) {
-        if (col == report::DESCR || col == report::ALIGN) {
+        if (col == DESCR || col == ALIGN) {
             QComboBox *cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
             cb->setCurrentText(values[col]);
         }
@@ -128,17 +128,17 @@ void ConfigPrintDialog::saveTableSettings(QTableWidget *table, QString settingsN
     for (int row=0; row<table->rowCount(); row++) {
         QStringList values;
         for (int col=0; col<table->columnCount(); col++) {
-            if (col==report::DESCR || col==report::ALIGN) {
+            if (col==DESCR || col==ALIGN) {
                 auto cb = qobject_cast<QComboBox *>(table->cellWidget(row, col));
                 values << cb->currentText();
             }
             else {
                 auto le = qobject_cast<QLineEdit *>(table->cellWidget(row, col));
                 QString val = le->text();
-                if (col==report::STRETCH && val.isEmpty())
+                if (col==STRETCH && val.isEmpty())
                     val = "1"; //Valore di default Stretch Factor
-                else if (col==report::VIEW && val.isEmpty())
-                    val = values[report::DESCR]; //Valore di default Display Name
+                else if (col==VIEW && val.isEmpty())
+                    val = values[DESCR]; //Valore di default Display Name
                 values << val;
             }
         }
