@@ -16,6 +16,7 @@
 #include "libs/gestionale_const.h"
 #include "libs/error.h"
 #include "queryreport.h"
+#include "configprintdialog.h"
 
 namespace Ui {
 class ListinoDlg;
@@ -28,6 +29,7 @@ class ListinoDlg : public QDialog
 public:
     explicit ListinoDlg(QWidget *parent = 0);
     ~ListinoDlg();
+    enum CBCOLS {ID, DESCR};
 
 protected:
 

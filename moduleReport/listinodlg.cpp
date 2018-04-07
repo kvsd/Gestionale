@@ -28,7 +28,7 @@ void ListinoDlg::initFornitoreCb()
     m_modelFornitori = new QSqlQueryModel(this);
     m_modelFornitori->setQuery(magazzino::SELECT_CB_FORNITORE);
     ui->fornitoreCb->setModel(m_modelFornitori);
-    ui->fornitoreCb->setModelColumn(report::DESCR);
+    ui->fornitoreCb->setModelColumn(DESCR);
 }
 
 void ListinoDlg::configLayout()
@@ -40,10 +40,10 @@ void ListinoDlg::configLayout()
     m_settings.beginGroup(report::listinoCols);
     for (auto s : m_settings.allKeys()) {
          QStringList value = m_settings.value(s).toStringList();
-         m_colsName.append(value.at(report::DESCR));
-         m_stretchValues.append(value.at(report::STRETCH).toInt());
-         m_viewName.append(value.at(report::VIEW));
-         QString alignment = value.at(report::ALIGN);
+         m_colsName.append(value.at(ConfigPrintDialog::DESCR));
+         m_stretchValues.append(value.at(ConfigPrintDialog::STRETCH).toInt());
+         m_viewName.append(value.at(ConfigPrintDialog::VIEW));
+         QString alignment = value.at(ConfigPrintDialog::ALIGN);
          if (alignment == align::left)
              m_align.append(Qt::AlignLeft);
          else if (alignment == align::right)
@@ -68,8 +68,7 @@ QString ListinoDlg::configQuery(QString fornitore)
                         report::FILTER_CURRENT_DATE).arg(fornitore);
     else if (ui->printFromFatturaRb->isChecked()) {
         QString fattura = ui->fatturaLE->text();
-        query = QString(magazzino::SELECT_ARTICOLI_ALL+
-                        report::FILTER_FATTURA).arg(fornitore, fattura);
+        query = QString(report::SELECT_LISTINO_FATTURA.arg(fornitore, fattura));
     }
 
     return query;
@@ -100,6 +99,13 @@ void ListinoDlg::draw()
     report->draw();
 
     delete m_painter;
+    int size = report->getQuerySize();
+    if (size == -1)
+        showDialogInfo(this, "Stampa", QString("Si è verificato un errore"));
+    else {
+        QString title = QString("Articoli stampati: %1").arg(size);
+        showDialogInfo(this, "Stampa", title);
+    }
 }
 
 void ListinoDlg::config()
