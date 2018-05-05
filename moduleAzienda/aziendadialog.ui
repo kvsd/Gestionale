@@ -10,8 +10,17 @@
     <height>565</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Configura Azienda</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -25,254 +34,21 @@
         <x>0</x>
         <y>0</y>
         <width>473</width>
-        <height>539</height>
+        <height>720</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="2">
-        <widget class="QLineEdit" name="le_rag_sociale"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Indirizzo:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_indirizzo</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLineEdit" name="le_indirizzo"/>
-       </item>
-       <item row="16" column="2">
-        <widget class="QLineEdit" name="le_iscr_trib"/>
-       </item>
-       <item row="17" column="2">
-        <widget class="QLineEdit" name="le_cciaa"/>
-       </item>
-       <item row="5" column="2">
-        <widget class="QComboBox" name="cb_provincia"/>
-       </item>
-       <item row="17" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>C.C.I.A.A.</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_cciaa</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Ragione sociale:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_rag_sociale</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Codice Fiscale:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_codfisc</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Iscrizione Tribunale:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_iscr_trib</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QComboBox" name="cb_citta"/>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Stato:</string>
-         </property>
-         <property name="buddy">
-          <cstring>cb_stato</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="2">
-        <widget class="QLineEdit" name="le_prtiva"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Città:</string>
-         </property>
-         <property name="buddy">
-          <cstring>cb_citta</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="2">
-        <widget class="QLineEdit" name="le_codfisc"/>
-       </item>
-       <item row="11" column="2">
-        <widget class="QLineEdit" name="le_tel"/>
-       </item>
-       <item row="14" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>Partita IVA:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_prtiva</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="2">
-        <widget class="QComboBox" name="cb_stato"/>
-       </item>
-       <item row="7" column="3">
-        <widget class="QToolButton" name="pb_stato_dlg">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Provincia:</string>
-         </property>
-         <property name="buddy">
-          <cstring>cb_provincia</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Telefono:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_tel</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_15">
-         <property name="text">
-          <string>CAP:</string>
-         </property>
-         <property name="buddy">
-          <cstring>cb_cap</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Email:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_email</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Fax:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_fax</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="le_nome"/>
-       </item>
-       <item row="13" column="2">
-        <widget class="QLineEdit" name="le_email"/>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLineEdit" name="le_cognome"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Cognome:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_cognome</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Nome:</string>
-         </property>
-         <property name="buddy">
-          <cstring>le_nome</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2">
-        <widget class="QComboBox" name="cb_cap"/>
-       </item>
-       <item row="12" column="2">
-        <widget class="QLineEdit" name="le_fax"/>
-       </item>
-       <item row="6" column="3">
-        <widget class="QToolButton" name="pb_cap_dlg">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QToolButton" name="pb_citta_dlg">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="3">
-        <widget class="QToolButton" name="pb_copy">
-         <property name="toolTip">
-          <string>Copia la partita iva nel codice fiscale</string>
-         </property>
-         <property name="text">
-          <string>...</string>
-         </property>
-         <property name="arrowType">
-          <enum>Qt::DownArrow</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="19" column="3">
-        <widget class="QToolButton" name="pb_logo_dlg">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="19" column="0" colspan="3">
+       <item row="18" column="0" colspan="3">
         <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Logo</string>
+         <property name="styleSheet">
+          <string notr="true">QGroupBox{font: bold 10pt &quot;Sans&quot;;}</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="title">
+          <string>Logo:</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLabel" name="im_logo">
+           <widget class="QLabel" name="logoImage">
             <property name="text">
              <string/>
             </property>
@@ -281,18 +57,310 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QToolButton" name="logoDlgPB">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
-       <item row="18" column="0">
-        <widget class="QLabel" name="label_16">
-         <property name="text">
-          <string>Registro Imprese:</string>
+       <item row="0" column="0" colspan="3">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="font">
+          <font>
+           <family>Sans</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QGroupBox{font: bold 10pt &quot;Sans&quot;;}</string>
+         </property>
+         <property name="title">
+          <string>Dati anagrafici:</string>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Ragione sociale:</string>
+            </property>
+            <property name="buddy">
+             <cstring>ragSocialeLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QComboBox" name="regFiscaleCB"/>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Codice Fiscale:</string>
+            </property>
+            <property name="buddy">
+             <cstring>codfiscLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Partita IVA:</string>
+            </property>
+            <property name="buddy">
+             <cstring>prtivaLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Cognome:</string>
+            </property>
+            <property name="buddy">
+             <cstring>cognomeLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Nome:</string>
+            </property>
+            <property name="buddy">
+             <cstring>nomeLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="prtivaLE"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="nomeLE"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="cognomeLE"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Regime Fiscale:</string>
+            </property>
+            <property name="buddy">
+             <cstring>regFiscaleCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="codfiscLE"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QToolButton" name="copyPB">
+            <property name="toolTip">
+             <string>Copia la partita iva nel codice fiscale</string>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="arrowType">
+             <enum>Qt::DownArrow</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="ragSocialeLE"/>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="18" column="2">
-        <widget class="QLineEdit" name="le_reg_imprese"/>
+       <item row="3" column="0" colspan="3">
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="styleSheet">
+          <string notr="true">QGroupBox{font: bold 10pt &quot;Sans&quot;;}</string>
+         </property>
+         <property name="title">
+          <string>Sede:</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Città:</string>
+            </property>
+            <property name="buddy">
+             <cstring>cittaCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="indirizzoLE"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="provinciaCB"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="capCB"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="cittaCB"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>CAP:</string>
+            </property>
+            <property name="buddy">
+             <cstring>capCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Provincia:</string>
+            </property>
+            <property name="buddy">
+             <cstring>provinciaCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QToolButton" name="cittaDlgPB">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Indirizzo:</string>
+            </property>
+            <property name="buddy">
+             <cstring>indirizzoLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QToolButton" name="capDlgPB">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Stato:</string>
+            </property>
+            <property name="buddy">
+             <cstring>statoCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QComboBox" name="statoCB"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="3">
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="styleSheet">
+          <string notr="true">QGroupBox{font: bold 10pt &quot;Sans&quot;;}</string>
+         </property>
+         <property name="title">
+          <string>Contatti:</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Telefono:</string>
+            </property>
+            <property name="buddy">
+             <cstring>telLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="telLE"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Fax:</string>
+            </property>
+            <property name="buddy">
+             <cstring>faxLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="faxLE"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Email:</string>
+            </property>
+            <property name="buddy">
+             <cstring>emailLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="emailLE"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="styleSheet">
+          <string notr="true">QGroupBox{font: bold 10pt &quot;Sans&quot;;}</string>
+         </property>
+         <property name="title">
+          <string>Iscrizione REA:</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Numero REA:</string>
+            </property>
+            <property name="buddy">
+             <cstring>numeroReaLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="numeroReaLE"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Ufficio:</string>
+            </property>
+            <property name="buddy">
+             <cstring>provinciaReaCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="provinciaReaCB"/>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -301,7 +369,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pb_close">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>&amp;Chiudi</string>
        </property>
@@ -321,14 +389,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_clear">
+      <widget class="QPushButton" name="clearButton">
        <property name="text">
         <string>C&amp;ancella</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pb_save">
+      <widget class="QPushButton" name="saveButton">
        <property name="text">
         <string>&amp;Salva</string>
        </property>
@@ -340,215 +408,41 @@
  </widget>
  <tabstops>
   <tabstop>scrollArea</tabstop>
-  <tabstop>le_rag_sociale</tabstop>
-  <tabstop>le_nome</tabstop>
-  <tabstop>le_cognome</tabstop>
-  <tabstop>le_indirizzo</tabstop>
-  <tabstop>cb_citta</tabstop>
-  <tabstop>pb_citta_dlg</tabstop>
-  <tabstop>cb_provincia</tabstop>
-  <tabstop>cb_cap</tabstop>
-  <tabstop>pb_cap_dlg</tabstop>
-  <tabstop>cb_stato</tabstop>
-  <tabstop>pb_stato_dlg</tabstop>
-  <tabstop>le_tel</tabstop>
-  <tabstop>le_fax</tabstop>
-  <tabstop>le_email</tabstop>
-  <tabstop>le_prtiva</tabstop>
-  <tabstop>le_codfisc</tabstop>
-  <tabstop>le_iscr_trib</tabstop>
-  <tabstop>le_cciaa</tabstop>
-  <tabstop>pb_save</tabstop>
-  <tabstop>pb_close</tabstop>
-  <tabstop>pb_clear</tabstop>
+  <tabstop>ragSocialeLE</tabstop>
+  <tabstop>nomeLE</tabstop>
+  <tabstop>cognomeLE</tabstop>
+  <tabstop>prtivaLE</tabstop>
+  <tabstop>copyPB</tabstop>
+  <tabstop>codfiscLE</tabstop>
+  <tabstop>regFiscaleCB</tabstop>
+  <tabstop>provinciaReaCB</tabstop>
+  <tabstop>numeroReaLE</tabstop>
+  <tabstop>indirizzoLE</tabstop>
+  <tabstop>cittaCB</tabstop>
+  <tabstop>cittaDlgPB</tabstop>
+  <tabstop>provinciaCB</tabstop>
+  <tabstop>capCB</tabstop>
+  <tabstop>capDlgPB</tabstop>
+  <tabstop>statoCB</tabstop>
+  <tabstop>telLE</tabstop>
+  <tabstop>faxLE</tabstop>
+  <tabstop>emailLE</tabstop>
+  <tabstop>logoDlgPB</tabstop>
+  <tabstop>closeButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>saveButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_rag_sociale</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>380</x>
-     <y>535</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>191</x>
-     <y>29</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_nome</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>361</x>
-     <y>546</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>65</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_cognome</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>370</x>
-     <y>534</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>222</x>
-     <y>96</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_indirizzo</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>391</x>
-     <y>547</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>238</x>
-     <y>124</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_tel</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>368</x>
-     <y>535</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>251</x>
-     <y>264</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_fax</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>394</x>
-     <y>539</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>268</x>
-     <y>292</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_email</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>344</x>
-     <y>539</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>281</x>
-     <y>320</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_prtiva</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>389</x>
-     <y>543</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>296</x>
-     <y>348</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_codfisc</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>391</x>
-     <y>544</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>377</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_iscr_trib</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>402</x>
-     <y>535</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>323</x>
-     <y>405</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_cciaa</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>393</x>
-     <y>536</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>344</x>
-     <y>433</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_citta_dlg</sender>
+   <sender>cittaDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>openAddCitta()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>151</y>
+     <x>461</x>
+     <y>394</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -557,14 +451,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_cap_dlg</sender>
+   <sender>capDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>openAddCap()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>207</y>
+     <x>461</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>505</x>
@@ -573,23 +467,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_stato_dlg</sender>
-   <signal>clicked()</signal>
-   <receiver>AziendaDialog</receiver>
-   <slot>openAddStato()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>473</x>
-     <y>235</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>504</x>
-     <y>293</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pb_close</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>reject()</slot>
@@ -605,7 +483,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_save</sender>
+   <sender>saveButton</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>save()</slot>
@@ -621,7 +499,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
+   <sender>clearButton</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>clearForm()</slot>
@@ -637,14 +515,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_copy</sender>
+   <sender>copyPB</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>copyPrtIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>469</x>
-     <y>349</y>
+     <x>461</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>501</x>
@@ -653,14 +531,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_logo_dlg</sender>
+   <sender>logoDlgPB</sender>
    <signal>clicked()</signal>
    <receiver>AziendaDialog</receiver>
    <slot>openAddLogo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>492</y>
+     <x>461</x>
+     <y>687</y>
     </hint>
     <hint type="destinationlabel">
      <x>253</x>
@@ -669,18 +547,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>pb_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>le_reg_imprese</receiver>
-   <slot>clear()</slot>
+   <sender>ragSocialeLE</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>AziendaDialog</receiver>
+   <slot>checkRagSociale(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>542</y>
+     <x>410</x>
+     <y>59</y>
     </hint>
     <hint type="destinationlabel">
-     <x>377</x>
-     <y>452</y>
+     <x>506</x>
+     <y>68</y>
     </hint>
    </hints>
   </connection>
@@ -694,5 +572,6 @@
   <slot>openAddProvincia()</slot>
   <slot>openAddCap()</slot>
   <slot>openAddStato()</slot>
+  <slot>checkRagSociale(QString)</slot>
  </slots>
 </ui>

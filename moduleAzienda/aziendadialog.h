@@ -15,6 +15,7 @@
 #include <QSqlError>
 #include <QMap>
 #include <QPixmap>
+#include <QComboBox>
 
 namespace Ui {
 class AziendaDialog;
@@ -27,29 +28,34 @@ class AziendaDialog : public QDialog
 public:
     explicit AziendaDialog(QWidget *parent = 0);
     ~AziendaDialog();
+    enum cbcols {ID, DESCR, SIGLA};
+    enum size {LOGO_WIDTH = 300, LOGO_HEIGHT=200};
 
 private:
     Ui::AziendaDialog *ui;
-    QSqlTableModel *modelCitta;
-    QSqlTableModel *modelProvincia;
-    QSqlTableModel *modelCap;
-    QSqlTableModel *modelStato;
-    QMap <QString, QString> mapAzienda;
-    QPixmap logo;
+    QSqlTableModel *m_modelCitta;
+    QSqlTableModel *m_modelProvincia;
+    QSqlTableModel *m_modelProvinciaREA;
+    QSqlTableModel *m_modelCap;
+    QSqlTableModel *m_modelStato;
+    QSqlTableModel *m_modelRegFiscale;
+    QMap <QString, QString> m_mapAzienda;
+    QPixmap m_logo;
 
+    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
     void initComboBox();
+    void setValueCB(QComboBox *box, QString value);
     void setValue(QString id="0");
     void prepareMap(void);
 
 public slots:
-    void openAddCitta(void);
-    void openAddProvincia(void);
-    void openAddCap(void);
-    void openAddStato(void);
-    void openAddLogo(void);
-    void save(void);
     void clearForm(void);
     void copyPrtIva(void);
+    void openAddCitta(void);
+    void openAddCap(void);
+    void openAddLogo(void);
+    void save(void);
+    void checkRagSociale(QString str);
 };
 
 #endif // AZIENDADIALOG_H

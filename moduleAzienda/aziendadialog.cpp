@@ -9,7 +9,7 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     ui->setupUi(this);
 
     initComboBox();
-    setValue();
+    setValue("0"); //richiamo l'unico record della tabella azienda
 }
 
 AziendaDialog::~AziendaDialog()
@@ -18,69 +18,36 @@ AziendaDialog::~AziendaDialog()
     delete ui;
 }
 
+QSqlTableModel * AziendaDialog::setupComboBox(QString tablename, QComboBox *cb)
+{
+    qDebug() << "AziendaDialog::setupComboBox()";
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable(tablename);
+    model->setSort(DESCR, Qt::AscendingOrder);
+    model->select();
+    cb->setModel(model);
+    cb->setModelColumn(DESCR);
+    return model;
+}
+
 void AziendaDialog::initComboBox()
 {
     qDebug() << "AziendaDialog::initComboBox()";
-    modelCitta = new QSqlTableModel(this);
-    modelCitta->setTable(table::CITTA);
-    modelCitta->select();
-    ui->cb_citta->setModel(modelCitta);
-    ui->cb_citta->setModelColumn(azienda::COL_DESCR);
-
-    modelProvincia = new QSqlTableModel(this);
-    modelProvincia->setTable(table::PROVINCIA);
-    modelProvincia->select();
-    ui->cb_provincia->setModel(modelProvincia);
-    ui->cb_provincia->setModelColumn(azienda::COL_DESCR);
-
-    modelCap = new QSqlTableModel(this);
-    modelCap->setTable(table::CAP);
-    modelCap->select();
-    ui->cb_cap->setModel(modelCap);
-    ui->cb_cap->setModelColumn(azienda::COL_DESCR);
-
-    modelStato = new QSqlTableModel(this);
-    modelStato->setTable(table::STATO);
-    modelStato->select();
-    ui->cb_stato->setModel(modelStato);
-    ui->cb_stato->setModelColumn(azienda::COL_DESCR);
+    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB);
+    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB);
+    m_modelProvinciaREA = setupComboBox(table::PROVINCIA, ui->provinciaReaCB);
+    m_modelCap = setupComboBox(table::CAP, ui->capCB);
+    m_modelStato = setupComboBox(table::STATO, ui->statoCB);
+    m_modelRegFiscale = setupComboBox(table::REG_FISCALE, ui->regFiscaleCB);
 }
 
-void AziendaDialog::openAddCitta(void)
+void AziendaDialog::setValueCB(QComboBox *box, QString value)
 {
-    qDebug() << "AziendaDialog::open_add_citta()";
-    allDlg(this, modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016.1
-}
-
-void AziendaDialog::openAddProvincia(void)
-{
-    qDebug() << "AziendaDialog::open_add_provincia()";
-    allDlg(this, modelProvincia, ADD_PROVINCIA_QUERY, "Provincia", ERR017); //NOTE codice errore 017.1
-}
-
-void AziendaDialog::openAddCap(void)
-{
-    qDebug() << "AziendaDialog::open_add_cap()";
-    allDlg(this, modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018.1
-}
-
-void AziendaDialog::openAddStato(void)
-{
-    qDebug() << "AziendaDialog::open_add_stato()";
-    allDlg(this, modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019.1
-}
-
-void AziendaDialog::openAddLogo(void)
-{
-    qDebug() << "AziendaDialog::open_add_logo()";
-    QString filename = QFileDialog::getOpenFileName(this, "Seleziona un immagine", ".",  "Images (*.png *.xpm *.jpg *.jpeg)");
-    if (filename.isEmpty()) {
-        return;
-    }
-
-    logo.load(filename);
-    logo = logo.scaled(azienda::WIDTH, azienda::HEIGHT, Qt::KeepAspectRatio);
-    ui->im_logo->setPixmap(logo);
+    qDebug() << "AziendaDialog::setValueCB()";
+    box->setModelColumn(ID);
+    int index = box->findText(value);
+    box->setModelColumn(DESCR);
+    box->setCurrentIndex(index);
 }
 
 void AziendaDialog::setValue(QString id)
@@ -92,117 +59,155 @@ void AziendaDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    ui->le_rag_sociale->setText(query.value(azienda::COL_RAG_SOC).toString());
-    ui->le_nome->setText(query.value(azienda::COL_NOME).toString());
-    ui->le_cognome->setText(query.value(azienda::COL_COGNOME).toString());
-    ui->le_prtiva->setText(query.value(azienda::COL_PRT_IVA).toString());
-    ui->le_codfisc->setText(query.value(azienda::COL_COD_FISC).toString());
-    ui->le_indirizzo->setText(query.value(azienda::COL_INDIRIZZO).toString());
+    ui->ragSocialeLE->setText(query.value(coldb::RAGIONE_SOCIALE).toString());
+    ui->nomeLE->setText(query.value(coldb::NOME).toString());
+    ui->cognomeLE->setText(query.value(coldb::COGNOME).toString());
+    ui->prtivaLE->setText(query.value(coldb::PARTITA_IVA).toString());
+    ui->codfiscLE->setText(query.value(coldb::CODICE_FISCALE).toString());
+    ui->numeroReaLE->setText(query.value(coldb::NUMERO_REA).toString());
+    ui->indirizzoLE->setText(query.value(coldb::INDIRIZZO).toString());
+    ui->telLE->setText(query.value(coldb::TEL).toString());
+    ui->faxLE->setText(query.value(coldb::FAX).toString());
+    ui->emailLE->setText(query.value(coldb::EMAIL).toString());
 
-    ui->cb_citta->setModelColumn(azienda::COL_ID);
-    int index = ui->cb_citta->findText(query.value(azienda::COL_CITTA).toString());
-    ui->cb_citta->setModelColumn(azienda::COL_DESCR);
-    ui->cb_citta->setCurrentIndex(index);
+    setValueCB(ui->regFiscaleCB, query.value(coldb::ID_REG_FISCALE).toString());
+    setValueCB(ui->provinciaReaCB, query.value(coldb::ID_PROVINCIA_REA).toString());
+    setValueCB(ui->cittaCB, query.value(coldb::ID_CITTA).toString());
+    setValueCB(ui->provinciaCB, query.value(coldb::ID_PROVINCIA).toString());
+    setValueCB(ui->capCB, query.value(coldb::ID_CAP).toString());
+    setValueCB(ui->statoCB, query.value(coldb::ID_STATO).toString());
 
-    ui->cb_provincia->setModelColumn(azienda::COL_ID);
-    index = ui->cb_provincia->findText(query.value(azienda::COL_PROVINCIA).toString());
-    ui->cb_provincia->setModelColumn(azienda::COL_DESCR);
-    ui->cb_provincia->setCurrentIndex(index);
-
-    ui->cb_cap->setModelColumn(azienda::COL_ID);
-    index = ui->cb_cap->findText(query.value(azienda::COL_CAP).toString());
-    ui->cb_cap->setModelColumn(azienda::COL_DESCR);
-    ui->cb_cap->setCurrentIndex(index);
-
-    ui->cb_stato->setModelColumn(azienda::COL_ID);
-    index = ui->cb_stato->findText(query.value(azienda::COL_STATO).toString());
-    ui->cb_stato->setModelColumn(azienda::COL_DESCR);
-    ui->cb_stato->setCurrentIndex(index);
-
-    ui->le_tel->setText(query.value(azienda::COL_TEL).toString());
-    ui->le_fax->setText(query.value(azienda::COL_FAX).toString());
-    ui->le_email->setText(query.value(azienda::COL_EMAIL).toString());
-
-    ui->le_cciaa->setText(query.value(azienda::COL_CCIAA).toString());
-    ui->le_iscr_trib->setText(query.value(azienda::COL_TRIB).toString());
-    ui->le_reg_imprese->setText(query.value(azienda::COL_REG_IMPRESE).toString());
-
-    logo.loadFromData(query.value(azienda::COL_LOGO).toByteArray());
-    if (logo.isNull()) {
+    m_logo.loadFromData(query.value(coldb::LOGO).toByteArray());
+    if (m_logo.isNull())
         return;
-    }
-    ui->im_logo->setPixmap(logo);
+    ui->logoImage->setPixmap(m_logo);
 }
 
 void AziendaDialog::prepareMap(void)
 {
     qDebug() << "AziendaDialog::prepareMap()";
-    mapAzienda[ph::RAG_SOCIALE] = ui->le_rag_sociale->text();
-    mapAzienda[ph::NOME] = ui->le_nome->text();
-    mapAzienda[ph::COGNOME] = ui->le_cognome->text();
-    mapAzienda[ph::INDIRIZZO] = ui->le_indirizzo->text();
-    mapAzienda[ph::CITTA] = modelCitta->index(ui->cb_citta->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[ph::PROVINCIA] = modelProvincia->index(ui->cb_provincia->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[ph::CAP] = modelCap->index(ui->cb_cap->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[ph::STATO] = modelStato->index(ui->cb_stato->currentIndex(), azienda::COL_ID).data().toString();
-    mapAzienda[ph::TEL] = ui->le_tel->text();
-    mapAzienda[ph::FAX] = ui->le_fax->text();
-    mapAzienda[ph::EMAIL] = ui->le_email->text();
-    mapAzienda[ph::PRT_IVA] = ui->le_prtiva->text();
-    mapAzienda[ph::COD_FISCALE] = ui->le_codfisc->text();
-    mapAzienda[ph::ISCR_TRIB] = ui->le_iscr_trib->text();
-    mapAzienda[ph::CCIAA] = ui->le_cciaa->text();
-    mapAzienda[ph::REG_IMPRESE] = ui->le_reg_imprese->text();
+    m_mapAzienda[ph::RAG_SOCIALE] = ui->ragSocialeLE->text();
+    m_mapAzienda[ph::NOME] = ui->nomeLE->text();
+    m_mapAzienda[ph::COGNOME] = ui->cognomeLE->text();
+    m_mapAzienda[ph::PRT_IVA] = ui->prtivaLE->text();
+    m_mapAzienda[ph::COD_FISCALE] = ui->codfiscLE->text();
+    m_mapAzienda[ph::ID_REG_FISCALE] = m_modelRegFiscale->index(
+                ui->regFiscaleCB->currentIndex(), ID).data().toString();
+    m_mapAzienda[ph::ID_PROVINCIA_REA] = m_modelProvinciaREA->index(
+                ui->provinciaReaCB->currentIndex(), ID).data().toString();
+    m_mapAzienda[ph::NUMERO_REA] = ui->numeroReaLE->text();
+    m_mapAzienda[ph::INDIRIZZO] = ui->indirizzoLE->text();
+    m_mapAzienda[ph::CITTA] = m_modelCitta->index(
+                ui->cittaCB->currentIndex(), ID).data().toString();
+    m_mapAzienda[ph::PROVINCIA] = m_modelProvincia->index(
+                ui->provinciaCB->currentIndex(), ID).data().toString();
+    m_mapAzienda[ph::CAP] = m_modelCap->index(
+                ui->capCB->currentIndex(), ID).data().toString();
+    m_mapAzienda[ph::STATO] = m_modelStato->index(
+                ui->statoCB->currentIndex(), ID).data().toString();
+    m_mapAzienda[ph::TEL] = ui->telLE->text();
+    m_mapAzienda[ph::FAX] = ui->faxLE->text();
+    m_mapAzienda[ph::EMAIL] = ui->emailLE->text();
+}
+
+void AziendaDialog::clearForm(void)
+{
+    qDebug() << "AziendaDialog::clearCombobox()";
+    auto lineEditList = findChildren<QLineEdit *>();
+    for (auto *le : lineEditList) {
+        le->clear();
+        le->setStyleSheet("");
+    }
+
+    auto comboBoxList = findChildren<QComboBox *>();
+    for (auto *cb : comboBoxList)
+        cb->setCurrentIndex(0);
+
+    ui->logoImage->clear();
+    m_logo = QPixmap();
+}
+
+void AziendaDialog::copyPrtIva(void)
+{
+    qDebug() << "AziendaDialog::copy_prt_iva()";
+    //Funzione slot che copia la partita iva nel codice fiscale
+    QString prtiva = ui->prtivaLE->text();
+    ui->codfiscLE->setText(prtiva);
+}
+
+void AziendaDialog::openAddCitta(void)
+{
+    qDebug() << "AziendaDialog::open_add_citta()";
+    QString value = allDlg(this, m_modelCitta, ADD_CITTA_QUERY, "Città", "ERRORE DA DEFINIRE"); //NOTE codice errore
+    ui->cittaCB->setCurrentText(value);
+}
+
+void AziendaDialog::openAddCap(void)
+{
+    qDebug() << "AziendaDialog::open_add_cap()";
+    QString value = allDlg(this, m_modelCap, ADD_CAP_QUERY, "CAP", "ERRORE DA DEFINIRE"); //NOTE codice errore
+    ui->capCB->setCurrentText(value);
+}
+
+void AziendaDialog::openAddLogo(void)
+{
+    qDebug() << "AziendaDialog::open_add_logo()";
+    QString filename = QFileDialog::getOpenFileName(this, "Seleziona un immagine", ".",  "Images (*.png *.xpm *.jpg *.jpeg)");
+    if (filename.isEmpty())
+        return;
+
+    m_logo.load(filename);
+    m_logo = m_logo.scaled(LOGO_WIDTH, LOGO_HEIGHT, Qt::KeepAspectRatio);
+    ui->logoImage->setPixmap(m_logo);
 }
 
 void AziendaDialog::save(void)
 {
     qDebug() << "AziendaDialog::save()";
-    prepareMap();    
+    prepareMap();
 
-    if (mapAzienda[ph::RAG_SOCIALE].isEmpty()) {
-        showDialogError(this, ERR029, MSG016); //NOTE codice errore 029
-        ui->le_rag_sociale->setStyleSheet(css::warning);
-        return;
-    }
-    else if (mapAzienda[ph::INDIRIZZO].isEmpty()) {
-        showDialogError(this, ERR030, MSG014); //NOTE codice errore 030
-        ui->le_indirizzo->setStyleSheet(css::warning);
-        return;
-    }
-    else if (mapAzienda[ph::PRT_IVA].isEmpty() ||
-             mapAzienda[ph::COD_FISCALE].isEmpty()) {
-        showDialogError(this, ERR031, MSG018); //NOTE codice errore 031
-        ui->le_prtiva->setStyleSheet(css::warning);
-        ui->le_codfisc->setStyleSheet(css::warning);
+    if (m_mapAzienda[ph::RAG_SOCIALE].isEmpty() &&
+            (m_mapAzienda[ph::NOME].isEmpty() ||
+            m_mapAzienda[ph::COGNOME].isEmpty())) {
+        showDialogError(this, "err1", "");
+        ui->ragSocialeLE->setStyleSheet(css::warning);
+        ui->nomeLE->setStyleSheet(css::warning);
+        ui->cognomeLE->setStyleSheet(css::warning);
         return;
     }
 
-    if (!controlloPartitaIva(mapAzienda[ph::PRT_IVA])) {
-        if (!showDialogWarning(this, ERR032, MSG019)) //NOTE codice errore 032
+    if (m_mapAzienda[ph::COD_FISCALE].isEmpty() ||
+            m_mapAzienda[ph::PRT_IVA].isEmpty()) {
+        showDialogError(this, "err2", "La partita IVA e il codice fiscale sono campi obbligatori");
+        ui->prtivaLE->setStyleSheet(css::warning);
+        ui->codfiscLE->setStyleSheet(css::warning);
+        return;
+    }
+
+    if (m_mapAzienda[ph::NUMERO_REA].isEmpty()) {
+        showDialogError(this, "err", "Il numero REA e' un campo obbligatorio");
+        ui->numeroReaLE->setStyleSheet(css::warning);
+        return;
+    }
+
+    if (!controlloPartitaIva(m_mapAzienda[ph::PRT_IVA]))
+        if (!showDialogWarning(this, "err2", "Partita iva errata, vuoi continuare?"))
             return;
-    }
 
-    if (mapAzienda[ph::COD_FISCALE] != mapAzienda[ph::PRT_IVA]) {
-        if (!controlloCodiceFiscale(mapAzienda[ph::COD_FISCALE])) {
-            if (!showDialogWarning(this, ERR033, MSG020)) //NOTE codice errore 033
-                return;
-        }
-    }
+    if (!controlloCodiceFiscale(m_mapAzienda[ph::COD_FISCALE]))
+        if (!showDialogWarning(this, "err3", "codice fiscale errato, vuoi continuare?"))
+            return;
 
     QSqlQuery query;
     query.prepare(azienda::UPDATE_QUERY);
-    QMapIterator <QString, QString>it(mapAzienda);
-    while (it.hasNext()) {
-        it.next();
-        query.bindValue(it.key(), it.value());
-    }
+    for (QString key : m_mapAzienda.keys())
+        query.bindValue(key, m_mapAzienda[key]);
 
     //Per Salvare logo all'interno del database
     QByteArray array;
     QBuffer buffer(&array);
     buffer.open(QIODevice::WriteOnly);
-    logo.save(&buffer, "PNG");
+    m_logo.save(&buffer, "PNG");
     query.bindValue(ph::LOGO, array);
 
     if (!query.exec()) {
@@ -212,20 +217,17 @@ void AziendaDialog::save(void)
     this->accept();
 }
 
-void AziendaDialog::clearForm(void)
+void AziendaDialog::checkRagSociale(QString str)
 {
-    qDebug() << "AziendaDialog::clearCombobox()";
-    ui->cb_citta->setCurrentIndex(0);
-    ui->cb_provincia->setCurrentIndex(0);
-    ui->cb_cap->setCurrentIndex(0);
-    ui->cb_stato->setCurrentIndex(0);
-    ui->im_logo->clear();
-    logo = QPixmap();
-}
-
-void AziendaDialog::copyPrtIva(void)
-{
-    qDebug() << "AziendaDialog::copy_prt_iva()";
-    QString prtiva = ui->le_prtiva->text();
-    ui->le_codfisc->setText(prtiva);
+    qDebug() << "AziendaDialog::checkRagSociale()";
+    bool status = str.isEmpty();
+    if (!status) {
+        ui->ragSocialeLE->setStyleSheet("");
+        ui->nomeLE->clear();
+        ui->nomeLE->setStyleSheet("");
+        ui->cognomeLE->clear();
+        ui->cognomeLE->setStyleSheet("");
+    }
+    ui->nomeLE->setEnabled(status);
+    ui->cognomeLE->setEnabled(status);
 }

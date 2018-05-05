@@ -82,9 +82,12 @@ bool controlloCodiceFiscale(QString s)
 {
     qDebug() << "controlloCodiceFiscale()";
     //Il codice fiscale ha una lunghezza di 16 cifre
-    if (s.length() != LENGHT_COD_FISCALE) {
+    if (s.length() != LENGHT_COD_FISCALE && s.length() != LENGHT_PAR_IVA) {
         return false;
     }
+
+    if (s.length() == LENGHT_PAR_IVA)
+        return controlloPartitaIva(s);
 
     QHash <QChar, int> c_pari; //tabella conversione cifre pari
     c_pari['0'] = 0;  c_pari['1'] = 1;  c_pari['2'] = 2;  c_pari['3'] = 3;

@@ -20,6 +20,7 @@ namespace table {
     const QString MAGAZZINO = "magazzino";
     const QString MARCA = "marca";
     const QString PROVINCIA = "provincia";
+    const QString REG_FISCALE = "reg_fiscale";
     const QString SEDE_MAGAZZINO = "sede_magazzino";
     const QString STATO = "stato";
     const QString TIPO_DITTA = "tipo_ditta";
@@ -35,7 +36,6 @@ namespace ph {
     const QString AGENZIA = ":agenzia";
     const QString BANCA = ":banca";
     const QString CAP = ":id_cap";
-    const QString CCIAA = ":cciaa";
     const QString CEL = ":cel";
     const QString CITTA = ":id_citta";
     const QString CLIENTE = ":cliente";
@@ -62,15 +62,18 @@ namespace ph {
     const QString ID_FORN = ":id_fornitore";
     const QString ID_MARC = ":id_marca";
     const QString ID_MERC = ":id_merce";
+    const QString ID_PROVINCIA_REA = ":id_provincia_rea";
+    const QString ID_REG_FISCALE = ":id_reg_fiscale";
     const QString ID_SEDE = ":id_sede_magazzino";
+    const QString ID_TIPO_DITTA = ":id_tipo_ditta";
     const QString ID_UM   = ":id_unita_merce";
     const QString INDIRIZZO = ":indirizzo";
-    const QString ISCR_TRIB = ":iscr_trib";
     const QString IVA     = ":iva";
     const QString LOGO = ":logo";
     const QString MODELLO = ":modello";
     const QString NOME = ":nome";
     const QString NOTE = ":note";
+    const QString NUMERO_REA = ":numero_rea";
     const QString PROVINCIA = ":id_provincia";
     const QString PRT_IVA = ":prt_iva";
     const QString PRZ_ACQ = ":prezzo_acquisto";
@@ -80,7 +83,6 @@ namespace ph {
     const QString PRZ_VEN_B = ":prezzo_vendita_b";
     const QString QUANTIT = ":quantita";
     const QString RAG_SOCIALE = ":rag_sociale";
-    const QString REG_IMPRESE = ":reg_imprese";
     const QString RICARIC = ":ricarico";
     const QString SCONTO  = ":sconto_fornitore";
     const QString SCORTA  = ":scorta_minima";
@@ -88,7 +90,6 @@ namespace ph {
     const QString STATO = ":id_stato";
     const QString SWIFT = ":swift";
     const QString TEL = ":tel";
-    const QString TIPO_DITTA = ":id_tipo_ditta";
     const QString USC_CASSA = ":usc_cassa";
     const QString USC_BANCA = ":usc_banca";
 }
@@ -126,15 +127,19 @@ namespace coldb {
     const QString ID_MARCA = "id_marca";
     const QString ID_MERCE = "id_merce";
     const QString ID_PROVINCIA = "id_provincia";
+    const QString ID_PROVINCIA_REA = "id_provincia_rea";
+    const QString ID_REG_FISCALE = "id_reg_fiscale";
     const QString ID_SEDE_MAGAZZINO = "id_sede_magazzino";
     const QString ID_STATO = "id_stato";
     const QString ID_TIPO_DITTA = "id_tipo_ditta";
     const QString ID_UNITA = "id_unita_misura";
     const QString INDIRIZZO = "indirizzo";
     const QString IVA = "iva";
+    const QString LOGO = "logo";
     const QString MODELLO = "modello";
     const QString NOME = "nome";
     const QString NOTE = "note";
+    const QString NUMERO_REA = "numero_rea";
     const QString PARTITA_IVA = "prt_iva";
     const QString PREZZO_ACQUISTO = "prezzo_acquisto";
     const QString PREZZO_FATTURA = "prezzo_fattura";
@@ -151,6 +156,7 @@ namespace coldb {
     const QString TEL = "tel";
     const QString USC_BANCA = "uscita_banca";
     const QString USC_CASSA = "uscita_cassa";
+
 }
 
 namespace colview {
