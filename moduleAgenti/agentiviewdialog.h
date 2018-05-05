@@ -1,10 +1,6 @@
 #ifndef AGENTIVIEWDIALOG_H
 #define AGENTIVIEWDIALOG_H
 
-#include <moduleAgenti/agentiadddialog.h>
-#include "libs/error.h"
-#include "agenti_const.h"
-
 #include <QDialog>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
@@ -13,6 +9,10 @@
 #include <QSettings>
 #include <QCloseEvent>
 #include <QSqlRecord>
+
+#include <moduleAgenti/agentiadddialog.h>
+#include "libs/error.h"
+#include "agenti_const.h"
 
 namespace Ui {
 class AgentiViewDialog;
@@ -28,8 +28,8 @@ public:
     
 private:
     Ui::AgentiViewDialog *ui;
-    QSqlQueryModel *modelAgenti;
-    QSettings settings;
+    QSqlQueryModel *m_modelAgenti;
+    QSettings m_settings;
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -40,7 +40,6 @@ public slots:
     void removeRecord(void);
     void searchRecord();
     void updateViewAgenti(void);
-
 };
 
 #endif // AGENTIVIEWDIALOG_H

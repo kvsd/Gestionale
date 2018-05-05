@@ -8,11 +8,11 @@ AgentiViewDialog::AgentiViewDialog(QWidget *parent) :
     qDebug() << "AgentiViewDialog()";
     ui->setupUi(this);
 
-    modelAgenti = new QSqlQueryModel(this);
-    ui->agentiView->setModel(modelAgenti);
+    m_modelAgenti = new QSqlQueryModel(this);
+    ui->agentiView->setModel(m_modelAgenti);
     updateViewAgenti();
 
-    this->setGeometry(settings.value(agenti::WINDOW_SIZE, QRect(0, 0, 700, 500)).toRect());
+    this->setGeometry(m_settings.value(agenti::WINDOW_SIZE, QRect(0, 0, 700, 500)).toRect());
 }
 
 AgentiViewDialog::~AgentiViewDialog()
@@ -24,7 +24,7 @@ AgentiViewDialog::~AgentiViewDialog()
 void AgentiViewDialog::closeEvent(QCloseEvent *event)
 {
     qDebug() << "AgentiViewDialog::closeEvent()";
-    settings.setValue(agenti::WINDOW_SIZE, this->geometry());
+    m_settings.setValue(agenti::WINDOW_SIZE, this->geometry());
     event->accept();
 }
 
@@ -32,7 +32,7 @@ void AgentiViewDialog::updateViewAgenti(void)
 {
     qDebug() << "AgentiViewDialog::updateViewAgenti()";
     ui->searchLineEdit->clear();
-    modelAgenti->setQuery(agenti::SELECT_AGENTI + agenti::ORDER_CLAUSE);
+    m_modelAgenti->setQuery(agenti::SELECT_AGENTI + agenti::ORDER_CLAUSE);
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
 }
@@ -54,7 +54,7 @@ void AgentiViewDialog::updateRecord(void)
     qDebug() << "AgentiViewDialog::updateRecord()";
     QModelIndex index = ui->agentiView->currentIndex();
     //QString id = modelAgenti->index(index.row(), agenti::COL_ID).data().toString();
-    QString id = modelAgenti->record(index.row()).value(coldb::ID).toString();
+    QString id = m_modelAgenti->record(index.row()).value(coldb::ID).toString();
 
     if (id=="") {
         showDialogError(this, ERR010, MSG007); //NOTE codice errore 010
@@ -77,7 +77,7 @@ void AgentiViewDialog::removeRecord(void)
     qDebug() << "AgentiViewDialog::removeRecord()";
     QModelIndex index = ui->agentiView->currentIndex();
 //    QString id = modelAgenti->index(index.row(), agenti::COL_ID).data().toString();
-    QString id = modelAgenti->record(index.row()).value(coldb::ID).toString();
+    QString id = m_modelAgenti->record(index.row()).value(coldb::ID).toString();
 
     if (id=="") {
         showDialogError(this, ERR013, MSG004); //NOTE codice errore 013
@@ -107,7 +107,7 @@ void AgentiViewDialog::searchRecord()
 
     //QString query(agenti::SQL_SEARCH_AGENTI);
     QString query(agenti::SELECT_AGENTI + agenti::SEARCH_CLAUSE + agenti::ORDER_CLAUSE);
-    modelAgenti->setQuery(query.arg(s));
+    m_modelAgenti->setQuery(query.arg(s));
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
 }
