@@ -23,13 +23,14 @@ class TableSetupDialog : public QDialog
 public:
     explicit TableSetupDialog(QWidget *parent = 0);
     ~TableSetupDialog();
+    enum columns {ID, DESCR};
 
 private:
     Ui::TableSetupDialog *ui;
 
-    QSqlQueryModel *model;
-    QString currentTable;
-    QHash<QString, QString> mapTables;
+    QSqlQueryModel *m_model;
+    QString m_currentTable;
+    QHash<QString, QString> m_mapTables;
     QStringListModel *m_tableModel;
 
 public slots:

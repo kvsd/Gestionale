@@ -7,7 +7,7 @@
 #include <QSettings>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QSqlRecord>
+
 #include "connectionsetupdialog.h"
 #include "libs/error.h"
 #include "db_const.h"
@@ -26,10 +26,10 @@ public:
 
 private:
     Ui::LoginDialog *ui;
-    QSqlDatabase db;
-    QString username;
-    QString password;
-    QSettings settings;
+    QSqlDatabase m_db;
+    QString m_username;
+    QString m_password;
+    QSettings m_settings;
     bool isAuthorizedUser(QString user) const;
 
 public slots:
