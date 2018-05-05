@@ -161,7 +161,7 @@ void AnagraficaAddDialog::prepareMap(void)
     m_mapPersona[ph::RAG_SOCIALE] = ui->ragSocialeLE->text();
 
     int row = ui->tipoDittaCB->currentIndex();
-    m_mapPersona[ph::TIPO_DITTA] = m_modelDitta->record(row).value(coldb::ID).toString();
+    m_mapPersona[ph::ID_TIPO_DITTA] = m_modelDitta->record(row).value(coldb::ID).toString();
 
     m_mapPersona[ph::CLIENTE] = ui->clienteCKB->isChecked() ? "y" : "n";
     m_mapPersona[ph::FORNITORE] = ui->fornitoreCKB->isChecked() ? "y" : "n";
@@ -288,7 +288,7 @@ void AnagraficaAddDialog::openAddTipoditta(void)
 void AnagraficaAddDialog::openAddCitta(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddCitta()";
-    QString value = allDlg(this, m_modelCitta, ADD_CITTA_QUERY, "Città", ERR016); //NOTE codice errore 016
+    QString value = allDlg(this, m_modelCitta, ADD_CITTA_QUERY, "Città", "ERRORE DA DEFINIRE"); //NOTE codice errore
     if (!value.isEmpty())
         ui->cittaCB->setCurrentText(value);
 }

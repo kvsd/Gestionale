@@ -1,11 +1,12 @@
 #ifndef OPTIONSANAGRAFICADIALOG_H
 #define OPTIONSANAGRAFICADIALOG_H
 
+#include <QMap>
+#include <QDebug>
+
 #include "libs/custommodel.h"
 #include "libs/optionsdialog.h"
 #include "anagrafica_const.h"
-#include <QMap>
-#include <QDebug>
 
 namespace Ui {
 class OptionsAnagraficaDialog;
@@ -20,9 +21,9 @@ public:
     ~OptionsAnagraficaDialog();
 
 private:
-    CustomModel *anagraficaModel;
     Ui::OptionsAnagraficaDialog *ui;
-    QMap <int, QString> anagraficaNameCols;
+    CustomModel *m_anagraficaModel;
+    QMap <int, QString> m_anagraficaNameCols;
 
     void populateAnagraficaList(void);
 

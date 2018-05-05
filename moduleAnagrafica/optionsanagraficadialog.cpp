@@ -3,14 +3,14 @@
 
 OptionsAnagraficaDialog::OptionsAnagraficaDialog(QWidget *parent) :
     OptionsDialog(parent),
-    anagraficaModel(new CustomModel(this)),
-    ui(new Ui::OptionsAnagraficaDialog)
+    ui(new Ui::OptionsAnagraficaDialog),
+    m_anagraficaModel(new CustomModel(this))
 {
     qDebug() << "OptionsAnagraficaDialog()";
     ui->setupUi(this);
 
-    anagraficaModel->setQuery(anagrafica::SELECT_ALL);
-    populateList(ui->lw_column_anagrafica, anagraficaModel);
+    m_anagraficaModel->setQuery(anagrafica::SELECT_ALL);
+    populateList(ui->lw_column_anagrafica, m_anagraficaModel);
     loadConfig();
 }
 
