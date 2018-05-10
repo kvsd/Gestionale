@@ -53,14 +53,13 @@ void AgentiViewDialog::updateRecord(void)
 {
     qDebug() << "AgentiViewDialog::updateRecord()";
     QModelIndex index = ui->agentiView->currentIndex();
-    //QString id = modelAgenti->index(index.row(), agenti::COL_ID).data().toString();
-    QString id = m_modelAgenti->record(index.row()).value(coldb::ID).toString();
 
-    if (id=="") {
+    if (!index.isValid()) {
         showDialogError(this, ERR010, MSG007); //NOTE codice errore 010
         return;
     }
 
+    QString id = m_modelAgenti->record(index.row()).value(coldb::ID).toString();
     AgentiAddDialog dlg(this);
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Agente");
