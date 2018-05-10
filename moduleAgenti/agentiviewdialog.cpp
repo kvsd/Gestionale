@@ -75,14 +75,13 @@ void AgentiViewDialog::removeRecord(void)
 {
     qDebug() << "AgentiViewDialog::removeRecord()";
     QModelIndex index = ui->agentiView->currentIndex();
-//    QString id = modelAgenti->index(index.row(), agenti::COL_ID).data().toString();
-    QString id = m_modelAgenti->record(index.row()).value(coldb::ID).toString();
 
-    if (id=="") {
+    if (!index.isValid()) {
         showDialogError(this, ERR013, MSG004); //NOTE codice errore 013
         return;
     }
 
+    QString id = m_modelAgenti->record(index.row()).value(coldb::ID).toString();
     QSqlQuery query;
     query.prepare(agenti::DELETE_QUERY);
     query.bindValue(ph::ID, id);
