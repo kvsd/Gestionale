@@ -72,6 +72,13 @@ CREATE TABLE reg_fiscale (id SERIAL PRIMARY KEY,
 						  sigla TEXT UNIQUE NOT NULL);
 INSERT INTO reg_fiscale VALUES (0, '-----', '-----');
 --##############################################################################
+CREATE TABLE stato_liquid(id SERIAL PRIMARY KEY, --stato liquidazione
+				    	  descr TEXT UNIQUE NOT NULL, 
+						  sigla TEXT UNIQUE NOT NULL);
+INSERT INTO stato_liquid(id, descr, sigla) VALUES(0, '-----', '-----');
+INSERT INTO stato_liquid(descr, sigla) VALUES('Non in liquidazione', '[LN]');
+INSERT INTO stato_liquid(descr, sigla) VALUES('In liquidazione', '[LS]');
+--##############################################################################
 CREATE TABLE azienda (id INTEGER PRIMARY KEY, 
                       rag_sociale TEXT,
                       nome TEXT,
@@ -81,6 +88,7 @@ CREATE TABLE azienda (id INTEGER PRIMARY KEY,
 					  id_reg_fiscale INTEGER REFERENCES reg_fiscale(id) DEFAULT 0, --regime fiscale
 					  id_provincia_rea INTEGER REFERENCES provincia(id) DEFAULT 0,
                       numero_rea TEXT NOT NULL,
+					  id_stato_liquid INTEGER REFERENCES stato_liquid(id) DEFAULT 0,
 					  indirizzo TEXT NOT NULL,
                       id_citta INTEGER REFERENCES citta(id) DEFAULT 0,
                       id_provincia INTEGER REFERENCES provincia(id) DEFAULT 0,
