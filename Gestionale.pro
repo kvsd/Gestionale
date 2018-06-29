@@ -62,7 +62,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     moduleReport/cell.h \
     moduleReport/row.h \
     moduleReport/listinodlg.h \
-    moduleReport/queryreport.h
+    moduleReport/queryreport.h \
+    libs/custominsertdialog.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -110,4 +111,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     moduleReport/cell.cpp \
     moduleReport/row.cpp \
     moduleReport/listinodlg.cpp \
-    moduleReport/queryreport.cpp
+    moduleReport/queryreport.cpp \
+    libs/custominsertdialog.cpp
