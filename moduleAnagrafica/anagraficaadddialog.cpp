@@ -238,8 +238,8 @@ void AnagraficaAddDialog::save(void)
     else if (m_mapPersona[ph::CLIENTE] == "n" &&
              m_mapPersona[ph::FORNITORE] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
-        ui->clienteCKB->setStyleSheet(css::warning);
-        ui->fornitoreCKB->setStyleSheet(css::warning);
+        ui->clienteCKB->setStyleSheet(css::warning_ckb);
+        ui->fornitoreCKB->setStyleSheet(css::warning_ckb);
         return;
     }
 

@@ -258,6 +258,7 @@ void MagazzinoWindow::showEvent(QShowEvent *event)
 {
     qDebug() << "MagazzinoWindow::showEvent()";
     updateViewMagazzino();
+    updateModel();
     event->accept();
 }
 
