@@ -32,12 +32,10 @@ bool showDialogWarning(QWidget *parent, QString title, QString informative, QStr
         dlg.setDetailedText(details);
 
     dlg.exec();
-    if (dlg.clickedButton() == yesbtn) {
+    if (dlg.clickedButton() == yesbtn)
         return true;
-    }
-    else if (dlg.clickedButton() == nobtn) {
+    else if (dlg.clickedButton() == nobtn)
         return false;
-    }
 
     return false;
 }

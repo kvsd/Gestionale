@@ -15,6 +15,7 @@ namespace azienda {
                                      "id_reg_fiscale=:id_reg_fiscale, "
                                      "id_provincia_rea=:id_provincia_rea, "
                                      "numero_rea=:numero_rea, "
+                                     "id_stato_liquid=:id_stato_liquid, "
                                      "indirizzo=:indirizzo, "
                                      "id_citta=:id_citta, "
                                      "id_provincia=:id_provincia, "

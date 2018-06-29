@@ -39,14 +39,18 @@ private:
     QSqlTableModel *m_modelCap;
     QSqlTableModel *m_modelStato;
     QSqlTableModel *m_modelRegFiscale;
+    QSqlTableModel *m_modelLiquidazione;
     QMap <QString, QString> m_mapAzienda;
     QPixmap m_logo;
 
-    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
     void initComboBox();
+    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
     void setValueCB(QComboBox *box, QString value);
     void setValue(QString id="0");
     void prepareMap(void);
+    bool checkLineEdit(QLineEdit *le, QString nomeCampo);
+    bool checkComboBox(QComboBox *cb, QString nomeCampo);
+    bool checkValues(void);
 
 public slots:
     void clearForm(void);
@@ -55,7 +59,6 @@ public slots:
     void openAddCap(void);
     void openAddLogo(void);
     void save(void);
-    void checkRagSociale(QString str);
 };
 
 #endif // AZIENDADIALOG_H

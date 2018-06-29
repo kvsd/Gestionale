@@ -23,6 +23,7 @@ namespace table {
     const QString REG_FISCALE = "reg_fiscale";
     const QString SEDE_MAGAZZINO = "sede_magazzino";
     const QString STATO = "stato";
+    const QString STATO_LIQUID = "stato_liquid";
     const QString TIPO_DITTA = "tipo_ditta";
     const QString TIPO_PAGAMENTO = "tipo_pagamento";
     const QString UNITA_MISURA = "unita_misura";
@@ -65,6 +66,7 @@ namespace ph {
     const QString ID_PROVINCIA_REA = ":id_provincia_rea";
     const QString ID_REG_FISCALE = ":id_reg_fiscale";
     const QString ID_SEDE = ":id_sede_magazzino";
+    const QString ID_STATO_LIQUID = ":id_stato_liquid";
     const QString ID_TIPO_DITTA = ":id_tipo_ditta";
     const QString ID_UM   = ":id_unita_merce";
     const QString INDIRIZZO = ":indirizzo";
@@ -131,6 +133,7 @@ namespace coldb {
     const QString ID_REG_FISCALE = "id_reg_fiscale";
     const QString ID_SEDE_MAGAZZINO = "id_sede_magazzino";
     const QString ID_STATO = "id_stato";
+    const QString ID_STATO_LIQUID = "id_stato_liquid";
     const QString ID_TIPO_DITTA = "id_tipo_ditta";
     const QString ID_UNITA = "id_unita_misura";
     const QString INDIRIZZO = "indirizzo";
@@ -156,7 +159,6 @@ namespace coldb {
     const QString TEL = "tel";
     const QString USC_BANCA = "uscita_banca";
     const QString USC_CASSA = "uscita_cassa";
-
 }
 
 namespace colview {
@@ -223,7 +225,9 @@ namespace css {
     //CSS
     const QString positive = "QLabel {color:blue}";
     const QString negative = "QLabel {color:red}";
-    const QString warning = "background-color:yellow";
+    const QString warning = "QLineEdit {background-color:yellow}";
+    const QString warning_cb = "QComboBox {background-color:yellow;}";
+    const QString warning_ckb = "QCheckBox {background-color:yellow}";
 }
 
 #endif // GESTIONALE_CONST_H

@@ -21,8 +21,8 @@
 #define ERR013 "Codice Errore 013" //AgentiViewDialog
 #define ERR014 "Codice Errore 014" //*
 #define ERR015 "Codice Errore 015" //AnagraficaAddDialog
-#define ERR016 "Codice Errore 016" //*
-#define ERR017 "Codice Errore 017" //*
+#define ERR016 "Codice Errore 016" //Non usato
+#define ERR017 "Codice Errore 017" //AnagraficaAddDialog
 #define ERR018 "Codice Errore 018" //*
 #define ERR019 "Codice Errore 019" //*
 #define ERR020 "Codice Errore 020" //*
@@ -39,7 +39,7 @@
 #define ERR031 "Codice Errore 031" //*
 #define ERR032 "Codice Errore 032" //*
 #define ERR033 "Codice Errore 033" //*
-#define ERR034 "Codice Errore 034" //Non usato
+#define ERR034 "Codice Errore 034" //*
 #define ERR035 "Codice Errore 035" //*
 #define ERR036 "Codice Errore 036" //MagazzinoWindow
 #define ERR037 "Codice Errore 037" //*
@@ -81,7 +81,7 @@ const QString MSG012 = QString::fromUtf8("Prima di cancellare una nota bisogna s
 const QString MSG013 = QString::fromUtf8("Il campo descrizione è obbligatorio");
 const QString MSG014 = QString::fromUtf8("L'indirizzo è un campo obbligatorio, deve essere specificato.");
 const QString MSG015 = QString::fromUtf8("Il record è già presente.");
-const QString MSG016 = QString::fromUtf8("La ragione sociale è obbligatoria e non può essere un campo vuoto.");
+const QString MSG016 = QString::fromUtf8("La Ragione sociale o i campi Nome e Cognome sono obbligatori.");
 const QString MSG017 = QString::fromUtf8("Non è stato specificato se il nuovo record è un cliente o un fornitore.");
 const QString MSG018 = QString::fromUtf8("La partita IVA e il codice fiscale sono campi obbligatori.");
 const QString MSG019 = QString::fromUtf8("La partita IVA immessa potrebbe essere sbagliata. Si vuole continuare lo stesso?");
@@ -95,6 +95,8 @@ const QString MSG026 = QString::fromUtf8("Non è stata effettuata la connessione
 const QString MSG027 = QString::fromUtf8("Per poter gestire gli utenti devi usare l'utente postgres");
 const QString MSG028 = QString::fromUtf8("Per poter clonare un articolo bisogna prima selezionarlo dalla lista articoli.");
 const QString MSG030 = QString::fromUtf8("I codici IVA sono uguali.");
+const QString MSG031 = QString::fromUtf8("Il campo %1 deve essere compilato");
+const QString MSG032 = QString::fromUtf8("Bisogna selezionare un valore dal campo %1");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");
