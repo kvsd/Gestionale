@@ -6,6 +6,7 @@
 #include "libs/utils.h"
 #include "libs/gestionale_const.h"
 #include "azienda_const.h"
+#include "libs/custominsertdialog.h"
 
 #include <QDialog>
 #include <QFileDialog>
@@ -21,7 +22,7 @@ namespace Ui {
 class AziendaDialog;
 }
 
-class AziendaDialog : public QDialog
+class AziendaDialog : public CustomInsertDialog
 {
     Q_OBJECT
 

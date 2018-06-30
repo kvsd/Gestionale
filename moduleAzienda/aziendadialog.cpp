@@ -2,7 +2,7 @@
 #include "ui_aziendadialog.h"
 
 AziendaDialog::AziendaDialog(QWidget *parent) :
-    QDialog(parent),
+    CustomInsertDialog(parent),
     ui(new Ui::AziendaDialog)
 {
     qDebug() << "AziendaDialog()";
@@ -123,18 +123,7 @@ void AziendaDialog::prepareMap(void)
 void AziendaDialog::clearForm(void)
 {
     //Slot cancella i dati immessi dall'utente.
-    qDebug() << "AziendaDialog::clearCombobox()";
-    auto lineEditList = findChildren<QLineEdit *>();
-    for (auto *le : lineEditList) {
-        le->clear();
-        le->setStyleSheet("");
-    }
-
-    auto comboBoxList = findChildren<QComboBox *>();
-    for (auto *cb : comboBoxList) {
-        cb->setCurrentIndex(0);
-        cb->setStyleSheet(""); //BUG
-    }
+    CustomInsertDialog::clearForm();
 
     ui->logoImage->clear();
     m_logo = QPixmap();
