@@ -7,9 +7,34 @@ CustomInsertDialog::CustomInsertDialog(QWidget *parent)
 
 }
 
+QSqlTableModel * CustomInsertDialog::setupComboBox(QString tablename, QComboBox *cb, int viewCol)
+{
+    //Inizializza un QSqlTableModel con la tabella tablename e
+    //l'assegna al QComboBox cb e ritorna il model.
+    qDebug() << "CustomInsertDialog::setupComboBox()*";
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable(tablename);
+    model->setSort(viewCol, Qt::AscendingOrder);
+    model->select();
+    cb->setModel(model);
+    cb->setModelColumn(viewCol);
+    return model;
+}
+
+void CustomInsertDialog::setValueCB(QComboBox *box, QString value, int searchCol)
+{
+    //Cerca nel campo ID del QComboBox il valore value e lo
+    //imposta come selezione corrente.
+    qDebug() << "CustomInsertDialog::setValueCB()*";
+    int oldCol = box->modelColumn();
+    box->setModelColumn(searchCol);
+    box->setCurrentText(value);
+    box->setModelColumn(oldCol);
+}
+
 void CustomInsertDialog::clearForm()
 {
-    qDebug() << "CustomInsertDialog::clearForm()";
+    qDebug() << "CustomInsertDialog::clearForm()*";
     auto lineEditList = findChildren<QLineEdit *>();
     for (auto *le : lineEditList) {
         le->clear();
@@ -18,15 +43,7 @@ void CustomInsertDialog::clearForm()
 
     auto comboBoxList = findChildren<QComboBox *>();
     for (auto *cb : comboBoxList) {
-        if (cb->objectName() == "regFiscaleCB")
-            continue;
         cb->setCurrentIndex(0);
-        cb->setStyleSheet(""); //BUG
+        cb->setStyleSheet("");
     }
-
-}
-
-void CustomInsertDialog::save()
-{
-    qDebug() << "CustomInsertDialog::save()";
 }

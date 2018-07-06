@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QComboBox>
+#include <QSqlTableModel>
 #include <QDebug>
 
 class CustomInsertDialog : public QDialog
@@ -13,9 +14,14 @@ class CustomInsertDialog : public QDialog
 public:
     explicit CustomInsertDialog(QWidget *parent = 0);
 
+protected:
+    virtual void initComboBox() = 0;
+    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol=0);
+    void setValueCB(QComboBox *box, QString value, int searchCol);
+
 public slots:
     void clearForm(void);
-    void save(void);
+    virtual void save() = 0;
 /*
 class AziendaDialog : public CustomInsertDialog
 {
@@ -27,9 +33,7 @@ public:
     enum size {LOGO_WIDTH = 300, LOGO_HEIGHT=200};
 
 private:
-    void initComboBox();
     QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
-    void setValueCB(QComboBox *box, QString value);
     void setValue(QString id="0");
     void prepareMap(void);
     bool checkLineEdit(QLineEdit *le, QString nomeCampo);
