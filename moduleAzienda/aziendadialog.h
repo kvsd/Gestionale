@@ -45,8 +45,8 @@ private:
     QPixmap m_logo;
 
     void initComboBox();
-    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
-    void setValueCB(QComboBox *box, QString value);
+//    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
+//    void setValueCB(QComboBox *box, QString value, int searchCol=0);
     void setValue(QString id="0");
     void prepareMap(void);
     bool checkLineEdit(QLineEdit *le, QString nomeCampo);

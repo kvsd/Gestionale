@@ -10,6 +10,25 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
 
     initComboBox();
     setValue("0"); //richiamo l'unico record della tabella azienda
+    const char * m_ph = "placeholder";
+    ui->ragSocialeLE->setProperty(m_ph, ph::RAG_SOCIALE);
+    ui->nomeLE->setProperty(m_ph, ph::NOME);
+    ui->cognomeLE->setProperty(m_ph, ph::COGNOME);
+    ui->prtivaLE->setProperty(m_ph, ph::PRT_IVA);
+    ui->codfiscLE->setProperty(m_ph, ph::COD_FISCALE);
+    ui->numeroReaLE->setProperty(m_ph, ph::NUMERO_REA);
+    ui->indirizzoLE->setProperty(m_ph, ph::INDIRIZZO);
+    ui->telLE->setProperty(m_ph, ph::TEL);
+    ui->faxLE->setProperty(m_ph, ph::FAX);
+    ui->emailLE->setProperty(m_ph, ph::EMAIL);
+
+    ui->regFiscaleCB->setProperty(m_ph, ph::ID_REG_FISCALE);
+    ui->provinciaReaCB->setProperty(m_ph, ph::ID_PROVINCIA_REA);
+    ui->statoLiquidCB->setProperty(m_ph, ph::ID_STATO_LIQUID);
+    ui->cittaCB->setProperty(m_ph, ph::CITTA);
+    ui->provinciaCB->setProperty(m_ph, ph::PROVINCIA);
+    ui->capCB->setProperty(m_ph, ph::CAP);
+    ui->statoCB->setProperty(m_ph, ph::STATO);
 }
 
 AziendaDialog::~AziendaDialog()
@@ -22,38 +41,13 @@ void AziendaDialog::initComboBox()
 {
     //Inizializza i combobox
     qDebug() << "AziendaDialog::initComboBox()";
-    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB);
-    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB);
-    m_modelProvinciaREA = setupComboBox(table::PROVINCIA, ui->provinciaReaCB);
-    m_modelCap = setupComboBox(table::CAP, ui->capCB);
-    m_modelStato = setupComboBox(table::STATO, ui->statoCB);
-    m_modelRegFiscale = setupComboBox(table::REG_FISCALE, ui->regFiscaleCB);
-    m_modelLiquidazione = setupComboBox(table::STATO_LIQUID, ui->statoLiquidCB);
-}
-
-QSqlTableModel * AziendaDialog::setupComboBox(QString tablename, QComboBox *cb)
-{
-    //Inizializza un QSqlTableModel con la tabella tablename e
-    //l'assegna al QComboBox cb e ritorna il model.
-    qDebug() << "AziendaDialog::setupComboBox()";
-    QSqlTableModel *model = new QSqlTableModel;
-    model->setTable(tablename);
-    model->setSort(DESCR, Qt::AscendingOrder);
-    model->select();
-    cb->setModel(model);
-    cb->setModelColumn(DESCR);
-    return model;
-}
-
-void AziendaDialog::setValueCB(QComboBox *box, QString value)
-{
-    //Cerca nel campo ID del QComboBox il valore value e lo
-    //imposta come selezione corrente.
-    qDebug() << "AziendaDialog::setValueCB()";
-    box->setModelColumn(ID);
-    int index = box->findText(value);
-    box->setCurrentIndex(index);
-    box->setModelColumn(DESCR);
+    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, DESCR);
+    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, DESCR);
+    m_modelProvinciaREA = setupComboBox(table::PROVINCIA, ui->provinciaReaCB, DESCR);
+    m_modelCap = setupComboBox(table::CAP, ui->capCB, DESCR);
+    m_modelStato = setupComboBox(table::STATO, ui->statoCB, DESCR);
+    m_modelRegFiscale = setupComboBox(table::REG_FISCALE, ui->regFiscaleCB, DESCR);
+    m_modelLiquidazione = setupComboBox(table::STATO_LIQUID, ui->statoLiquidCB, DESCR);
 }
 
 void AziendaDialog::setValue(QString id)
@@ -77,13 +71,13 @@ void AziendaDialog::setValue(QString id)
     ui->faxLE->setText(query.value(coldb::FAX).toString());
     ui->emailLE->setText(query.value(coldb::EMAIL).toString());
 
-    setValueCB(ui->regFiscaleCB, query.value(coldb::ID_REG_FISCALE).toString());
-    setValueCB(ui->provinciaReaCB, query.value(coldb::ID_PROVINCIA_REA).toString());
-    setValueCB(ui->statoLiquidCB, query.value(coldb::ID_STATO_LIQUID).toString());
-    setValueCB(ui->cittaCB, query.value(coldb::ID_CITTA).toString());
-    setValueCB(ui->provinciaCB, query.value(coldb::ID_PROVINCIA).toString());
-    setValueCB(ui->capCB, query.value(coldb::ID_CAP).toString());
-    setValueCB(ui->statoCB, query.value(coldb::ID_STATO).toString());
+    setValueCB(ui->regFiscaleCB, query.value(coldb::ID_REG_FISCALE).toString(), ID);
+    setValueCB(ui->provinciaReaCB, query.value(coldb::ID_PROVINCIA_REA).toString(), ID);
+    setValueCB(ui->statoLiquidCB, query.value(coldb::ID_STATO_LIQUID).toString(), ID);
+    setValueCB(ui->cittaCB, query.value(coldb::ID_CITTA).toString(), ID);
+    setValueCB(ui->provinciaCB, query.value(coldb::ID_PROVINCIA).toString(), ID);
+    setValueCB(ui->capCB, query.value(coldb::ID_CAP).toString(), ID);
+    setValueCB(ui->statoCB, query.value(coldb::ID_STATO).toString(), ID);
 
     m_logo.loadFromData(query.value(coldb::LOGO).toByteArray());
     if (m_logo.isNull())
@@ -94,30 +88,25 @@ void AziendaDialog::setValue(QString id)
 void AziendaDialog::prepareMap(void)
 {
     qDebug() << "AziendaDialog::prepareMap()";
-    m_mapAzienda[ph::RAG_SOCIALE] = ui->ragSocialeLE->text();
-    m_mapAzienda[ph::NOME] = ui->nomeLE->text();
-    m_mapAzienda[ph::COGNOME] = ui->cognomeLE->text();
-    m_mapAzienda[ph::PRT_IVA] = ui->prtivaLE->text();
-    m_mapAzienda[ph::COD_FISCALE] = ui->codfiscLE->text();
-    m_mapAzienda[ph::ID_REG_FISCALE] = m_modelRegFiscale->index(
-                ui->regFiscaleCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::ID_PROVINCIA_REA] = m_modelProvinciaREA->index(
-                ui->provinciaReaCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::NUMERO_REA] = ui->numeroReaLE->text();
-    m_mapAzienda[ph::ID_STATO_LIQUID] = m_modelLiquidazione->index(
-                ui->statoLiquidCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::INDIRIZZO] = ui->indirizzoLE->text();
-    m_mapAzienda[ph::CITTA] = m_modelCitta->index(
-                ui->cittaCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::PROVINCIA] = m_modelProvincia->index(
-                ui->provinciaCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::CAP] = m_modelCap->index(
-                ui->capCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::STATO] = m_modelStato->index(
-                ui->statoCB->currentIndex(), ID).data().toString();
-    m_mapAzienda[ph::TEL] = ui->telLE->text();
-    m_mapAzienda[ph::FAX] = ui->faxLE->text();
-    m_mapAzienda[ph::EMAIL] = ui->emailLE->text();
+    for (auto *le : findChildren<QLineEdit *>()) {
+        QString ph = le->property("placeholder").toString();
+        if (ph.isEmpty())
+            continue;
+        QString value = le->text();
+        m_mapAzienda[ph] = value;
+    }
+
+    //Legge i combobox
+    for (auto *cb : findChildren<QComboBox *>()) {
+        QString ph = cb->property("placeholder").toString();
+        if (ph.isEmpty())
+            continue;
+        int oldCol = cb->modelColumn();
+        cb->setModelColumn(ID);
+        QString value = cb->currentText();
+        m_mapAzienda[ph] = value;
+        cb->setModelColumn(oldCol);
+    }
 }
 
 void AziendaDialog::clearForm(void)
