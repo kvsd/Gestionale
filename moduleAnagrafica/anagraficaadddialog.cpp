@@ -171,18 +171,18 @@ void AnagraficaAddDialog::prepareMap(void)
     m_mapPersona[ph::COD_FISCALE] = ui->codFiscaleLE->text();
 
     row = ui->agenteCB->currentIndex();
-    m_mapPersona[ph::AGENTE] = m_modelAgente->record(row).value(coldb::ID).toString();
+    m_mapPersona[ph::ID_AGENTE] = m_modelAgente->record(row).value(coldb::ID).toString();
 
     m_mapPersona[ph::INDIRIZZO] = ui->indirizzoLE->text();
 
     row = ui->cittaCB->currentIndex();
-    m_mapPersona[ph::CITTA] = m_modelCitta->record(row).value(coldb::ID).toString();
+    m_mapPersona[ph::ID_CITTA] = m_modelCitta->record(row).value(coldb::ID).toString();
     row = ui->provinciaCB->currentIndex();
     m_mapPersona[ph::PROVINCIA] = m_modelProvincia->record(row).value(coldb::ID).toString();
     row = ui->capCB->currentIndex();
-    m_mapPersona[ph::CAP]= m_modelCap->record(row).value(coldb::ID).toString();
+    m_mapPersona[ph::ID_CAP]= m_modelCap->record(row).value(coldb::ID).toString();
     row = ui->statoCB->currentIndex();
-    m_mapPersona[ph::STATO]= m_modelStato->record(row).value(coldb::ID).toString();
+    m_mapPersona[ph::ID_STATO]= m_modelStato->record(row).value(coldb::ID).toString();
 
     m_mapPersona[ph::TEL]= ui->telLE->text();
     m_mapPersona[ph::CEL]= ui->celLE->text();
@@ -194,7 +194,7 @@ void AnagraficaAddDialog::prepareMap(void)
     m_mapPersona[ph::CONTO] = ui->contoLE->text();
     m_mapPersona[ph::SWIFT] = ui->swiftLE->text();
     m_mapPersona[ph::IBAN] = ui->ibanLE->text();
-    m_mapPersona[ph::DEST_MERCE] = ui->destMerceTE->toPlainText();
+    m_mapPersona[ph::DESTINAZIONE_MERCE] = ui->destMerceTE->toPlainText();
     m_mapPersona[ph::NOTE] = ui->noteTE->toPlainText();
 }
 

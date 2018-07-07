@@ -62,7 +62,7 @@ void codIvaUpdateDialog::updateIva(void)
 
     QSqlQuery query;
     query.prepare(magazzino::SELECT_ARTICOLI_FROM_IVA);
-    query.bindValue(ph::COD_IVA, oldIvastr);
+    query.bindValue(ph::CODICE_IVA, oldIvastr);
     query.exec();
     while (query.next()) {
         QString id = query.value(coldb::ID).toString();
@@ -83,7 +83,7 @@ void codIvaUpdateDialog::updateIva(void)
         QSqlQuery queryUpdateIva;
         queryUpdateIva.prepare(magazzino::UPDATE_ARTICOLI_FROM_IVA);
         queryUpdateIva.bindValue(ph::ID, id);
-        queryUpdateIva.bindValue(ph::COD_IVA, newIvastr);
+        queryUpdateIva.bindValue(ph::CODICE_IVA, newIvastr);
         queryUpdateIva.bindValue(ph::IVA, iva);
         queryUpdateIva.bindValue(ph::PRZ_FIN, prezzo_finito);
         queryUpdateIva.bindValue(ph::PRZ_VEN, prezzo_vendita);

@@ -19,13 +19,13 @@ namespace primanota {
     const QString INSERT_PN =
             "INSERT INTO prima_nota(data, descr,entrata_cassa, entrata_banca,"
                                    "uscita_cassa, uscita_banca)"
-            "VALUES(:date, :descr, :ent_cassa, :ent_banca, :usc_cassa, :usc_banca)";
+            "VALUES(:date, :descr, :entrata_cassa, :entrata_banca, :uscita_cassa, :uscita_banca)";
 
     //UPDATE utilizzata in PrimaNotaAddDialog
     const QString UPDATE_PN =
-            "UPDATE prima_nota SET data=:date, descr=:descr, entrata_cassa=:ent_cassa,"
-                                  "entrata_banca=:ent_banca, uscita_cassa=:usc_cassa,"
-                                  "uscita_banca=:usc_banca "
+            "UPDATE prima_nota SET data=:date, descr=:descr, entrata_cassa=:entrata_cassa,"
+                                  "entrata_banca=:entrata_banca, uscita_cassa=:uscita_cassa,"
+                                  "uscita_banca=:uscita_banca "
             "WHERE id=:id";
 
     //DELETE per tabella prima_nota

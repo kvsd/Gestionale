@@ -57,7 +57,7 @@ void PrimaNotaAddDlg::prepareMap()
     qDebug() << "PrimaNotaAddDlg::prepareMap()";
 
     m_mapQuery[ph::DATE] = ui->dateEdit->text();
-    m_mapQuery[ph::DESCR] = ui->comboBox->currentText();
+    m_mapQuery[ph::DESCRIZIONE] = ui->comboBox->currentText();
 
     double entCassa = stringToDouble(ui->entCassaLineEdit->text());
     m_mapQuery[ph::ENT_CASSA] = QString().setNum(entCassa);
@@ -96,7 +96,7 @@ void PrimaNotaAddDlg::save()
     qDebug() << "PrimaNotaAddDlg::save()";
     QSqlQuery query = prepareQuery();
 
-    if (m_mapQuery[ph::DESCR].isEmpty()) {
+    if (m_mapQuery[ph::DESCRIZIONE].isEmpty()) {
         showDialogError(this, ERR051, MSG013); //NOTE codice errore 051
         return;
     }

@@ -173,13 +173,13 @@ void ArticoloDialog::setFattura(QString str)
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
-    m_articoloMap[ph::DESCR] = ui->descrizioneLE->text();
-    m_articoloMap[ph::ID_MARC] = m_modelMarca->index(ui->marcaCB->currentIndex(),
+    m_articoloMap[ph::DESCRIZIONE] = ui->descrizioneLE->text();
+    m_articoloMap[ph::ID_MARCA] = m_modelMarca->index(ui->marcaCB->currentIndex(),
                                                      magazzino::ID).data().toString();
     m_articoloMap[ph::MODELLO] = ui->modelloLE->text();
-    m_articoloMap[ph::COD_ART] = ui->codArticoloLE->text();
-    m_articoloMap[ph::COD_EAN] = ui->codBarreLE->text();
-    m_articoloMap[ph::ID_MERC] = m_modelCatMerce->index(ui->catmerceCB->currentIndex(),
+    m_articoloMap[ph::CODICE_ARTICOLO] = ui->codArticoloLE->text();
+    m_articoloMap[ph::CODICE_BARRE] = ui->codBarreLE->text();
+    m_articoloMap[ph::ID_MERCE] = m_modelCatMerce->index(ui->catmerceCB->currentIndex(),
                                                         magazzino::ID).data().toString();
     m_articoloMap[ph::ID_UM] = m_modelUnita->index(ui->unitamisuraCB->currentIndex(),
                                                    magazzino::ID).data().toString();
@@ -188,9 +188,9 @@ void ArticoloDialog::prepareMap()
     double scorta = stringToDouble(ui->scortaLE->text());
     m_articoloMap[ph::SCORTA] = QString().setNum(scorta);
 
-    m_articoloMap[ph::ID_FORN] = m_modelFornitore->index(ui->fornitoreCB->currentIndex(),
+    m_articoloMap[ph::ID_FORNITORE] = m_modelFornitore->index(ui->fornitoreCB->currentIndex(),
                                                          magazzino::ID).data().toString();
-    m_articoloMap[ph::COD_FRN] = ui->codFornitoreLE->text();
+    m_articoloMap[ph::CODICE_FORNITORE] = ui->codFornitoreLE->text();
 
     double quantita = stringToDouble(ui->quantitaLE->text());
     m_articoloMap[ph::QUANTIT] = QString().setNum(quantita);
@@ -205,7 +205,7 @@ void ArticoloDialog::prepareMap()
 
     double prezzo_acquisto = stringToDouble(ui->prezzoAcquistoLE->text());
     m_articoloMap[ph::PRZ_ACQ] = QString().setNum(prezzo_acquisto);
-    m_articoloMap[ph::COD_IVA] = ui->codivaCB->currentText();
+    m_articoloMap[ph::CODICE_IVA] = ui->codivaCB->currentText();
     double iva = stringToDouble(ui->ivaLE->text());
     m_articoloMap[ph::IVA] = QString().setNum(iva);
     double prezzo_vend = stringToDouble(ui->prezzoVendita1LE->text());
@@ -215,7 +215,7 @@ void ArticoloDialog::prepareMap()
     double prezzo_fin = stringToDouble(ui->prezzoFinitoLE->text());
     m_articoloMap[ph::PRZ_FIN] = QString().setNum(prezzo_fin);
 
-    m_articoloMap[ph::ID_SEDE] = m_modelSede->index(ui->sedeCB->currentIndex(),
+    m_articoloMap[ph::ID_SEDE_MAGAZZINO] = m_modelSede->index(ui->sedeCB->currentIndex(),
                                                     magazzino::ID).data().toString();
     m_articoloMap[ph::DATA_ARRIVO] = ui->dataLE->date().toString("dd/MM/yyyy");
     m_articoloMap[ph::FATTURA] = ui->fatturaLE->text();
@@ -267,7 +267,7 @@ void ArticoloDialog::save(void)
     db.transaction();
     prepareMap();
 
-    if (m_articoloMap[ph::DESCR].isEmpty()) {
+    if (m_articoloMap[ph::DESCRIZIONE].isEmpty()) {
         showDialogError(this, ERR050, MSG013); //NOTE codice errore 050
         ui->descrizioneLE->setStyleSheet(css::warning);
         db.rollback();
