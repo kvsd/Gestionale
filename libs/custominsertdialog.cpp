@@ -32,6 +32,28 @@ void CustomInsertDialog::setValueCB(QComboBox *box, QString value, int searchCol
     box->setModelColumn(oldCol);
 }
 
+bool CustomInsertDialog::checkLineEdit(QLineEdit *le, QString nomeCampo)
+{
+    qDebug() << "CustomInsertDialog::checkLineEdit()";
+    if (le->text().isEmpty()) {
+        showDialogError(this, ERR034, MSG031.arg(nomeCampo)); //NOTE codice errore 034
+        le->setStyleSheet(css::warning);
+        return false;
+    }
+    return true;
+}
+
+bool CustomInsertDialog::checkComboBox(QComboBox *cb, QString nomeCampo)
+{
+    qDebug() << "AziendaDialog::checkComboBox()";
+    if (cb->currentIndex() == 0) {
+        showDialogError(this, ERR035, MSG032.arg(nomeCampo)); //NOTE codice errore 035
+        //cb->setStyleSheet(css::warning_cb);
+        return false;
+    }
+    return true;
+}
+
 void CustomInsertDialog::clearForm()
 {
     qDebug() << "CustomInsertDialog::clearForm()*";
@@ -44,6 +66,6 @@ void CustomInsertDialog::clearForm()
     auto comboBoxList = findChildren<QComboBox *>();
     for (auto *cb : comboBoxList) {
         cb->setCurrentIndex(0);
-        cb->setStyleSheet("");
+        //cb->setStyleSheet("");
     }
 }

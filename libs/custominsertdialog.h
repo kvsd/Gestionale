@@ -8,6 +8,9 @@
 #include <QSqlTableModel>
 #include <QDebug>
 
+#include "libs/error.h"
+#include "gestionale_const.h"
+
 class CustomInsertDialog : public QDialog
 {
     Q_OBJECT
@@ -18,28 +21,24 @@ protected:
     virtual void initComboBox() = 0;
     QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol=0);
     void setValueCB(QComboBox *box, QString value, int searchCol);
+    bool checkLineEdit(QLineEdit *le, QString nomeCampo="");
+    bool checkComboBox(QComboBox *cb, QString nomeCampo="");
 
-public slots:
+protected slots:
     void clearForm(void);
     virtual void save() = 0;
+};
+
 /*
-class AziendaDialog : public CustomInsertDialog
-{
-
-public:
-    explicit AziendaDialog(QWidget *parent = 0);
-    ~AziendaDialog();
-    enum cbcols {ID, DESCR, SIGLA};
-    enum size {LOGO_WIDTH = 300, LOGO_HEIGHT=200};
-
-private:
-    QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb);
     void setValue(QString id="0");
     void prepareMap(void);
-    bool checkLineEdit(QLineEdit *le, QString nomeCampo);
-    bool checkComboBox(QComboBox *cb, QString nomeCampo);
     bool checkValues(void);
+
+public slots:
+    void copyPrtIva(void);
+    void openAddCitta(void);
+    void openAddCap(void);
+    void openAddLogo(void);
 */
-};
 
 #endif // CUSTOMINSERTDIALOG_H
