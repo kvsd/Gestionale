@@ -9,26 +9,27 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     ui->setupUi(this);
 
     initComboBox();
-    setValue("0"); //richiamo l'unico record della tabella azienda
-    const char * m_ph = "placeholder";
-    ui->ragSocialeLE->setProperty(m_ph, ph::RAG_SOCIALE);
-    ui->nomeLE->setProperty(m_ph, ph::NOME);
-    ui->cognomeLE->setProperty(m_ph, ph::COGNOME);
-    ui->prtivaLE->setProperty(m_ph, ph::PRT_IVA);
-    ui->codfiscLE->setProperty(m_ph, ph::COD_FISCALE);
-    ui->numeroReaLE->setProperty(m_ph, ph::NUMERO_REA);
-    ui->indirizzoLE->setProperty(m_ph, ph::INDIRIZZO);
-    ui->telLE->setProperty(m_ph, ph::TEL);
-    ui->faxLE->setProperty(m_ph, ph::FAX);
-    ui->emailLE->setProperty(m_ph, ph::EMAIL);
+    const char * m_ph = "coldb";
+    ui->ragSocialeLE->setProperty(m_ph, coldb::RAGIONE_SOCIALE);
+    ui->nomeLE->setProperty(m_ph, coldb::NOME);
+    ui->cognomeLE->setProperty(m_ph, coldb::COGNOME);
+    ui->prtivaLE->setProperty(m_ph, coldb::PARTITA_IVA);
+    ui->codfiscLE->setProperty(m_ph, coldb::CODICE_FISCALE);
+    ui->numeroReaLE->setProperty(m_ph, coldb::NUMERO_REA);
+    ui->indirizzoLE->setProperty(m_ph, coldb::INDIRIZZO);
+    ui->telLE->setProperty(m_ph, coldb::TEL);
+    ui->faxLE->setProperty(m_ph, coldb::FAX);
+    ui->emailLE->setProperty(m_ph, coldb::EMAIL);
 
-    ui->regFiscaleCB->setProperty(m_ph, ph::ID_REG_FISCALE);
-    ui->provinciaReaCB->setProperty(m_ph, ph::ID_PROVINCIA_REA);
-    ui->statoLiquidCB->setProperty(m_ph, ph::ID_STATO_LIQUID);
-    ui->cittaCB->setProperty(m_ph, ph::CITTA);
-    ui->provinciaCB->setProperty(m_ph, ph::PROVINCIA);
-    ui->capCB->setProperty(m_ph, ph::CAP);
-    ui->statoCB->setProperty(m_ph, ph::STATO);
+    ui->regFiscaleCB->setProperty(m_ph, coldb::ID_REG_FISCALE);
+    ui->provinciaReaCB->setProperty(m_ph, coldb::ID_PROVINCIA_REA);
+    ui->statoLiquidCB->setProperty(m_ph, coldb::ID_STATO_LIQUID);
+    ui->cittaCB->setProperty(m_ph, coldb::ID_CITTA);
+    ui->provinciaCB->setProperty(m_ph, coldb::ID_PROVINCIA);
+    ui->capCB->setProperty(m_ph, coldb::ID_CAP);
+    ui->statoCB->setProperty(m_ph, coldb::ID_STATO);
+
+    setValue("0"); //richiamo l'unico record della tabella azienda
 }
 
 AziendaDialog::~AziendaDialog()
@@ -60,24 +61,17 @@ void AziendaDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    ui->ragSocialeLE->setText(query.value(coldb::RAGIONE_SOCIALE).toString());
-    ui->nomeLE->setText(query.value(coldb::NOME).toString());
-    ui->cognomeLE->setText(query.value(coldb::COGNOME).toString());
-    ui->prtivaLE->setText(query.value(coldb::PARTITA_IVA).toString());
-    ui->codfiscLE->setText(query.value(coldb::CODICE_FISCALE).toString());
-    ui->numeroReaLE->setText(query.value(coldb::NUMERO_REA).toString());
-    ui->indirizzoLE->setText(query.value(coldb::INDIRIZZO).toString());
-    ui->telLE->setText(query.value(coldb::TEL).toString());
-    ui->faxLE->setText(query.value(coldb::FAX).toString());
-    ui->emailLE->setText(query.value(coldb::EMAIL).toString());
+    for (auto *le : findChildren<QLineEdit *>()) {
+        QString colName = le->property("coldb").toString();
+        QString value = query.value(colName).toString();
+        le->setText(value);
+    }
 
-    setValueCB(ui->regFiscaleCB, query.value(coldb::ID_REG_FISCALE).toString(), ID);
-    setValueCB(ui->provinciaReaCB, query.value(coldb::ID_PROVINCIA_REA).toString(), ID);
-    setValueCB(ui->statoLiquidCB, query.value(coldb::ID_STATO_LIQUID).toString(), ID);
-    setValueCB(ui->cittaCB, query.value(coldb::ID_CITTA).toString(), ID);
-    setValueCB(ui->provinciaCB, query.value(coldb::ID_PROVINCIA).toString(), ID);
-    setValueCB(ui->capCB, query.value(coldb::ID_CAP).toString(), ID);
-    setValueCB(ui->statoCB, query.value(coldb::ID_STATO).toString(), ID);
+    for (auto *cb : findChildren<QComboBox *>()) {
+        QString colName = cb->property("coldb").toString();
+        QString value = query.value(colName).toString();
+        setValueCB(cb, value, ID);
+    }
 
     m_logo.loadFromData(query.value(coldb::LOGO).toByteArray());
     if (m_logo.isNull())
@@ -89,22 +83,21 @@ void AziendaDialog::prepareMap(void)
 {
     qDebug() << "AziendaDialog::prepareMap()";
     for (auto *le : findChildren<QLineEdit *>()) {
-        QString ph = le->property("placeholder").toString();
-        if (ph.isEmpty())
+        QString colName = le->property("coldb").toString();
+        if (colName.isEmpty())
             continue;
         QString value = le->text();
-        m_mapAzienda[ph] = value;
+        m_mapAzienda[':'+colName] = value;
     }
 
-    //Legge i combobox
     for (auto *cb : findChildren<QComboBox *>()) {
-        QString ph = cb->property("placeholder").toString();
-        if (ph.isEmpty())
+        QString colName = cb->property("coldb").toString();
+        if (colName.isEmpty())
             continue;
         int oldCol = cb->modelColumn();
         cb->setModelColumn(ID);
         QString value = cb->currentText();
-        m_mapAzienda[ph] = value;
+        m_mapAzienda[':'+colName] = value;
         cb->setModelColumn(oldCol);
     }
 }
@@ -151,28 +144,6 @@ void AziendaDialog::openAddLogo(void)
     m_logo.load(filename);
     m_logo = m_logo.scaled(LOGO_WIDTH, LOGO_HEIGHT, Qt::KeepAspectRatio);
     ui->logoImage->setPixmap(m_logo);
-}
-
-bool AziendaDialog::checkLineEdit(QLineEdit *le, QString nomeCampo="")
-{
-    qDebug() << "AziendaDialog::checkLineEdit()";
-    if (le->text().isEmpty()) {
-        showDialogError(this, ERR034, MSG031.arg(nomeCampo)); //NOTE codice errore 034
-        le->setStyleSheet(css::warning);
-        return false;
-    }
-    return true;
-}
-
-bool AziendaDialog::checkComboBox(QComboBox *cb, QString nomeCampo="")
-{
-    qDebug() << "AziendaDialog::checkComboBox()";
-    if (cb->currentIndex() == 0) {
-        showDialogError(this, ERR035, MSG032.arg(nomeCampo)); //NOTE codice errore 035
-        cb->setStyleSheet(css::warning_cb);
-        return false;
-    }
-    return true;
 }
 
 bool AziendaDialog::checkValues()
