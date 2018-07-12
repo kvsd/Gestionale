@@ -7,6 +7,29 @@ CustomInsertDialog::CustomInsertDialog(QWidget *parent)
 
 }
 
+void CustomInsertDialog::prepareMap(int colId)
+{
+    qDebug() << "CustomInserDialog::prepareMap()";
+    for (auto *le : findChildren<QLineEdit *>()) {
+        QString colName = le->property(m_ph).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = le->text();
+        m_mapAzienda[':'+colName] = value;
+    }
+
+    for (auto *cb : findChildren<QComboBox *>()) {
+        QString colName = cb->property(m_ph).toString();
+        if (colName.isEmpty())
+            continue;
+        int oldCol = cb->modelColumn();
+        cb->setModelColumn(colId);
+        QString value = cb->currentText();
+        m_mapAzienda[':'+colName] = value;
+        cb->setModelColumn(oldCol);
+    }
+}
+
 QSqlTableModel * CustomInsertDialog::setupComboBox(QString tablename, QComboBox *cb, int viewCol)
 {
     //Inizializza un QSqlTableModel con la tabella tablename e
@@ -45,10 +68,10 @@ bool CustomInsertDialog::checkLineEdit(QLineEdit *le, QString nomeCampo)
 
 bool CustomInsertDialog::checkComboBox(QComboBox *cb, QString nomeCampo)
 {
-    qDebug() << "AziendaDialog::checkComboBox()";
+    qDebug() << "CustomInsertDialog::checkComboBox()";
     if (cb->currentIndex() == 0) {
         showDialogError(this, ERR035, MSG032.arg(nomeCampo)); //NOTE codice errore 035
-        //cb->setStyleSheet(css::warning_cb);
+        //cb->setStyleSheet(css::warning_cb); BUG IRRISOLTO
         return false;
     }
     return true;
@@ -66,6 +89,6 @@ void CustomInsertDialog::clearForm()
     auto comboBoxList = findChildren<QComboBox *>();
     for (auto *cb : comboBoxList) {
         cb->setCurrentIndex(0);
-        //cb->setStyleSheet("");
+        //cb->setStyleSheet(""); BUG IRRISOLTO
     }
 }

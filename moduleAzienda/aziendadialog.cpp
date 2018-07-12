@@ -8,8 +8,20 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     qDebug() << "AziendaDialog()";
     ui->setupUi(this);
 
+    initForm();
     initComboBox();
-    const char * m_ph = "coldb";
+    setValue("0"); //richiamo l'unico record della tabella azienda
+}
+
+AziendaDialog::~AziendaDialog()
+{
+    qDebug() << "~AziendaDialog()";
+    delete ui;
+}
+
+void AziendaDialog::initForm()
+{
+    qDebug() << "AziendaDialog::initForm()";
     ui->ragSocialeLE->setProperty(m_ph, coldb::RAGIONE_SOCIALE);
     ui->nomeLE->setProperty(m_ph, coldb::NOME);
     ui->cognomeLE->setProperty(m_ph, coldb::COGNOME);
@@ -28,14 +40,6 @@ AziendaDialog::AziendaDialog(QWidget *parent) :
     ui->provinciaCB->setProperty(m_ph, coldb::ID_PROVINCIA);
     ui->capCB->setProperty(m_ph, coldb::ID_CAP);
     ui->statoCB->setProperty(m_ph, coldb::ID_STATO);
-
-    setValue("0"); //richiamo l'unico record della tabella azienda
-}
-
-AziendaDialog::~AziendaDialog()
-{
-    qDebug() << "~AziendaDialog()";
-    delete ui;
 }
 
 void AziendaDialog::initComboBox()
@@ -62,13 +66,13 @@ void AziendaDialog::setValue(QString id)
     query.first();
 
     for (auto *le : findChildren<QLineEdit *>()) {
-        QString colName = le->property("coldb").toString();
+        QString colName = le->property(m_ph).toString();
         QString value = query.value(colName).toString();
         le->setText(value);
     }
 
     for (auto *cb : findChildren<QComboBox *>()) {
-        QString colName = cb->property("coldb").toString();
+        QString colName = cb->property(m_ph).toString();
         QString value = query.value(colName).toString();
         setValueCB(cb, value, ID);
     }
@@ -77,29 +81,6 @@ void AziendaDialog::setValue(QString id)
     if (m_logo.isNull())
         return;
     ui->logoImage->setPixmap(m_logo);
-}
-
-void AziendaDialog::prepareMap(void)
-{
-    qDebug() << "AziendaDialog::prepareMap()";
-    for (auto *le : findChildren<QLineEdit *>()) {
-        QString colName = le->property("coldb").toString();
-        if (colName.isEmpty())
-            continue;
-        QString value = le->text();
-        m_mapAzienda[':'+colName] = value;
-    }
-
-    for (auto *cb : findChildren<QComboBox *>()) {
-        QString colName = cb->property("coldb").toString();
-        if (colName.isEmpty())
-            continue;
-        int oldCol = cb->modelColumn();
-        cb->setModelColumn(ID);
-        QString value = cb->currentText();
-        m_mapAzienda[':'+colName] = value;
-        cb->setModelColumn(oldCol);
-    }
 }
 
 void AziendaDialog::clearForm(void)
@@ -194,7 +175,7 @@ bool AziendaDialog::checkValues()
 void AziendaDialog::save(void)
 {
     qDebug() << "AziendaDialog::save()";
-    prepareMap();
+    prepareMap(ID);
 
     if (!checkValues())
         return;

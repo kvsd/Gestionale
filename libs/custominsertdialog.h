@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QSqlTableModel>
+#include <QMap>
 #include <QDebug>
 
 #include "libs/error.h"
@@ -18,7 +19,12 @@ public:
     explicit CustomInsertDialog(QWidget *parent = 0);
 
 protected:
-    virtual void initComboBox() = 0;
+    const char *m_ph = "coldb";
+    QMap<QString, QString>m_mapAzienda;
+
+    virtual void initForm(void) = 0;
+    virtual void initComboBox(void) = 0;
+    void prepareMap(int colId);
     QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol=0);
     void setValueCB(QComboBox *box, QString value, int searchCol);
     bool checkLineEdit(QLineEdit *le, QString nomeCampo="");
@@ -30,15 +36,8 @@ protected slots:
 };
 
 /*
+    QMap <QString, QString> m_mapAzienda;
     void setValue(QString id="0");
-    void prepareMap(void);
-    bool checkValues(void);
-
-public slots:
-    void copyPrtIva(void);
-    void openAddCitta(void);
-    void openAddCap(void);
-    void openAddLogo(void);
 */
 
 #endif // CUSTOMINSERTDIALOG_H
