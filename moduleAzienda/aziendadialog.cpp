@@ -22,24 +22,24 @@ AziendaDialog::~AziendaDialog()
 void AziendaDialog::initForm()
 {
     qDebug() << "AziendaDialog::initForm()";
-    ui->ragSocialeLE->setProperty(m_ph, coldb::RAGIONE_SOCIALE);
-    ui->nomeLE->setProperty(m_ph, coldb::NOME);
-    ui->cognomeLE->setProperty(m_ph, coldb::COGNOME);
-    ui->prtivaLE->setProperty(m_ph, coldb::PARTITA_IVA);
-    ui->codfiscLE->setProperty(m_ph, coldb::CODICE_FISCALE);
-    ui->numeroReaLE->setProperty(m_ph, coldb::NUMERO_REA);
-    ui->indirizzoLE->setProperty(m_ph, coldb::INDIRIZZO);
-    ui->telLE->setProperty(m_ph, coldb::TEL);
-    ui->faxLE->setProperty(m_ph, coldb::FAX);
-    ui->emailLE->setProperty(m_ph, coldb::EMAIL);
+    ui->ragSocialeLE->setProperty(m_property, coldb::RAGIONE_SOCIALE);
+    ui->nomeLE->setProperty(m_property, coldb::NOME);
+    ui->cognomeLE->setProperty(m_property, coldb::COGNOME);
+    ui->prtivaLE->setProperty(m_property, coldb::PARTITA_IVA);
+    ui->codfiscLE->setProperty(m_property, coldb::CODICE_FISCALE);
+    ui->numeroReaLE->setProperty(m_property, coldb::NUMERO_REA);
+    ui->indirizzoLE->setProperty(m_property, coldb::INDIRIZZO);
+    ui->telLE->setProperty(m_property, coldb::TEL);
+    ui->faxLE->setProperty(m_property, coldb::FAX);
+    ui->emailLE->setProperty(m_property, coldb::EMAIL);
 
-    ui->regFiscaleCB->setProperty(m_ph, coldb::ID_REG_FISCALE);
-    ui->provinciaReaCB->setProperty(m_ph, coldb::ID_PROVINCIA_REA);
-    ui->statoLiquidCB->setProperty(m_ph, coldb::ID_STATO_LIQUID);
-    ui->cittaCB->setProperty(m_ph, coldb::ID_CITTA);
-    ui->provinciaCB->setProperty(m_ph, coldb::ID_PROVINCIA);
-    ui->capCB->setProperty(m_ph, coldb::ID_CAP);
-    ui->statoCB->setProperty(m_ph, coldb::ID_STATO);
+    ui->regFiscaleCB->setProperty(m_property, coldb::ID_REG_FISCALE);
+    ui->provinciaReaCB->setProperty(m_property, coldb::ID_PROVINCIA_REA);
+    ui->statoLiquidCB->setProperty(m_property, coldb::ID_STATO_LIQUID);
+    ui->cittaCB->setProperty(m_property, coldb::ID_CITTA);
+    ui->provinciaCB->setProperty(m_property, coldb::ID_PROVINCIA);
+    ui->capCB->setProperty(m_property, coldb::ID_CAP);
+    ui->statoCB->setProperty(m_property, coldb::ID_STATO);
 }
 
 void AziendaDialog::initComboBox()
@@ -66,13 +66,13 @@ void AziendaDialog::setValue(QString id)
     query.first();
 
     for (auto *le : findChildren<QLineEdit *>()) {
-        QString colName = le->property(m_ph).toString();
+        QString colName = le->property(m_property).toString();
         QString value = query.value(colName).toString();
         le->setText(value);
     }
 
     for (auto *cb : findChildren<QComboBox *>()) {
-        QString colName = cb->property(m_ph).toString();
+        QString colName = cb->property(m_property).toString();
         QString value = query.value(colName).toString();
         setValueCB(cb, value, ID);
     }
@@ -175,7 +175,7 @@ bool AziendaDialog::checkValues()
 void AziendaDialog::save(void)
 {
     qDebug() << "AziendaDialog::save()";
-    prepareMap(ID);
+    prepareMap(m_mapAzienda, ID);
 
     if (!checkValues())
         return;

@@ -40,6 +40,7 @@ private:
     QSqlTableModel *m_modelStato;
     QSqlTableModel *m_modelRegFiscale;
     QSqlTableModel *m_modelLiquidazione;
+    QMap<QString, QString> m_mapAzienda;
     QPixmap m_logo;
 
     void initForm(void);
