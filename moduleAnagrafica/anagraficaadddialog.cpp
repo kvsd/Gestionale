@@ -2,16 +2,17 @@
 #include "ui_anagraficaadddialog.h"
 
 AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
-    QDialog(parent),
+    CustomInsertDialog(parent),
     ui(new Ui::AnagraficaAddDialog)
 {
     qDebug() << "AnagraficaAddDialog()";
     ui->setupUi(this); 
 
-    initModel();
+    initForm();
     initComboBox();
 
     ui->agenteLB->hide();
+    ui->agenteCB->hide();
     ui->agentiDlgPB->hide();
 }
 
@@ -19,6 +20,37 @@ AnagraficaAddDialog::~AnagraficaAddDialog()
 {
     qDebug() << "~AnagraficaAddDialog()";
     delete ui;
+}
+
+void AnagraficaAddDialog::initForm(void)
+{
+    qDebug() << "AnagraficaAddDialog::initForm()";
+    ui->ragSocialeLE->setProperty(m_property, coldb::RAGIONE_SOCIALE);
+    ui->nomeLE->setProperty(m_property, coldb::NOME);
+    ui->cognomeLE->setProperty(m_property, coldb::COGNOME);
+    ui->clienteCKB->setProperty(m_property, coldb::CLIENTE);
+    ui->fornitoreCKB->setProperty(m_property, coldb::FORNITORE);
+    ui->tipoDittaCB->setProperty(m_property, coldb::ID_TIPO_DITTA);
+    ui->pivaLE->setProperty(m_property, coldb::PARTITA_IVA);
+    ui->codFiscaleLE->setProperty(m_property, coldb::CODICE_FISCALE);
+    ui->agenteCB->setProperty(m_property, coldb::ID_AGENTE);
+    ui->indirizzoLE->setProperty(m_property, coldb::INDIRIZZO);
+    ui->cittaCB->setProperty(m_property, coldb::ID_CITTA);
+    ui->provinciaCB->setProperty(m_property, coldb::ID_PROVINCIA);
+    ui->capCB->setProperty(m_property, coldb::ID_CAP);
+    ui->statoCB->setProperty(m_property, coldb::ID_STATO);
+    ui->telLE->setProperty(m_property, coldb::TEL);
+    ui->celLE->setProperty(m_property, coldb::CEL);
+    ui->faxLE->setProperty(m_property, coldb::FAX);
+    ui->emailLE->setProperty(m_property, coldb::EMAIL);
+    ui->sitoWebLE->setProperty(m_property, coldb::SITO_WEB);
+    ui->bancaLE->setProperty(m_property, coldb::BANCA);
+    ui->agenziaLE->setProperty(m_property, coldb::AGENZIA);
+    ui->contoLE->setProperty(m_property, coldb::CONTO);
+    ui->swiftLE->setProperty(m_property, coldb::SWIFT);
+    ui->ibanLE->setProperty(m_property, coldb::IBAN);
+    ui->destMerceTE->setProperty(m_property, coldb::DESTINAZIONE_MERCE);
+    ui->noteTE->setProperty(m_property, coldb::NOTE);
 }
 
 void AnagraficaAddDialog::setValue(QString id)
@@ -33,7 +65,18 @@ void AnagraficaAddDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    ui->ragSocialeLE->setText(query.value(coldb::RAGIONE_SOCIALE).toString());
+    for (auto *le : findChildren<QLineEdit *>()) {
+        QString colName = le->property(m_property).toString();
+        QString value = query.value(colName).toString();
+        le->setText(value);
+    }
+
+    for (auto *cb : findChildren<QComboBox *>()) {
+        QString colName = cb->property(m_property).toString();
+        QString value = query.value(colName).toString();
+        setValueCB(cb, value, ID);
+    }
+
     ui->clienteCKB->setChecked(query.value(coldb::CLIENTE).toBool());
     ui->fornitoreCKB->setChecked(query.value(coldb::FORNITORE).toBool());
     if (ui->fornitoreCKB->isChecked()) {
@@ -41,116 +84,21 @@ void AnagraficaAddDialog::setValue(QString id)
         ui->agenteCB->show();
     }
 
-    ui->tipoDittaCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    int index = ui->tipoDittaCB->findText(query.value(coldb::ID_TIPO_DITTA).toString());
-    ui->tipoDittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->tipoDittaCB->setCurrentIndex(index);
-
-    ui->nomeLE->setText(query.value(coldb::NOME).toString());
-    ui->cognomeLE->setText(query.value(coldb::COGNOME).toString());
-    ui->pivaLE->setText(query.value(coldb::PARTITA_IVA).toString());
-    ui->codFiscaleLE->setText(query.value(coldb::CODICE_FISCALE).toString());
-
-    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->agenteCB->findText(query.value(coldb::ID_AGENTE).toString());
-    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_COGNOME);
-    ui->agenteCB->setCurrentIndex(index);
-
-    ui->indirizzoLE->setText(query.value(coldb::INDIRIZZO).toString());
-
-    ui->cittaCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->cittaCB->findText(query.value(coldb::ID_CITTA).toString());
-    ui->cittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cittaCB->setCurrentIndex(index);
-
-    ui->provinciaCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->provinciaCB->findText(query.value(coldb::ID_PROVINCIA).toString());
-    ui->provinciaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->provinciaCB->setCurrentIndex(index);
-
-    ui->capCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->capCB->findText(query.value(coldb::ID_CAP).toString());
-    ui->capCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->capCB->setCurrentIndex(index);
-
-    ui->statoCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    index = ui->statoCB->findText(query.value(coldb::ID_STATO).toString());
-    ui->statoCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->statoCB->setCurrentIndex(index);
-
-    ui->telLE->setText(query.value(coldb::TEL).toString());
-    ui->celLE->setText(query.value(coldb::CEL).toString());
-    ui->faxLE->setText(query.value(coldb::FAX).toString());
-    ui->emailLE->setText(query.value(coldb::EMAIL).toString());
-    ui->sitoWebLE->setText(query.value(coldb::SITO_WEB).toString());
-
-    ui->bancaLE->setText(query.value(coldb::BANCA).toString());
-    ui->agenziaLE->setText(query.value(coldb::AGENZIA).toString());
-    ui->contoLE->setText(query.value(coldb::CONTO).toString());
-    ui->swiftLE->setText(query.value(coldb::SWIFT).toString());
-    ui->ibanLE->setText(query.value(coldb::IBAN).toString());
-
     ui->destMerceTE->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
     ui->noteTE->setText(query.value(coldb::NOTE).toString());
 
     m_mapPersona[ph::ID]=id;
 }
 
-void AnagraficaAddDialog::initModel()
-{
-    qDebug() << "AnagraficaAddDialog::initModel()";
-    m_modelDitta = new QSqlTableModel(this);
-    m_modelDitta->setTable(table::TIPO_DITTA);
-    m_modelDitta->setSort(1, Qt::AscendingOrder);
-    m_modelDitta->select();
-
-    m_modelCitta = new QSqlTableModel(this);
-    m_modelCitta->setTable(table::CITTA);
-    m_modelCitta->setSort(1, Qt::AscendingOrder);
-    m_modelCitta->select();
-
-    m_modelProvincia = new QSqlTableModel(this);
-    m_modelProvincia->setTable(table::PROVINCIA);
-    m_modelProvincia->setSort(1, Qt::AscendingOrder);
-    m_modelProvincia->select();
-
-    m_modelCap = new QSqlTableModel(this);
-    m_modelCap->setTable(table::CAP);
-    m_modelCap->setSort(1, Qt::AscendingOrder);
-    m_modelCap->select();
-
-    m_modelStato = new QSqlTableModel(this);
-    m_modelStato->setTable(table::STATO);
-    m_modelStato->setSort(1, Qt::AscendingOrder);
-    m_modelStato->select();
-
-    m_modelAgente = new QSqlTableModel(this);
-    m_modelAgente->setTable(table::AGENTI);
-    m_modelAgente->setSort(1, Qt::AscendingOrder);
-    m_modelAgente->select();
-}
-
 void AnagraficaAddDialog::initComboBox()
 {
     qDebug() << "AnagraficaAddDialog::initComboBox()";
-    ui->tipoDittaCB->setModel(m_modelDitta);
-    ui->tipoDittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->cittaCB->setModel(m_modelCitta);
-    ui->cittaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->provinciaCB->setModel(m_modelProvincia);
-    ui->provinciaCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->capCB->setModel(m_modelCap);
-    ui->capCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->statoCB->setModel(m_modelStato);
-    ui->statoCB->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->agenteCB->setModel(m_modelAgente);
-    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_COGNOME);
-    ui->agenteCB->hide();
+    m_modelDitta = setupComboBox(table::TIPO_DITTA, ui->tipoDittaCB, DESCR);
+    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, DESCR);
+    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, DESCR);
+    m_modelCap = setupComboBox(table::CAP, ui->capCB, DESCR);
+    m_modelStato = setupComboBox(table::STATO, ui->statoCB, DESCR);
+    m_modelAgente = setupComboBox(table::AGENTI, ui->agenteCB, DESCR);
 }
 
 void AnagraficaAddDialog::prepareMap(void)
@@ -158,42 +106,10 @@ void AnagraficaAddDialog::prepareMap(void)
     //Popolo la mappa mapPersona<Qstring,QString> con i valori
     //dei vari widget. Verra usata in seguito nel metodo prepareQuery.
     qDebug() << "AnagraficaAddDialog::prepareMap()";
-    m_mapPersona[ph::RAG_SOCIALE] = ui->ragSocialeLE->text();
-
-    int row = ui->tipoDittaCB->currentIndex();
-    m_mapPersona[ph::ID_TIPO_DITTA] = m_modelDitta->record(row).value(coldb::ID).toString();
+    CustomInsertDialog::prepareMap(m_mapPersona, ID);
 
     m_mapPersona[ph::CLIENTE] = ui->clienteCKB->isChecked() ? "y" : "n";
     m_mapPersona[ph::FORNITORE] = ui->fornitoreCKB->isChecked() ? "y" : "n";
-    m_mapPersona[ph::NOME] = ui->nomeLE->text();
-    m_mapPersona[ph::COGNOME] = ui->cognomeLE->text();
-    m_mapPersona[ph::PRT_IVA] = ui->pivaLE->text();
-    m_mapPersona[ph::COD_FISCALE] = ui->codFiscaleLE->text();
-
-    row = ui->agenteCB->currentIndex();
-    m_mapPersona[ph::ID_AGENTE] = m_modelAgente->record(row).value(coldb::ID).toString();
-
-    m_mapPersona[ph::INDIRIZZO] = ui->indirizzoLE->text();
-
-    row = ui->cittaCB->currentIndex();
-    m_mapPersona[ph::ID_CITTA] = m_modelCitta->record(row).value(coldb::ID).toString();
-    row = ui->provinciaCB->currentIndex();
-    m_mapPersona[ph::PROVINCIA] = m_modelProvincia->record(row).value(coldb::ID).toString();
-    row = ui->capCB->currentIndex();
-    m_mapPersona[ph::ID_CAP]= m_modelCap->record(row).value(coldb::ID).toString();
-    row = ui->statoCB->currentIndex();
-    m_mapPersona[ph::ID_STATO]= m_modelStato->record(row).value(coldb::ID).toString();
-
-    m_mapPersona[ph::TEL]= ui->telLE->text();
-    m_mapPersona[ph::CEL]= ui->celLE->text();
-    m_mapPersona[ph::FAX] = ui->faxLE->text();
-    m_mapPersona[ph::EMAIL] = ui->emailLE->text();
-    m_mapPersona[ph::SITO_WEB] = ui->sitoWebLE->text();
-    m_mapPersona[ph::BANCA] = ui->bancaLE->text();
-    m_mapPersona[ph::AGENZIA] = ui->agenziaLE->text();
-    m_mapPersona[ph::CONTO] = ui->contoLE->text();
-    m_mapPersona[ph::SWIFT] = ui->swiftLE->text();
-    m_mapPersona[ph::IBAN] = ui->ibanLE->text();
     m_mapPersona[ph::DESTINAZIONE_MERCE] = ui->destMerceTE->toPlainText();
     m_mapPersona[ph::NOTE] = ui->noteTE->toPlainText();
 }
@@ -338,3 +254,4 @@ void AnagraficaAddDialog::copyPrtIva(void)
     qDebug() << "AnagraficaAddDialog::copyPrtIva()";
     ui->codFiscaleLE->setText(ui->pivaLE->text());
 }
+//353

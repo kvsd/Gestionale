@@ -14,12 +14,13 @@
 #include "libs/simpledialogs.h"
 #include "anagrafica_const.h"
 #include "moduleAgenti/agentiadddialog.h"
+#include "libs/custominsertdialog.h"
 
 namespace Ui {
 class AnagraficaAddDialog;
 }
 
-class AnagraficaAddDialog : public QDialog
+class AnagraficaAddDialog : public CustomInsertDialog
 {
     Q_OBJECT
     
@@ -27,6 +28,8 @@ public:
     explicit AnagraficaAddDialog(QWidget *parent = 0);
     ~AnagraficaAddDialog();
     void setValue(QString id);
+
+    enum colsModel {ID, DESCR};
     
 private:
     Ui::AnagraficaAddDialog *ui;
@@ -38,8 +41,8 @@ private:
     QSqlTableModel *m_modelStato;
     QSqlTableModel *m_modelAgente;
 
-    void initModel(void);
-    void initComboBox(void);
+    void initForm(void);     //new
+    void initComboBox(void); //new
     void prepareMap(void);
     QSqlQuery prepareQuery(void);
 
