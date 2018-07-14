@@ -19,12 +19,12 @@ public:
     explicit CustomInsertDialog(QWidget *parent = 0);
 
 protected:
-    const char *m_ph = "coldb";
-    QMap<QString, QString>m_mapAzienda;
+    const char *m_property = "coldb";
 
     virtual void initForm(void) = 0;
     virtual void initComboBox(void) = 0;
-    void prepareMap(int colId);
+    virtual void setValue(QString id="0") = 0;
+    void prepareMap(QMap<QString, QString> &map, int colId=0);
     QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol=0);
     void setValueCB(QComboBox *box, QString value, int searchCol);
     bool checkLineEdit(QLineEdit *le, QString nomeCampo="");
@@ -34,10 +34,5 @@ protected slots:
     void clearForm(void);
     virtual void save() = 0;
 };
-
-/*
-    QMap <QString, QString> m_mapAzienda;
-    void setValue(QString id="0");
-*/
 
 #endif // CUSTOMINSERTDIALOG_H

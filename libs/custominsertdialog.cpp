@@ -7,25 +7,25 @@ CustomInsertDialog::CustomInsertDialog(QWidget *parent)
 
 }
 
-void CustomInsertDialog::prepareMap(int colId)
+void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
 {
-    qDebug() << "CustomInserDialog::prepareMap()";
+    qDebug() << objectName() + "::prepareMap() *";
     for (auto *le : findChildren<QLineEdit *>()) {
-        QString colName = le->property(m_ph).toString();
+        QString colName = le->property(m_property).toString();
         if (colName.isEmpty())
             continue;
         QString value = le->text();
-        m_mapAzienda[':'+colName] = value;
+        map[':'+colName] = value;
     }
 
     for (auto *cb : findChildren<QComboBox *>()) {
-        QString colName = cb->property(m_ph).toString();
+        QString colName = cb->property(m_property).toString();
         if (colName.isEmpty())
             continue;
         int oldCol = cb->modelColumn();
         cb->setModelColumn(colId);
         QString value = cb->currentText();
-        m_mapAzienda[':'+colName] = value;
+        map[':'+colName] = value;
         cb->setModelColumn(oldCol);
     }
 }
@@ -34,7 +34,7 @@ QSqlTableModel * CustomInsertDialog::setupComboBox(QString tablename, QComboBox 
 {
     //Inizializza un QSqlTableModel con la tabella tablename e
     //l'assegna al QComboBox cb e ritorna il model.
-    qDebug() << "CustomInsertDialog::setupComboBox()*";
+    qDebug() << objectName() + "::setupComboBox() *";
     QSqlTableModel *model = new QSqlTableModel;
     model->setTable(tablename);
     model->setSort(viewCol, Qt::AscendingOrder);
@@ -48,7 +48,7 @@ void CustomInsertDialog::setValueCB(QComboBox *box, QString value, int searchCol
 {
     //Cerca nel campo ID del QComboBox il valore value e lo
     //imposta come selezione corrente.
-    qDebug() << "CustomInsertDialog::setValueCB()*";
+    qDebug() << objectName() + "::setValueCB() *";
     int oldCol = box->modelColumn();
     box->setModelColumn(searchCol);
     box->setCurrentText(value);
@@ -57,7 +57,7 @@ void CustomInsertDialog::setValueCB(QComboBox *box, QString value, int searchCol
 
 bool CustomInsertDialog::checkLineEdit(QLineEdit *le, QString nomeCampo)
 {
-    qDebug() << "CustomInsertDialog::checkLineEdit()";
+    qDebug() << objectName() + "::checkLineEdit() *";
     if (le->text().isEmpty()) {
         showDialogError(this, ERR034, MSG031.arg(nomeCampo)); //NOTE codice errore 034
         le->setStyleSheet(css::warning);
@@ -68,7 +68,7 @@ bool CustomInsertDialog::checkLineEdit(QLineEdit *le, QString nomeCampo)
 
 bool CustomInsertDialog::checkComboBox(QComboBox *cb, QString nomeCampo)
 {
-    qDebug() << "CustomInsertDialog::checkComboBox()";
+    qDebug() << objectName() + "::checkComboBox()";
     if (cb->currentIndex() == 0) {
         showDialogError(this, ERR035, MSG032.arg(nomeCampo)); //NOTE codice errore 035
         //cb->setStyleSheet(css::warning_cb); BUG IRRISOLTO
@@ -79,7 +79,7 @@ bool CustomInsertDialog::checkComboBox(QComboBox *cb, QString nomeCampo)
 
 void CustomInsertDialog::clearForm()
 {
-    qDebug() << "CustomInsertDialog::clearForm()*";
+    qDebug() << objectName() + "::clearForm()*";
     auto lineEditList = findChildren<QLineEdit *>();
     for (auto *le : lineEditList) {
         le->clear();
