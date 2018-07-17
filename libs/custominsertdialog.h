@@ -8,6 +8,7 @@
 #include <QSqlTableModel>
 #include <QMap>
 #include <QDebug>
+#include <QTextEdit>
 
 #include "libs/error.h"
 #include "gestionale_const.h"

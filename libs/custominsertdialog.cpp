@@ -10,6 +10,7 @@ CustomInsertDialog::CustomInsertDialog(QWidget *parent)
 void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
 {
     qDebug() << objectName() + "::prepareMap() *";
+    //QLineEdit
     for (auto *le : findChildren<QLineEdit *>()) {
         QString colName = le->property(m_property).toString();
         if (colName.isEmpty())
@@ -18,6 +19,7 @@ void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
         map[':'+colName] = value;
     }
 
+    //QComboBox
     for (auto *cb : findChildren<QComboBox *>()) {
         QString colName = cb->property(m_property).toString();
         if (colName.isEmpty())
@@ -27,6 +29,15 @@ void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
         QString value = cb->currentText();
         map[':'+colName] = value;
         cb->setModelColumn(oldCol);
+    }
+
+    //QTextEdit
+    for (auto *te : findChildren<QTextEdit *>()) {
+        QString colName = te->property(m_property).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = te->toPlainText();
+        map[':'+colName] = value;
     }
 }
 
@@ -80,15 +91,20 @@ bool CustomInsertDialog::checkComboBox(QComboBox *cb, QString nomeCampo)
 void CustomInsertDialog::clearForm()
 {
     qDebug() << objectName() + "::clearForm()*";
-    auto lineEditList = findChildren<QLineEdit *>();
-    for (auto *le : lineEditList) {
+    //QLineEdit
+    for (auto *le : findChildren<QLineEdit *>()) {
         le->clear();
         le->setStyleSheet("");
     }
 
-    auto comboBoxList = findChildren<QComboBox *>();
-    for (auto *cb : comboBoxList) {
+    //QComboBox
+    for (auto *cb : findChildren<QComboBox *>()) {
         cb->setCurrentIndex(0);
         //cb->setStyleSheet(""); BUG IRRISOLTO
+    }
+
+    //QTextEdit
+    for (auto *te : findChildren<QTextEdit *>()) {
+        te->clear();
     }
 }
