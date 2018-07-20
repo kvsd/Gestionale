@@ -1,7 +1,8 @@
 #include "custominsertdialog.h"
 
 CustomInsertDialog::CustomInsertDialog(QWidget *parent)
-    :QDialog(parent)
+    :QDialog(parent),
+      m_id("")
 {
     qDebug() << "CustomInsertDialog()";
 
