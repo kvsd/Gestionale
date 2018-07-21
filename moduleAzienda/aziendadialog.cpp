@@ -46,13 +46,13 @@ void AziendaDialog::initComboBox()
 {
     //Inizializza i combobox
     qDebug() << "AziendaDialog::initComboBox()";
-    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, DESCR);
-    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, DESCR);
-    m_modelProvinciaREA = setupComboBox(table::PROVINCIA, ui->provinciaReaCB, DESCR);
-    m_modelCap = setupComboBox(table::CAP, ui->capCB, DESCR);
-    m_modelStato = setupComboBox(table::STATO, ui->statoCB, DESCR);
-    m_modelRegFiscale = setupComboBox(table::REG_FISCALE, ui->regFiscaleCB, DESCR);
-    m_modelLiquidazione = setupComboBox(table::STATO_LIQUID, ui->statoLiquidCB, DESCR);
+    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, int(modelCols::descr));
+    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, int(modelCols::descr));
+    m_modelProvinciaREA = setupComboBox(table::PROVINCIA, ui->provinciaReaCB, int(modelCols::descr));
+    m_modelCap = setupComboBox(table::CAP, ui->capCB, int(modelCols::descr));
+    m_modelStato = setupComboBox(table::STATO, ui->statoCB, int(modelCols::descr));
+    m_modelRegFiscale = setupComboBox(table::REG_FISCALE, ui->regFiscaleCB, int(modelCols::descr));
+    m_modelLiquidazione = setupComboBox(table::STATO_LIQUID, ui->statoLiquidCB, int(modelCols::descr));
 }
 
 void AziendaDialog::setValue(QString id)
@@ -74,7 +74,7 @@ void AziendaDialog::setValue(QString id)
     for (auto *cb : findChildren<QComboBox *>()) {
         QString colName = cb->property(m_property).toString();
         QString value = query.value(colName).toString();
-        setValueCB(cb, value, ID);
+        setValueCB(cb, value, int(modelCols::id));
     }
 
     m_logo.loadFromData(query.value(coldb::LOGO).toByteArray());
@@ -175,7 +175,7 @@ bool AziendaDialog::checkValues()
 void AziendaDialog::save(void)
 {
     qDebug() << "AziendaDialog::save()";
-    prepareMap(m_mapAzienda, ID);
+    prepareMap(m_mapAzienda, int(modelCols::id));
 
     if (!checkValues())
         return;

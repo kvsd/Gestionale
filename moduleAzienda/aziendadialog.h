@@ -28,7 +28,6 @@ class AziendaDialog : public CustomInsertDialog
 public:
     explicit AziendaDialog(QWidget *parent = 0);
     ~AziendaDialog();
-    enum cbcols {ID, DESCR, SIGLA};
     enum size {LOGO_WIDTH = 300, LOGO_HEIGHT=200};
 
 private:
