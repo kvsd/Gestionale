@@ -61,7 +61,8 @@ namespace anagrafica {
                                         ":nome, :cognome, :indirizzo, :id_citta, :id_provincia, "
                                         ":id_cap, :id_stato, :cod_fisc, :prt_iva, :id_agente, "
                                         ":tel, :fax, :cel, :email, :sito_web, :banca, :agenzia, "
-                                        ":conto, :swift, :iban, :dest_merce, :note)";
+                                        ":conto, :swift, :iban, :dest_merce, :note) "
+                                 "RETURNING id";
 
     //Update utilizzata in AnagraficaAddDialog per aggiornare un cliente/fornitore
     const QString UPDATE_QUERY =

@@ -74,7 +74,7 @@ void AnagraficaAddDialog::setValue(QString id)
     for (auto *cb : findChildren<QComboBox *>()) {
         QString colName = cb->property(m_property).toString();
         QString value = query.value(colName).toString();
-        setValueCB(cb, value, ID);
+        setValueCB(cb, value, int(modelCols::id));
     }
 
     ui->clienteCKB->setChecked(query.value(coldb::CLIENTE).toBool());
@@ -82,6 +82,7 @@ void AnagraficaAddDialog::setValue(QString id)
     if (ui->fornitoreCKB->isChecked()) {
         ui->agenteLB->show();
         ui->agenteCB->show();
+        ui->agentiDlgPB->show();
     }
 
     ui->destMerceTE->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
@@ -93,12 +94,12 @@ void AnagraficaAddDialog::setValue(QString id)
 void AnagraficaAddDialog::initComboBox()
 {
     qDebug() << "AnagraficaAddDialog::initComboBox()";
-    m_modelDitta = setupComboBox(table::TIPO_DITTA, ui->tipoDittaCB, DESCR);
-    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, DESCR);
-    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, DESCR);
-    m_modelCap = setupComboBox(table::CAP, ui->capCB, DESCR);
-    m_modelStato = setupComboBox(table::STATO, ui->statoCB, DESCR);
-    m_modelAgente = setupComboBox(table::AGENTI, ui->agenteCB, DESCR);
+    m_modelDitta = setupComboBox(table::TIPO_DITTA, ui->tipoDittaCB, int(modelCols::descr));
+    m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, int(modelCols::descr));
+    m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, int(modelCols::descr));
+    m_modelCap = setupComboBox(table::CAP, ui->capCB, int(modelCols::descr));
+    m_modelStato = setupComboBox(table::STATO, ui->statoCB, int(modelCols::descr));
+    m_modelAgente = setupComboBox(table::AGENTI, ui->agenteCB, int(colsAgenti::COGNOME));
 }
 
 void AnagraficaAddDialog::prepareMap(void)
@@ -106,7 +107,7 @@ void AnagraficaAddDialog::prepareMap(void)
     //Popolo la mappa mapPersona<Qstring,QString> con i valori
     //dei vari widget. Verra usata in seguito nel metodo prepareQuery.
     qDebug() << "AnagraficaAddDialog::prepareMap()";
-    CustomInsertDialog::prepareMap(m_mapPersona, ID);
+    CustomInsertDialog::prepareMap(m_mapPersona, int(modelCols::id));
 
     m_mapPersona[ph::CLIENTE] = ui->clienteCKB->isChecked() ? "y" : "n";
     m_mapPersona[ph::FORNITORE] = ui->fornitoreCKB->isChecked() ? "y" : "n";
@@ -137,18 +138,13 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
     return query;
 }
 
-void AnagraficaAddDialog::save(void)
+bool AnagraficaAddDialog::checkValues(void)
 {
-    //Effettua diversi controlli per verificare che i dati nel dialog
-    //siano stati inseriti, se tutti i controlli vengono passati esegue
-    //la query.
-    qDebug() << "AnagraficaAddDialog::save()";
-    prepareMap();
-
+    qDebug() << "AnagraficaAddDialog::checkValues()";
     if (m_mapPersona[ph::RAG_SOCIALE].isEmpty()) {
         showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
         ui->ragSocialeLE->setStyleSheet(css::warning);
-        return;
+        return false;
     }
 
     else if (m_mapPersona[ph::CLIENTE] == "n" &&
@@ -156,7 +152,7 @@ void AnagraficaAddDialog::save(void)
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
         ui->clienteCKB->setStyleSheet(css::warning_ckb);
         ui->fornitoreCKB->setStyleSheet(css::warning_ckb);
-        return;
+        return false;
     }
 
     else if (m_mapPersona[ph::COD_FISCALE].isEmpty() ||
@@ -164,20 +160,34 @@ void AnagraficaAddDialog::save(void)
         showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
         ui->codFiscaleLE->setStyleSheet(css::warning);
         ui->pivaLE->setStyleSheet(css::warning);
-        return;
+        return false;
     }
 
     if (!controlloPartitaIva(m_mapPersona[ph::PRT_IVA])) {
         if (!showDialogWarning(this, ERR023, MSG019)) //NOTE codice errore 023
-            return;
+            return false;
     }
 
     if (m_mapPersona[ph::COD_FISCALE] != m_mapPersona[ph::PRT_IVA]) {
         if (!controlloCodiceFiscale(m_mapPersona[ph::COD_FISCALE])) {
             if (!showDialogWarning(this, ERR024, MSG020)) //NOTE codice errore 024
-                return;
+                return false;
         }
     }
+
+    return true;
+}
+
+
+void AnagraficaAddDialog::save(void)
+{
+    //Effettua diversi controlli per verificare che i dati nel dialog
+    //siano stati inseriti, se tutti i controlli vengono passati esegue
+    //la query.
+    qDebug() << "AnagraficaAddDialog::save()";
+    prepareMap();
+    if (!checkValues())
+        return;
 
     QSqlQuery query = prepareQuery();
     if (!query.exec()) {
@@ -188,6 +198,9 @@ void AnagraficaAddDialog::save(void)
 
         return;
     }
+
+    while (query.next())
+       setId(query.value("id").toString());
 
     this->accept();
 }
@@ -243,10 +256,7 @@ void AnagraficaAddDialog::openAddAgente(void)
 
     m_modelAgente->select();
     QString id = dlg.getId();
-    //Seleziono il valore immesso
-    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_ID);
-    ui->agenteCB->setCurrentText(id);
-    ui->agenteCB->setModelColumn(anagrafica::COL_TABLE_COGNOME);
+    setValueCB(ui->agenteCB, id, int(modelCols::id));
 }
 
 void AnagraficaAddDialog::copyPrtIva(void)

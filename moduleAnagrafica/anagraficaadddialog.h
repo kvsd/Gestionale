@@ -29,7 +29,7 @@ public:
     ~AnagraficaAddDialog();
     void setValue(QString id);
 
-    enum colsModel {ID, DESCR};
+    enum class colsAgenti {ID, NOME, COGNOME};
     
 private:
     Ui::AnagraficaAddDialog *ui;
@@ -45,6 +45,7 @@ private:
     void initComboBox(void); //new
     void prepareMap(void);
     QSqlQuery prepareQuery(void);
+    bool checkValues(void);
 
 public slots:
     void save(void);
