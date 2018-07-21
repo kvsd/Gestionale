@@ -443,14 +443,8 @@ void ArticoloDialog::openAddFornitore()
     if (!ok)
         return;
 
-    //TODO modificare la query insert di AnagraficaAddDialog
-    //in modo che ritorni l'id
     //Trovo l'ultimo id inserito nel database
-    QSqlQuery query;
-    query.prepare("select * from lastval();");
-    query.exec();
-    query.first();
-    QString id = query.value(0).toString();
+    QString id = dlg.getId();
     //Ricarico la query e seleziono il valore immesso
     m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
     ui->fornitoreCB->setModelColumn(magazzino::ID);
