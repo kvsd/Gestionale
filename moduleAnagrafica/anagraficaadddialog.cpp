@@ -111,8 +111,6 @@ void AnagraficaAddDialog::prepareMap(void)
 
     m_mapPersona[ph::CLIENTE] = ui->clienteCKB->isChecked() ? "y" : "n";
     m_mapPersona[ph::FORNITORE] = ui->fornitoreCKB->isChecked() ? "y" : "n";
-    m_mapPersona[ph::DESTINAZIONE_MERCE] = ui->destMerceTE->toPlainText();
-    m_mapPersona[ph::NOTE] = ui->noteTE->toPlainText();
 }
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
@@ -141,39 +139,49 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
 bool AnagraficaAddDialog::checkValues(void)
 {
     qDebug() << "AnagraficaAddDialog::checkValues()";
-    if (m_mapPersona[ph::RAG_SOCIALE].isEmpty()) {
-        showDialogError(this, ERR020, MSG016); //NOTE codice errore 020
+    qDebug() << "AziendaDialog::checkValue()";
+    QString rag = ui->ragSocialeLE->text();
+    QString nome = ui->nomeLE->text();
+    QString cognome = ui->cognomeLE->text();
+
+    //Il campo ragione sociale escude i campi nome e cognome
+    if ((!rag.isEmpty() && (!nome.isEmpty() || !cognome.isEmpty())) ||
+        (rag.isEmpty() && nome.isEmpty() && cognome.isEmpty()) ||
+        (rag.isEmpty() && (nome.isEmpty() || cognome.isEmpty())) ) {
         ui->ragSocialeLE->setStyleSheet(css::warning);
+        ui->nomeLE->setStyleSheet(css::warning);
+        ui->cognomeLE->setStyleSheet(css::warning);
+        //NOTE codice errore 020
+        showDialogError(this, ERR020, MSG016);
         return false;
     }
 
-    else if (m_mapPersona[ph::CLIENTE] == "n" &&
-             m_mapPersona[ph::FORNITORE] == "n") {
+    if (m_mapPersona[ph::CLIENTE] == "n" &&
+            m_mapPersona[ph::FORNITORE] == "n") {
         showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
         ui->clienteCKB->setStyleSheet(css::warning_ckb);
         ui->fornitoreCKB->setStyleSheet(css::warning_ckb);
         return false;
     }
 
-    else if (m_mapPersona[ph::COD_FISCALE].isEmpty() ||
-             m_mapPersona[ph::PRT_IVA].isEmpty()) {
-        showDialogError(this, ERR022, MSG018); //NOTE codice errore 022
-        ui->codFiscaleLE->setStyleSheet(css::warning);
-        ui->pivaLE->setStyleSheet(css::warning);
+    //Controllo se i campi obbligatori sono stati inseriti.
+    if (!checkLineEdit(ui->pivaLE, "partita IVA") ||
+            !checkLineEdit(ui->codFiscaleLE, "codice fiscale") ||
+            !checkLineEdit(ui->indirizzoLE, "indirizzo") ||
+            !checkComboBox(ui->cittaCB, "citta") ||
+            !checkComboBox(ui->provinciaCB, "provincia") ||
+            !checkComboBox(ui->capCB, "CAP") ||
+            !checkComboBox(ui->statoCB, "stato"))
         return false;
-    }
 
-    if (!controlloPartitaIva(m_mapPersona[ph::PRT_IVA])) {
+    if (!controlloPartitaIva(m_mapPersona[ph::PRT_IVA]))
         if (!showDialogWarning(this, ERR023, MSG019)) //NOTE codice errore 023
             return false;
-    }
 
-    if (m_mapPersona[ph::COD_FISCALE] != m_mapPersona[ph::PRT_IVA]) {
-        if (!controlloCodiceFiscale(m_mapPersona[ph::COD_FISCALE])) {
+    if (m_mapPersona[ph::COD_FISCALE] != m_mapPersona[ph::PRT_IVA])
+        if (!controlloCodiceFiscale(m_mapPersona[ph::COD_FISCALE]))
             if (!showDialogWarning(this, ERR024, MSG020)) //NOTE codice errore 024
                 return false;
-        }
-    }
 
     return true;
 }
