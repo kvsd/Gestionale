@@ -40,6 +40,15 @@ void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
         QString value = te->toPlainText();
         map[':'+colName] = value;
     }
+
+    //QDateEdit
+    for (auto *dtle : findChildren<QDateEdit *>()) {
+        QString colName = dtle->property(m_property).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = dtle->date().toString("dd/MM/yyyy");
+        map[':'+colName] = value;
+    }
 }
 
 QSqlTableModel * CustomInsertDialog::setupComboBox(QString tablename, QComboBox *cb, int viewCol)

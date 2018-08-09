@@ -9,6 +9,7 @@
 #include <QMap>
 #include <QDebug>
 #include <QTextEdit>
+#include <QDateEdit>
 
 #include "libs/error.h"
 #include "gestionale_const.h"
