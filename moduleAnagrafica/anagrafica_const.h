@@ -83,7 +83,7 @@ namespace anagrafica {
     //Delete utilizzata in AnagraficaWindow per cancellare un cliente/fornitore
     const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
 
-
+    enum class cols {id=0, rag_sociale=3};
     //COLS
     enum columns {COL_TABLE_ID = 0,
                   COL_TABLE_DESCRIZIONE = 1,
