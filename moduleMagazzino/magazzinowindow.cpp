@@ -315,12 +315,12 @@ void MagazzinoWindow::cloneRecord(void)
         return;
     }
 
-    QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
-    ArticoloDialog dlg(this);
-    dlg.setValue(id, false);
-    bool ok = dlg.exec();
-    if (!ok)
-        return;
+//    QString id = articoloModel->record(index.row()).value(coldb::ID).toString();
+//    ArticoloDialog dlg(this);
+//    dlg.setValue(id, false);
+//    bool ok = dlg.exec();
+//    if (!ok)
+//        return;
 
     updateViewMagazzino();
     updateModel();

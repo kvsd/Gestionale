@@ -872,7 +872,7 @@
    <sender>prezzoFinitoLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoFinito()</slot>
+   <slot>updatePrezzi()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>256</x>
@@ -888,7 +888,7 @@
    <sender>prezzoVendita1LE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoVendita()</slot>
+   <slot>updatePrezzi()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>256</x>
@@ -936,7 +936,7 @@
    <sender>prezzoVendita2LE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzoVenditaB()</slot>
+   <slot>updatePrezzi()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>601</x>
@@ -965,5 +965,6 @@
   <slot>copyCodArt()</slot>
   <slot>calculatePrezzoAcquisto()</slot>
   <slot>updatePrezzoVenditaB()</slot>
+  <slot>updatePrezzi()</slot>
  </slots>
 </ui>

@@ -2,13 +2,13 @@
 #include "ui_articolodialog.h"
 
 ArticoloDialog::ArticoloDialog(QWidget *parent) :
-    QDialog(parent),
+    CustomInsertDialog(parent),
     ui(new Ui::ArticoloDialog)
 {
     qDebug() << "ArticoloDialog()";
     ui->setupUi(this);
 
-    initModel();
+    initForm();
     initComboBox();
 
     ui->dataLE->setDate(QDate::currentDate());
@@ -20,68 +20,55 @@ ArticoloDialog::~ArticoloDialog()
     delete ui;
 }
 
-void ArticoloDialog::initModel(void)
+void ArticoloDialog::initForm()
 {
-    qDebug() << "ArticoloDialog::initModel()";
-    m_modelCatMerce = new QSqlTableModel(this);
-    m_modelCatMerce->setTable(table::CATEGORIA_MERCE);
-    m_modelCatMerce->setSort(magazzino::DESCR, Qt::AscendingOrder);
-    m_modelCatMerce->select();
-
-    m_modelCodIva = new QSqlTableModel(this);
-    m_modelCodIva->setTable(table::CODICE_IVA);
-    m_modelCodIva->setSort(magazzino::DESCR, Qt::AscendingOrder);
-    m_modelCodIva->select();
-
-    m_modelFornitore = new QSqlQueryModel(this);
-    m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
-
-    m_modelMarca = new QSqlTableModel(this);
-    m_modelMarca->setTable(table::MARCA);
-    m_modelMarca->setSort(magazzino::DESCR, Qt::AscendingOrder);
-    m_modelMarca->select();
-
-    m_modelSede = new QSqlTableModel(this);
-    m_modelSede->setTable(table::SEDE_MAGAZZINO);
-    m_modelSede->setSort(magazzino::DESCR, Qt::AscendingOrder);
-    m_modelSede->select();
-
-    m_modelUnita = new QSqlTableModel(this);
-    m_modelUnita->setTable(table::UNITA_MISURA);
-    m_modelUnita->setSort(magazzino::DESCR, Qt::AscendingOrder);
-    m_modelUnita->select();
+    qDebug() << "ArticoloDialog::initForm()";
+    ui->descrizioneLE->setProperty(m_property, coldb::DESCRIZIONE);
+    ui->fornitoreCB->setProperty(m_property, coldb::ID_FORNITORE);
+    ui->marcaCB->setProperty(m_property, coldb::ID_MARCA);
+    ui->modelloLE->setProperty(m_property, coldb::MODELLO);
+    ui->codArticoloLE->setProperty(m_property, coldb::CODICE_ARTICOLO);
+    ui->codFornitoreLE->setProperty(m_property, coldb::CODICE_FORNITORE);
+    ui->codBarreLE->setProperty(m_property, coldb::CODICE_BARRE);
+    ui->catmerceCB->setProperty(m_property, coldb::ID_MERCE);
+    ui->codivaCB->setProperty(m_property, coldb::CODICE_IVA);
+    ui->unitamisuraCB->setProperty(m_property, coldb::ID_UNITA);
+    ui->scortaLE->setProperty(m_property, coldb::SCORTA_MINIMA);
+    ui->quantitaLE->setProperty(m_property, coldb::QUANTITA);
+    ui->prezzoFatturaLE->setProperty(m_property, coldb::PREZZO_FATTURA);
+    ui->scontoLE->setProperty(m_property, coldb::SCONTO_FORNITORE);
+    ui->ricaricoLE->setProperty(m_property, coldb::RICARICO);
+    ui->prezzoAcquistoLE->setProperty(m_property, coldb::PREZZO_ACQUISTO);
+    ui->ivaLE->setProperty(m_property, coldb::IVA);
+    ui->prezzoFinitoLE->setProperty(m_property, coldb::PREZZO_FINITO);
+    ui->prezzoVendita1LE->setProperty(m_property, coldb::PREZZO_VENDITA);
+    ui->prezzoVendita2LE->setProperty(m_property, coldb::PREZZO_VENDITA_B);
+    ui->fatturaLE->setProperty(m_property, coldb::FATTURA);
+    ui->dataLE->setProperty(m_property, coldb::DATA_ARRIVO);
+    ui->sedeCB->setProperty(m_property, coldb::ID_SEDE_MAGAZZINO);
+    ui->noteTE->setProperty(m_property, coldb::NOTE);
 }
 
 void ArticoloDialog::initComboBox(void)
 {
-    qDebug() << "ArticoloDialog::initComboBox()";
-    ui->catmerceCB->setModel(m_modelCatMerce);
-    ui->catmerceCB->setModelColumn(magazzino::DESCR);
+    qDebug() << "ArticoloDialog::initComboBox(void)";
+    m_modelCatMerce = setupComboBox(table::CATEGORIA_MERCE, ui->catmerceCB, int(modelCols::descr));
+    m_modelCodIva = setupComboBox(table::CODICE_IVA, ui->codivaCB, int(modelCols::descr));
+    m_modelMarca = setupComboBox(table::MARCA, ui->marcaCB, int(modelCols::descr));
+    m_modelSede = setupComboBox(table::SEDE_MAGAZZINO, ui->sedeCB, int(modelCols::descr));
+    m_modelUnita = setupComboBox(table::UNITA_MISURA, ui->unitamisuraCB, int(modelCols::descr));
+    m_modelFornitore = setupComboBox(table::ANAGRAFICA, ui->fornitoreCB, int(anagrafica::cols::rag_sociale));
 
     //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
     //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
     //genera un segnale.
     ui->codivaCB->blockSignals(true);
-    ui->codivaCB->setModel(m_modelCodIva);
-    ui->codivaCB->setModelColumn(magazzino::DESCR);
     int index = ui->codivaCB->findText(m_settings.value(magazzino::DEFAULT_IVA).toString());
     ui->codivaCB->setCurrentIndex(index);
     ui->codivaCB->blockSignals(false);
-
-    ui->fornitoreCB->setModel(m_modelFornitore);
-    ui->fornitoreCB->setModelColumn(magazzino::DESCR);
-
-    ui->marcaCB->setModel(m_modelMarca);
-    ui->marcaCB->setModelColumn(magazzino::DESCR);
-
-    ui->sedeCB->setModel(m_modelSede);
-    ui->sedeCB->setModelColumn(magazzino::DESCR);
-
-    ui->unitamisuraCB->setModel(m_modelUnita);
-    ui->unitamisuraCB->setModelColumn(magazzino::DESCR);
 }
 
-void ArticoloDialog::setValue(QString id, bool update)
+void ArticoloDialog::setValue(QString id)
 {
     qDebug() << "ArticoloDialog::setValue()";
     QSqlQuery query;
@@ -91,53 +78,30 @@ void ArticoloDialog::setValue(QString id, bool update)
         showDialogError(this, ERR038, MSG010, query.lastError().text()); //NOTE codice errore 038
 
     query.first();
-    if (update)
-        m_articoloMap[ph::ID] = id;
-    ui->descrizioneLE->setText(query.value(coldb::DESCRIZIONE).toString());
 
-    ui->fornitoreCB->setModelColumn(magazzino::ID);
-    ui->fornitoreCB->setCurrentText(query.value(coldb::ID_FORNITORE).toString());
-    ui->fornitoreCB->setModelColumn(magazzino::DESCR);
+    for (auto *le : findChildren<QLineEdit *>()) {
+        QString colName = le->property(m_property).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = query.value(colName).toString();
+        le->setText(value);
+    }
 
-    ui->marcaCB->setModelColumn(magazzino::ID);
-    ui->marcaCB->setCurrentText(query.value(coldb::ID_MARCA).toString());
-    ui->marcaCB->setModelColumn(magazzino::DESCR);
-
-    ui->modelloLE->setText(query.value(coldb::MODELLO).toString());
-    ui->codArticoloLE->setText(query.value(coldb::CODICE_ARTICOLO).toString());
-    ui->codFornitoreLE->setText(query.value(coldb::CODICE_FORNITORE).toString());
-    ui->codBarreLE->setText(query.value(coldb::CODICE_BARRE).toString());
-
-    ui->catmerceCB->setModelColumn(magazzino::ID);
-    ui->catmerceCB->setCurrentText(query.value(coldb::ID_MERCE).toString());
-    ui->catmerceCB->setModelColumn(magazzino::DESCR);
-
-    ui->codivaCB->setModelColumn(magazzino::DESCR);
-    ui->codivaCB->setCurrentText(query.value(coldb::CODICE_IVA).toString());
-
-    ui->unitamisuraCB->setModelColumn(magazzino::ID);
-    ui->unitamisuraCB->setCurrentText(query.value(coldb::ID_UNITA).toString());
-    ui->unitamisuraCB->setModelColumn(magazzino::DESCR);
-
-    ui->scortaLE->setText(query.value(coldb::SCORTA_MINIMA).toString());
-    ui->quantitaLE->setText(query.value(coldb::QUANTITA).toString());
-    ui->prezzoFatturaLE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FATTURA).toDouble()));
-    freezeLineEdit(ui->prezzoAcquistoLE, !ui->prezzoFatturaLE->text().isEmpty());
-    ui->scontoLE->setText(query.value(coldb::SCONTO_FORNITORE).toString());
-    ui->ricaricoLE->setText(query.value(coldb::RICARICO).toString());
-    ui->prezzoAcquistoLE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_ACQUISTO).toDouble()));
-    ui->ivaLE->setText(locale().toCurrencyString(query.value(coldb::IVA).toDouble()));
-    ui->prezzoFinitoLE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_FINITO).toDouble()));
-    ui->prezzoVendita1LE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA).toDouble()));
-    ui->prezzoVendita2LE->setText(locale().toCurrencyString(query.value(coldb::PREZZO_VENDITA_B).toDouble()));
-    ui->fatturaLE->setText(query.value(coldb::FATTURA).toString());
-    ui->dataLE->setDate(QDate::currentDate());
-
-    ui->sedeCB->setModelColumn(magazzino::ID);
-    ui->sedeCB->setCurrentText(query.value(coldb::ID_SEDE_MAGAZZINO).toString());
-    ui->sedeCB->setModelColumn(magazzino::DESCR);
+    for (auto *cb : findChildren<QComboBox *>()) {
+        QString colName = cb->property(m_property).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = query.value(colName).toString();
+        setValueCB(cb, value, int(modelCols::id));
+    }
 
     ui->noteTE->setText(query.value(coldb::NOTE).toString());
+
+    m_articoloMap[ph::ID] = id;
+
+    setMoney(ui->prezzoAcquistoLE);
+    setMoney(ui->prezzoVendita1LE);
+    setMoney(ui->prezzoVendita2LE);
 }
 
 void ArticoloDialog::setFornitore(QString str)
@@ -173,53 +137,30 @@ void ArticoloDialog::setFattura(QString str)
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
-    m_articoloMap[ph::DESCRIZIONE] = ui->descrizioneLE->text();
-    m_articoloMap[ph::ID_MARCA] = m_modelMarca->index(ui->marcaCB->currentIndex(),
-                                                     magazzino::ID).data().toString();
-    m_articoloMap[ph::MODELLO] = ui->modelloLE->text();
-    m_articoloMap[ph::CODICE_ARTICOLO] = ui->codArticoloLE->text();
-    m_articoloMap[ph::CODICE_BARRE] = ui->codBarreLE->text();
-    m_articoloMap[ph::ID_MERCE] = m_modelCatMerce->index(ui->catmerceCB->currentIndex(),
-                                                        magazzino::ID).data().toString();
-    m_articoloMap[ph::ID_UM] = m_modelUnita->index(ui->unitamisuraCB->currentIndex(),
-                                                   magazzino::ID).data().toString();
+    CustomInsertDialog::prepareMap(m_articoloMap, magazzino::ID);
 
-    //Per i tipi numeri devo usare il locale C. Maledetto postgresql
-    double scorta = stringToDouble(ui->scortaLE->text());
-    m_articoloMap[ph::SCORTA] = QString().setNum(scorta);
+    //Pulisco i campi contenuti nella QStringList placeholder
+    QStringList placeholder = {ph::SCORTA, ph::QUANTIT, ph::PRZ_FAT,
+                               ph::PRZ_ACQ, ph::IVA, ph::PRZ_VEN,
+                               ph::PRZ_VEN_B, ph::PRZ_FIN};
 
-    m_articoloMap[ph::ID_FORNITORE] = m_modelFornitore->index(ui->fornitoreCB->currentIndex(),
-                                                         magazzino::ID).data().toString();
-    m_articoloMap[ph::CODICE_FORNITORE] = ui->codFornitoreLE->text();
+    for (auto str : placeholder) {
+        double value = stringToDouble(m_articoloMap[str]);
+        m_articoloMap[str] = QString().setNum(value);
+    }
 
-    double quantita = stringToDouble(ui->quantitaLE->text());
-    m_articoloMap[ph::QUANTIT] = QString().setNum(quantita);
-
-    double prezzo_fattura = stringToDouble(ui->prezzoFatturaLE->text());
-    m_articoloMap[ph::PRZ_FAT] = QString().setNum(prezzo_fattura);
-
-    QString sconto = ui->scontoLE->text();
-    m_articoloMap[ph::SCONTO] = sconto.isEmpty() ? "0" : sconto;
-    QString ricarico = ui->ricaricoLE->text();
-    m_articoloMap[ph::RICARIC] = ricarico.isEmpty() ? "0" : ricarico;
-
-    double prezzo_acquisto = stringToDouble(ui->prezzoAcquistoLE->text());
-    m_articoloMap[ph::PRZ_ACQ] = QString().setNum(prezzo_acquisto);
+    //Questo campo e' un combobox che viene gestito dalla funzione
+    //prepareMap di CustomInsertDialog, ma la query al posto dell'id
+    //vuole il valore dell'iva (si sono un coglione).
     m_articoloMap[ph::CODICE_IVA] = ui->codivaCB->currentText();
-    double iva = stringToDouble(ui->ivaLE->text());
-    m_articoloMap[ph::IVA] = QString().setNum(iva);
-    double prezzo_vend = stringToDouble(ui->prezzoVendita1LE->text());
-    m_articoloMap[ph::PRZ_VEN] = QString().setNum(prezzo_vend);
-    double prezzo_vend_b = stringToDouble(ui->prezzoVendita2LE->text());
-    m_articoloMap[ph::PRZ_VEN_B] = QString().setNum(prezzo_vend_b);
-    double prezzo_fin = stringToDouble(ui->prezzoFinitoLE->text());
-    m_articoloMap[ph::PRZ_FIN] = QString().setNum(prezzo_fin);
 
-    m_articoloMap[ph::ID_SEDE_MAGAZZINO] = m_modelSede->index(ui->sedeCB->currentIndex(),
-                                                    magazzino::ID).data().toString();
-    m_articoloMap[ph::DATA_ARRIVO] = ui->dataLE->date().toString("dd/MM/yyyy");
-    m_articoloMap[ph::FATTURA] = ui->fatturaLE->text();
-    m_articoloMap[ph::NOTE] = ui->noteTE->toPlainText();
+    if (m_articoloMap[ph::SCONTO].isEmpty())
+        m_articoloMap[ph::SCONTO] = "0";
+
+    if (m_articoloMap[ph::RICARIC].isEmpty())
+        m_articoloMap[ph::RICARIC] = "0";
+
+    qDebug() << m_articoloMap;
 }
 
 QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
@@ -325,6 +266,17 @@ void ArticoloDialog::freezeLineEdit(QLineEdit *le, bool status)
     le->setStyleSheet(status ? css::warning : "");
 }
 
+void ArticoloDialog::setMoney(QLineEdit *le)
+{
+    qDebug() << "ArticoloDialog::setMoney()";
+    QString prezzo = le->text();
+
+    if (!prezzo.contains(locale().currencySymbol())) {
+        prezzo = locale().toCurrencyString(stringToDouble(prezzo));
+        le->setText(prezzo);
+    }
+}
+
 void ArticoloDialog::calculatePrezzoAcquisto(void)
 {
     qDebug() << "ArticoloDialog::calculatePrezzoAcquisto()";
@@ -346,9 +298,7 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
     qDebug() << "ArticoloDialog::updatePrezzoAcquisto()";
     //Slot usato da le_prezzo_acquisto se non e' in modalita solo lettura.
     ui->scontoLE->clear();
-    QString prezzo = ui->prezzoAcquistoLE->text();
-    if (!prezzo.contains(locale().currencySymbol()))
-        ui->prezzoAcquistoLE->setText((locale().toCurrencyString(stringToDouble(prezzo))));
+    setMoney(ui->prezzoAcquistoLE);
     updateIva();
 }
 
@@ -375,40 +325,13 @@ void ArticoloDialog::updateIva(void)
         ui->prezzoVendita2LE->setText(locale().toCurrencyString(prezzo_finito));
 }
 
-void ArticoloDialog::updatePrezzoFinito(void)
+void ArticoloDialog::updatePrezzi(void)
 {
-    qDebug() << "ArticoloDialog::updatePrezzoFinito()";
-    //Slot collegato a le_prezzo_finito.
-    if (ui->prezzoFatturaLE->text().isEmpty())
+    qDebug() << "ArticoloDialog::updatePrezzi()";
+    QLineEdit *le = qobject_cast<QLineEdit *>(sender());
+    if (le->text().isEmpty())
         return;
-
-    QString prezzo = ui->prezzoFinitoLE->text();
-    if (!prezzo.contains(locale().currencySymbol()))
-        ui->prezzoFinitoLE->setText(locale().toCurrencyString(stringToDouble(prezzo)));
-}
-
-void ArticoloDialog::updatePrezzoVendita(void)
-{
-    qDebug() << "ArticoloDialog::updatePrezzoVendita()";
-    //Slot collegato a le_prezzo_vendita.
-    QString prezzo_ven = ui->prezzoVendita1LE->text();
-
-    if (!prezzo_ven.contains(locale().currencySymbol())) {
-        prezzo_ven = locale().toCurrencyString(stringToDouble(prezzo_ven));
-        ui->prezzoVendita1LE->setText(prezzo_ven);
-    }
-}
-
-void ArticoloDialog::updatePrezzoVenditaB(void)
-{
-    qDebug() << "ArticoloDialog::updatePrezzoVenditaB()";
-    //Slot collegato a le_prezzo_venditaB.
-    QString prezzo_ven = ui->prezzoVendita2LE->text();
-
-    if (!prezzo_ven.contains(locale().currencySymbol())) {
-        prezzo_ven = locale().toCurrencyString(stringToDouble(prezzo_ven));
-        ui->prezzoVendita2LE->setText(prezzo_ven);
-    }
+    setMoney(le);
 }
 
 void ArticoloDialog::openAddMarca()
@@ -443,7 +366,7 @@ void ArticoloDialog::openAddFornitore()
     if (!ok)
         return;
 
-    //Trovo l'ultimo id inserito nel database
+    //Trovo l'ultimo id inserito nel database (guarda query)
     QString id = dlg.getId();
     //Ricarico la query e seleziono il valore immesso
     m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
@@ -474,3 +397,4 @@ void ArticoloDialog::copyCodArt()
     QString codArticolo = ui->codArticoloLE->text();
     ui->codFornitoreLE->setText(codArticolo);
 }
+//489
