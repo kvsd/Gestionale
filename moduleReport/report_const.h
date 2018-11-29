@@ -31,7 +31,7 @@ namespace report {
                           "mg.note As \"Note\" "
                           "FROM magazzino AS mg, anagrafica AS an, listino_storico AS ls "
                           "WHERE mg.id_fornitore=an.id AND mg.id=ls.id_articolo "
-                          "AND rag_sociale='%1' AND mg.fattura ILIKE '%%2%' "
+                          "AND rag_sociale='%1' AND ls.fattura ILIKE '%%2%' "
                           "ORDER BY mg.descr, mg.id, ls.fattura, ls.data_arrivo DESC");
 
     //Filtro fornitore.
