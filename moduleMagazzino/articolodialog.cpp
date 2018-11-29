@@ -102,6 +102,13 @@ void ArticoloDialog::setValue(QString id)
     setMoney(ui->prezzoAcquistoLE);
     setMoney(ui->prezzoVendita1LE);
     setMoney(ui->prezzoVendita2LE);
+
+    if (ui->prezzoFatturaLE->text() == "0") {
+        ui->prezzoFatturaLE->clear();
+        ui->scontoLE->clear();
+    }
+    else
+        setMoney(ui->prezzoFatturaLE);
 }
 
 void ArticoloDialog::setFornitore(QString str)
