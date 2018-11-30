@@ -32,6 +32,7 @@ void AziendaDialog::initForm()
     ui->telLE->setProperty(m_property, coldb::TEL);
     ui->faxLE->setProperty(m_property, coldb::FAX);
     ui->emailLE->setProperty(m_property, coldb::EMAIL);
+    ui->pecLE->setProperty(m_property, coldb::PEC);
 
     ui->regFiscaleCB->setProperty(m_property, coldb::ID_REG_FISCALE);
     ui->provinciaReaCB->setProperty(m_property, coldb::ID_PROVINCIA_REA);
@@ -158,6 +159,7 @@ bool AziendaDialog::checkValues()
             !checkComboBox(ui->cittaCB, "citta") ||
             !checkComboBox(ui->provinciaCB, "provincia") ||
             !checkComboBox(ui->capCB, "CAP") ||
+            !checkLineEdit(ui->pecLE, "PEC") ||
             !checkComboBox(ui->statoCB, "stato"))
         return false;
 

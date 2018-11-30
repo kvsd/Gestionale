@@ -32,9 +32,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-264</y>
         <width>473</width>
-        <height>749</height>
+        <height>778</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -321,6 +321,19 @@
           <item row="3" column="1">
            <widget class="QLineEdit" name="emailLE"/>
           </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>PEC:</string>
+            </property>
+            <property name="buddy">
+             <cstring>pecLE</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="pecLE"/>
+          </item>
          </layout>
         </widget>
        </item>
@@ -363,6 +376,9 @@
            <widget class="QLabel" name="label_14">
             <property name="text">
              <string>Stato Liquidazione:</string>
+            </property>
+            <property name="buddy">
+             <cstring>statoLiquidCB</cstring>
             </property>
            </widget>
           </item>
@@ -427,6 +443,7 @@
   <tabstop>regFiscaleCB</tabstop>
   <tabstop>provinciaReaCB</tabstop>
   <tabstop>numeroReaLE</tabstop>
+  <tabstop>statoLiquidCB</tabstop>
   <tabstop>indirizzoLE</tabstop>
   <tabstop>cittaCB</tabstop>
   <tabstop>cittaDlgPB</tabstop>
@@ -437,10 +454,11 @@
   <tabstop>telLE</tabstop>
   <tabstop>faxLE</tabstop>
   <tabstop>emailLE</tabstop>
+  <tabstop>pecLE</tabstop>
   <tabstop>logoDlgPB</tabstop>
-  <tabstop>closeButton</tabstop>
-  <tabstop>clearButton</tabstop>
   <tabstop>saveButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>closeButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -452,7 +470,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>461</x>
-     <y>394</y>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -468,7 +486,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>461</x>
-     <y>452</y>
+     <y>502</y>
     </hint>
     <hint type="destinationlabel">
      <x>505</x>
@@ -548,7 +566,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>461</x>
-     <y>687</y>
+     <y>745</y>
     </hint>
     <hint type="destinationlabel">
      <x>253</x>

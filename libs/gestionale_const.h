@@ -144,6 +144,7 @@ namespace coldb {
     const QString NOTE = "note";
     const QString NUMERO_REA = "numero_rea";
     const QString PARTITA_IVA = "prt_iva";
+    const QString PEC = "pec";
     const QString PREZZO_ACQUISTO = "prezzo_acquisto";
     const QString PREZZO_FATTURA = "prezzo_fattura";
     const QString PREZZO_FINITO = "prezzo_finito";

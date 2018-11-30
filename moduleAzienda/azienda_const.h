@@ -24,6 +24,7 @@ namespace azienda {
                                      "tel=:tel, "
                                      "fax=:fax, "
                                      "email=:email, "
+                                     "pec=:pec,"
                                      "logo=:logo "
                                  "WHERE id=0";
 }
