@@ -1,8 +1,3 @@
-CREATE TABLE reg_fiscale (id SERIAL PRIMARY KEY,
-						  descr TEXT UNIQUE NOT NULL,
-						  sigla TEXT UNIQUE NOT NULL);
-INSERT INTO reg_fiscale VALUES (0, '-----', '-----');
-
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Ordinario', 'RF01');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Contribuenti minimi', 'RF02');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Agricoltura e attività connesse e pesca', 'RF04');
