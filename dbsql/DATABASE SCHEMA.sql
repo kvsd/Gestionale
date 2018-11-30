@@ -51,9 +51,10 @@ CREATE TABLE agenzia (id SERIAL PRIMARY KEY,
                       descr TEXT UNIQUE NOT NULL);
 INSERT INTO agenzia VALUES (0, '-----');
 --##############################################################################
-CREATE TABLE tipo_pagamento (id SERIAL PRIMARY KEY, 
-                             descr TEXT UNIQUE NOT NULL);
-INSERT INTO tipo_pagamento VALUES (0, '-----');
+CREATE TABLE tipo_pagamento (id SERIAL PRIMARY KEY,
+							 descr TEXT, 
+							 sigla TEXT);
+INSERT INTO tipo_pagamento VALUES (0, '-----', '-----');
 --##############################################################################
 CREATE TABLE casuale_trasporto (id SERIAL PRIMARY KEY,
                                 descr TEXT UNIQUE NOT NULL);
@@ -97,9 +98,10 @@ CREATE TABLE azienda (id INTEGER PRIMARY KEY,
                       tel TEXT,
                       fax TEXT,
                       email TEXT,
+					  pec TEXT NOT NULL,
 		      		  logo BYTEA);
-INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, numero_rea)
-			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '00000');
+INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, numero_rea, pec)
+			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '00000', 'pec@pec.it');
 --##############################################################################
 CREATE TABLE agenti(id SERIAL PRIMARY KEY,
                     nome TEXT,
