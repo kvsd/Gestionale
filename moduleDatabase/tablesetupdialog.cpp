@@ -31,7 +31,7 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
     //mapTables["Stato"] = table::STATO;
     m_mapTables["Banca"] = table::BANCA;
     m_mapTables["Agenzia"] = table::AGENZIA;
-    m_mapTables["Tipo di pagamento"] = table::TIPO_PAGAMENTO;
+    //m_mapTables["Tipo di pagamento"] = table::TIPO_PAGAMENTO;
     m_mapTables["Casuale di trasporto"] = table::CASUALE_TRASPORTO;
     m_mapTables["Vettore"] = table::VETTORE;
     m_mapTables["Aspetto dei beni"] = table::ASPETTO_BENI;
