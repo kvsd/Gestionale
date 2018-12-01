@@ -2,18 +2,34 @@
 #include "ui_agentiadddialog.h"
 
 AgentiAddDialog::AgentiAddDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AgentiAddDialog),
-    id("-1")
+    CustomInsertDialog(parent),
+    ui(new Ui::AgentiAddDialog)
 {
     qDebug() << "AgentiAddDialog()";
     ui->setupUi(this);
+    initForm();
 }
 
 AgentiAddDialog::~AgentiAddDialog()
 {
     qDebug() << "~AgentiAddDialog()";
     delete ui;
+}
+
+void AgentiAddDialog::initForm()
+{
+    qDebug() << "AgentiAddDialog::initForm()";
+    ui->nomeLineEdit->setProperty(m_property, coldb::NOME);
+    ui->cognomeLineEdit->setProperty(m_property, coldb::COGNOME);
+    ui->telLineEdit->setProperty(m_property, coldb::TEL);
+    ui->celLineEdit->setProperty(m_property, coldb::CEL);
+    ui->faxLineEdit->setProperty(m_property, coldb::FAX);
+    ui->emailLineEdit->setProperty(m_property, coldb::EMAIL);
+}
+
+void AgentiAddDialog::initComboBox()
+{
+    qDebug() << "AgentiAddDialog::initComboBox()";
 }
 
 void AgentiAddDialog::setValue(QString id)
@@ -24,52 +40,34 @@ void AgentiAddDialog::setValue(QString id)
     query.bindValue(ph::ID, id);
     query.exec();
     query.first();
-    ui->nomeLineEdit->setText(query.value(coldb::NOME).toString());
-    ui->cognomeLineEdit->setText(query.value(coldb::COGNOME).toString());
-    ui->telLineEdit->setText(query.value(coldb::TEL).toString());
-    ui->faxLineEdit->setText(query.value(coldb::FAX).toString());
-    ui->celLineEdit->setText(query.value(coldb::CEL).toString());
-    ui->emailLineEdit->setText(query.value(coldb::EMAIL).toString());
-    mapAgente[ph::ID] = id;
-}
 
-QString AgentiAddDialog::getId()
-{
-    qDebug() << "AgentiAddDialog::getValue()";
-    return id;
+    for (auto *le : findChildren<QLineEdit *>()) {
+        QString colName = le->property(m_property).toString();
+        QString value = query.value(colName).toString();
+        le->setText(value);
+    }
+
+    mapAgente[ph::ID] = id;
 }
 
 void AgentiAddDialog::save(void)
 {
     qDebug() << "AgentiAddDialog::save()";
-    mapAgente[ph::NOME] = ui->nomeLineEdit->text();
-    mapAgente[ph::COGNOME] = ui->cognomeLineEdit->text();
-    mapAgente[ph::TEL] = ui->telLineEdit->text();
-    mapAgente[ph::FAX] = ui->faxLineEdit->text();
-    mapAgente[ph::CEL] = ui->celLineEdit->text();
-    mapAgente[ph::EMAIL] = ui->emailLineEdit->text();
+    prepareMap(mapAgente);
 
-    if (mapAgente[ph::COGNOME].isEmpty()) {
-        showDialogError(this, ERR008, MSG021); //NOTE codice errore 008
-        ui->cognomeLineEdit->setStyleSheet(agenti::CSS_WARNING_STYLE);
+    if (!checkLineEdit(ui->cognomeLineEdit, "cognome"))
         return;
-    }
 
     QSqlQuery query;
     if (mapAgente.contains(ph::ID)) {
         query.prepare(agenti::UPDATE_QUERY);
         query.bindValue(ph::ID, mapAgente[ph::ID]);
     }
-    else {
+    else
         query.prepare(agenti::INSERT_QUERY);
-    }
 
-    query.bindValue(ph::NOME, mapAgente[ph::NOME]);
-    query.bindValue(ph::COGNOME, mapAgente[ph::COGNOME]);
-    query.bindValue(ph::TEL, mapAgente[ph::TEL]);
-    query.bindValue(ph::FAX, mapAgente[ph::FAX]);
-    query.bindValue(ph::CEL, mapAgente[ph::CEL]);
-    query.bindValue(ph::EMAIL, mapAgente[ph::EMAIL]);
+    for (auto key : mapAgente.keys())
+        query.bindValue(key, mapAgente[key]);
 
     if (!query.exec()) {
         showDialogError(this, ERR009, MSG022, query.lastError().text()); //NOTE codice errore 009
@@ -77,7 +75,7 @@ void AgentiAddDialog::save(void)
     }
 
     while (query.next())
-        id = query.value("id").toString();
+        setId(query.value("id").toString());
 
     this->accept();
 }

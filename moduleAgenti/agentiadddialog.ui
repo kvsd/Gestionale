@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>398</width>
-    <height>220</height>
+    <height>225</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,86 +151,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
-   <receiver>nomeLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>266</x>
-     <y>191</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>174</x>
-     <y>24</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
-   <receiver>cognomeLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>332</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>212</x>
-     <y>55</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
-   <receiver>telLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>332</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>273</x>
-     <y>85</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
-   <receiver>celLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>332</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>298</x>
-     <y>140</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
-   <receiver>emailLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>332</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>235</x>
-     <y>148</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>saveButton</sender>
    <signal>clicked()</signal>
    <receiver>AgentiAddDialog</receiver>
@@ -265,15 +185,15 @@
   <connection>
    <sender>clearButton</sender>
    <signal>clicked()</signal>
-   <receiver>faxLineEdit</receiver>
-   <slot>clear()</slot>
+   <receiver>AgentiAddDialog</receiver>
+   <slot>clearForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>328</x>
-     <y>198</y>
+     <x>261</x>
+     <y>203</y>
     </hint>
     <hint type="destinationlabel">
-     <x>224</x>
+     <x>198</x>
      <y>112</y>
     </hint>
    </hints>
@@ -281,5 +201,6 @@
  </connections>
  <slots>
   <slot>save()</slot>
+  <slot>clearForm()</slot>
  </slots>
 </ui>
