@@ -21,10 +21,6 @@ CREATE TABLE marca(id SERIAL PRIMARY KEY,
                    descr TEXT UNIQUE NOT NULL);
 INSERT INTO marca VALUES (0, '-----');
 --##############################################################################
-CREATE TABLE tipo_ditta(id SERIAL PRIMARY KEY,
-                        descr TEXT UNIQUE NOT NULL);
-INSERT INTO tipo_ditta VALUES (0, '-----');
---##############################################################################
 CREATE TABLE citta(id SERIAL PRIMARY KEY,
                    descr TEXT UNIQUE NOT NULL);
 INSERT INTO citta VALUES (0, '-----');
@@ -80,6 +76,15 @@ INSERT INTO stato_liquid(id, descr, sigla) VALUES(0, '-----', '-----');
 INSERT INTO stato_liquid(descr, sigla) VALUES('Non in liquidazione', '[LN]');
 INSERT INTO stato_liquid(descr, sigla) VALUES('In liquidazione', '[LS]');
 --##############################################################################
+CREATE TABLE trasmissione (id SERIAL PRIMARY KEY,
+						   descr TEXT,
+						   sigla TEXT);
+
+INSERT INTO trasmissione VALUES(0, '-----', '-----');
+INSERT INTO trasmissione VALUES(DEFAULT, 'PA SDI', 'FPA12');
+INSERT INTO trasmissione VALUES(DEFAULT, 'Cliente SDI', 'FPR12');
+INSERT INTO trasmissione VALUES(DEFAULT, 'PEC', 'FPR12');
+--##############################################################################
 CREATE TABLE azienda (id INTEGER PRIMARY KEY, 
                       rag_sociale TEXT,
                       nome TEXT,
@@ -113,12 +118,16 @@ CREATE TABLE agenti(id SERIAL PRIMARY KEY,
 INSERT INTO agenti(id, nome, cognome) VALUES(0, '-----', '-----');
 --##############################################################################
 CREATE TABLE anagrafica(id SERIAL PRIMARY KEY,
-                       fornitore BOOL NOT NULL,
-                       cliente BOOL NOT NULL,
+					   azienda BOOL NOT NULL DEFAULT 'n',
+					   pa BOOL NOT NULL DEFAULT 'n', --pubblica amministrazione
+					   fornitore BOOL NOT NULL DEFAULT 'n',
+                       cliente BOOL NOT NULL DEFAULT 'n',
                        rag_sociale TEXT UNIQUE NOT NULL,
-                       id_tipo_ditta INTEGER references tipo_ditta(id) DEFAULT 0,
                        nome TEXT,
                        cognome TEXT,
+					   id_trasmissione INTEGER references trasmissione(id) DEFAULT 0,
+					   cod_sdi TEXT,
+					   pec TEXT,
                        indirizzo TEXT,
                        id_citta INTEGER references citta(id) DEFAULT 0,
                        id_provincia INTEGER references provincia(id) DEFAULT 0,
