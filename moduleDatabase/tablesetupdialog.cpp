@@ -25,7 +25,6 @@ TableSetupDialog::TableSetupDialog(QWidget *parent) :
     m_mapTables["Unita di misura"] = table::UNITA_MISURA;
     m_mapTables["Sedi magazzino"] = table::SEDE_MAGAZZINO;
     m_mapTables["Marca"] = table::MARCA;
-    m_mapTables["Tipo di ditta"] = table::TIPO_DITTA;
     m_mapTables["Citta"] = table::CITTA;
     m_mapTables["CAP"] = table::CAP;
     //mapTables["Stato"] = table::STATO;

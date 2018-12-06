@@ -11,9 +11,10 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
     initForm();
     initComboBox();
 
-    ui->agenteLB->hide();
-    ui->agenteCB->hide();
-    ui->agentiDlgPB->hide();
+    toggleAgente(false);
+    ui->aziendaRB->setChecked(true);
+
+    checkAzienda();
 }
 
 AnagraficaAddDialog::~AnagraficaAddDialog()
@@ -25,12 +26,17 @@ AnagraficaAddDialog::~AnagraficaAddDialog()
 void AnagraficaAddDialog::initForm(void)
 {
     qDebug() << "AnagraficaAddDialog::initForm()";
+    ui->aziendaRB->setProperty(m_property, coldb::AZIENDA);
+    ui->clienteRB->setProperty(m_property, coldb::CLIENTE);
+    ui->fornitoreRB->setProperty(m_property, coldb::FORNITORE);
+    ui->paRB->setProperty(m_property, coldb::PA);
+
     ui->ragSocialeLE->setProperty(m_property, coldb::RAGIONE_SOCIALE);
     ui->nomeLE->setProperty(m_property, coldb::NOME);
     ui->cognomeLE->setProperty(m_property, coldb::COGNOME);
-    ui->clienteCKB->setProperty(m_property, coldb::CLIENTE);
-    ui->fornitoreCKB->setProperty(m_property, coldb::FORNITORE);
-    ui->tipoDittaCB->setProperty(m_property, coldb::ID_TIPO_DITTA);
+    ui->trasmissioneCB->setProperty(m_property, coldb::ID_TRASMISSIONE);
+    ui->codSdiLE->setProperty(m_property, coldb::COD_SDI);
+    ui->pecLE->setProperty(m_property, coldb::PEC);
     ui->pivaLE->setProperty(m_property, coldb::PARTITA_IVA);
     ui->codFiscaleLE->setProperty(m_property, coldb::CODICE_FISCALE);
     ui->agenteCB->setProperty(m_property, coldb::ID_AGENTE);
@@ -77,9 +83,11 @@ void AnagraficaAddDialog::setValue(QString id)
         setValueCB(cb, value, int(modelCols::id));
     }
 
-    ui->clienteCKB->setChecked(query.value(coldb::CLIENTE).toBool());
-    ui->fornitoreCKB->setChecked(query.value(coldb::FORNITORE).toBool());
-    if (ui->fornitoreCKB->isChecked()) {
+    ui->aziendaRB->setChecked(query.value(coldb::AZIENDA).toBool());
+    ui->clienteRB->setChecked(query.value(coldb::CLIENTE).toBool());
+    ui->fornitoreRB->setChecked(query.value(coldb::FORNITORE).toBool());
+    ui->paRB->setChecked(query.value(coldb::PA).toBool());
+    if (ui->fornitoreRB->isChecked()) {
         ui->agenteLB->show();
         ui->agenteCB->show();
         ui->agentiDlgPB->show();
@@ -94,12 +102,12 @@ void AnagraficaAddDialog::setValue(QString id)
 void AnagraficaAddDialog::initComboBox()
 {
     qDebug() << "AnagraficaAddDialog::initComboBox()";
-    m_modelDitta = setupComboBox(table::TIPO_DITTA, ui->tipoDittaCB, int(modelCols::descr));
     m_modelCitta = setupComboBox(table::CITTA, ui->cittaCB, int(modelCols::descr));
     m_modelProvincia = setupComboBox(table::PROVINCIA, ui->provinciaCB, int(modelCols::descr));
     m_modelCap = setupComboBox(table::CAP, ui->capCB, int(modelCols::descr));
     m_modelStato = setupComboBox(table::STATO, ui->statoCB, int(modelCols::descr));
     m_modelAgente = setupComboBox(table::AGENTI, ui->agenteCB, int(colsAgenti::COGNOME));
+    m_modelTrasmissione = setupComboBox(table::TIPO_TRASMISSIONE, ui->trasmissioneCB, int(modelCols::descr));
 }
 
 void AnagraficaAddDialog::prepareMap(void)
@@ -109,8 +117,10 @@ void AnagraficaAddDialog::prepareMap(void)
     qDebug() << "AnagraficaAddDialog::prepareMap()";
     CustomInsertDialog::prepareMap(m_mapPersona, int(modelCols::id));
 
-    m_mapPersona[ph::CLIENTE] = ui->clienteCKB->isChecked() ? "y" : "n";
-    m_mapPersona[ph::FORNITORE] = ui->fornitoreCKB->isChecked() ? "y" : "n";
+    m_mapPersona[":pa"] = ui->paRB->isChecked() ? "y" : "n";
+    m_mapPersona[":azienda"] = ui->aziendaRB->isChecked() ? "y" : "n";
+    m_mapPersona[ph::CLIENTE] = ui->clienteRB->isChecked() ? "y" : "n";
+    m_mapPersona[ph::FORNITORE] = ui->fornitoreRB->isChecked() ? "y" : "n";
 }
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
@@ -153,14 +163,6 @@ bool AnagraficaAddDialog::checkValues(void)
         ui->cognomeLE->setStyleSheet(css::warning);
         //NOTE codice errore 020
         showDialogError(this, ERR020, MSG016);
-        return false;
-    }
-
-    if (m_mapPersona[ph::CLIENTE] == "n" &&
-            m_mapPersona[ph::FORNITORE] == "n") {
-        showDialogError(this, ERR021, MSG017); //NOTE codice errore 021
-        ui->clienteCKB->setStyleSheet(css::warning_ckb);
-        ui->fornitoreCKB->setStyleSheet(css::warning_ckb);
         return false;
     }
 
@@ -213,15 +215,6 @@ void AnagraficaAddDialog::save(void)
     this->accept();
 }
 
-
-void AnagraficaAddDialog::openAddTipoditta(void)
-{
-    qDebug() << "AnagraficaAddDialog::openAddTipoDitta()";
-    QString value = allDlg(this, m_modelDitta, ADD_DITTA_QUERY, "Tipologia Ditta", ERR015); //NOTE codice errore 015
-    if (!value.isEmpty())
-        ui->tipoDittaCB->setCurrentText(value);
-}
-
 void AnagraficaAddDialog::openAddCitta(void)
 {
     qDebug() << "AnagraficaAddDialog::openAddCitta()";
@@ -272,4 +265,49 @@ void AnagraficaAddDialog::copyPrtIva(void)
     qDebug() << "AnagraficaAddDialog::copyPrtIva()";
     ui->codFiscaleLE->setText(ui->pivaLE->text());
 }
-//353
+
+void AnagraficaAddDialog::checkAzienda()
+{
+    qDebug() << "AnagraficaAddDialog::checkAzienda()";
+    ui->ragSocialeLB->setVisible(true);
+    ui->ragSocialeLE->setVisible(true);
+    ui->nomeLB->setVisible(false);
+    ui->nomeLE->setVisible(false);
+    ui->nomeLE->clear();
+    ui->cognomeLB->setVisible(false);
+    ui->cognomeLE->setVisible(false);
+    ui->cognomeLE->clear();
+}
+
+void AnagraficaAddDialog::checkCliente()
+{
+    qDebug() << "AnagraficaAddDialog::checkCliente()";
+    ui->ragSocialeLB->setVisible(false);
+    ui->ragSocialeLE->setVisible(false);
+    ui->ragSocialeLE->clear();
+    ui->nomeLB->setVisible(true);
+    ui->nomeLE->setVisible(true);
+    ui->cognomeLB->setVisible(true);
+    ui->cognomeLE->setVisible(true);
+}
+
+void AnagraficaAddDialog::checkFornitore()
+{
+    qDebug() << "AnagraficaAddDialog::checkFornitore()";
+    checkAzienda();
+
+}
+
+void AnagraficaAddDialog::checkPA()
+{
+    qDebug() << "AnagraficaAddDialog::checkPA()";
+    checkAzienda();
+}
+
+void AnagraficaAddDialog::toggleAgente(bool status)
+{
+    qDebug() << "AnagraficaAddDialog::toggleAgente";
+    ui->agenteLB->setVisible(status);
+    ui->agenteCB->setVisible(status);
+    ui->agentiDlgPB->setVisible(status);
+}

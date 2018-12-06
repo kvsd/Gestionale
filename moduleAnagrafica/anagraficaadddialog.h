@@ -34,12 +34,12 @@ public:
 private:
     Ui::AnagraficaAddDialog *ui;
     QMap <QString, QString> m_mapPersona;
-    QSqlTableModel *m_modelDitta;
     QSqlTableModel *m_modelCitta;
     QSqlTableModel *m_modelProvincia;
     QSqlTableModel *m_modelCap;
     QSqlTableModel *m_modelStato;
     QSqlTableModel *m_modelAgente;
+    QSqlTableModel *m_modelTrasmissione;
 
     void initForm(void);     //new
     void initComboBox(void); //new
@@ -49,13 +49,19 @@ private:
 
 public slots:
     void save(void);
-    void openAddTipoditta(void);
     void openAddCitta(void);
     void openAddProvincia(void);
     void openAddCap(void);
     void openAddStato(void);
     void openAddAgente(void);
     void copyPrtIva(void);
+
+private slots:
+    void checkAzienda();
+    void checkCliente();
+    void checkFornitore();
+    void checkPA();
+    void toggleAgente(bool status);
 };
 
 #endif // ANAGRAFICAADDDIALOG_H

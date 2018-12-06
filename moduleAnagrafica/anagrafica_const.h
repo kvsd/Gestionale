@@ -22,9 +22,11 @@ namespace anagrafica {
            "anagrafica.rag_sociale AS \"Ragione sociale\", "
            "anagrafica.nome AS \"Nome\", "
            "anagrafica.cognome AS \"Cognome\", "
-           "anagrafica.indirizzo AS \"Indirizzo\", "
+           "anagrafica.cod_sdi AS \"COD.SDI\", "
+           "anagrafica.pec AS \"PEC\", "
            "anagrafica.cod_fisc AS \"Codice fiscale\", "
            "anagrafica.prt_iva AS \"Partita Iva\", "
+           "anagrafica.indirizzo AS \"Indirizzo\", "
            "anagrafica.tel AS \"Telefono\", "
            "anagrafica.fax AS \"Fax\", "
            "anagrafica.cel AS \"Cellulare\", "
@@ -47,9 +49,11 @@ namespace anagrafica {
     const QString SELECT_FROM_ID = "SELECT * FROM anagrafica WHERE id=:id";
 
     //Insert utilizzata in AnagraficaAddDialog per aggiungere un nuovo cliente/fornitore
-    const QString INSERT_QUERY = "INSERT INTO anagrafica(fornitore, cliente, "
-                                                        "rag_sociale, id_tipo_ditta, "
-                                                        "nome, cognome, indirizzo, "
+    const QString INSERT_QUERY = "INSERT INTO anagrafica(azienda, cliente, fornitore, pa, "
+                                                        "rag_sociale, nome, "
+                                                        "cognome, id_trasmissione, "
+                                                        "cod_sdi, pec, "
+                                                        "indirizzo, "
                                                         "id_citta, id_provincia, "
                                                         "id_cap, id_stato, cod_fisc, "
                                                         "prt_iva, id_agente, tel, "
@@ -57,19 +61,21 @@ namespace anagrafica {
                                                         "sito_web, banca, agenzia, "
                                                         "conto, swift, iban, "
                                                         "dest_merce, note) "
-                                 "VALUES(:fornitore, :cliente, :rag_sociale, :id_tipo_ditta, "
-                                        ":nome, :cognome, :indirizzo, :id_citta, :id_provincia, "
-                                        ":id_cap, :id_stato, :cod_fisc, :prt_iva, :id_agente, "
-                                        ":tel, :fax, :cel, :email, :sito_web, :banca, :agenzia, "
-                                        ":conto, :swift, :iban, :dest_merce, :note) "
+                                 "VALUES(:azienda, :cliente, :fornitore, :pa, :rag_sociale, "
+                                        ":nome, :cognome, :id_trasmissione, :cod_sdi, :pec, :indirizzo, "
+                                        ":id_citta, :id_provincia, :id_cap, :id_stato, :cod_fisc, "
+                                        ":prt_iva, :id_agente, :tel, :fax, :cel, :email, :sito_web, "
+                                        ":banca, :agenzia, :conto, :swift, :iban, :dest_merce, :note) "
                                  "RETURNING id";
 
     //Update utilizzata in AnagraficaAddDialog per aggiornare un cliente/fornitore
     const QString UPDATE_QUERY =
-            "UPDATE anagrafica SET fornitore=:fornitore, cliente=:cliente, "
+            "UPDATE anagrafica SET azienda=:azienda, cliente=:cliente, "
+                                  "fornitore=:fornitore, pa=:pa, "
                                   "rag_sociale=:rag_sociale, "
-                                  "id_tipo_ditta=:id_tipo_ditta, "
                                   "nome=:nome, cognome=:cognome, "
+                                  "id_trasmissione = :id_trasmissione, "
+                                  "cod_sdi=:cod_sdi, pec=:pec, "
                                   "indirizzo=:indirizzo, id_citta=:id_citta, "
                                   "id_provincia=:id_provincia, id_cap=:id_cap, "
                                   "id_stato=:id_stato, cod_fisc=:cod_fisc, "
@@ -84,6 +90,7 @@ namespace anagrafica {
     const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
 
     enum class cols {id=0, rag_sociale=3};
+
     //COLS
     enum columns {COL_TABLE_ID = 0,
                   COL_TABLE_DESCRIZIONE = 1,

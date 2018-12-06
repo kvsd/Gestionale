@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>354</height>
+    <width>733</width>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,94 +34,15 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>508</width>
-            <height>251</height>
+            <width>691</width>
+            <height>335</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,1,0,0" columnminimumwidth="0,0,0,0,0">
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Ragione sociale:</string>
-               </property>
-               <property name="buddy">
-                <cstring>ragSocialeLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2" colspan="2">
-              <widget class="QLineEdit" name="ragSocialeLE"/>
-             </item>
-             <item row="0" column="4" rowspan="2">
-              <widget class="QFrame" name="frame">
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_2">
-                <item>
-                 <widget class="QCheckBox" name="clienteCKB">
-                  <property name="text">
-                   <string>Cliente</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="fornitoreCKB">
-                  <property name="text">
-                   <string>Fornitore</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Tipologia ditta:</string>
-               </property>
-               <property name="buddy">
-                <cstring>tipoDittaCB</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" colspan="2">
-              <widget class="QComboBox" name="tipoDittaCB"/>
-             </item>
-             <item row="1" column="3">
-              <widget class="QToolButton" name="tipoDittaDlgPB">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="cognomeLE"/>
-             </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>Cognome:</string>
-               </property>
-               <property name="buddy">
-                <cstring>cognomeLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QComboBox" name="agenteCB"/>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="nomeLB">
                <property name="text">
                 <string>Nome:</string>
                </property>
@@ -130,10 +51,17 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="pivaLE"/>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_22">
+               <property name="text">
+                <string>PEC:</string>
+               </property>
+               <property name="buddy">
+                <cstring>pecLE</cstring>
+               </property>
+              </widget>
              </item>
-             <item row="2" column="0">
+             <item row="6" column="0">
               <widget class="QLabel" name="label_27">
                <property name="text">
                 <string>Partita IVA:</string>
@@ -143,13 +71,110 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="nomeLE"/>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_20">
+               <property name="text">
+                <string>Trasmissione:</string>
+               </property>
+               <property name="buddy">
+                <cstring>trasmissioneCB</cstring>
+               </property>
+              </widget>
              </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="codFiscaleLE"/>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="cognomeLE"/>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="pecLE"/>
+             </item>
+             <item row="8" column="2">
+              <widget class="QToolButton" name="agentiDlgPB">
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
              <item row="4" column="0">
+              <widget class="QLabel" name="label_21">
+               <property name="text">
+                <string>Codice SDI:</string>
+               </property>
+               <property name="buddy">
+                <cstring>codSdiLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="cognomeLB">
+               <property name="text">
+                <string>Cognome:</string>
+               </property>
+               <property name="buddy">
+                <cstring>cognomeLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QComboBox" name="agenteCB"/>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="trasmissioneCB"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="ragSocialeLE"/>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLineEdit" name="pivaLE"/>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="codSdiLE"/>
+             </item>
+             <item row="6" column="2" rowspan="2">
+              <widget class="QToolButton" name="copyPB">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="statusTip">
+                <string>Copia partita iva nel codice fiscale</string>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+               <property name="arrowType">
+                <enum>Qt::LeftArrow</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="label_26">
+               <property name="text">
+                <string>Codice fiscale:</string>
+               </property>
+               <property name="buddy">
+                <cstring>codFiscaleLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="codFiscaleLE"/>
+             </item>
+             <item row="8" column="0">
               <widget class="QLabel" name="agenteLB">
                <property name="enabled">
                 <bool>true</bool>
@@ -162,50 +187,77 @@
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_26">
+             <item row="0" column="0">
+              <widget class="QLabel" name="ragSocialeLB">
                <property name="text">
-                <string>Codice fiscale:</string>
+                <string>Ragione sociale:</string>
                </property>
                <property name="buddy">
-                <cstring>codFiscaleLE</cstring>
+                <cstring>ragSocialeLE</cstring>
                </property>
               </widget>
              </item>
-             <item row="4" column="2">
-              <widget class="QToolButton" name="agentiDlgPB">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QToolButton" name="copyPB">
-               <property name="statusTip">
-                <string>Copia partita iva nel codice fiscale</string>
-               </property>
-               <property name="text">
-                <string>...</string>
-               </property>
-               <property name="arrowType">
-                <enum>Qt::DownArrow</enum>
-               </property>
-              </widget>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="nomeLE"/>
              </item>
             </layout>
            </item>
            <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>7</height>
-              </size>
-             </property>
-            </spacer>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QFrame" name="frame">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QRadioButton" name="aziendaRB">
+                  <property name="text">
+                   <string>Azienda</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="clienteRB">
+                  <property name="text">
+                   <string>Cliente</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="fornitoreRB">
+                  <property name="text">
+                   <string>Fornitore</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="paRB">
+                  <property name="text">
+                   <string>PA</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -215,7 +267,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Indirizzo</string>
+       <string>Recapiti</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_11">
        <item>
@@ -228,13 +280,20 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>508</width>
-            <height>251</height>
+            <width>691</width>
+            <height>335</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <layout class="QGridLayout" name="gridLayout">
+             <item row="2" column="1">
+              <widget class="QComboBox" name="provinciaCB">
+               <property name="editable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
              <item row="0" column="0">
               <widget class="QLabel" name="label_4">
                <property name="text">
@@ -245,8 +304,22 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="indirizzoLE"/>
+             <item row="4" column="2">
+              <widget class="QToolButton" name="staoDlgPB">
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Provincia:</string>
+               </property>
+               <property name="buddy">
+                <cstring>provinciaCB</cstring>
+               </property>
+              </widget>
              </item>
              <item row="1" column="0">
               <widget class="QLabel" name="label_5">
@@ -255,6 +328,95 @@
                </property>
                <property name="buddy">
                 <cstring>cittaCB</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QComboBox" name="statoCB">
+               <property name="editable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QToolButton" name="capDlgPB">
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="celLE"/>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Cellulare :</string>
+               </property>
+               <property name="buddy">
+                <cstring>celLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Email :</string>
+               </property>
+               <property name="buddy">
+                <cstring>emailLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLineEdit" name="faxLE"/>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="telLE"/>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Fax :</string>
+               </property>
+               <property name="buddy">
+                <cstring>faxLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Telefono :</string>
+               </property>
+               <property name="buddy">
+                <cstring>telLE</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QLineEdit" name="emailLE"/>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="capCB">
+               <property name="editable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QLineEdit" name="sitoWebLE"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="indirizzoLE"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_25">
+               <property name="text">
+                <string>CAP:</string>
+               </property>
+               <property name="buddy">
+                <cstring>capCB</cstring>
                </property>
               </widget>
              </item>
@@ -272,47 +434,6 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>Provincia:</string>
-               </property>
-               <property name="buddy">
-                <cstring>provinciaCB</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="provinciaCB">
-               <property name="editable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_25">
-               <property name="text">
-                <string>CAP:</string>
-               </property>
-               <property name="buddy">
-                <cstring>capCB</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QComboBox" name="capCB">
-               <property name="editable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QToolButton" name="capDlgPB">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
              <item row="4" column="0">
               <widget class="QLabel" name="label_8">
                <property name="text">
@@ -323,116 +444,7 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QComboBox" name="statoCB">
-               <property name="editable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QToolButton" name="staoDlgPB">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>Recapiti</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QScrollArea" name="scrollArea_3">
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_3">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>508</width>
-            <height>251</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_9">
-           <item>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Telefono :</string>
-               </property>
-               <property name="buddy">
-                <cstring>telLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="telLE"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>Fax :</string>
-               </property>
-               <property name="buddy">
-                <cstring>faxLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="faxLE"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>Cellulare :</string>
-               </property>
-               <property name="buddy">
-                <cstring>celLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="celLE"/>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_12">
-               <property name="text">
-                <string>Email :</string>
-               </property>
-               <property name="buddy">
-                <cstring>emailLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="emailLE"/>
-             </item>
-             <item row="4" column="0">
+             <item row="9" column="0">
               <widget class="QLabel" name="label_13">
                <property name="text">
                 <string>Sito Web :</string>
@@ -442,13 +454,10 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QLineEdit" name="sitoWebLE"/>
-             </item>
             </layout>
            </item>
            <item>
-            <spacer name="verticalSpacer_3">
+            <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -481,8 +490,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>508</width>
-            <height>251</height>
+            <width>691</width>
+            <height>335</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -589,8 +598,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>508</width>
-            <height>251</height>
+            <width>691</width>
+            <height>335</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -670,19 +679,30 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>aziendaRB</tabstop>
+  <tabstop>clienteRB</tabstop>
+  <tabstop>fornitoreRB</tabstop>
   <tabstop>ragSocialeLE</tabstop>
-  <tabstop>tipoDittaCB</tabstop>
-  <tabstop>tipoDittaDlgPB</tabstop>
-  <tabstop>clienteCKB</tabstop>
-  <tabstop>fornitoreCKB</tabstop>
   <tabstop>nomeLE</tabstop>
   <tabstop>cognomeLE</tabstop>
+  <tabstop>trasmissioneCB</tabstop>
+  <tabstop>codSdiLE</tabstop>
+  <tabstop>pecLE</tabstop>
   <tabstop>pivaLE</tabstop>
+  <tabstop>copyPB</tabstop>
   <tabstop>codFiscaleLE</tabstop>
   <tabstop>agenteCB</tabstop>
+  <tabstop>agentiDlgPB</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>closeButton</tabstop>
+  <tabstop>scrollArea_2</tabstop>
   <tabstop>indirizzoLE</tabstop>
   <tabstop>cittaCB</tabstop>
   <tabstop>cittaDlgPB</tabstop>
+  <tabstop>scrollArea_5</tabstop>
   <tabstop>provinciaCB</tabstop>
   <tabstop>capCB</tabstop>
   <tabstop>capDlgPB</tabstop>
@@ -693,6 +713,7 @@
   <tabstop>celLE</tabstop>
   <tabstop>emailLE</tabstop>
   <tabstop>sitoWebLE</tabstop>
+  <tabstop>scrollArea_4</tabstop>
   <tabstop>bancaLE</tabstop>
   <tabstop>agenziaLE</tabstop>
   <tabstop>contoLE</tabstop>
@@ -700,14 +721,6 @@
   <tabstop>ibanLE</tabstop>
   <tabstop>destMerceTE</tabstop>
   <tabstop>noteTE</tabstop>
-  <tabstop>clearButton</tabstop>
-  <tabstop>saveButton</tabstop>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>scrollArea_5</tabstop>
-  <tabstop>scrollArea_2</tabstop>
-  <tabstop>scrollArea_3</tabstop>
-  <tabstop>scrollArea_4</tabstop>
-  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -718,60 +731,12 @@
    <slot>save()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>490</x>
-     <y>337</y>
+     <x>722</x>
+     <y>424</y>
     </hint>
     <hint type="destinationlabel">
      <x>468</x>
      <y>343</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tipoDittaDlgPB</sender>
-   <signal>clicked()</signal>
-   <receiver>AnagraficaAddDialog</receiver>
-   <slot>openAddTipoditta()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>412</x>
-     <y>119</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>419</x>
-     <y>5</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fornitoreCKB</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>agenteCB</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>459</x>
-     <y>113</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>231</x>
-     <y>270</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fornitoreCKB</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>agenteLB</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>459</x>
-     <y>113</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>88</x>
-     <y>270</y>
     </hint>
    </hints>
   </connection>
@@ -782,7 +747,7 @@
    <slot>openAddCitta()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>518</x>
+     <x>687</x>
      <y>106</y>
     </hint>
     <hint type="destinationlabel">
@@ -798,7 +763,7 @@
    <slot>openAddCap()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>518</x>
+     <x>687</x>
      <y>164</y>
     </hint>
     <hint type="destinationlabel">
@@ -814,7 +779,7 @@
    <slot>openAddStato()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>518</x>
+     <x>687</x>
      <y>193</y>
     </hint>
     <hint type="destinationlabel">
@@ -830,28 +795,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>35</x>
-     <y>334</y>
+     <x>65</x>
+     <y>424</y>
     </hint>
     <hint type="destinationlabel">
      <x>35</x>
      <y>348</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fornitoreCKB</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>agentiDlgPB</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>496</x>
-     <y>109</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>508</x>
-     <y>257</y>
     </hint>
    </hints>
   </connection>
@@ -862,8 +811,8 @@
    <slot>openAddAgente()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>513</x>
-     <y>255</y>
+     <x>591</x>
+     <y>309</y>
     </hint>
     <hint type="destinationlabel">
      <x>547</x>
@@ -878,8 +827,8 @@
    <slot>copyPrtIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>511</x>
-     <y>196</y>
+     <x>587</x>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
      <x>547</x>
@@ -894,12 +843,92 @@
    <slot>clearForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>413</x>
-     <y>329</y>
+     <x>636</x>
+     <y>424</y>
     </hint>
     <hint type="destinationlabel">
      <x>274</x>
      <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>paRB</sender>
+   <signal>clicked()</signal>
+   <receiver>AnagraficaAddDialog</receiver>
+   <slot>checkPA()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>645</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>730</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>aziendaRB</sender>
+   <signal>clicked()</signal>
+   <receiver>AnagraficaAddDialog</receiver>
+   <slot>checkAzienda()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>674</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>729</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clienteRB</sender>
+   <signal>clicked()</signal>
+   <receiver>AnagraficaAddDialog</receiver>
+   <slot>checkCliente()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>650</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>731</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fornitoreRB</sender>
+   <signal>clicked()</signal>
+   <receiver>AnagraficaAddDialog</receiver>
+   <slot>checkFornitore()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>678</x>
+     <y>163</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>731</x>
+     <y>186</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fornitoreRB</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>AnagraficaAddDialog</receiver>
+   <slot>toggleAgente(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>650</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -914,5 +943,10 @@
   <slot>openAddAgente()</slot>
   <slot>copyPrtIva()</slot>
   <slot>clearForm()</slot>
+  <slot>checkPA()</slot>
+  <slot>checkCliente()</slot>
+  <slot>checkAzienda()</slot>
+  <slot>checkFornitore()</slot>
+  <slot>toggleAgente(bool)</slot>
  </slots>
 </ui>

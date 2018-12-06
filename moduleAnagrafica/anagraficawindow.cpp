@@ -225,21 +225,27 @@ QString AnagraficaWindow::getFilterString1()
     qDebug() << "AnagraficaWindow::getFilterString1()";
     QStringList filter;
     QString pattern = "%1=%2";
-    bool fornitore = ui->fornitoriCheckBox->isChecked();
-    bool cliente = ui->clientiCheckBox->isChecked();
 
+    bool azienda = ui->aziendaCKB->isChecked();
+    bool cliente = ui->clientiCKB->isChecked();
+    bool fornitore = ui->fornitoriCKB->isChecked();
+    bool pa = ui->paCKB->isChecked();
+
+    filter.append(pattern.arg(coldb::AZIENDA, QVariant(azienda).toString()));
     filter.append(pattern.arg(coldb::CLIENTE, QVariant(cliente).toString()));
     filter.append(pattern.arg(coldb::FORNITORE, QVariant(fornitore).toString()));
+    filter.append(pattern.arg(coldb::PA, QVariant(pa).toString()));
 
-    if (fornitore==true && cliente==true) {
+    if (azienda && cliente && fornitore && pa)
         return filter.join(" OR ");
-    }
-    else if (fornitore==true) {
-        return pattern.arg(coldb::FORNITORE, QVariant(fornitore).toString());
-    }
-    else if (cliente==true) {
-        return pattern.arg(coldb::CLIENTE, QVariant(cliente).toString());
-    }
+    else if (azienda)
+        return filter[0];
+    else if (cliente)
+        return filter[1];
+    else if (fornitore)
+        return filter[2];
+    else if (pa)
+        return filter.join(" AND ");
     else
         return filter.join(" AND ");
 }
@@ -296,7 +302,6 @@ void AnagraficaWindow::updateViewAnagrafica(void)
 
     QString query = test.join(" AND ");
     query.append(anagrafica::ORDER_CLAUSE);
-
     m_anagraficaModel->setQuery(query);
     ui->anagraficaView->resizeColumnsToContents();
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
@@ -308,9 +313,8 @@ void AnagraficaWindow::openConfigDialog(void)
     saveConfigSettings();
     OptionsAnagraficaDialog dlg(this);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
 
     loadConfigSettings();
 }
