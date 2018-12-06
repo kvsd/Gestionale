@@ -24,8 +24,8 @@ namespace table {
     const QString SEDE_MAGAZZINO = "sede_magazzino";
     const QString STATO = "stato";
     const QString STATO_LIQUID = "stato_liquid";
-    const QString TIPO_DITTA = "tipo_ditta";
     const QString TIPO_PAGAMENTO = "tipo_pagamento";
+    const QString TIPO_TRASMISSIONE = "trasmissione";
     const QString UNITA_MISURA = "unita_misura";
     const QString USER_DB = "user_db";
     const QString VETTORE = "vettore";
@@ -33,51 +33,20 @@ namespace table {
 
 namespace ph {
     //placeholder per query sql
-    const QString AGENZIA = ":agenzia";
-    const QString BANCA = ":banca";
-    const QString CEL = ":cel";
     const QString CLIENTE = ":cliente";
-    const QString CODICE_ARTICOLO = ":cod_articolo";
-    const QString CODICE_BARRE = ":cod_barre";
     const QString COD_FISCALE = ":cod_fisc";
-    const QString CODICE_FORNITORE = ":cod_fornitore";
     const QString CODICE_IVA = ":cod_iva";
-    const QString CONTO = ":conto";
-    const QString COGNOME = ":cognome";
     const QString DATE = ":date";
     const QString DATA_ARRIVO    = ":data_arrivo";
     const QString DESCRIZIONE   = ":descr";
-    const QString DESTINAZIONE_MERCE = ":dest_merce";
-    const QString EMAIL = ":email";
     const QString ENT_BANCA = ":entrata_banca";
     const QString ENT_CASSA = ":entrata_cassa";
     const QString FATTURA = ":fattura";
-    const QString FAX = ":fax";
     const QString FORNITORE = ":fornitore";
-    const QString IBAN = ":iban";
     const QString ID = ":id";
-    const QString ID_AGENTE = ":id_agente";
     const QString ID_ART  = ":id_articolo";
-    const QString ID_CAP = ":id_cap";
-    const QString ID_CITTA = ":id_citta";
-    const QString ID_FORNITORE = ":id_fornitore";
-    const QString ID_MARCA = ":id_marca";
-    const QString ID_MERCE = ":id_merce";
-    const QString ID_PROVINCIA_REA = ":id_provincia_rea";
-    const QString ID_REG_FISCALE = ":id_reg_fiscale";
-    const QString ID_SEDE_MAGAZZINO = ":id_sede_magazzino";
-    const QString ID_STATO = ":id_stato";
-    const QString ID_STATO_LIQUID = ":id_stato_liquid";
-    const QString ID_TIPO_DITTA = ":id_tipo_ditta";
-    const QString ID_UM   = ":id_unita_merce";
-    const QString INDIRIZZO = ":indirizzo";
     const QString IVA     = ":iva";
     const QString LOGO = ":logo";
-    const QString MODELLO = ":modello";
-    const QString NOME = ":nome";
-    const QString NOTE = ":note";
-    const QString NUMERO_REA = ":numero_rea";
-    const QString PROVINCIA = ":id_provincia";
     const QString PRT_IVA = ":prt_iva";
     const QString PRZ_ACQ = ":prezzo_acquisto";
     const QString PRZ_FAT = ":prezzo_fattura";
@@ -85,13 +54,9 @@ namespace ph {
     const QString PRZ_VEN = ":prezzo_vendita";
     const QString PRZ_VEN_B = ":prezzo_vendita_b";
     const QString QUANTIT = ":quantita";
-    const QString RAG_SOCIALE = ":rag_sociale";
     const QString RICARIC = ":ricarico";
     const QString SCONTO  = ":sconto_fornitore";
     const QString SCORTA  = ":scorta_minima";
-    const QString SITO_WEB = ":sito_web";
-    const QString SWIFT = ":swift";
-    const QString TEL = ":tel";
     const QString USC_CASSA = ":uscita_cassa";
     const QString USC_BANCA = ":uscita_banca";
 }
@@ -99,6 +64,7 @@ namespace ph {
 namespace coldb {
     //Nome colonne database
     const QString AGENZIA = "agenzia";
+    const QString AZIENDA = "azienda";
     const QString BANCA = "banca";
     const QString CEL = "cel";
     const QString CLIENTE = "cliente";
@@ -107,6 +73,7 @@ namespace coldb {
     const QString CODICE_FISCALE = "cod_fisc";
     const QString CODICE_FORNITORE = "cod_fornitore";
     const QString CODICE_IVA = "cod_iva";
+    const QString COD_SDI = "cod_sdi";
     const QString COGNOME = "cognome";
     const QString CONTO = "conto";
     const QString DATA = "data";
@@ -134,7 +101,7 @@ namespace coldb {
     const QString ID_SEDE_MAGAZZINO = "id_sede_magazzino";
     const QString ID_STATO = "id_stato";
     const QString ID_STATO_LIQUID = "id_stato_liquid";
-    const QString ID_TIPO_DITTA = "id_tipo_ditta";
+    const QString ID_TRASMISSIONE = "id_trasmissione";
     const QString ID_UNITA = "id_unita_misura";
     const QString INDIRIZZO = "indirizzo";
     const QString IVA = "iva";
@@ -143,6 +110,7 @@ namespace coldb {
     const QString NOME = "nome";
     const QString NOTE = "note";
     const QString NUMERO_REA = "numero_rea";
+    const QString PA = "pa";
     const QString PARTITA_IVA = "prt_iva";
     const QString PEC = "pec";
     const QString PREZZO_ACQUISTO = "prezzo_acquisto";
@@ -197,7 +165,6 @@ const QString ID = "Id";
 //const QString ID_PROVINCIA = "id_provincia";
 //const QString ID_SEDE_MAGAZZINO = "id_sede_magazzino";
 //const QString ID_STATO = "id_stato";
-//const QString ID_TIPO_DITTA = "id_tipo_ditta";
 //const QString ID_UNITA = "id_unita_misura";
 //const QString INDIRIZZO = "indirizzo";
 const QString IVA = "Iva";
@@ -229,6 +196,7 @@ namespace css {
     const QString warning = "QLineEdit {background-color:yellow}";
     const QString warning_cb = "QComboBox {background-color:yellow;}";
     const QString warning_ckb = "QCheckBox {background-color:yellow}";
+    const QString warning_rb = "QRadioButton {background-color:yellow}";
 }
 
 #endif // GESTIONALE_CONST_H
