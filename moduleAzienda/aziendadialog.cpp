@@ -23,8 +23,6 @@ void AziendaDialog::initForm()
 {
     qDebug() << "AziendaDialog::initForm()";
     ui->ragSocialeLE->setProperty(m_property, coldb::RAGIONE_SOCIALE);
-    ui->nomeLE->setProperty(m_property, coldb::NOME);
-    ui->cognomeLE->setProperty(m_property, coldb::COGNOME);
     ui->prtivaLE->setProperty(m_property, coldb::PARTITA_IVA);
     ui->codfiscLE->setProperty(m_property, coldb::CODICE_FISCALE);
     ui->numeroReaLE->setProperty(m_property, coldb::NUMERO_REA);
@@ -132,17 +130,10 @@ bool AziendaDialog::checkValues()
 {
     //Funzione che controlla i dati inseriti dall'utente.
     qDebug() << "AziendaDialog::checkValue()";
-    QString rag = ui->ragSocialeLE->text();
-    QString nome = ui->nomeLE->text();
-    QString cognome = ui->cognomeLE->text();
 
-    //Il campo ragione sociale escude i campi nome e cognome
-    if ((!rag.isEmpty() && (!nome.isEmpty() || !cognome.isEmpty())) ||
-        (rag.isEmpty() && nome.isEmpty() && cognome.isEmpty()) ||
-        (rag.isEmpty() && (nome.isEmpty() || cognome.isEmpty())) ) {
+    //Controllo ragione sociale
+    if (ui->ragSocialeLE->text().isEmpty()) {
         ui->ragSocialeLE->setStyleSheet(css::warning);
-        ui->nomeLE->setStyleSheet(css::warning);
-        ui->cognomeLE->setStyleSheet(css::warning);
         //NOTE codice errore 033
         showDialogError(this, ERR033, MSG016);
         return false;

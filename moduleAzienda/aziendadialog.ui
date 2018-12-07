@@ -32,9 +32,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-264</y>
+        <y>0</y>
         <width>473</width>
-        <height>778</height>
+        <height>720</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -88,6 +88,25 @@
           <bool>false</bool>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="ragSocialeLE"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="prtivaLE"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Regime Fiscale:</string>
+            </property>
+            <property name="buddy">
+             <cstring>regFiscaleCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="codfiscLE"/>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
@@ -98,10 +117,10 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="3" column="1">
            <widget class="QComboBox" name="regFiscaleCB"/>
           </item>
-          <item row="4" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_12">
             <property name="text">
              <string>Codice Fiscale:</string>
@@ -111,7 +130,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="1" column="0">
            <widget class="QLabel" name="label_11">
             <property name="text">
              <string>Partita IVA:</string>
@@ -121,49 +140,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Cognome:</string>
-            </property>
-            <property name="buddy">
-             <cstring>cognomeLE</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Nome:</string>
-            </property>
-            <property name="buddy">
-             <cstring>nomeLE</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="prtivaLE"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="nomeLE"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="cognomeLE"/>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>Regime Fiscale:</string>
-            </property>
-            <property name="buddy">
-             <cstring>regFiscaleCB</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="codfiscLE"/>
-          </item>
-          <item row="3" column="2">
+          <item row="0" column="2" rowspan="4">
            <widget class="QToolButton" name="copyPB">
             <property name="toolTip">
              <string>Copia la partita iva nel codice fiscale</string>
@@ -172,12 +149,9 @@
              <string>...</string>
             </property>
             <property name="arrowType">
-             <enum>Qt::DownArrow</enum>
+             <enum>Qt::LeftArrow</enum>
             </property>
            </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="ragSocialeLE"/>
           </item>
          </layout>
         </widget>
@@ -435,8 +409,6 @@
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>ragSocialeLE</tabstop>
-  <tabstop>nomeLE</tabstop>
-  <tabstop>cognomeLE</tabstop>
   <tabstop>prtivaLE</tabstop>
   <tabstop>copyPB</tabstop>
   <tabstop>codfiscLE</tabstop>
