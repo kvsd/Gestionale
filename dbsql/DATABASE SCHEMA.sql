@@ -122,7 +122,7 @@ CREATE TABLE anagrafica(id SERIAL PRIMARY KEY,
 					   pa BOOL NOT NULL DEFAULT 'n', --pubblica amministrazione
 					   fornitore BOOL NOT NULL DEFAULT 'n',
                        cliente BOOL NOT NULL DEFAULT 'n',
-                       rag_sociale TEXT UNIQUE NOT NULL,
+                       rag_sociale TEXT,
                        nome TEXT,
                        cognome TEXT,
 					   id_trasmissione INTEGER references trasmissione(id) DEFAULT 0,

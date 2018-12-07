@@ -1,3 +1,4 @@
+BEGIN;
 INSERT INTO provincia(descr, sigla) VALUES('Agrigento', 'AG');
 INSERT INTO provincia(descr, sigla) VALUES('Alessandria', 'AL');
 INSERT INTO provincia(descr, sigla) VALUES('Ancona', 'AN');
@@ -108,3 +109,4 @@ INSERT INTO provincia(descr, sigla) VALUES('Verona','VR');
 INSERT INTO provincia(descr, sigla) VALUES('Vibo Valentia','VV');
 INSERT INTO provincia(descr, sigla) VALUES('Vicenza','VI');
 INSERT INTO provincia(descr, sigla) VALUES('Viterbo','VT');
+COMMIT;

@@ -1,3 +1,4 @@
+BEGIN;
 INSERT INTO tipo_pagamento VALUES (DEFAULT, 'Contanti', 'MP01');
 INSERT INTO tipo_pagamento VALUES (DEFAULT, 'Assegno', 'MP02');
 INSERT INTO tipo_pagamento VALUES (DEFAULT, 'Assegno circolare', 'MP03');
@@ -20,3 +21,4 @@ INSERT INTO tipo_pagamento VALUES (DEFAULT, 'SEPA Direct Debit', 'MP19');
 INSERT INTO tipo_pagamento VALUES (DEFAULT, 'SEPA Direct Debit CORE', 'MP20');
 INSERT INTO tipo_pagamento VALUES (DEFAULT, 'SEPA Direct Debit B2B', 'MP21');
 INSERT INTO tipo_pagamento VALUES (DEFAULT, 'Trattenuta su somme già riscosse', 'MP22');
+COMMIT;

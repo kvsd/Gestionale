@@ -1,3 +1,4 @@
+BEGIN;
 INSERT INTO stato(descr, sigla) VALUES('Andorra', 'AD'); 
 INSERT INTO stato(descr, sigla) VALUES('Albania', 'AL');
 INSERT INTO stato(descr, sigla) VALUES('Argentina', 'AR');
@@ -233,3 +234,4 @@ INSERT INTO stato(descr, sigla) VALUES('Mayotte' , 'YT');
 INSERT INTO stato(descr, sigla) VALUES('Sudafrica' , 'ZA');
 INSERT INTO stato(descr, sigla) VALUES('Zambia' , 'ZM');
 INSERT INTO stato(descr, sigla) VALUES('Zimbabwe', 'ZW');
+COMMIT;

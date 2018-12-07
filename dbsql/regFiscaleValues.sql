@@ -1,3 +1,4 @@
+BEGIN;
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Ordinario', 'RF01');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Contribuenti minimi', 'RF02');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Agricoltura e attività connesse e pesca', 'RF04');
@@ -16,3 +17,4 @@ INSERT INTO reg_fiscale VALUES(DEFAULT, 'IVA per cassa P.A.', 'RF16');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'IVA per cassa', 'RF17');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Altro', 'RF18');
 INSERT INTO reg_fiscale VALUES(DEFAULT, 'Regime forfettario', 'RF19');
+COMMIT;
