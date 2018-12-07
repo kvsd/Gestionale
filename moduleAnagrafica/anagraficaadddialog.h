@@ -43,7 +43,6 @@ private:
 
     void initForm(void);     //new
     void initComboBox(void); //new
-    void prepareMap(void);
     QSqlQuery prepareQuery(void);
     bool checkValues(void);
 
@@ -52,7 +51,6 @@ public slots:
     void openAddCitta(void);
     void openAddProvincia(void);
     void openAddCap(void);
-    void openAddStato(void);
     void openAddAgente(void);
     void copyPrtIva(void);
 
@@ -62,6 +60,7 @@ private slots:
     void checkFornitore();
     void checkPA();
     void toggleAgente(bool status);
+    void checkTrasmission(QString string);
 };
 
 #endif // ANAGRAFICAADDDIALOG_H

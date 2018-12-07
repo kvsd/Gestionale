@@ -52,7 +52,7 @@
               </widget>
              </item>
              <item row="5" column="0">
-              <widget class="QLabel" name="label_22">
+              <widget class="QLabel" name="pecLb">
                <property name="text">
                 <string>PEC:</string>
                </property>
@@ -108,7 +108,7 @@
               </spacer>
              </item>
              <item row="4" column="0">
-              <widget class="QLabel" name="label_21">
+              <widget class="QLabel" name="codSdiLb">
                <property name="text">
                 <string>Codice SDI:</string>
                </property>
@@ -301,13 +301,6 @@
                </property>
                <property name="buddy">
                 <cstring>indirizzoLE</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QToolButton" name="staoDlgPB">
-               <property name="text">
-                <string>...</string>
                </property>
               </widget>
              </item>
@@ -707,7 +700,6 @@
   <tabstop>capCB</tabstop>
   <tabstop>capDlgPB</tabstop>
   <tabstop>statoCB</tabstop>
-  <tabstop>staoDlgPB</tabstop>
   <tabstop>telLE</tabstop>
   <tabstop>faxLE</tabstop>
   <tabstop>celLE</tabstop>
@@ -769,22 +761,6 @@
     <hint type="destinationlabel">
      <x>500</x>
      <y>186</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>staoDlgPB</sender>
-   <signal>clicked()</signal>
-   <receiver>AnagraficaAddDialog</receiver>
-   <slot>openAddStato()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>687</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>500</x>
-     <y>226</y>
     </hint>
    </hints>
   </connection>
@@ -932,12 +908,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>trasmissioneCB</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>AnagraficaAddDialog</receiver>
+   <slot>checkSDI(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>154</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>218</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openAddTipoditta()</slot>
   <slot>openAddCitta()</slot>
   <slot>openAddProvincia()</slot>
-  <slot>openAddStato()</slot>
   <slot>openAddCap()</slot>
   <slot>save()</slot>
   <slot>openAddAgente()</slot>
@@ -948,5 +939,6 @@
   <slot>checkAzienda()</slot>
   <slot>checkFornitore()</slot>
   <slot>toggleAgente(bool)</slot>
+  <slot>checkSDI(QString)</slot>
  </slots>
 </ui>

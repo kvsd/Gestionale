@@ -13,7 +13,6 @@ AnagraficaAddDialog::AnagraficaAddDialog(QWidget *parent) :
 
     toggleAgente(false);
     ui->aziendaRB->setChecked(true);
-
     checkAzienda();
 }
 
@@ -73,24 +72,25 @@ void AnagraficaAddDialog::setValue(QString id)
 
     for (auto *le : findChildren<QLineEdit *>()) {
         QString colName = le->property(m_property).toString();
-        QString value = query.value(colName).toString();
+        QString value = query.value(colName).toString(); 
         le->setText(value);
     }
 
     for (auto *cb : findChildren<QComboBox *>()) {
         QString colName = cb->property(m_property).toString();
         QString value = query.value(colName).toString();
+        cb->blockSignals(true);
         setValueCB(cb, value, int(modelCols::id));
+        cb->blockSignals(false);
     }
 
-    ui->aziendaRB->setChecked(query.value(coldb::AZIENDA).toBool());
-    ui->clienteRB->setChecked(query.value(coldb::CLIENTE).toBool());
-    ui->fornitoreRB->setChecked(query.value(coldb::FORNITORE).toBool());
-    ui->paRB->setChecked(query.value(coldb::PA).toBool());
-    if (ui->fornitoreRB->isChecked()) {
-        ui->agenteLB->show();
-        ui->agenteCB->show();
-        ui->agentiDlgPB->show();
+    for (auto *rb : findChildren<QRadioButton *>()) {
+        QString colName = rb->property(m_property).toString();
+        bool value = query.value(colName).toBool();
+        if (value) {
+            rb->setChecked(value);
+            rb->click();
+        }
     }
 
     ui->destMerceTE->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
@@ -108,19 +108,6 @@ void AnagraficaAddDialog::initComboBox()
     m_modelStato = setupComboBox(table::STATO, ui->statoCB, int(modelCols::descr));
     m_modelAgente = setupComboBox(table::AGENTI, ui->agenteCB, int(colsAgenti::COGNOME));
     m_modelTrasmissione = setupComboBox(table::TIPO_TRASMISSIONE, ui->trasmissioneCB, int(modelCols::descr));
-}
-
-void AnagraficaAddDialog::prepareMap(void)
-{
-    //Popolo la mappa mapPersona<Qstring,QString> con i valori
-    //dei vari widget. Verra usata in seguito nel metodo prepareQuery.
-    qDebug() << "AnagraficaAddDialog::prepareMap()";
-    CustomInsertDialog::prepareMap(m_mapPersona, int(modelCols::id));
-
-    m_mapPersona[":pa"] = ui->paRB->isChecked() ? "y" : "n";
-    m_mapPersona[":azienda"] = ui->aziendaRB->isChecked() ? "y" : "n";
-    m_mapPersona[ph::CLIENTE] = ui->clienteRB->isChecked() ? "y" : "n";
-    m_mapPersona[ph::FORNITORE] = ui->fornitoreRB->isChecked() ? "y" : "n";
 }
 
 QSqlQuery AnagraficaAddDialog::prepareQuery(void)
@@ -149,20 +136,21 @@ QSqlQuery AnagraficaAddDialog::prepareQuery(void)
 bool AnagraficaAddDialog::checkValues(void)
 {
     qDebug() << "AnagraficaAddDialog::checkValues()";
-    qDebug() << "AziendaDialog::checkValue()";
-    QString rag = ui->ragSocialeLE->text();
-    QString nome = ui->nomeLE->text();
-    QString cognome = ui->cognomeLE->text();
 
-    //Il campo ragione sociale escude i campi nome e cognome
-    if ((!rag.isEmpty() && (!nome.isEmpty() || !cognome.isEmpty())) ||
-        (rag.isEmpty() && nome.isEmpty() && cognome.isEmpty()) ||
-        (rag.isEmpty() && (nome.isEmpty() || cognome.isEmpty())) ) {
+    //Controllo ragione sociale
+    if ((ui->aziendaRB->isChecked() || ui->fornitoreRB->isChecked() ||
+            ui->paRB->isChecked()) && ui->ragSocialeLE->text().isEmpty()) {
         ui->ragSocialeLE->setStyleSheet(css::warning);
+        showDialogError(this, ERR019, MSG016);
+        return false;
+    }
+
+    //Controllo nome e cognome
+    if (ui->clienteRB->isChecked() && (ui->nomeLE->text().isEmpty() ||
+            ui->cognomeLE->text().isEmpty())) {
         ui->nomeLE->setStyleSheet(css::warning);
         ui->cognomeLE->setStyleSheet(css::warning);
-        //NOTE codice errore 020
-        showDialogError(this, ERR020, MSG016);
+        showDialogError(this, ERR020, MSG033);
         return false;
     }
 
@@ -188,14 +176,13 @@ bool AnagraficaAddDialog::checkValues(void)
     return true;
 }
 
-
 void AnagraficaAddDialog::save(void)
 {
     //Effettua diversi controlli per verificare che i dati nel dialog
     //siano stati inseriti, se tutti i controlli vengono passati esegue
     //la query.
     qDebug() << "AnagraficaAddDialog::save()";
-    prepareMap();
+    prepareMap(m_mapPersona, int(modelCols::id));
     if (!checkValues())
         return;
 
@@ -237,14 +224,6 @@ void AnagraficaAddDialog::openAddCap(void)
     QString value = allDlg(this, m_modelCap, ADD_CAP_QUERY, "CAP", ERR018); //NOTE codice errore 018
     if (!value.isEmpty())
         ui->capCB->setCurrentText(value);
-}
-
-void AnagraficaAddDialog::openAddStato(void)
-{
-    qDebug() << "AnagraficaAddDialog::openAddStato()";
-    QString value = allDlg(this, m_modelStato, ADD_STATO_QUERY, "Stato", ERR019); //NOTE codice errore 019
-    if (!value.isEmpty())
-        ui->statoCB->setCurrentText(value);
 }
 
 void AnagraficaAddDialog::openAddAgente(void)
@@ -295,7 +274,6 @@ void AnagraficaAddDialog::checkFornitore()
 {
     qDebug() << "AnagraficaAddDialog::checkFornitore()";
     checkAzienda();
-
 }
 
 void AnagraficaAddDialog::checkPA()
@@ -310,4 +288,24 @@ void AnagraficaAddDialog::toggleAgente(bool status)
     ui->agenteLB->setVisible(status);
     ui->agenteCB->setVisible(status);
     ui->agentiDlgPB->setVisible(status);
+}
+
+void AnagraficaAddDialog::checkTrasmission(QString string)
+{
+    qDebug() << "AnagraficaAddDialog::test()";
+    if (string == "PEC") {
+        ui->codSdiLb->setVisible(false);
+        ui->codSdiLE->setVisible(false);
+        ui->codSdiLE->setText("0000000"); //default value PEC
+        ui->pecLb->setVisible(true);
+        ui->pecLE->setVisible(true);
+    }
+    else {
+        ui->codSdiLb->setVisible(true);
+        ui->codSdiLE->setVisible(true);
+        ui->codSdiLE->clear();
+        ui->pecLb->setVisible(true);
+        ui->pecLE->setVisible(true);
+        ui->pecLE->clear();
+    }
 }
