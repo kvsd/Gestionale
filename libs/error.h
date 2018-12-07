@@ -13,22 +13,22 @@
 #define ERR005 "Codice Errore 005" //*
 #define ERR006 "Codice Errore 006" //*
 #define ERR007 "Codice Errore 007" //*
-#define ERR008 "Codice Errore 008" //AgentiAddDialog
-#define ERR009 "Codice Errore 009" //*
-#define ERR010 "Codice Errore 010" //*
+#define ERR008 "Codice Errore 008" //Non usato
+#define ERR009 "Codice Errore 009" //AgentiAddDialog
+#define ERR010 "Codice Errore 010" //AgentiViewDialog
 #define ERR011 "Codice Errore 011" //AnagraficaAddDialog
 #define ERR012 "Codice Errore 012" //AziendaDialog
 #define ERR013 "Codice Errore 013" //AgentiViewDialog
 #define ERR014 "Codice Errore 014" //*
-#define ERR015 "Codice Errore 015" //AnagraficaAddDialog
+#define ERR015 "Codice Errore 015" //Non usato
 #define ERR016 "Codice Errore 016" //Non usato
 #define ERR017 "Codice Errore 017" //AnagraficaAddDialog
 #define ERR018 "Codice Errore 018" //*
 #define ERR019 "Codice Errore 019" //*
 #define ERR020 "Codice Errore 020" //*
-#define ERR021 "Codice Errore 021" //*
-#define ERR022 "Codice Errore 022" //*
-#define ERR023 "Codice Errore 023" //*
+#define ERR021 "Codice Errore 021" //Non Usato
+#define ERR022 "Codice Errore 022" //Non Usato
+#define ERR023 "Codice Errore 023" //AnagraficaAddDialog
 #define ERR024 "Codice Errore 024" //*
 #define ERR025 "Codice Errore 025" //*
 #define ERR026 "Codice Errore 026" //AnagraficaWindow
@@ -81,7 +81,7 @@ const QString MSG012 = QString::fromUtf8("Prima di cancellare una nota bisogna s
 const QString MSG013 = QString::fromUtf8("Il campo descrizione è obbligatorio");
 const QString MSG014 = QString::fromUtf8("L'indirizzo è un campo obbligatorio, deve essere specificato.");
 const QString MSG015 = QString::fromUtf8("Il record è già presente.");
-const QString MSG016 = QString::fromUtf8("La Ragione sociale o i campi Nome e Cognome sono obbligatori.");
+const QString MSG016 = QString::fromUtf8("La Ragione sociale non è stata inserita.");
 const QString MSG017 = QString::fromUtf8("Non è stato specificato se il nuovo record è un cliente o un fornitore.");
 const QString MSG018 = QString::fromUtf8("La partita IVA e il codice fiscale sono campi obbligatori.");
 const QString MSG019 = QString::fromUtf8("La partita IVA immessa potrebbe essere sbagliata. Si vuole continuare lo stesso?");
@@ -97,6 +97,7 @@ const QString MSG028 = QString::fromUtf8("Per poter clonare un articolo bisogna 
 const QString MSG030 = QString::fromUtf8("I codici IVA sono uguali.");
 const QString MSG031 = QString::fromUtf8("Il campo %1 deve essere compilato");
 const QString MSG032 = QString::fromUtf8("Bisogna selezionare un valore dal campo %1");
+const QString MSG033 = QString::fromUtf8("I campi Nome e cognome sono obbligatori");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");
