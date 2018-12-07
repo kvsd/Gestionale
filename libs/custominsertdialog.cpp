@@ -49,6 +49,12 @@ void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
         QString value = dtle->date().toString("dd/MM/yyyy");
         map[':'+colName] = value;
     }
+
+    //QRadioButton
+    for (auto *rb : findChildren<QRadioButton *>()) {
+        QString colName = rb->property(m_property).toString();
+        map[':'+colName] = rb->isChecked() ? "y" : "n";
+    }
 }
 
 QSqlTableModel * CustomInsertDialog::setupComboBox(QString tablename, QComboBox *cb, int viewCol)

@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QTextEdit>
 #include <QDateEdit>
+#include <QRadioButton>
 
 #include "libs/error.h"
 #include "gestionale_const.h"
