@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QPushButton>
 
-#define ERR000 "Codice Errore 000" //non usato
+#define ERR000 "Codice Errore 000" //LoginDialog
 #define ERR001 "Codice Errore 001" //TableSetupDialog
 #define ERR002 "Codice Errore 002" //*
 #define ERR003 "Codice Errore 003" //*
@@ -13,7 +13,7 @@
 #define ERR005 "Codice Errore 005" //*
 #define ERR006 "Codice Errore 006" //*
 #define ERR007 "Codice Errore 007" //*
-#define ERR008 "Codice Errore 008" //Non usato
+#define ERR008 "Codice Errore 008" //LoginDialog
 #define ERR009 "Codice Errore 009" //AgentiAddDialog
 #define ERR010 "Codice Errore 010" //AgentiViewDialog
 #define ERR011 "Codice Errore 011" //AnagraficaAddDialog
@@ -98,6 +98,8 @@ const QString MSG030 = QString::fromUtf8("I codici IVA sono uguali.");
 const QString MSG031 = QString::fromUtf8("Il campo %1 deve essere compilato");
 const QString MSG032 = QString::fromUtf8("Bisogna selezionare un valore dal campo %1");
 const QString MSG033 = QString::fromUtf8("I campi Nome e cognome sono obbligatori");
+const QString MSG034 = QString::fromUtf8("L'untente non è autorizzato, contattare l'amministratore del database.");
+const QString MSG035 = QString::fromUtf8("Password o nome utente errato, se l'errore persiste contattare l'amministratore del database.");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");

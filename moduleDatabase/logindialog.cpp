@@ -56,11 +56,11 @@ void LoginDialog::connectToDatabase(void)
             this->accept();
         else {
             m_db.close();
-            showDialogError(this, "ERRORE", "l'untente non è autorizzato");
+            showDialogError(this, ERR000, MSG034);
         }
     }
     else {
-        showDialogError(this, "ERRORE", "errore di autentificazione", m_db.lastError().text());
+        showDialogError(this, ERR008, MSG035, m_db.lastError().text());
         ui->le_password->clear();
         ui->le_password->setFocus();
     }
