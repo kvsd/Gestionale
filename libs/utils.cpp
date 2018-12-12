@@ -15,6 +15,31 @@ QMap<int,QString> prepareMapsFromModel(QSqlQueryModel *model)
     return mapNameCols;
 }
 
+QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol)
+{
+    //Inizializza un QSqlTableModel con la tabella tablename e
+    //l'assegna al QComboBox cb e ritorna il model.
+    qDebug() << "setupComboBox";
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable(tablename);
+    model->setSort(viewCol, Qt::AscendingOrder);
+    model->select();
+    cb->setModel(model);
+    cb->setModelColumn(viewCol);
+    return model;
+}
+
+void setValueCB(QComboBox *box, QString value, int searchCol)
+{
+    //Cerca nel campo ID del QComboBox il valore value e lo
+    //imposta come selezione corrente.
+    qDebug() << "setValueCB()";
+    int oldCol = box->modelColumn();
+    box->setModelColumn(searchCol);
+    box->setCurrentText(value);
+    box->setModelColumn(oldCol);
+}
+
 double stringToDouble(QString string)
 {
     /*Funzione che prova a convertire una stringa in un double. Se riesce a

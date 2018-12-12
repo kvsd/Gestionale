@@ -57,31 +57,6 @@ void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
     }
 }
 
-QSqlTableModel * CustomInsertDialog::setupComboBox(QString tablename, QComboBox *cb, int viewCol)
-{
-    //Inizializza un QSqlTableModel con la tabella tablename e
-    //l'assegna al QComboBox cb e ritorna il model.
-    qDebug() << objectName() + "::setupComboBox() *";
-    QSqlTableModel *model = new QSqlTableModel;
-    model->setTable(tablename);
-    model->setSort(viewCol, Qt::AscendingOrder);
-    model->select();
-    cb->setModel(model);
-    cb->setModelColumn(viewCol);
-    return model;
-}
-
-void CustomInsertDialog::setValueCB(QComboBox *box, QString value, int searchCol)
-{
-    //Cerca nel campo ID del QComboBox il valore value e lo
-    //imposta come selezione corrente.
-    qDebug() << objectName() + "::setValueCB() *";
-    int oldCol = box->modelColumn();
-    box->setModelColumn(searchCol);
-    box->setCurrentText(value);
-    box->setModelColumn(oldCol);
-}
-
 bool CustomInsertDialog::checkLineEdit(QLineEdit *le, QString nomeCampo)
 {
     qDebug() << objectName() + "::checkLineEdit() *";
