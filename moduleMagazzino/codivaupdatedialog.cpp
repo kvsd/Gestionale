@@ -34,10 +34,10 @@ void codIvaUpdateDialog::initComboBox(void)
 {
     qDebug() << "codIvaUpdateDialog::initComboBox()";
     ui->oldCodIvaComboBox->setModel(oldIvaModel);
-    ui->oldCodIvaComboBox->setModelColumn(magazzino::DESCR);
+    ui->oldCodIvaComboBox->setModelColumn(int(magazzino::cols::descr));
 
     ui->newCodIvaComboBox->setModel(newIvaModel);
-    ui->newCodIvaComboBox->setModelColumn(magazzino::DESCR);
+    ui->newCodIvaComboBox->setModelColumn(int(magazzino::cols::descr));
 }
 
 void codIvaUpdateDialog::updateIva(void)
@@ -46,8 +46,8 @@ void codIvaUpdateDialog::updateIva(void)
     int oldIvaIndex = ui->oldCodIvaComboBox->currentIndex();
     int newIvaIndex = ui->newCodIvaComboBox->currentIndex();
 
-    int oldIvastr = oldIvaModel->record(oldIvaIndex).value(magazzino::DESCR).toInt();
-    int newIvastr = newIvaModel->record(newIvaIndex).value(magazzino::DESCR).toInt();
+    int oldIvastr = oldIvaModel->record(oldIvaIndex).value(int(magazzino::cols::descr)).toInt();
+    int newIvastr = newIvaModel->record(newIvaIndex).value(int(magazzino::cols::descr)).toInt();
 
     if (oldIvastr == newIvastr) {
         showDialogError(this, ERR057, MSG030);

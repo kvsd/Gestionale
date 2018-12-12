@@ -53,16 +53,18 @@ void ArticoloDialog::initComboBox(void)
 {
     qDebug() << "ArticoloDialog::initComboBox(void)";
     m_modelCatMerce = setupComboBox(table::CATEGORIA_MERCE, ui->catmerceCB, int(modelCols::descr));
-    m_modelCodIva = setupComboBox(table::CODICE_IVA, ui->codivaCB, int(modelCols::descr));
     m_modelMarca = setupComboBox(table::MARCA, ui->marcaCB, int(modelCols::descr));
     m_modelSede = setupComboBox(table::SEDE_MAGAZZINO, ui->sedeCB, int(modelCols::descr));
     m_modelUnita = setupComboBox(table::UNITA_MISURA, ui->unitamisuraCB, int(modelCols::descr));
+
+    //FIXME non vengono filtrati i fornitori
     m_modelFornitore = setupComboBox(table::ANAGRAFICA, ui->fornitoreCB, int(anagrafica::cols::rag_sociale));
 
     //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
     //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
     //genera un segnale.
     ui->codivaCB->blockSignals(true);
+    m_modelCodIva = setupComboBox(table::CODICE_IVA, ui->codivaCB, int(modelCols::descr));
     int index = ui->codivaCB->findText(m_settings.value(magazzino::DEFAULT_IVA).toString());
     ui->codivaCB->setCurrentIndex(index);
     ui->codivaCB->blockSignals(false);
@@ -144,7 +146,7 @@ void ArticoloDialog::setFattura(QString str)
 void ArticoloDialog::prepareMap()
 {
     qDebug() << "ArticoloDialog::prepareMap";
-    CustomInsertDialog::prepareMap(m_articoloMap, magazzino::ID);
+    CustomInsertDialog::prepareMap(m_articoloMap, int(magazzino::cols::id));
 
     //Pulisco i campi contenuti nella QStringList placeholder
     QStringList placeholder = {ph::SCORTA, ph::QUANTIT, ph::PRZ_FAT,
@@ -377,9 +379,9 @@ void ArticoloDialog::openAddFornitore()
     QString id = dlg.getId();
     //Ricarico la query e seleziono il valore immesso
     m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
-    ui->fornitoreCB->setModelColumn(magazzino::ID);
+    ui->fornitoreCB->setModelColumn(int(magazzino::cols::id));
     ui->fornitoreCB->setCurrentText(id);
-    ui->fornitoreCB->setModelColumn(magazzino::DESCR);
+    ui->fornitoreCB->setModelColumn(int(magazzino::cols::descr));
 }
 
 void ArticoloDialog::openAddIVA()

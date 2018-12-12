@@ -165,9 +165,6 @@ namespace magazzino {
     const QString SEARCH_COD_EAN = "MagazzinoWindow.search.codean";
 
     //colonne dei model usati nei combobox
-    enum CBXCOLS {
-        ID = 0,
-        DESCR = 1
-        };
+    enum class cols {id=0, descr=1};
 }
 #endif // MAGAZZINO_CONST_H

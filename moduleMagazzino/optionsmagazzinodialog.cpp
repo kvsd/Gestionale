@@ -18,7 +18,7 @@ OptionsMagazzinoDialog::OptionsMagazzinoDialog(QWidget *parent) :
     storicoModel->setQuery(magazzino::SELECT_STORICO.arg(-1));
 
     ui->codIvaComboBox->setModel(codIvaModel);
-    ui->codIvaComboBox->setModelColumn(magazzino::DESCR);
+    ui->codIvaComboBox->setModelColumn(int(magazzino::cols::descr));
 
     populateList(ui->magazzinoListView, articoloModel);
     populateList(ui->storicoListView, storicoModel);

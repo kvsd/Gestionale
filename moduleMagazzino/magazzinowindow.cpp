@@ -12,6 +12,7 @@ MagazzinoWindow::MagazzinoWindow(QWidget *parent) :
     initModel();
     initComboBox();
     loadConfigSettings();
+    updateModel();
 
     ui->data1LineEdit->setDate(QDate::currentDate());
     ui->data2LineEdit->setDate(QDate::currentDate());
@@ -44,36 +45,17 @@ void MagazzinoWindow::initModel()
 
     fornitoreModel = new QSqlQueryModel(this);
     fornitoreModel->setQuery(magazzino::SELECT_CB_FORNITORE);
-
-    categoriaModel = new QSqlTableModel(this);
-    categoriaModel->setTable(table::CATEGORIA_MERCE);
-    categoriaModel->setSort(magazzino::DESCR, Qt::AscendingOrder);
-
-    marcaModel = new QSqlTableModel(this);
-    marcaModel->setTable(table::MARCA);
-    marcaModel->setSort(magazzino::DESCR, Qt::AscendingOrder);
-
-    sedeModel = new QSqlTableModel(this);
-    sedeModel->setTable(table::SEDE_MAGAZZINO);
-    sedeModel->setSort(magazzino::DESCR, Qt::AscendingOrder);
-
-    updateModel();
 }
 
 void MagazzinoWindow::initComboBox()
 {
     qDebug() << "MagazzinoWindow::initComboBox()";
     ui->fornitoreComboBox->setModel(fornitoreModel);
-    ui->fornitoreComboBox->setModelColumn(magazzino::DESCR);
+    ui->fornitoreComboBox->setModelColumn(int(magazzino::cols::descr));
 
-    ui->categoriaComboBox->setModel(categoriaModel);
-    ui->categoriaComboBox->setModelColumn(magazzino::DESCR);
-
-    ui->marcaComboBox->setModel(marcaModel);
-    ui->marcaComboBox->setModelColumn(magazzino::DESCR);
-
-    ui->sedeComboBox->setModel(sedeModel);
-    ui->sedeComboBox->setModelColumn(magazzino::DESCR);
+    categoriaModel = setupComboBox(table::CATEGORIA_MERCE, ui->categoriaComboBox, int(magazzino::cols::descr));
+    marcaModel = setupComboBox(table::MARCA, ui->marcaComboBox, int(magazzino::cols::descr));
+    sedeModel = setupComboBox(table::SEDE_MAGAZZINO, ui->sedeComboBox, int(magazzino::cols::descr));
 }
 
 void MagazzinoWindow::updateModel()
@@ -173,25 +155,25 @@ QString MagazzinoWindow::filterString(void) {
     QString pattern = "%1 = '%2'";
     if (ui->fornitoreComboBox->isEnabled()) {
         int index = ui->fornitoreComboBox->currentIndex();
-        QString id = fornitoreModel->record(index).value(magazzino::ID).toString();
+        QString id = fornitoreModel->record(index).value(int(magazzino::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_FORNITORE, id));
     }
 
     if (ui->categoriaComboBox->isEnabled()) {
         int index = ui->categoriaComboBox->currentIndex();
-        QString id = categoriaModel->record(index).value(magazzino::ID).toString();
+        QString id = categoriaModel->record(index).value(int(magazzino::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_MERCE, id));
     }
 
     if (ui->marcaComboBox->isEnabled()) {
         int index = ui->marcaComboBox->currentIndex();
-        QString id = marcaModel->record(index).value(magazzino::ID).toString();
+        QString id = marcaModel->record(index).value(int(magazzino::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_MARCA, id));
     }
 
     if (ui->sedeComboBox->isEnabled()) {
         int index = ui->sedeComboBox->currentIndex();
-        QString id = sedeModel->record(index).value(magazzino::ID).toString();
+        QString id = sedeModel->record(index).value(int(magazzino::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_SEDE_MAGAZZINO, id));
     }
 

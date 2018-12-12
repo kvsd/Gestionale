@@ -21,20 +21,23 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Ricerca per:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLineEdit" name="searchLineEdit">
+        <property name="placeholderText">
+         <string>Ricerca: (pressa invio per eseguire)</string>
+        </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
         </property>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QSplitter" name="splitter_2">
@@ -75,6 +78,9 @@
            </property>
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="tabKeyNavigation">
+            <bool>false</bool>
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
@@ -126,6 +132,9 @@
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
+           <property name="tabKeyNavigation">
+            <bool>false</bool>
+           </property>
            <property name="selectionMode">
             <enum>QAbstractItemView::SingleSelection</enum>
            </property>
@@ -163,7 +172,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+             <y>-109</y>
              <width>385</width>
              <height>535</height>
             </rect>
@@ -183,6 +192,12 @@
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
                </widget>
               </item>
               <item row="1" column="0">
@@ -196,6 +211,12 @@
                <widget class="QComboBox" name="categoriaComboBox">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
                 </property>
                 <property name="editable">
                  <bool>false</bool>
@@ -214,6 +235,12 @@
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
                </widget>
               </item>
               <item row="3" column="0">
@@ -227,6 +254,12 @@
                <widget class="QComboBox" name="sedeComboBox">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
                 </property>
                </widget>
               </item>
@@ -268,6 +301,12 @@
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
                    <property name="calendarPopup">
                     <bool>true</bool>
                    </property>
@@ -277,6 +316,12 @@
                   <widget class="QDateEdit" name="data2LineEdit">
                    <property name="enabled">
                     <bool>false</bool>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
                    </property>
                    <property name="calendarPopup">
                     <bool>true</bool>
@@ -307,6 +352,12 @@
                <widget class="QComboBox" name="orderbyComboBox">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
                 </property>
                </widget>
               </item>
@@ -373,6 +424,12 @@
                <widget class="QLineEdit" name="fatturaLineEdit">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
                 </property>
                </widget>
               </item>
@@ -579,6 +636,40 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>searchLineEdit</tabstop>
+  <tabstop>articoloView</tabstop>
+  <tabstop>storicoView</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>fornitoreEnabler</tabstop>
+  <tabstop>fornitoreComboBox</tabstop>
+  <tabstop>categoriaEnabler</tabstop>
+  <tabstop>categoriaComboBox</tabstop>
+  <tabstop>marcaEnabler</tabstop>
+  <tabstop>marcaComboBox</tabstop>
+  <tabstop>sedeEnabler</tabstop>
+  <tabstop>sedeComboBox</tabstop>
+  <tabstop>fatturaEnabler</tabstop>
+  <tabstop>fatturaLineEdit</tabstop>
+  <tabstop>orderEnabler</tabstop>
+  <tabstop>orderbyComboBox</tabstop>
+  <tabstop>radioGiacenzaAll</tabstop>
+  <tabstop>radioGiacenzaPos</tabstop>
+  <tabstop>radioGiacenza0</tabstop>
+  <tabstop>radioGiacenzaNeg</tabstop>
+  <tabstop>allDataEnabler</tabstop>
+  <tabstop>currentDateEnabler</tabstop>
+  <tabstop>rangeDateEnabler</tabstop>
+  <tabstop>data1LineEdit</tabstop>
+  <tabstop>data2LineEdit</tabstop>
+  <tabstop>searchDateButton</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>updateButton</tabstop>
+  <tabstop>cloneButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>filterButton</tabstop>
+  <tabstop>closeButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -604,8 +695,8 @@
    <slot>addRecord()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>547</y>
+     <x>71</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
      <x>61</x>
@@ -621,7 +712,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>146</y>
+     <y>37</y>
     </hint>
     <hint type="destinationlabel">
      <x>384</x>
@@ -749,11 +840,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>129</y>
+     <y>20</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>118</y>
+     <y>9</y>
     </hint>
    </hints>
   </connection>
@@ -765,11 +856,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>158</y>
+     <y>49</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>146</y>
+     <y>37</y>
     </hint>
    </hints>
   </connection>
@@ -781,11 +872,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>187</y>
+     <y>78</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>174</y>
+     <y>65</y>
     </hint>
    </hints>
   </connection>
@@ -797,11 +888,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>216</y>
+     <y>107</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>217</y>
+     <y>108</y>
     </hint>
    </hints>
   </connection>
@@ -812,8 +903,8 @@
    <slot>updateViewMagazzino()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>769</x>
-     <y>110</y>
+     <x>799</x>
+     <y>26</y>
     </hint>
     <hint type="destinationlabel">
      <x>842</x>
@@ -829,7 +920,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>217</y>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>844</x>
@@ -845,7 +936,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>174</y>
+     <y>65</y>
     </hint>
     <hint type="destinationlabel">
      <x>842</x>
@@ -861,11 +952,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>496</x>
-     <y>542</y>
+     <y>433</y>
     </hint>
     <hint type="destinationlabel">
      <x>787</x>
-     <y>545</y>
+     <y>436</y>
     </hint>
    </hints>
   </connection>
@@ -877,11 +968,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>496</x>
-     <y>542</y>
+     <y>433</y>
     </hint>
     <hint type="destinationlabel">
      <x>787</x>
-     <y>575</y>
+     <y>466</y>
     </hint>
    </hints>
   </connection>
@@ -893,11 +984,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>274</y>
+     <y>165</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>275</y>
+     <y>166</y>
     </hint>
    </hints>
   </connection>
@@ -909,7 +1000,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>275</y>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -941,7 +1032,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>386</y>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -957,7 +1048,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>332</y>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -973,7 +1064,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>359</y>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -989,7 +1080,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>413</y>
+     <y>304</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1005,7 +1096,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>158</y>
+     <y>49</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1021,7 +1112,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>187</y>
+     <y>78</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1037,7 +1128,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>216</y>
+     <y>107</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1053,7 +1144,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>274</y>
+     <y>165</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1069,7 +1160,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>129</y>
+     <y>20</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1085,7 +1176,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>488</y>
+     <y>379</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1101,7 +1192,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>515</y>
+     <y>406</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1117,11 +1208,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>496</x>
-     <y>542</y>
+     <y>433</y>
     </hint>
     <hint type="destinationlabel">
      <x>787</x>
-     <y>604</y>
+     <y>495</y>
     </hint>
    </hints>
   </connection>
@@ -1133,7 +1224,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>787</x>
-     <y>604</y>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1149,11 +1240,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>245</y>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
-     <y>246</y>
+     <y>137</y>
     </hint>
    </hints>
   </connection>
@@ -1165,7 +1256,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>245</y>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
@@ -1181,7 +1272,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>799</x>
-     <y>246</y>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
      <x>422</x>
