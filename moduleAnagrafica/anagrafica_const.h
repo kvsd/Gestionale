@@ -42,8 +42,6 @@ namespace anagrafica {
     "FROM anagrafica, agenti "
     "WHERE anagrafica.id > 0 AND id_agente=agenti.id ";
 
-    const QString FILTER_CLIENTE = "anagrafica.cliente=TRUE ";
-    const QString FILTER_FORNITORE = "anagrafica.fornitore=TRUE ";
     const QString ORDER_CLAUSE = " ORDER BY anagrafica.rag_sociale";
 
     const QString SELECT_FROM_ID = "SELECT * FROM anagrafica WHERE id=:id";
@@ -89,13 +87,7 @@ namespace anagrafica {
     //Delete utilizzata in AnagraficaWindow per cancellare un cliente/fornitore
     const QString DELETE_QUERY = "DELETE FROM anagrafica WHERE id = :id";
 
-    enum class cols {id=0, rag_sociale=3};
-
-    //COLS
-    enum columns {COL_TABLE_ID = 0,
-                  COL_TABLE_DESCRIZIONE = 1,
-                  COL_TABLE_COGNOME = 2 //tabella agenti
-                 };
+    enum class cols {id=0, descr=1, cognome=2, rag_sociale=5};
 }
 
 #endif // ANAGRAFICA_CONST_H

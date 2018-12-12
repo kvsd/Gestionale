@@ -11,6 +11,7 @@ AnagraficaWindow::AnagraficaWindow(QWidget *parent) :
 
     initModel();
     initComboBox();
+    updateModel();
 
     this->move(parent->pos());
     loadConfigSettings();
@@ -24,28 +25,10 @@ AnagraficaWindow::~AnagraficaWindow()
 
 void AnagraficaWindow::initModel()
 {
-    //Configura i model che verrano usati nei combobox (pannello dei filtri)
+    //Configura il model che verrano usati in anagraficaView
     qDebug() << "AnagraficaWindow::initModel()";
     m_anagraficaModel = new CustomModel(Qt::AlignLeft, this);
     ui->anagraficaView->setModel(m_anagraficaModel);
-
-    m_cittaModel = new QSqlTableModel(this);
-    m_cittaModel->setTable(table::CITTA);
-    m_cittaModel->setSort(1, Qt::AscendingOrder);
-
-    m_provinciaModel = new QSqlTableModel(this);
-    m_provinciaModel->setTable(table::PROVINCIA);
-    m_provinciaModel->setSort(1, Qt::AscendingOrder);
-
-    m_statoModel  = new QSqlTableModel(this);
-    m_statoModel->setTable(table::STATO);
-    m_statoModel->setSort(1, Qt::AscendingOrder);
-
-    m_agenteModel = new QSqlTableModel(this);
-    m_agenteModel->setTable(table::AGENTI);
-    m_agenteModel->setSort(2, Qt::AscendingOrder);
-
-    updateModel();
 }
 
 void AnagraficaWindow::updateModel()
@@ -74,21 +57,13 @@ void AnagraficaWindow::updateModel()
 
 void AnagraficaWindow::initComboBox()
 {
-    //Assegna i model ai combobox(filtri) e imposta le colonne da visualizzare.
+    //Inizializza i model e i QComboBox utilizzati per i filtri.
     qDebug() << "AnagraficaWindow::initComboBox()";
 
-    ui->cittaComboBox->setModel(m_cittaModel);
-    ui->cittaComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-    ui->cittaComboBox->setCurrentIndex(0);
-
-    ui->provinciaComboBox->setModel(m_provinciaModel);
-    ui->provinciaComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->statoComboBox->setModel(m_statoModel);
-    ui->statoComboBox->setModelColumn(anagrafica::COL_TABLE_DESCRIZIONE);
-
-    ui->agenteComboBox->setModel(m_agenteModel);
-    ui->agenteComboBox->setModelColumn(anagrafica::COL_TABLE_COGNOME);
+    m_cittaModel = setupComboBox(table::CITTA, ui->cittaComboBox, int(anagrafica::cols::descr));
+    m_provinciaModel = setupComboBox(table::PROVINCIA, ui->provinciaComboBox, int(anagrafica::cols::descr));
+    m_statoModel = setupComboBox(table::STATO, ui->statoComboBox, int(anagrafica::cols::descr));
+    m_agenteModel = setupComboBox(table::AGENTI, ui->agenteComboBox, int(anagrafica::cols::cognome));
 }
 
 void AnagraficaWindow::loadConfigSettings()
@@ -258,25 +233,25 @@ QString AnagraficaWindow::getFilterString2()
 
     if (ui->cittaEnabler->isChecked()) {
         int row = ui->cittaComboBox->currentIndex();
-        QString id = m_cittaModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        QString id = m_cittaModel->record(row).value(int(anagrafica::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_CITTA, id));
     }
 
     if (ui->provinciaEnabler->isChecked()) {
         int row = ui->provinciaComboBox->currentIndex();
-        QString id = m_provinciaModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        QString id = m_provinciaModel->record(row).value(int(anagrafica::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_PROVINCIA, id));
     }
 
     if (ui->statoEnabler->isChecked()) {
         int row = ui->statoComboBox->currentIndex();
-        QString id = m_statoModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        QString id = m_statoModel->record(row).value(int(anagrafica::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_STATO, id));
     }
 
     if (ui->agenteEnabler->isChecked()) {
         int row = ui->agenteComboBox->currentIndex();
-        QString id = m_agenteModel->record(row).value(anagrafica::COL_TABLE_ID).toString();
+        QString id = m_agenteModel->record(row).value(int(anagrafica::cols::id)).toString();
         filter.append(pattern.arg(coldb::ID_AGENTE, id));
     }
 
