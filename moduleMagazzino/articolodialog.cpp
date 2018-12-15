@@ -57,8 +57,10 @@ void ArticoloDialog::initComboBox(void)
     m_modelSede = setupComboBox(table::SEDE_MAGAZZINO, ui->sedeCB, int(modelCols::descr));
     m_modelUnita = setupComboBox(table::UNITA_MISURA, ui->unitamisuraCB, int(modelCols::descr));
 
-    //FIXME non vengono filtrati i fornitori
-    m_modelFornitore = setupComboBox(table::ANAGRAFICA, ui->fornitoreCB, int(anagrafica::cols::rag_sociale));
+    m_modelFornitore = new QSqlQueryModel(this);
+    m_modelFornitore->setQuery(magazzino::SELECT_CB_FORNITORE);
+    ui->fornitoreCB->setModel(m_modelFornitore);
+    ui->fornitoreCB->setModelColumn(int(modelCols::descr));
 
     //cb_codiva è collegato a updateiva tramite il segnale currentIndexChanged
     //devo bloccare il segnale prima di configurarlo, altrimenti a ogni impostazione
@@ -168,8 +170,6 @@ void ArticoloDialog::prepareMap()
 
     if (m_articoloMap[ph::RICARIC].isEmpty())
         m_articoloMap[ph::RICARIC] = "0";
-
-    qDebug() << m_articoloMap;
 }
 
 QSqlQuery ArticoloDialog::prepareQueryArticolo(void)
