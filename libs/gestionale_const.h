@@ -6,11 +6,9 @@
 namespace table {
     //Nome tabelle database
     const QString AGENTI = "agenti";
-    const QString AGENZIA = "agenzia";
     const QString ANAGRAFICA = "anagrafica";
     const QString ASPETTO_BENI = "aspetto_beni";
     const QString AZIENDA = "azienda";
-    const QString BANCA = "banca";
     const QString CAP = "cap";
     const QString CASUALE_TRASPORTO = "casuale_trasporto";
     const QString CATEGORIA_MERCE = "cat_merce";

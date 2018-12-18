@@ -39,14 +39,6 @@ CREATE TABLE stato (id SERIAL PRIMARY KEY,
 					sigla TEXT UNIQUE NOT NULL);
 INSERT INTO stato VALUES (0, '-----', '-----');
 --##############################################################################
-CREATE TABLE banca (id SERIAL PRIMARY KEY,
-		    descr TEXT UNIQUE NOT NULL);
-INSERT INTO banca VALUES (0, '-----');
---##############################################################################
-CREATE TABLE agenzia (id SERIAL PRIMARY KEY,
-                      descr TEXT UNIQUE NOT NULL);
-INSERT INTO agenzia VALUES (0, '-----');
---##############################################################################
 CREATE TABLE tipo_pagamento (id SERIAL PRIMARY KEY,
 							 descr TEXT, 
 							 sigla TEXT);
