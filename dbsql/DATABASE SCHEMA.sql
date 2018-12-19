@@ -39,6 +39,16 @@ CREATE TABLE stato (id SERIAL PRIMARY KEY,
 					sigla TEXT UNIQUE NOT NULL);
 INSERT INTO stato VALUES (0, '-----', '-----');
 --##############################################################################
+CREATE TABLE tipo_documento (id SERIAL PRIMARY KEY, 
+							 descr TEXT,
+							 sigla TEXT); --valore per fattura elettronica
+INSERT INTO tipo_documento VALUES(DEFAULT, 'fattura', 					'TD01');
+INSERT INTO tipo_documento VALUES(DEFAULT, 'acconto/anticipo fattura',  'TD02');
+INSERT INTO tipo_documento VALUES(DEFAULT, 'acconto/anticipo parcella', 'TD03');
+INSERT INTO tipo_documento VALUES(DEFAULT, 'nota di credito', 			'TD04');
+INSERT INTO tipo_documento VALUES(DEFAULT, 'nota di debito', 			'TD05');
+INSERT INTO tipo_documento VALUES(DEFAULT, 'parcella', 					'TD06');
+--##############################################################################
 CREATE TABLE tipo_pagamento (id SERIAL PRIMARY KEY,
 							 descr TEXT, 
 							 sigla TEXT);
