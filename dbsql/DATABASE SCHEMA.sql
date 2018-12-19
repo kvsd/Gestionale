@@ -39,6 +39,13 @@ CREATE TABLE stato (id SERIAL PRIMARY KEY,
 					sigla TEXT UNIQUE NOT NULL);
 INSERT INTO stato VALUES (0, '-----', '-----');
 --##############################################################################
+CREATE TABLE moneta (id SERIAL PRIMARY KEY, 
+					 descr TEXT UNIQUE NOT NULL, 
+					 sigla TEXT UNIQUE NOT NULL);--ISO4217
+INSERT INTO moneta VALUES(DEFAULT, 'Euro', 'EUR');
+INSERT INTO moneta VALUES(DEFAULT, 'Sterlina britannica', 'GBP');
+INSERT INTO moneta VALUES(DEFAULT, 'Dollaro americano', 'USD');
+--##############################################################################
 CREATE TABLE tipo_documento (id SERIAL PRIMARY KEY, 
 							 descr TEXT,
 							 sigla TEXT); --valore per fattura elettronica
