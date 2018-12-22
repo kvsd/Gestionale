@@ -11,6 +11,7 @@
 #include "moduleMagazzino/magazzinowindow.h"
 #include "modulePrimaNota/primanotawindow.h"
 #include "moduleDatabase/userdbdialog.h"
+#include "moduleDocumenti/documentiwindow.h"
 
 #include <QMainWindow>
 #include <QSqlDatabase>
@@ -39,6 +40,7 @@ private:
     AnagraficaWindow *anagraficaMW;
     MagazzinoWindow *magazzinoMW;
     PrimaNotaWindow *primaNotaMW;
+    DocumentiWindow *documentiMW;
     void diplayInfo(void);
     void setEnabledControl(bool value);
 
@@ -55,6 +57,7 @@ private slots:
     void launchMagazzinoDlg(void);
     void launchPrimaNotaDlg(void);
     void launchUserDlg(void);
+    void launchDocumentiDlg(void);
 };
 
 #endif // MAINWINDOW_H

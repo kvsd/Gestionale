@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     anagraficaMW = 0;
     magazzinoMW = 0;
     primaNotaMW = 0;
+    documentiMW = 0;
 }
 
 MainWindow::~MainWindow()
@@ -71,6 +72,7 @@ void MainWindow::setEnabledControl(bool value)
     ui->clnFrnButton->setEnabled(value);
     ui->magazzinoButton->setEnabled(value);
     ui->primaNotaButton->setEnabled(value);
+    ui->documentiButton->setEnabled(value);
     ui->actionSetup_Table->setEnabled(value);
     ui->actionConfigura_Azienda->setEnabled(value);
 }
@@ -80,9 +82,9 @@ void MainWindow::launchConnectionSetupDlg(void)
     qDebug() << "MainWindow::launchConnectionSetupDlg()";
     ConnectionSetupDialog dlg(this);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
+
     launchLoginDlg();
 }
 
@@ -103,9 +105,9 @@ void MainWindow::launchAgentiViewDlg(void)
 void MainWindow::launchAnagraficaDlg(void)
 {
     qDebug() << "MainWindow::launchAnagraficaDlg()";
-    if (anagraficaMW == 0) {
+    if (anagraficaMW == 0)
         anagraficaMW = new AnagraficaWindow(this);
-    }
+
     this->hide();
     anagraficaMW->move(this->pos());
     anagraficaMW->show();
@@ -121,11 +123,9 @@ void MainWindow::launchAziendaDlg(void)
 void MainWindow::launchMagazzinoDlg(void)
 {
     qDebug() << "MainWindow::launchMagazzinoDlg()";
-    //WORKINPROGRESS
-
-    if (magazzinoMW == 0) {
+    if (magazzinoMW == 0)
         magazzinoMW = new MagazzinoWindow(this);
-    }
+
     this->hide();
     magazzinoMW->move(this->pos());
     magazzinoMW->show();
@@ -135,9 +135,9 @@ void MainWindow::launchPrimaNotaDlg(void)
 {
     qDebug() << "MainWindow::launchPrimaNotaDlg()";
 
-    if (primaNotaMW == 0) {
+    if (primaNotaMW == 0)
         primaNotaMW = new PrimaNotaWindow(this);
-    }
+
     this->hide();
     primaNotaMW->move(this->pos());
     primaNotaMW->show();
@@ -159,4 +159,15 @@ void MainWindow::launchUserDlg(void)
 
     UserDbDialog dlg(this);
     dlg.exec();
+}
+
+void MainWindow::launchDocumentiDlg(void)
+{
+    qDebug() << "MainWindow::launchDocumentiDlg()";
+    if (documentiMW == 0)
+        documentiMW = new DocumentiWindow(this);
+
+    this->hide();
+    documentiMW->move(this->pos());
+    documentiMW->show();
 }
