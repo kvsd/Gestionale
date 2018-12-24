@@ -206,23 +206,16 @@ QString AnagraficaWindow::getFilterString1()
     bool fornitore = ui->fornitoriCKB->isChecked();
     bool pa = ui->paCKB->isChecked();
 
-    filter.append(pattern.arg(coldb::AZIENDA, QVariant(azienda).toString()));
-    filter.append(pattern.arg(coldb::CLIENTE, QVariant(cliente).toString()));
-    filter.append(pattern.arg(coldb::FORNITORE, QVariant(fornitore).toString()));
-    filter.append(pattern.arg(coldb::PA, QVariant(pa).toString()));
+    if (azienda)
+        filter.append(pattern.arg(coldb::AZIENDA, QVariant(azienda).toString()));
+    if (cliente)
+        filter.append(pattern.arg(coldb::CLIENTE, QVariant(cliente).toString()));
+    if (fornitore)
+        filter.append(pattern.arg(coldb::FORNITORE, QVariant(fornitore).toString()));
+    if (pa)
+        filter.append(pattern.arg(coldb::PA, QVariant(pa).toString()));
 
-    if (azienda && cliente && fornitore && pa)
-        return filter.join(" OR ");
-    else if (azienda)
-        return filter[0];
-    else if (cliente)
-        return filter[1];
-    else if (fornitore)
-        return filter[2];
-    else if (pa)
-        return filter.join(" AND ");
-    else
-        return filter.join(" AND ");
+    return filter.join(" OR ");
 }
 
 QString AnagraficaWindow::getFilterString2()
