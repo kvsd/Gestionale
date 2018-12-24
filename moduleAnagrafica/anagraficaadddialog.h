@@ -60,7 +60,7 @@ private slots:
     void checkFornitore();
     void checkPA();
     void toggleAgente(bool status);
-    void checkTrasmission(QString string);
+    void checkSDI(QString string);
 };
 
 #endif // ANAGRAFICAADDDIALOG_H

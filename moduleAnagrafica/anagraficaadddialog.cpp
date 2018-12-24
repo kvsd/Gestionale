@@ -290,9 +290,9 @@ void AnagraficaAddDialog::toggleAgente(bool status)
     ui->agentiDlgPB->setVisible(status);
 }
 
-void AnagraficaAddDialog::checkTrasmission(QString string)
+void AnagraficaAddDialog::checkSDI(QString string)
 {
-    qDebug() << "AnagraficaAddDialog::test()";
+    qDebug() << "AnagraficaAddDialog::checkSDI()";
     if (string == "PEC") {
         ui->codSdiLb->setVisible(false);
         ui->codSdiLE->setVisible(false);
