@@ -65,7 +65,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     moduleReport/queryreport.h \
     libs/custominsertdialog.h \
     moduleDocumenti/documentiwindow.h \
-    moduleDocumenti/documenti_const.h
+    moduleDocumenti/documenti_const.h \
+    moduleDocumenti/documentiadddialog.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -85,7 +86,8 @@ FORMS += moduleDatabase/connectionsetupdialog.ui \
     modulePrimaNota/primanotaadddlg.ui \
     moduleDatabase/userdbdialog.ui \
     moduleReport/listinodlg.ui \
-    moduleDocumenti/documentiwindow.ui
+    moduleDocumenti/documentiwindow.ui \
+    moduleDocumenti/documentiadddialog.ui
 SOURCES += moduleDatabase/connectionsetupdialog.cpp \
            libs/error.cpp \
            moduleDatabase/logindialog.cpp \
@@ -116,4 +118,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     moduleReport/listinodlg.cpp \
     moduleReport/queryreport.cpp \
     libs/custominsertdialog.cpp \
-    moduleDocumenti/documentiwindow.cpp
+    moduleDocumenti/documentiwindow.cpp \
+    moduleDocumenti/documentiadddialog.cpp

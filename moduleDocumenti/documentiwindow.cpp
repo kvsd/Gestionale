@@ -60,3 +60,13 @@ void DocumentiWindow::initModel()
     ui->documentiView->setModel(docModel);
     ui->documentiView->resizeColumnsToContents();
 }
+
+void DocumentiWindow::addFattura()
+{
+    qDebug() << "DocumentiWindow::addFattura()";
+    DocumentiAddDialog dlg(this);
+    bool ok = dlg.exec();
+    if (!ok)
+        return;
+    //Aggiorna i model
+}

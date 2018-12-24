@@ -4,6 +4,7 @@
 #include "libs/customwindow.h"
 #include "libs/custommodel.h"
 #include "documenti_const.h"
+#include "documentiadddialog.h"
 
 #include <QCloseEvent>
 #include <QShowEvent>
@@ -31,6 +32,9 @@ private:
     CustomModel *docModel;
 
     void initModel();
+
+private slots:
+    void addFattura();
 };
 
 #endif // DOCUMENTIWINDOW_H

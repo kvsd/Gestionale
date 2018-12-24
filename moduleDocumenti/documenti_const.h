@@ -7,5 +7,9 @@ namespace documenti {
                                    "       id_cliente AS \"Cliente\" "
                                    "FROM documenti";
 
+    //Utilizzato nel combobox cliente di DocumentiAddDialog.
+    const QString SELECT_CLIENTE = "SELECT id, concat(rag_sociale, cognome, nome) AS rag_sociale "
+                                   "FROM anagrafica";
+
 }
 #endif // DOCUMENTI_CONST_H
