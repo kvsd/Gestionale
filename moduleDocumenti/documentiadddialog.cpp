@@ -7,10 +7,14 @@ DocumentiAddDialog::DocumentiAddDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //La data corrente. Da definire l'ultima data disponibile.
     ui->dateLE->setDate(QDate::currentDate());
 
     initForm();
     initComboBox();
+
+    ui->monetaCB->setCurrentText("Euro");
+    ui->tipoDocumentoCB->setCurrentText("fattura");
 }
 
 DocumentiAddDialog::~DocumentiAddDialog()
@@ -21,8 +25,11 @@ DocumentiAddDialog::~DocumentiAddDialog()
 void DocumentiAddDialog::initForm()
 {
     qDebug() << "DocumentiAddDialog::initForm()";
-    ui->clienteCB->setProperty(m_property, "id_anagrafica");
     ui->dateLE->setProperty(m_property, coldb::DATA);
+    ui->clienteCB->setProperty(m_property, "id_cliente");
+    ui->tipoDocumentoCB->setProperty(m_property, "id_tipo_documento");
+    ui->monetaCB->setProperty(m_property, "id_moneta");
+    ui->casualeLE->setProperty(m_property, "casuale");
 }
 
 void DocumentiAddDialog::initComboBox()
@@ -32,6 +39,12 @@ void DocumentiAddDialog::initComboBox()
     m_modelCliente->setQuery(documenti::SELECT_CLIENTE);
     ui->clienteCB->setModel(m_modelCliente);
     ui->clienteCB->setModelColumn(1);
+
+    m_modelDocumento = setupComboBox(table::TIPO_DOCUMENTO,
+                                     ui->tipoDocumentoCB,
+                                     int(modelCols::descr));
+    m_modelMoneta = setupComboBox(table::MONETA, ui->monetaCB,
+                                  int(modelCols::descr));
 }
 
 void DocumentiAddDialog::setValue(QString id)
@@ -42,5 +55,21 @@ void DocumentiAddDialog::setValue(QString id)
 void DocumentiAddDialog::save()
 {
     qDebug() << "DocumentiAddDialog::save()";
-    checkComboBox(ui->clienteCB, "boh");
+    QMap<QString, QString> string;
+    prepareMap(string, int(modelCols::id));
+    string[":years"] = ui->dateLE->date().toString("yyyy");
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO documenti(id_cliente, id_tipo_documento, "
+                  "                      id_moneta, data, years, nr_documento, casuale) "
+                  "VALUES(:id_cliente, :id_tipo_documento, "
+                  "       :id_moneta, :data, :years, 'FA'||nextval('fatt_seq'), :casuale)");
+
+    for (QString key : string.keys())
+        query.bindValue(key, string[key]);
+
+    if (!query.exec())
+        qDebug() << query.lastError().text();
+
+    this->accept();
 }

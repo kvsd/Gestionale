@@ -17,11 +17,13 @@ namespace table {
     const QString LISTINO_STORICO = "listino_storico";
     const QString MAGAZZINO = "magazzino";
     const QString MARCA = "marca";
+    const QString MONETA = "moneta";
     const QString PROVINCIA = "provincia";
     const QString REG_FISCALE = "reg_fiscale";
     const QString SEDE_MAGAZZINO = "sede_magazzino";
     const QString STATO = "stato";
     const QString STATO_LIQUID = "stato_liquid";
+    const QString TIPO_DOCUMENTO = "tipo_documento";
     const QString TIPO_PAGAMENTO = "tipo_pagamento";
     const QString TIPO_TRASMISSIONE = "trasmissione";
     const QString UNITA_MISURA = "unita_misura";

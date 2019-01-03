@@ -2,9 +2,12 @@
 #define DOCUMENTIADDDIALOG_H
 
 #include "libs/custominsertdialog.h"
+#include "libs/utils.h"
+#include "libs/simpledialogs.h"
 #include "documenti_const.h"
 
 #include <QSqlQueryModel>
+#include <QSqlError>
 
 namespace Ui {
 class DocumentiAddDialog;
@@ -21,6 +24,8 @@ public:
 private:
     Ui::DocumentiAddDialog *ui;
     QSqlQueryModel *m_modelCliente;
+    QSqlTableModel *m_modelDocumento;
+    QSqlTableModel *m_modelMoneta;
 
     void initForm();
     void initComboBox();
