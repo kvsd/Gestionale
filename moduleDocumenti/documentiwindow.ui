@@ -124,6 +124,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="removeButton">
+        <property name="text">
+         <string>Rimuovi</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -192,8 +199,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>removeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DocumentiWindow</receiver>
+   <slot>removeRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>580</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>590</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addFattura()</slot>
+  <slot>removeRecord()</slot>
  </slots>
 </ui>

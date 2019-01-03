@@ -48,16 +48,19 @@ void DocumentiWindow::showEvent(QShowEvent *event)
 void DocumentiWindow::initModel()
 {
     qDebug() << "DocumentiWindow::initModel()";
-    docModel = new CustomModel(this);
-    docModel->setQuery("select doc.id AS \"Id\","
-                       "       doc.nr_documento AS \"Numero\", "
-                       "       an.rag_sociale AS \"Rag.Sociale\","
-                       "       an.nome AS \"Nome\", "
-                       "       an.cognome AS \"Cognome\" ,"
-                       "       doc.data AS \"Data\" "
-                       "FROM documenti AS doc, anagrafica AS an "
-                       "WHERE doc.id_cliente=an.id");
-    ui->documentiView->setModel(docModel);
+    m_query = "select doc.id AS \"Id\","
+            "       doc.nr_documento AS \"Numero\", "
+            "       an.rag_sociale AS \"Rag.Sociale\","
+            "       an.nome AS \"Nome\", "
+            "       an.cognome AS \"Cognome\" ,"
+            "       doc.data AS \"Data\" ,"
+            "       doc.casuale AS \"Casuale\" "
+            "FROM documenti AS doc, anagrafica AS an "
+            "WHERE doc.id_cliente=an.id "
+            "ORDER BY doc.data";
+    m_docModel = new CustomModel(this);
+    m_docModel->setQuery(m_query);
+    ui->documentiView->setModel(m_docModel);
     ui->documentiView->resizeColumnsToContents();
 }
 
@@ -68,5 +71,25 @@ void DocumentiWindow::addFattura()
     bool ok = dlg.exec();
     if (!ok)
         return;
-    //Aggiorna i model
+    m_docModel->setQuery(m_query);
+}
+
+void DocumentiWindow::removeRecord()
+{
+    qDebug() << "DocumentiWindow::removeRecord()";
+    QModelIndex index = ui->documentiView->currentIndex();
+    if (!index.isValid()) {
+        qDebug() << "Errore";
+        return;
+    }
+
+    QString id = m_docModel->record(index.row()).value(coldb::ID).toString();
+    QSqlQuery query;
+    query.prepare("DELETE FROM documenti WHERE id=:id");
+    query.bindValue(ph::ID, id);
+    if (!query.exec())
+        qDebug() << "ERRORE";
+
+    m_docModel->setQuery(m_query);
+
 }
