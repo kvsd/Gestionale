@@ -66,7 +66,8 @@ HEADERS += moduleDatabase/connectionsetupdialog.h \
     libs/custominsertdialog.h \
     moduleDocumenti/documentiwindow.h \
     moduleDocumenti/documenti_const.h \
-    moduleDocumenti/documentiadddialog.h
+    moduleDocumenti/documentiadddialog.h \
+    moduleDocumenti/customtablewidget.h
 FORMS += moduleDatabase/connectionsetupdialog.ui \
          moduleDatabase/logindialog.ui \
          mainwindow.ui \
@@ -119,4 +120,5 @@ SOURCES += moduleDatabase/connectionsetupdialog.cpp \
     moduleReport/queryreport.cpp \
     libs/custominsertdialog.cpp \
     moduleDocumenti/documentiwindow.cpp \
-    moduleDocumenti/documentiadddialog.cpp
+    moduleDocumenti/documentiadddialog.cpp \
+    moduleDocumenti/customtablewidget.cpp

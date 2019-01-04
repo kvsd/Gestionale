@@ -5,6 +5,7 @@
 #include "libs/utils.h"
 #include "libs/simpledialogs.h"
 #include "documenti_const.h"
+#include "customtablewidget.h"
 
 #include <QSqlQueryModel>
 #include <QSqlError>
@@ -33,6 +34,7 @@ private:
 
 private slots:
     void save();
+    void test(int row, int col);
 };
 
 #endif // DOCUMENTIADDDIALOG_H

@@ -15,6 +15,15 @@ DocumentiAddDialog::DocumentiAddDialog(QWidget *parent) :
 
     ui->monetaCB->setCurrentText("Euro");
     ui->tipoDocumentoCB->setCurrentText("fattura");
+    ui->tableWidget->initFattura();
+    int w=0;
+    for (int c=0; c<ui->tableWidget->columnCount(); c++) {
+        w += ui->tableWidget->columnWidth(c);
+    }
+    setGeometry(x(), y(), w+50, height());
+
+    connect(ui->tableWidget, SIGNAL(cellChanged(int,int)),
+            this, SLOT(test(int,int)));
 }
 
 DocumentiAddDialog::~DocumentiAddDialog()
@@ -72,4 +81,9 @@ void DocumentiAddDialog::save()
         qDebug() << query.lastError().text();
 
     this->accept();
+}
+
+void DocumentiAddDialog::test(int row, int col)
+{
+
 }
