@@ -20,7 +20,7 @@ DocumentiAddDialog::DocumentiAddDialog(QWidget *parent) :
     for (int c=0; c<ui->tableWidget->columnCount(); c++) {
         w += ui->tableWidget->columnWidth(c);
     }
-    setGeometry(x(), y(), w+50, height());
+    resize(w+50, height());
 
     connect(ui->tableWidget, SIGNAL(cellChanged(int,int)),
             this, SLOT(test(int,int)));
