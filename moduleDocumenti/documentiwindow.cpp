@@ -72,6 +72,7 @@ void DocumentiWindow::addFattura()
     if (!ok)
         return;
     m_docModel->setQuery(m_query);
+    ui->documentiView->resizeColumnsToContents();
 }
 
 void DocumentiWindow::removeRecord()

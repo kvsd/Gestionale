@@ -14,11 +14,11 @@ void CustomTableWidget::initFattura()
     QStringList cols = {colview::CODICE_ARTICOLO,
                         colview::DESCRIZIONE,
                         colview::QUANTITA,
-                        "unita misura",
-                        "Prezzo unitario",
-                        "Prezzo totale",
-                        "Aliquota IVA",
-                        "Riferimento Amm."};
+                        colview::UN_MISURA,
+                        colview::PREZZO_UNITARIO,
+                        colview::PREZZO_TOTALE,
+                        colview::CODICE_IVA,
+                        colview::RIF_AMMIN};
 
     setColumnCount(cols.length());
     setHorizontalHeaderLabels(cols);

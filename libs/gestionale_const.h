@@ -33,7 +33,6 @@ namespace table {
 
 namespace ph {
     //placeholder per query sql
-    const QString CLIENTE = ":cliente";
     const QString COD_FISCALE = ":cod_fisc";
     const QString CODICE_IVA = ":cod_iva";
     const QString DATE = ":date";
@@ -42,7 +41,6 @@ namespace ph {
     const QString ENT_BANCA = ":entrata_banca";
     const QString ENT_CASSA = ":entrata_cassa";
     const QString FATTURA = ":fattura";
-    const QString FORNITORE = ":fornitore";
     const QString ID = ":id";
     const QString ID_ART  = ":id_articolo";
     const QString IVA     = ":iva";
@@ -175,8 +173,11 @@ const QString NOTE = "Note";
 const QString PREZZO_ACQUISTO = "Prezzo Acquisto";
 const QString PREZZO_FATTURA = "Prezzo Fattura";
 const QString PREZZO_FINITO = "Prezzo Finito";
+const QString PREZZO_TOTALE = "Prezzo totale";
+const QString PREZZO_UNITARIO = "Prezzo Unitario";
 const QString PREZZO_VENDITA = "Prezzo Vendità";
 const QString PREZZO_VENDITA_B = "Prezzo Vendità B";
+const QString RIF_AMMIN = "Riferimento Amm.";
 const QString QUANTITA = "Quantità";
 //const QString RAGIONE_SOCIALE = "rag_sociale";
 const QString RICARICO = "Ricarico";
@@ -185,6 +186,7 @@ const QString SCORTA_MINIMA = "Scorta Minima";
 //const QString SITO_WEB = "sito_web";
 //const QString SWIFT = "swift";
 //const QString TEL = "tel";
+const QString UN_MISURA = "U.M.";
 const QString USC_BANCA = "Uscita Banca";
 const QString USC_CASSA = "Uscita Cassa";
 }
