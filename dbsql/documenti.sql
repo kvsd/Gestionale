@@ -1,4 +1,3 @@
-DROP TABLE fattura_iva;
 DROP TABLE documenti_det;
 DROP TABLE documenti;
 DROP SEQUENCE fatt_seq;
@@ -19,6 +18,7 @@ CREATE TABLE documenti (id SERIAL PRIMARY KEY,
 						casuale TEXT);
 
 CREATE TABLE documenti_det (id SERIAL PRIMARY KEY,
+							id_documento INTEGER REFERENCES documenti(id),
 							numero_linea INTEGER,
 							cod_articolo TEXT,
 							descr TEXT,
@@ -29,11 +29,4 @@ CREATE TABLE documenti_det (id SERIAL PRIMARY KEY,
 							aliquota_iva DECIMAL REFERENCES cod_iva(descr), --forse percentuale
 							riferimentoAmministrazione TEXT);
 
-CREATE TABLE fattura_iva (id SERIAL PRIMARY KEY,
-						  id_fattura INTEGER REFERENCES documenti(id),
-						  aliquota_iva DECIMAL REFERENCES cod_iva(descr),
-						  spese_accessorie DECIMAL,
-						  arrotondamento DECIMAL,
-						  imponibile DECIMAL,
-						  imposta DECIMAL);
 
