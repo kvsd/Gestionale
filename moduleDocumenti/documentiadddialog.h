@@ -34,7 +34,8 @@ private:
 
 private slots:
     void save();
-    void test(int row, int col);
+    void updateCell(int row, int col);
+    void updateLabels();
 };
 
 #endif // DOCUMENTIADDDIALOG_H

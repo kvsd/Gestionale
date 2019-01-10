@@ -9,6 +9,7 @@
 #include <QCloseEvent>
 #include <QShowEvent>
 #include <QSqlRecord>
+#include <QModelIndex>
 
 namespace Ui {
 class DocumentiWindow;
@@ -31,6 +32,8 @@ protected:
 private:
     Ui::DocumentiWindow *ui;
     CustomModel *m_docModel;
+    CustomModel *m_detModel;
+
     QString m_query;
 
     void initModel();
@@ -38,6 +41,7 @@ private:
 private slots:
     void addFattura();
     void removeRecord();
+    void updateDettaglio(QModelIndex);
 };
 
 #endif // DOCUMENTIWINDOW_H

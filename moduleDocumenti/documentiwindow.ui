@@ -215,9 +215,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>documentiView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>DocumentiWindow</receiver>
+   <slot>updateDettaglio(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>249</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addFattura()</slot>
   <slot>removeRecord()</slot>
+  <slot>updateDettaglio(QModelIndex)</slot>
  </slots>
 </ui>

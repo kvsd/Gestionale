@@ -62,6 +62,9 @@ void DocumentiWindow::initModel()
     m_docModel->setQuery(m_query);
     ui->documentiView->setModel(m_docModel);
     ui->documentiView->resizeColumnsToContents();
+
+    m_detModel = new CustomModel(this);
+    ui->dettaglioView->setModel(m_detModel);
 }
 
 void DocumentiWindow::addFattura()
@@ -89,8 +92,29 @@ void DocumentiWindow::removeRecord()
     query.prepare("DELETE FROM documenti WHERE id=:id");
     query.bindValue(ph::ID, id);
     if (!query.exec())
-        qDebug() << "ERRORE";
+        qDebug() << query.lastError().text();
 
     m_docModel->setQuery(m_query);
 
+}
+
+void DocumentiWindow::updateDettaglio(QModelIndex index)
+{
+    qDebug() << "DocumentiWindow::updateDettaglio()";
+    QString id = m_docModel->record(index.row()).value("id").toString();
+    qDebug() << id;
+    QString query = "SELECT cod_articolo AS \"Cod.Articolo\", "
+                    "       descr AS \"Descrizione\", "
+                    "       quantita AS \"Quantità\", "
+                    "       um AS \"U.M.\", "
+                    "       prezzo_unitario::money AS \"Prezzo Unitario\", "
+                    "       prezzo_totale::money AS \"Prezzo Totale\", "
+                    "       aliquota_iva AS \"Aliquota IVA\", "
+                    "       rif AS \"Riferimento Amm.\" "
+                    "FROM documenti_det "
+                    "WHERE id_documento=%1 "
+                    "ORDER BY linea";
+    m_detModel->setQuery(query.arg(id));
+    ui->dettaglioView->resizeColumnsToContents();
+    ui->dettaglioView->horizontalHeader()->setStretchLastSection(true);
 }
