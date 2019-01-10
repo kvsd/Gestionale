@@ -28,30 +28,54 @@ void CustomTableWidget::initFattura()
 void CustomTableWidget::insertRow()
 {
     QTableWidget::insertRow(rowCount());
+    blockSignals(true);
     if (win == tableType::fattura) {
-        for (int c=0; c<columnCount(); c++) {
-            int r = rowCount()-1;
+        for (int col=0; col<columnCount(); col++) {
+            int row = rowCount()-1;
             QTableWidgetItem *item = new QTableWidgetItem;
-            if (c==int(fattCols::qt) ||
-                c==int(fattCols::prezzo_u) ||
-                c==int(fattCols::prezzo_t)) {
+            if (col==int(cols::qt) ||
+                col==int(cols::prezzo_u) ||
+                col==int(cols::prezzo_t)) {
                 item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                setItem(r, c, item);
+                if (col==int(cols::prezzo_t))
+                    item->setFlags(Qt::ItemIsEnabled);
+                setItem(row, col, item);
             }
-            else if (c==int(fattCols::um) || c==int(fattCols::al_iva)) {
+            else if (col==int(cols::um) || col==int(cols::al_iva)) {
                 QComboBox *cb = new QComboBox;
-                cb->setProperty("col", c);
-                cb->setProperty("row", r);
-                QString t = c==int(fattCols::um) ? table::UNITA_MISURA : table::CODICE_IVA;
+                cb->setProperty("col", col);
+                cb->setProperty("row", row);
+                QString t = col==int(cols::um) ? table::UNITA_MISURA : table::CODICE_IVA;
                 setupComboBox(t, cb, 1);
-                setCellWidget(r, c, cb);
+                setCellWidget(row, col, cb);
+                connect(cb, SIGNAL(currentTextChanged(QString)),
+                        this, SLOT(cbIdentify(QString)));
             }
             else
-                setItem(r, c, item);
+                setItem(row, col, item);
         }
     }
+    blockSignals(false);
     resizeColumnsToContents();        
     horizontalHeader()->setStretchLastSection(true);
+}
+
+QMap<int, QString> CustomTableWidget::getMap(int row)
+{
+    QMap<int, QString> map;
+    if (row > rowCount())
+        return map;
+
+    for (int c=0; c<columnCount(); c++) {
+        if (c==int(cols::um) || c==int(cols::al_iva)) {
+            QComboBox *cb = qobject_cast<QComboBox *>(cellWidget(row, c));
+            map[c] = cb->currentText();
+            continue;
+        }
+        map[c] = item(row, c)->text();
+    }
+
+    return map;
 }
 
 void CustomTableWidget::keyPressEvent(QKeyEvent *event)
@@ -61,4 +85,12 @@ void CustomTableWidget::keyPressEvent(QKeyEvent *event)
             (currentRow() == rowCount()-1))
         insertRow();
     QTableWidget::keyPressEvent(event);
+}
+
+void CustomTableWidget::cbIdentify(QString s)
+{
+    QComboBox *cb = qobject_cast<QComboBox *>(sender());
+    int row = cb->property("row").toInt();
+    int col = cb->property("col").toInt();
+    emit cbTextChanged(row, col, s);
 }
