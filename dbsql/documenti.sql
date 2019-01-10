@@ -18,15 +18,15 @@ CREATE TABLE documenti (id SERIAL PRIMARY KEY,
 						casuale TEXT);
 
 CREATE TABLE documenti_det (id SERIAL PRIMARY KEY,
-							id_documento INTEGER REFERENCES documenti(id),
-							numero_linea INTEGER,
+							id_documento INTEGER REFERENCES documenti(id) ON DELETE CASCADE,
+							linea INTEGER,
 							cod_articolo TEXT,
 							descr TEXT,
 							quantita DECIMAL,
-							unita_misura INTEGER REFERENCES unita_misura(id), --references
+							um INTEGER REFERENCES unita_misura(id),
 							prezzo_unitario DECIMAL, 
 							prezzo_totale DECIMAL,
-							aliquota_iva DECIMAL REFERENCES cod_iva(descr), --forse percentuale
-							riferimentoAmministrazione TEXT);
+							aliquota_iva DECIMAL REFERENCES cod_iva(descr), --percentuale
+							rif TEXT); --riferimento amministrazione
 
 
