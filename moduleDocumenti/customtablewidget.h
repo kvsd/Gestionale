@@ -23,20 +23,26 @@ public:
 
     CustomTableWidget(QWidget *parent);
     void initFattura();
-    void insertRow();
-    QMap<int,QString> getMap(int row);
+    QMap<QString, QString> getRowMap(int row);
 
 protected:
     void keyPressEvent(QKeyEvent *event);
 
 private:
-    tableType win;
+    tableType m_win;
+    QStringList m_ph; //placeholder
 
 private slots:
     void cbIdentify(QString s);
 
+public slots:
+    void insertRow();
+    void removeRow();
+
 signals:
     void cbTextChanged(int row, int col, QString str);
+    void insertedRow();
+    void removedRow();
 };
 
 #endif // CUSTOMTABLEWIDGET_H
