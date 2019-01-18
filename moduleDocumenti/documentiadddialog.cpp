@@ -13,24 +13,38 @@ DocumentiAddDialog::DocumentiAddDialog(QWidget *parent) :
     initForm();
     initComboBox();
 
-    ui->monetaCB->setCurrentText("Euro");
-    ui->tipoDocumentoCB->setCurrentText("fattura");
-    ui->tableWidget->initFattura();
-    int w=0;
-    for (int c=0; c<ui->tableWidget->columnCount(); c++) {
-        w += ui->tableWidget->columnWidth(c);
-    }
-    resize(w+50, height());
-
     connect(ui->tableWidget, SIGNAL(cellChanged(int,int)),
             this, SLOT(updateCell(int,int)));
     connect(ui->tableWidget, SIGNAL(cbTextChanged(int,int,QString)),
-            this, SLOT(updateLabels()));
+            this, SLOT(updateIvaMap()));
+    connect(ui->tableWidget, SIGNAL(removedRow()), this, SLOT(updateIvaMap()));
 }
 
 DocumentiAddDialog::~DocumentiAddDialog()
 {
     delete ui;
+}
+
+void DocumentiAddDialog::initFattura()
+{
+    qDebug() << "DocumentiAddDialog::initFattura()";
+    setWindowTitle("Crea Fattura");
+    ui->monetaCB->setCurrentText("Euro");
+    ui->tipoDocumentoCB->setCurrentText("fattura");
+    ui->tableWidget->initFattura();
+    //Calcolo la dimensione delle colonne e imposto la dimensione del dialog
+    int w=0;
+    for (int c=0; c<ui->tableWidget->columnCount(); c++) {
+        w += ui->tableWidget->columnWidth(c);
+    }
+    resize(w+50, height());
+}
+
+void DocumentiAddDialog::initDdt()
+{
+    qDebug() << "DocumentiAddDialog::initDdt()";
+    ui->monetaCB->setVisible(false);
+    setWindowTitle("Crea DDT");
 }
 
 void DocumentiAddDialog::initForm()
@@ -66,40 +80,59 @@ void DocumentiAddDialog::setValue(QString id)
 void DocumentiAddDialog::save()
 {
     qDebug() << "DocumentiAddDialog::save()";
-    QMap<QString, QString> string;
-    prepareMap(string, int(modelCols::id));
-    string[":years"] = ui->dateLE->date().toString("yyyy");
+    //Documenti
+    QSqlDatabase db = QSqlDatabase::database();
+    qDebug() << db.transaction();
+    prepareMap(m_docMap, int(modelCols::id));
+    m_docMap[":years"] = ui->dateLE->date().toString("yyyy");
 
     QSqlQuery query_doc;
-    query_doc.prepare("INSERT INTO documenti(id_cliente, id_tipo_documento, "
-                      "                      id_moneta, data, years, nr_documento, "
-                      "                      importo_tot, arrotondamento, casuale) "
-                      "VALUES(:id_cliente, :id_tipo_documento, :id_moneta, :data, "
-                      "       :years, 'FA'||nextval('fatt_seq'), :importo_tot, "
-                      "       :arrotondamento, :casuale) "
-                      "RETURNING id");
+    query_doc.prepare(documenti::INSERT_DOC);
+    for (QString key : m_docMap.keys())
+        query_doc.bindValue(key, m_docMap[key]);
 
-    for (QString key : string.keys())
-        query_doc.bindValue(key, string[key]);
-
-    if (!query_doc.exec())
-        qDebug() << query_doc.lastError().text();
-
-    //Id documento
+    if (!query_doc.exec()) {
+        showDialogError(this, "Errore", query_doc.lastError().text());
+        db.rollback();
+    }
+    //Recupero id documento appena inserito.
     query_doc.first();
     QString id_doc = query_doc.value("id").toString();
 
-    QString q = "INSERT INTO documenti_det (id_documento, linea, cod_articolo, "
-                "                           descr, quantita, um, prezzo_unitario, "
-                "                           prezzo_totale, aliquota_iva, rif) "
-                "VALUES(:id_documento, :linea, :cod_articolo, "
-                "       :descr, :quantita, :um, :prezzo_unitario, "
-                "       :prezzo_totale, :aliquota_iva, :rif)";
-
-    for (int r=0; r<ui->tableWidget->rowCount(); r++) {
-        qDebug() << ui->tableWidget->getMap(r);
+    //Documenti dettaglio
+    for (int row=0; row<ui->tableWidget->rowCount(); row++) {
+        auto map = ui->tableWidget->getRowMap(row);
+        if (map[":descr"].isEmpty())
+            continue;
+        map[":id_documento"] = id_doc;
+        map[":linea"] = QString::number(row);
+        QSqlQuery query;
+        query.prepare(documenti::INSERT_DET);
+        for (auto key : map.keys())
+            query.bindValue(key, map[key]);
+        if (!query.exec()) {
+            showDialogError(this, "ERRORE", query.lastError().text());
+            db.rollback();
+        }
     }
 
+    //Documenti iva
+    for (auto key : m_ivaMap.keys()) {
+        QSqlQuery query;
+        query.prepare(documenti::INSERT_IVA);
+        query.bindValue(":id_documento", id_doc);
+        double iva = stringToDouble(key);
+        query.bindValue(":aliquota_iva", iva);
+        query.bindValue(":imponibile", m_ivaMap[key]);
+        query.bindValue(":imposta", iva*m_ivaMap[key]/100);
+        if (!query.exec()) {
+            showDialogError(this, "ERRORE", query.lastError().text());
+            db.rollback();
+        }
+    }
+
+    showDialogInfo(this, "Info", db.commit() ? "La fattura è stata inserita" :
+                                               "Si è verificato un problema");
     this->accept();
 }
 
@@ -118,27 +151,49 @@ void DocumentiAddDialog::updateCell(int row, int col)
 
         auto item_pt = ui->tableWidget->item(row, int(CustomTableWidget::cols::prezzo_t));
         item_pt->setText(QString::number(qt*prezzo_u, 'f', 2));
+        updateIvaMap();
     }
-    updateLabels();
 }
 
-void DocumentiAddDialog::updateLabels()
+void DocumentiAddDialog::updateIvaMap()
 {
+    qDebug() << "DocumentiAddDialog::getIvaMap()";
     int colPrezzo = int(CustomTableWidget::cols::prezzo_t);
     int colIva = int(CustomTableWidget::cols::al_iva);
-    QMap<QString, double>map;
+    m_ivaMap.clear();
 
-    for (int r=0; r<ui->tableWidget->rowCount(); r++) {
-        auto imponibileItem = ui->tableWidget->item(r, colPrezzo);
-        auto *cb_iva = qobject_cast<QComboBox *> (ui->tableWidget->cellWidget(r, colIva));
-        map[cb_iva->currentText()] += stringToDouble(imponibileItem->text());
+    for (int row=0; row<ui->tableWidget->rowCount(); row++) {
+        auto imponibileItem = ui->tableWidget->item(row, colPrezzo);
+        auto *cb_iva = qobject_cast<QComboBox *>
+                (ui->tableWidget->cellWidget(row, colIva));
+        m_ivaMap[cb_iva->currentText()] += stringToDouble(imponibileItem->text());
     }
 
-    for (QString i : map.keys()) {
-        double imponibile = map[i];
-        double imposta = map[i]*stringToDouble(i)/100;
-        qDebug() << i << " " << QString::number(imponibile, 'f', 2)
-                 << " " << QString::number(imposta, 'f', 2)
-                 << " " << QString::number(imponibile+imposta, 'f', 2);
+    double imposta = 0;
+    double imponibile = 0;
+    for (QString key : m_ivaMap.keys()) {
+        imponibile += m_ivaMap[key];
+        imposta += m_ivaMap[key]*stringToDouble(key)/100.0;
     }
+    m_docMap[":importo_tot"] = QString::number(imponibile+imposta);
+
+    ui->imponibile_LB->setText(locale().toCurrencyString(imponibile));
+    ui->imposta_LB->setText(locale().toCurrencyString(imposta));
+    ui->totale_LB->setText(locale().toCurrencyString(imponibile+imposta));
+}
+
+void DocumentiAddDialog::closeEvent(QCloseEvent *event)
+{
+    qDebug() << "sto chiudendo";
+    bool y = showDialogWarning(this, "Chiusura", "Vuoi veramente chiudere?");
+    if (y)
+        event->accept();
+}
+
+void DocumentiAddDialog::reject()
+{
+    qDebug() << "sto chiudendo";
+    bool y = showDialogWarning(this, "Chiusura", "Vuoi veramente chiudere?");
+    if (y)
+        QDialog::reject();
 }
