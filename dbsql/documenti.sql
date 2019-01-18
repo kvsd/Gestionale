@@ -1,5 +1,7 @@
+DROP TABLE documenti_iva;
 DROP TABLE documenti_det;
 DROP TABLE documenti;
+
 DROP SEQUENCE fatt_seq;
 DROP SEQUENCE ddt_seq;
 
@@ -23,10 +25,14 @@ CREATE TABLE documenti_det (id SERIAL PRIMARY KEY,
 							cod_articolo TEXT,
 							descr TEXT,
 							quantita DECIMAL,
-							um INTEGER REFERENCES unita_misura(id),
+							um TEXT REFERENCES unita_misura(descr),
 							prezzo_unitario DECIMAL, 
 							prezzo_totale DECIMAL,
 							aliquota_iva DECIMAL REFERENCES cod_iva(descr), --percentuale
 							rif TEXT); --riferimento amministrazione
 
-
+CREATE TABLE documenti_iva (id SERIAL PRIMARY KEY, 
+							id_documento INTEGER REFERENCES documenti(id) ON DELETE CASCADE, 
+							aliquota_iva DECIMAL,
+							imponibile DECIMAL,
+							imposta DECIMAL);
