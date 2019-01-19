@@ -242,7 +242,14 @@ void AnagraficaAddDialog::openAddAgente(void)
 void AnagraficaAddDialog::copyPrtIva(void)
 {
     qDebug() << "AnagraficaAddDialog::copyPrtIva()";
-    ui->codFiscaleLE->setText(ui->pivaLE->text());
+    //ui->codFiscaleLE
+    if (ui->pivaLE->text().isEmpty()) {
+        QString nullIVA = "00000000000";
+        ui->pivaLE->setText(nullIVA);
+        ui->codFiscaleLE->setText(nullIVA);
+    }
+    else
+        ui->codFiscaleLE->setText(ui->pivaLE->text());
 }
 
 void AnagraficaAddDialog::checkAzienda()
