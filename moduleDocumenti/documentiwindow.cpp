@@ -54,6 +54,7 @@ void DocumentiWindow::initModel()
             "       an.nome AS \"Nome\", "
             "       an.cognome AS \"Cognome\" ,"
             "       doc.data AS \"Data\" ,"
+            "       doc.importo_tot::numeric::money AS \"Importo\", "
             "       doc.casuale AS \"Casuale\" "
             "FROM documenti AS doc, anagrafica AS an "
             "WHERE doc.id_cliente=an.id "
@@ -71,6 +72,7 @@ void DocumentiWindow::addFattura()
 {
     qDebug() << "DocumentiWindow::addFattura()";
     DocumentiAddDialog dlg(this);
+    dlg.initFattura();
     bool ok = dlg.exec();
     if (!ok)
         return;
@@ -95,6 +97,7 @@ void DocumentiWindow::removeRecord()
         qDebug() << query.lastError().text();
 
     m_docModel->setQuery(m_query);
+    m_detModel->setQuery("");
 
 }
 
