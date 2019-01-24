@@ -95,6 +95,10 @@ void AnagraficaAddDialog::setValue(QString id)
 
     ui->destMerceTE->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
     ui->noteTE->setText(query.value(coldb::NOTE).toString());
+    if (ui->trasmissioneCB->currentText() == "PEC") {
+        ui->codSdiLE->setVisible(false);
+        ui->codSdiLb->setVisible(false);
+    }
 
     m_mapPersona[ph::ID]=id;
 }
@@ -313,6 +317,5 @@ void AnagraficaAddDialog::checkSDI(QString string)
         ui->codSdiLE->clear();
         ui->pecLb->setVisible(true);
         ui->pecLE->setVisible(true);
-        ui->pecLE->clear();
     }
 }
