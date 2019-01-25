@@ -117,7 +117,7 @@ namespace coldb {
     const QString PREZZO_VENDITA = "prezzo_vendita";
     const QString PREZZO_VENDITA_B = "prezzo_vendita_b";
     const QString QUANTITA = "quantita";
-    const QString RAGIONE_SOCIALE = "rag_sociale";
+    const QString DENOMINAZIONE = "denominazione";
     const QString RICARICO = "ricarico";
     const QString SCONTO_FORNITORE = "sconto_fornitore";
     const QString SCORTA_MINIMA = "scorta_minima";

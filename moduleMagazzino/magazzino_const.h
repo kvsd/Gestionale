@@ -11,7 +11,7 @@ namespace magazzino {
     const QString SELECT_ARTICOLI_ALL =
             QString::fromUtf8("SELECT mg.id As \"Id\", "
                               "mg.descr As \"Descrizione\", "
-                              "an.rag_sociale AS \"Fornitore\", "
+                              "an.denominazione AS \"Fornitore\", "
                               "mg.modello As \"Modello\", "
                               "mg.cod_articolo AS \"Cod.Articolo\", "
                               "mg.cod_fornitore AS \"Cod.Fornitore\", "
@@ -80,8 +80,8 @@ namespace magazzino {
     const QString DELETE_ARTICOLO = "DELETE FROM magazzino WHERE id = :id";
 
     //Select usata nei combobox per la selezione del fornitore.
-    const QString SELECT_CB_FORNITORE = "SELECT id, rag_sociale FROM anagrafica "
-                                        "WHERE fornitore=true ORDER BY rag_sociale";
+    const QString SELECT_CB_FORNITORE = "SELECT id, denominazione FROM anagrafica "
+                                        "WHERE fornitore=true ORDER BY denominazione";
 
     //Select utilizzata in MagazzinoWindow per visualizzare lo storico
     //del'articolo selezionato

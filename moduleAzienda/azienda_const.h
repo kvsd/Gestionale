@@ -7,7 +7,7 @@ namespace azienda {
 
     const QString SELECT_QUERY = "SELECT * FROM azienda WHERE id=0";
     const QString UPDATE_QUERY = "UPDATE azienda SET "
-                                     "rag_sociale=:rag_sociale, "
+                                     "denominazione=:denominazione, "
                                      "nome=:nome, "
                                      "cognome=:cognome, "
                                      "prt_iva=:prt_iva, "

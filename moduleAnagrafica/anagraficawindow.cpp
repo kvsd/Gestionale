@@ -82,7 +82,7 @@ void AnagraficaWindow::loadConfigSettings()
     m_anagraficaModel->setBgMap(getBgSettings(anagrafica::ANGRFC_COLORS));
 
     //Carico le impostazioni del menu ricerca
-    ui->actionRagioneSociale->setChecked(m_settings.value(anagrafica::SEARCH_RAGSOCL, true).toBool());
+    ui->actionDenominazione->setChecked(m_settings.value(anagrafica::SEARCH_DENOM, true).toBool());
     ui->actionCognome->setChecked(m_settings.value(anagrafica::SEARCH_COGNOME, false).toBool());
     ui->actionCodiceFiscale->setChecked(m_settings.value(anagrafica::SEARCH_CODFISC, false).toBool());
     ui->actionPartitaIVA->setChecked(m_settings.value(anagrafica::SEARCH_PIVA, false).toBool());
@@ -96,7 +96,7 @@ void AnagraficaWindow::saveConfigSettings()
     saveTableViewSettings();
 
     //Salvo le impostazioni del menu ricerca
-    m_settings.setValue(anagrafica::SEARCH_RAGSOCL, ui->actionRagioneSociale->isChecked());
+    m_settings.setValue(anagrafica::SEARCH_DENOM, ui->actionDenominazione->isChecked());
     m_settings.setValue(anagrafica::SEARCH_COGNOME, ui->actionCognome->isChecked());
     m_settings.setValue(anagrafica::SEARCH_CODFISC, ui->actionCodiceFiscale->isChecked());
     m_settings.setValue(anagrafica::SEARCH_PIVA, ui->actionPartitaIVA->isChecked());
@@ -178,8 +178,8 @@ QString AnagraficaWindow::getSearchString()
 
     QString pattern = "%1 ILIKE '%%2%'";
     QStringList list;
-    if (ui->actionRagioneSociale->isChecked())
-        list.append(pattern.arg(coldb::RAGIONE_SOCIALE));
+    if (ui->actionDenominazione->isChecked())
+        list.append(pattern.arg(coldb::DENOMINAZIONE));
 
     if (ui->actionCognome->isChecked())
         //WARNING CONFLITTO con la tabella agenti, campo cognome uguale.

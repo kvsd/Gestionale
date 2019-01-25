@@ -95,7 +95,7 @@ INSERT INTO trasmissione VALUES(DEFAULT, 'Cliente SDI', 'FPR12');
 INSERT INTO trasmissione VALUES(DEFAULT, 'PEC', 'FPR12');
 --##############################################################################
 CREATE TABLE azienda (id INTEGER PRIMARY KEY, 
-                      rag_sociale TEXT,
+                      denominazione TEXT,
                       nome TEXT,
 					  cognome TEXT,
                       prt_iva TEXT UNIQUE NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE anagrafica(id SERIAL PRIMARY KEY,
 					   pa BOOL NOT NULL DEFAULT 'n', --pubblica amministrazione
 					   fornitore BOOL NOT NULL DEFAULT 'n',
                        cliente BOOL NOT NULL DEFAULT 'n',
-                       rag_sociale TEXT,
+                       denominazione TEXT,
                        nome TEXT,
                        cognome TEXT,
 					   id_trasmissione INTEGER references trasmissione(id) DEFAULT 0,

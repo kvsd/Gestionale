@@ -30,7 +30,7 @@ void AnagraficaAddDialog::initForm(void)
     ui->fornitoreRB->setProperty(m_property, coldb::FORNITORE);
     ui->paRB->setProperty(m_property, coldb::PA);
 
-    ui->ragSocialeLE->setProperty(m_property, coldb::RAGIONE_SOCIALE);
+    ui->denominazioneLE->setProperty(m_property, coldb::DENOMINAZIONE);
     ui->nomeLE->setProperty(m_property, coldb::NOME);
     ui->cognomeLE->setProperty(m_property, coldb::COGNOME);
     ui->trasmissioneCB->setProperty(m_property, coldb::ID_TRASMISSIONE);
@@ -141,10 +141,10 @@ bool AnagraficaAddDialog::checkValues(void)
 {
     qDebug() << "AnagraficaAddDialog::checkValues()";
 
-    //Controllo ragione sociale
+    //Controllo denominazione
     if ((ui->aziendaRB->isChecked() || ui->fornitoreRB->isChecked() ||
-            ui->paRB->isChecked()) && ui->ragSocialeLE->text().isEmpty()) {
-        ui->ragSocialeLE->setStyleSheet(css::warning);
+            ui->paRB->isChecked()) && ui->denominazioneLE->text().isEmpty()) {
+        ui->denominazioneLE->setStyleSheet(css::warning);
         showDialogError(this, ERR019, MSG016);
         return false;
     }
@@ -259,8 +259,8 @@ void AnagraficaAddDialog::copyPrtIva(void)
 void AnagraficaAddDialog::checkAzienda()
 {
     qDebug() << "AnagraficaAddDialog::checkAzienda()";
-    ui->ragSocialeLB->setVisible(true);
-    ui->ragSocialeLE->setVisible(true);
+    ui->denominazioneLE->setVisible(true);
+    ui->denominazioneLE->setVisible(true);
     ui->nomeLB->setVisible(false);
     ui->nomeLE->setVisible(false);
     ui->nomeLE->clear();
@@ -272,9 +272,9 @@ void AnagraficaAddDialog::checkAzienda()
 void AnagraficaAddDialog::checkCliente()
 {
     qDebug() << "AnagraficaAddDialog::checkCliente()";
-    ui->ragSocialeLB->setVisible(false);
-    ui->ragSocialeLE->setVisible(false);
-    ui->ragSocialeLE->clear();
+    ui->denominazioneLE->setVisible(false);
+    ui->denominazioneLE->setVisible(false);
+    ui->denominazioneLE->clear();
     ui->nomeLB->setVisible(true);
     ui->nomeLE->setVisible(true);
     ui->cognomeLB->setVisible(true);

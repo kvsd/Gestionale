@@ -22,7 +22,7 @@ AziendaDialog::~AziendaDialog()
 void AziendaDialog::initForm()
 {
     qDebug() << "AziendaDialog::initForm()";
-    ui->ragSocialeLE->setProperty(m_property, coldb::RAGIONE_SOCIALE);
+    ui->denominazioneLE->setProperty(m_property, coldb::DENOMINAZIONE);
     ui->prtivaLE->setProperty(m_property, coldb::PARTITA_IVA);
     ui->codfiscLE->setProperty(m_property, coldb::CODICE_FISCALE);
     ui->numeroReaLE->setProperty(m_property, coldb::NUMERO_REA);
@@ -131,9 +131,9 @@ bool AziendaDialog::checkValues()
     //Funzione che controlla i dati inseriti dall'utente.
     qDebug() << "AziendaDialog::checkValue()";
 
-    //Controllo ragione sociale
-    if (ui->ragSocialeLE->text().isEmpty()) {
-        ui->ragSocialeLE->setStyleSheet(css::warning);
+    //Controllo denominazione
+    if (ui->denominazioneLE->text().isEmpty()) {
+        ui->denominazioneLE->setStyleSheet(css::warning);
         //NOTE codice errore 033
         showDialogError(this, ERR033, MSG016);
         return false;

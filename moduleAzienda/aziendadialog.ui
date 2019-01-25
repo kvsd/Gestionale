@@ -89,7 +89,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="1">
-           <widget class="QLineEdit" name="ragSocialeLE"/>
+           <widget class="QLineEdit" name="denominazioneLE"/>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="prtivaLE"/>
@@ -110,10 +110,10 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Ragione sociale:</string>
+             <string>Denominazione:</string>
             </property>
             <property name="buddy">
-             <cstring>ragSocialeLE</cstring>
+             <cstring>denominazioneLE</cstring>
             </property>
            </widget>
           </item>
@@ -408,7 +408,7 @@
  </widget>
  <tabstops>
   <tabstop>scrollArea</tabstop>
-  <tabstop>ragSocialeLE</tabstop>
+  <tabstop>denominazioneLE</tabstop>
   <tabstop>prtivaLE</tabstop>
   <tabstop>copyPB</tabstop>
   <tabstop>codfiscLE</tabstop>
