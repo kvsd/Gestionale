@@ -5,7 +5,7 @@ CustomTableWidget::CustomTableWidget(QWidget *parent)
 {
     qDebug() << "CustomTableWidget()";
     setAlternatingRowColors(true);
-    setToolTip("<b>Ctrl +</b> Aggiungi\n<b>Ctrl -</b> Rimuovi");
+    setToolTip("<b>Ctrl +</b> Aggiungi riga\n<b>Ctrl -</b> Rimuovi riga");
 }
 
 void CustomTableWidget::initFattura()
@@ -32,35 +32,41 @@ void CustomTableWidget::insertRow()
     QTableWidget::insertRow(rowCount());
     blockSignals(true);
     if (m_win == tableType::fattura) {
-        for (int col=0; col<columnCount(); col++) {
-            int row = rowCount()-1;
-            QTableWidgetItem *item = new QTableWidgetItem;
-            if (col==int(cols::qt) ||
-                col==int(cols::prezzo_u) ||
-                col==int(cols::prezzo_t)) {
-                item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                if (col==int(cols::prezzo_t))
-                    item->setFlags(Qt::ItemIsEnabled);
-                setItem(row, col, item);
-            }
-            else if (col==int(cols::um) || col==int(cols::al_iva)) {
-                QComboBox *cb = new QComboBox;
-                cb->setProperty("col", col);
-                cb->setProperty("row", row);
-                QString t = col==int(cols::um) ? table::UNITA_MISURA : table::CODICE_IVA;
-                setupComboBox(t, cb, 1);
-                setCellWidget(row, col, cb);
-                connect(cb, SIGNAL(activated(QString)),
-                        this, SLOT(cbIdentify(QString)));
-            }
-            else
-                setItem(row, col, item);
-        }
+        insertRowFattura();
     }
     emit insertedRow();
     blockSignals(false);
     resizeColumnsToContents();        
     horizontalHeader()->setStretchLastSection(true);
+}
+
+void CustomTableWidget::insertRowFattura()
+{
+    qDebug() << "CustomTableWidget::insertRowFattura()";
+    for (int col=0; col<columnCount(); col++) {
+        int row = rowCount()-1;
+        QTableWidgetItem *item = new QTableWidgetItem;
+        if (col==int(cols::qt) ||
+            col==int(cols::prezzo_u) ||
+            col==int(cols::prezzo_t)) {
+            item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            if (col==int(cols::prezzo_t))
+                item->setFlags(Qt::ItemIsEnabled);
+            setItem(row, col, item);
+        }
+        else if (col==int(cols::um) || col==int(cols::al_iva)) {
+            QComboBox *cb = new QComboBox;
+            cb->setProperty("col", col);
+            cb->setProperty("row", row);
+            QString t = col==int(cols::um) ? table::UNITA_MISURA : table::CODICE_IVA;
+            setupComboBox(t, cb, 1);
+            setCellWidget(row, col, cb);
+            connect(cb, SIGNAL(activated(QString)),
+                    this, SLOT(cbIdentify(QString)));
+        }
+        else
+            setItem(row, col, item);
+    }
 }
 
 void CustomTableWidget::removeRow()

@@ -82,7 +82,6 @@ void DocumentiAddDialog::save()
     qDebug() << "DocumentiAddDialog::save()";
     //Documenti
     QSqlDatabase db = QSqlDatabase::database();
-    qDebug() << db.transaction();
     prepareMap(m_docMap, int(modelCols::id));
     m_docMap[":years"] = ui->dateLE->date().toString("yyyy");
 
@@ -184,7 +183,7 @@ void DocumentiAddDialog::updateIvaMap()
 
 void DocumentiAddDialog::closeEvent(QCloseEvent *event)
 {
-    qDebug() << "sto chiudendo";
+    qDebug() << "DocumentiAddDialog::closeEvent()";
     bool y = showDialogWarning(this, "Chiusura", "Vuoi veramente chiudere?");
     if (y)
         event->accept();
@@ -192,7 +191,7 @@ void DocumentiAddDialog::closeEvent(QCloseEvent *event)
 
 void DocumentiAddDialog::reject()
 {
-    qDebug() << "sto chiudendo";
+    qDebug() << "DocumentiAddDialog::reject()";
     bool y = showDialogWarning(this, "Chiusura", "Vuoi veramente chiudere?");
     if (y)
         QDialog::reject();

@@ -50,7 +50,7 @@ void DocumentiWindow::initModel()
     qDebug() << "DocumentiWindow::initModel()";
     m_query = "select doc.id AS \"Id\","
             "       doc.nr_documento AS \"Numero\", "
-            "       an.rag_sociale AS \"Rag.Sociale\","
+            "       an.denominazione AS \"Denominazione\","
             "       an.nome AS \"Nome\", "
             "       an.cognome AS \"Cognome\" ,"
             "       doc.data AS \"Data\" ,"
@@ -105,7 +105,6 @@ void DocumentiWindow::updateDettaglio(QModelIndex index)
 {
     qDebug() << "DocumentiWindow::updateDettaglio()";
     QString id = m_docModel->record(index.row()).value("id").toString();
-    qDebug() << id;
     QString query = "SELECT cod_articolo AS \"Cod.Articolo\", "
                     "       descr AS \"Descrizione\", "
                     "       quantita AS \"Quantità\", "

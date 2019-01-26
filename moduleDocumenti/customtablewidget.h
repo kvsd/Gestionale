@@ -37,6 +37,7 @@ private slots:
 
 public slots:
     void insertRow();
+    void insertRowFattura();
     void removeRow();
 
 signals:
