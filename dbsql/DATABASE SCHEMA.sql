@@ -114,8 +114,8 @@ CREATE TABLE azienda (id INTEGER PRIMARY KEY,
                       email TEXT,
 					  pec TEXT NOT NULL,
 		      		  logo BYTEA);
-INSERT INTO azienda(id, rag_sociale, indirizzo, prt_iva, cod_fisc, numero_rea, pec)
-			VALUES('0', 'ragione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '00000', 'pec@pec.it');
+INSERT INTO azienda(id, denominazione, indirizzo, prt_iva, cod_fisc, numero_rea, pec)
+			VALUES('0', 'denominazione sociale', 'indirizzo', '00000000000', 'XXXYYY00X00X000Y', '00000', 'pec@pec.it');
 --##############################################################################
 CREATE TABLE agenti(id SERIAL PRIMARY KEY,
                     nome TEXT,
@@ -157,7 +157,7 @@ CREATE TABLE anagrafica(id SERIAL PRIMARY KEY,
                        iban TEXT,
                        dest_merce TEXT,
                        note TEXT);
-INSERT INTO anagrafica(id, fornitore, cliente, rag_sociale, cod_fisc, prt_iva) VALUES(0, 't','t','-----', '','');
+INSERT INTO anagrafica(id, fornitore, cliente, denominazione, cod_fisc, prt_iva) VALUES(0, 't','t','-----', '','');
 --######################################################################################
 CREATE TABLE magazzino (id SERIAL PRIMARY KEY,
                         descr TEXT,
