@@ -53,6 +53,7 @@ public slots:
     void openAddCap(void);
     void openAddAgente(void);
     void copyPrtIva(void);
+    void setFornitore(void);
 
 private slots:
     void checkAzienda();

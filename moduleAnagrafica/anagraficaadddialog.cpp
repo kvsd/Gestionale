@@ -256,10 +256,17 @@ void AnagraficaAddDialog::copyPrtIva(void)
         ui->codFiscaleLE->setText(ui->pivaLE->text());
 }
 
+void AnagraficaAddDialog::setFornitore()
+{
+    qDebug() << "AnagraficaAddDialog::setFornitore()";
+    ui->fornitoreRB->setChecked(true);
+    checkFornitore();
+}
+
 void AnagraficaAddDialog::checkAzienda()
 {
     qDebug() << "AnagraficaAddDialog::checkAzienda()";
-    ui->denominazioneLE->setVisible(true);
+    ui->denominazioneLB->setVisible(true);
     ui->denominazioneLE->setVisible(true);
     ui->nomeLB->setVisible(false);
     ui->nomeLE->setVisible(false);
@@ -272,7 +279,7 @@ void AnagraficaAddDialog::checkAzienda()
 void AnagraficaAddDialog::checkCliente()
 {
     qDebug() << "AnagraficaAddDialog::checkCliente()";
-    ui->denominazioneLE->setVisible(false);
+    ui->denominazioneLB->setVisible(false);
     ui->denominazioneLE->setVisible(false);
     ui->denominazioneLE->clear();
     ui->nomeLB->setVisible(true);
