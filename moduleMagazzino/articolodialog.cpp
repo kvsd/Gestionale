@@ -371,6 +371,7 @@ void ArticoloDialog::openAddFornitore()
 {
     qDebug() << "ArticoloDialog::openAddFornitore()";
     AnagraficaAddDialog dlg(this);
+    dlg.setFornitore();
     bool ok = dlg.exec();
     if (!ok)
         return;
