@@ -311,7 +311,19 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_Stampa">
+    <property name="title">
+     <string>&amp;Stampa</string>
+    </property>
+    <addaction name="action_Stampa"/>
+   </widget>
+   <addaction name="menu_Stampa"/>
   </widget>
+  <action name="action_Stampa">
+   <property name="text">
+    <string>&amp;Stampa</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>searchLineEdit</tabstop>
@@ -354,7 +366,7 @@
    <slot>updateNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
+     <x>175</x>
      <y>590</y>
     </hint>
     <hint type="destinationlabel">
@@ -370,7 +382,7 @@
    <slot>removeNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>276</x>
+     <x>261</x>
      <y>590</y>
     </hint>
     <hint type="destinationlabel">
@@ -594,8 +606,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>591</x>
-     <y>189</y>
+     <x>590</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>623</x>
@@ -619,11 +631,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Stampa</sender>
+   <signal>triggered()</signal>
+   <receiver>PrimaNotaWindow</receiver>
+   <slot>printNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addNote()</slot>
   <slot>updateNote()</slot>
   <slot>removeNote()</slot>
   <slot>updateViewNote()</slot>
+  <slot>printNote()</slot>
  </slots>
 </ui>

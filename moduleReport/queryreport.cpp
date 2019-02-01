@@ -14,6 +14,7 @@ QueryReport::QueryReport(QPrinter *printer, QPainter *painter, QObject *parent)
       m_rowFgColor(Qt::black),
       m_origin(QPointF(0,0)),
       m_width(m_printer->width()),
+      m_isNewPage(false),
       m_titleRow(0),
       m_headerRow(0),
       m_dataRow(0)
@@ -32,9 +33,9 @@ void QueryReport::nextPage()
     m_printer->newPage();
     m_current_page++;
     m_titleRow->at(1)->setText(QString("Pag.%1").arg(m_current_page));
-    m_titleRow->draw();
-    m_headerRow->draw();
-    m_dataRow->moveRow(m_headerRow->getLeft(), m_headerRow->getBottom());
+    m_dataRow->moveRow(0,0);
+    m_bottom = m_dataRow->getTop();
+    m_isNewPage = true;
 }
 
 void QueryReport::configPage()
@@ -78,11 +79,18 @@ void QueryReport::draw()
     m_titleRow->draw();
     m_headerRow->draw();
     while (query.next()) {
+        if(m_isNewPage) {
+            m_isNewPage = false;
+            m_titleRow->draw();
+            m_headerRow->draw();
+            m_dataRow->moveRow(m_headerRow->getLeft(), m_headerRow->getBottom());
+        }
         QStringList values;
         for (QString &col : m_queryCols)
             values << query.value(col).toString();
         m_dataRow->setText(values);
         m_dataRow->draw();
+        m_bottom = m_dataRow->getBottom();
         m_dataRow->moveRow(m_dataRow->getLeft(), m_dataRow->getBottom());
         if (m_dataRow->getBottom() > m_printer->height())
             nextPage();

@@ -34,6 +34,8 @@ public:
     void setWidth(float width) {m_width = width;}
     float getwitdh() const {return m_width;}
 
+    float getBottom() const {return m_bottom;}
+
     void setQuery(QString query){m_query = query;}
     QString getQuery() const {return m_query;}
     int getQuerySize() const {return m_querySize;}
@@ -98,6 +100,8 @@ private:
 
     QPointF m_origin;
     float m_width;
+    float m_bottom;
+    bool m_isNewPage;
     Row *m_titleRow;
     Row *m_headerRow;
     Row *m_dataRow;

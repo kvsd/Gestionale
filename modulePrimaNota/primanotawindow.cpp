@@ -52,8 +52,6 @@ void PrimaNotaWindow::initModel()
     m_primaNotaModel->setAlignMap(alignMap);
     m_primaNotaModel->setFgMap(fgColorMap);
     ui->noteTableView->setModel(m_primaNotaModel);
-    ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
-    ui->noteTableView->hideColumn(0);
 }
 
 void PrimaNotaWindow::initComboBox()
@@ -109,7 +107,45 @@ void PrimaNotaWindow::updateViewNote()
     m_primaNotaModel->setQuery(query);
     ui->noteTableView->resizeColumnsToContents();
     ui->noteTableView->horizontalHeader()->setStretchLastSection(true);
+    ui->noteTableView->hideColumn(0);
     getInfoLabel();
+}
+
+void PrimaNotaWindow::printNote()
+{
+    qDebug() << "printNote()";
+    QPrinter *printer = new QPrinter(QPrinter::HighResolution);
+
+    QPrintDialog dlg(printer, this);
+    if (!(dlg.exec() == dlg.Accepted))
+        return;
+
+    printer->setOrientation(QPrinter::Landscape);
+    QPainter *painter = new QPainter(printer);
+    QString query = m_primaNotaModel->query().executedQuery();
+
+    QueryReport *report = new QueryReport(printer, painter, this);
+    report->setTitle("PrimaNota");
+    report->setStretchValues({1,3, 1, 1, 1, 1});
+    report->setQuery(query);
+    report->setQueryCols({colview::DATA, colview::DESCRIZIONE,
+                         colview::ENT_CASSA, colview::USC_CASSA,
+                         colview::ENT_BANCA, colview::USC_BANCA});
+    report->setAlignCols({Qt::AlignLeft, Qt::AlignLeft, Qt::AlignRight,
+                          Qt::AlignRight, Qt::AlignRight, Qt::AlignRight});
+    report->draw();
+    //Totale
+    QPointF o(0, report->getBottom());
+    Row *row = new Row({1,3,1,1,1,1}, o, report->getwitdh(), 1, painter);
+    row->setTextAlignment({Qt::AlignLeft, Qt::AlignLeft, Qt::AlignRight,
+                           Qt::AlignRight, Qt::AlignRight, Qt::AlignRight});
+    row->setLineColor(Qt::transparent);
+    row->setText({"", "", ui->ecLabel->text(), ui->ucLabel->text(),
+                 ui->ebLabel->text(), ui->ubLabel->text()});
+    row->setTextFont(font(), true);
+    row->draw();
+
+    delete painter;
 }
 
 QString PrimaNotaWindow::prepareFilterQuery()

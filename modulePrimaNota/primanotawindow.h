@@ -11,6 +11,11 @@
 #include <QSettings>
 #include <QSqlRecord>
 
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPainter>
+#include "moduleReport/queryreport.h"
+
 #include "primanota_const.h"
 #include "primanotaadddlg.h"
 #include "libs/custommodel.h"
@@ -48,6 +53,7 @@ public slots:
     void updateNote();
     void removeNote();
     void updateViewNote();
+    void printNote();
 };
 
 #endif // PRIMANOTAWINDOW_H

@@ -10,7 +10,7 @@ namespace report {
         QString::fromUtf8("SELECT DISTINCT ON (mg.id, mg.descr, ls.fattura) "
                           "mg.id As \"Id\", "
                           "mg.descr As \"Descrizione\", "
-                          "an.rag_sociale AS \"Fornitore\", "
+                          "an.denominazione AS \"Fornitore\", "
                           "mg.modello As \"Modello\", "
                           "mg.cod_articolo AS \"Cod.Articolo\", "
                           "mg.cod_fornitore AS \"Cod.Fornitore\", "
@@ -31,15 +31,15 @@ namespace report {
                           "mg.note As \"Note\" "
                           "FROM magazzino AS mg, anagrafica AS an, listino_storico AS ls "
                           "WHERE mg.id_fornitore=an.id AND mg.id=ls.id_articolo "
-                          "AND rag_sociale='%1' AND ls.fattura ILIKE '%%2%' "
+                          "AND denominazione='%1' AND ls.fattura ILIKE '%%2%' "
                           "ORDER BY mg.descr, mg.id, ls.fattura, ls.data_arrivo DESC");
 
     //Filtro fornitore.
-    const QString FILTER_FORNITORE = "AND an.rag_sociale='%1' ORDER BY mg.descr";
+    const QString FILTER_FORNITORE = "AND an.denominazione='%1' ORDER BY mg.descr";
 
     //Filtro fornitore e data corrente.
     const QString FILTER_CURRENT_DATE =
-            "AND an.rag_sociale='%1' AND mg.data_arrivo=current_date "
+            "AND an.denominazione='%1' AND mg.data_arrivo=current_date "
             "ORDER BY mg.descr";
 
     //Select utilizzata per la stampa dell'inventario
