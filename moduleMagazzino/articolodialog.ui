@@ -228,14 +228,27 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>736</width>
-            <height>342</height>
+            <width>722</width>
+            <height>369</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <layout class="QGridLayout" name="gridLayout_3">
-             <item row="8" column="3">
+             <item row="2" column="1" colspan="3">
+              <widget class="QLineEdit" name="codFornitoreLE"/>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="label_16">
+               <property name="text">
+                <string>Cod. IVA:</string>
+               </property>
+               <property name="buddy">
+                <cstring>codivaCB</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="3">
               <widget class="QLineEdit" name="ivaLE">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(255, 255, 127);</string>
@@ -252,7 +265,7 @@
                </property>
               </widget>
              </item>
-             <item row="11" column="1">
+             <item row="12" column="1">
               <widget class="QLineEdit" name="prezzoVendita1LE">
                <property name="styleSheet">
                 <string notr="true"/>
@@ -291,7 +304,7 @@
                </property>
               </widget>
              </item>
-             <item row="8" column="2">
+             <item row="9" column="2">
               <widget class="QLabel" name="label_25">
                <property name="text">
                 <string>IVA:</string>
@@ -314,7 +327,7 @@
                </property>
               </widget>
              </item>
-             <item row="8" column="4">
+             <item row="9" column="4">
               <widget class="QToolButton" name="ivaDlgPB">
                <property name="text">
                 <string>...</string>
@@ -327,10 +340,13 @@
              <item row="0" column="1" colspan="3">
               <widget class="QComboBox" name="fornitoreCB"/>
              </item>
-             <item row="8" column="1">
+             <item row="9" column="1">
               <widget class="QComboBox" name="codivaCB"/>
              </item>
-             <item row="10" column="0">
+             <item row="12" column="3">
+              <widget class="QLineEdit" name="prezzoVendita2LE"/>
+             </item>
+             <item row="11" column="0">
               <widget class="QLabel" name="label_23">
                <property name="text">
                 <string>Prezzo finito:</string>
@@ -350,8 +366,12 @@
                </property>
               </widget>
              </item>
-             <item row="11" column="3">
-              <widget class="QLineEdit" name="prezzoVendita2LE"/>
+             <item row="4" column="1" colspan="3">
+              <widget class="QLineEdit" name="prezzoFatturaLE">
+               <property name="placeholderText">
+                <string/>
+               </property>
+              </widget>
              </item>
              <item row="7" column="0">
               <widget class="QLabel" name="label_17">
@@ -363,27 +383,7 @@
                </property>
               </widget>
              </item>
-             <item row="8" column="0">
-              <widget class="QLabel" name="label_16">
-               <property name="text">
-                <string>Cod. IVA:</string>
-               </property>
-               <property name="buddy">
-                <cstring>codivaCB</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1" colspan="3">
-              <widget class="QLineEdit" name="prezzoFatturaLE">
-               <property name="placeholderText">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1" colspan="3">
-              <widget class="QLineEdit" name="codFornitoreLE"/>
-             </item>
-             <item row="11" column="0">
+             <item row="12" column="0">
               <widget class="QLabel" name="label_24">
                <property name="text">
                 <string>Prezzo vendità 1:</string>
@@ -403,7 +403,7 @@
                </property>
               </widget>
              </item>
-             <item row="11" column="2">
+             <item row="12" column="2">
               <widget class="QLabel" name="label_22">
                <property name="text">
                 <string>Prezzo vendità 2:</string>
@@ -413,7 +413,7 @@
                </property>
               </widget>
              </item>
-             <item row="10" column="1" colspan="3">
+             <item row="11" column="1" colspan="3">
               <widget class="QLineEdit" name="prezzoFinitoLE">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(255, 255, 127);</string>
@@ -440,6 +440,9 @@
                </property>
               </widget>
              </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="fatturaLE"/>
+             </item>
              <item row="2" column="4">
               <widget class="QToolButton" name="copyCodArtPB">
                <property name="toolTip">
@@ -463,8 +466,8 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="fatturaLE"/>
+             <item row="1" column="3">
+              <widget class="QDateEdit" name="dataLE"/>
              </item>
              <item row="1" column="2">
               <widget class="QLabel" name="label_10">
@@ -479,8 +482,25 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="3">
-              <widget class="QDateEdit" name="dataLE"/>
+             <item row="8" column="1" colspan="3">
+              <widget class="QLineEdit" name="imponibileLE">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 127);</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Imponibile:</string>
+               </property>
+               <property name="buddy">
+                <cstring>imponibileLE</cstring>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -629,18 +649,19 @@
   <tabstop>scontoLE</tabstop>
   <tabstop>prezzoAcquistoLE</tabstop>
   <tabstop>ricaricoLE</tabstop>
+  <tabstop>imponibileLE</tabstop>
   <tabstop>codivaCB</tabstop>
   <tabstop>ivaLE</tabstop>
   <tabstop>ivaDlgPB</tabstop>
   <tabstop>prezzoFinitoLE</tabstop>
   <tabstop>prezzoVendita1LE</tabstop>
   <tabstop>prezzoVendita2LE</tabstop>
-  <tabstop>scrollArea_3</tabstop>
   <tabstop>groupBox</tabstop>
   <tabstop>noteTE</tabstop>
   <tabstop>closeButton</tabstop>
   <tabstop>clearButton</tabstop>
   <tabstop>saveButton</tabstop>
+  <tabstop>scrollArea_3</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -652,11 +673,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>123</x>
-     <y>180</y>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>152</x>
-     <y>255</y>
+     <x>141</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -699,8 +720,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>367</x>
-     <y>311</y>
+     <x>246</x>
+     <y>340</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
@@ -779,7 +800,7 @@
    <slot>openAddFornitore()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>746</x>
+     <x>732</x>
      <y>77</y>
     </hint>
     <hint type="destinationlabel">
@@ -795,8 +816,8 @@
    <slot>openAddIVA()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>746</x>
-     <y>310</y>
+     <x>732</x>
+     <y>339</y>
     </hint>
     <hint type="destinationlabel">
      <x>717</x>
@@ -811,7 +832,7 @@
    <slot>copyCodArt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>742</x>
+     <x>728</x>
      <y>137</y>
     </hint>
     <hint type="destinationlabel">
@@ -827,8 +848,8 @@
    <slot>updatePrezzoFattura()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>428</x>
-     <y>184</y>
+     <x>246</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -843,8 +864,8 @@
    <slot>updatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>428</x>
-     <y>242</y>
+     <x>246</x>
+     <y>253</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -859,8 +880,8 @@
    <slot>calculatePrezzoAcquisto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>428</x>
-     <y>213</y>
+     <x>246</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -875,8 +896,8 @@
    <slot>updatePrezzi()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>256</x>
-     <y>329</y>
+     <x>246</x>
+     <y>369</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -891,8 +912,8 @@
    <slot>updatePrezzi()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>256</x>
-     <y>358</y>
+     <x>246</x>
+     <y>398</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -907,8 +928,8 @@
    <slot>updateIva()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>256</x>
-     <y>271</y>
+     <x>246</x>
+     <y>282</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -939,8 +960,8 @@
    <slot>updatePrezzi()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>601</x>
-     <y>358</y>
+     <x>583</x>
+     <y>398</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>

@@ -39,6 +39,7 @@ void ArticoloDialog::initForm()
     ui->scontoLE->setProperty(m_property, coldb::SCONTO_FORNITORE);
     ui->ricaricoLE->setProperty(m_property, coldb::RICARICO);
     ui->prezzoAcquistoLE->setProperty(m_property, coldb::PREZZO_ACQUISTO);
+    ui->imponibileLE->setProperty(m_property, coldb::IMPONIBILE);
     ui->ivaLE->setProperty(m_property, coldb::IVA);
     ui->prezzoFinitoLE->setProperty(m_property, coldb::PREZZO_FINITO);
     ui->prezzoVendita1LE->setProperty(m_property, coldb::PREZZO_VENDITA);
@@ -152,8 +153,8 @@ void ArticoloDialog::prepareMap()
 
     //Pulisco i campi contenuti nella QStringList placeholder
     QStringList placeholder = {ph::SCORTA, ph::QUANTIT, ph::PRZ_FAT,
-                               ph::PRZ_ACQ, ph::IVA, ph::PRZ_VEN,
-                               ph::PRZ_VEN_B, ph::PRZ_FIN};
+                               ph::PRZ_ACQ, ph::IVA, ph::IMPONIBILE,
+                               ph::PRZ_VEN, ph::PRZ_VEN_B, ph::PRZ_FIN};
 
     for (auto str : placeholder) {
         double value = stringToDouble(m_articoloMap[str]);
@@ -319,13 +320,14 @@ void ArticoloDialog::updateIva(void)
 
     double prezzo = stringToDouble(ui->prezzoAcquistoLE->text());
     QString ricarico_str = ui->ricaricoLE->text().replace("%","");
-    double prezzo_acquisto = setRicarico(prezzo, ricarico_str);
+    double imponibile = setRicarico(prezzo, ricarico_str);
+    ui->imponibileLE->setText(locale().toCurrencyString(imponibile));
 
     double codiva = stringToDouble(ui->codivaCB->currentText())/100.0;
-    double iva = prezzo_acquisto*codiva;
+    double iva = imponibile*codiva;
     ui->ivaLE->setText(locale().toCurrencyString(iva));
 
-    double prezzo_finito = prezzo_acquisto+iva;
+    double prezzo_finito = imponibile+iva;
     ui->prezzoFinitoLE->setText(locale().toCurrencyString(prezzo_finito));
     double prezzo_vendita = stringToDouble(ui->prezzoVendita1LE->text());
     if (prezzo_vendita < prezzo_finito)

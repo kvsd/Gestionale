@@ -44,6 +44,7 @@ namespace ph {
     const QString ID = ":id";
     const QString ID_ART  = ":id_articolo";
     const QString IVA     = ":iva";
+    const QString IMPONIBILE = ":imponibile";
     const QString LOGO = ":logo";
     const QString PRT_IVA = ":prt_iva";
     const QString PRZ_ACQ = ":prezzo_acquisto";
@@ -101,6 +102,7 @@ namespace coldb {
     const QString ID_STATO_LIQUID = "id_stato_liquid";
     const QString ID_TRASMISSIONE = "id_trasmissione";
     const QString ID_UNITA = "id_unita_misura";
+    const QString IMPONIBILE = "imponibile";
     const QString INDIRIZZO = "indirizzo";
     const QString IVA = "iva";
     const QString LOGO = "logo";
