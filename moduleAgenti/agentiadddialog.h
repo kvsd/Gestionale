@@ -33,8 +33,6 @@ private:
 
 public slots:
     void save(void);
-
-
 };
 
 #endif // AGENTIADDDIALOG_H

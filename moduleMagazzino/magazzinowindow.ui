@@ -172,268 +172,273 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-109</y>
-             <width>385</width>
-             <height>535</height>
+             <y>-230</y>
+             <width>408</width>
+             <height>647</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
-             <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
-              <item row="0" column="0">
-               <widget class="QCheckBox" name="fornitoreEnabler">
-                <property name="text">
-                 <string>Fornitore:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="fornitoreComboBox">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QCheckBox" name="categoriaEnabler">
-                <property name="text">
-                 <string>Categoria:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QComboBox" name="categoriaComboBox">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QCheckBox" name="marcaEnabler">
-                <property name="text">
-                 <string>Marca:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QComboBox" name="marcaComboBox">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QCheckBox" name="sedeEnabler">
-                <property name="text">
-                 <string>Sede:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QComboBox" name="sedeComboBox">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="0" colspan="2">
-               <widget class="QGroupBox" name="groupBox_4">
-                <property name="title">
-                 <string>Data Arrivo:</string>
-                </property>
-                <layout class="QFormLayout" name="formLayout">
-                 <property name="fieldGrowthPolicy">
-                  <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="title">
+               <string>Principale</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout">
+               <item row="0" column="1">
+                <widget class="QComboBox" name="fornitoreComboBox">
+                 <property name="enabled">
+                  <bool>false</bool>
                  </property>
-                 <item row="1" column="0" colspan="2">
-                  <widget class="QRadioButton" name="allDataEnabler">
-                   <property name="text">
-                    <string>Qualsiasi</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0" colspan="2">
-                  <widget class="QRadioButton" name="currentDateEnabler">
-                   <property name="text">
-                    <string>Data corrente</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QRadioButton" name="rangeDateEnabler">
-                   <property name="text">
-                    <string>Da:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QDateEdit" name="data1LineEdit">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <weight>50</weight>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                   <property name="calendarPopup">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="1">
-                  <widget class="QDateEdit" name="data2LineEdit">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <weight>50</weight>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                   <property name="calendarPopup">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="1">
-                  <widget class="QPushButton" name="searchDateButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="text">
-                    <string>Filtra per data</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QCheckBox" name="orderEnabler">
-                <property name="text">
-                 <string>Ordina per</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QComboBox" name="orderbyComboBox">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0" colspan="2">
-               <widget class="QGroupBox" name="groupBox_5">
-                <property name="title">
-                 <string>Giacenza</string>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <item>
-                  <widget class="QRadioButton" name="radioGiacenzaAll">
-                   <property name="text">
-                    <string>Qualsiasi</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="radioGiacenzaPos">
-                   <property name="toolTip">
-                    <string>Quantità uguale o superiore alla scorta minima</string>
-                   </property>
-                   <property name="text">
-                    <string>Positiva</string>
-                   </property>
-                   <property name="checked">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="radioGiacenza0">
-                   <property name="toolTip">
-                    <string>Quantità uguale a 0</string>
-                   </property>
-                   <property name="text">
-                    <string>Uguale a 0</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="radioGiacenzaNeg">
-                   <property name="toolTip">
-                    <string>Quantità inferiore alla scorta minima</string>
-                   </property>
-                   <property name="text">
-                    <string>Negativa</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QCheckBox" name="fatturaEnabler">
-                <property name="text">
-                 <string>Fattura</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QLineEdit" name="fatturaLineEdit">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-               </widget>
-              </item>
-             </layout>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="categoriaComboBox">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="editable">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QCheckBox" name="fatturaEnabler">
+                 <property name="text">
+                  <string>Fattura</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="categoriaEnabler">
+                 <property name="text">
+                  <string>Categoria:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QComboBox" name="sedeComboBox">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="fatturaLineEdit">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QCheckBox" name="sedeEnabler">
+                 <property name="text">
+                  <string>Sede:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QCheckBox" name="marcaEnabler">
+                 <property name="text">
+                  <string>Marca:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="marcaComboBox">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QCheckBox" name="fornitoreEnabler">
+                 <property name="text">
+                  <string>Fornitore:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QCheckBox" name="orderEnabler">
+                 <property name="text">
+                  <string>Ordina per</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QComboBox" name="orderbyComboBox">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_5">
+              <property name="title">
+               <string>Giacenza</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <widget class="QRadioButton" name="radioGiacenzaAll">
+                 <property name="text">
+                  <string>Qualsiasi</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioGiacenzaPos">
+                 <property name="toolTip">
+                  <string>Quantità uguale o superiore alla scorta minima</string>
+                 </property>
+                 <property name="text">
+                  <string>Positiva</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioGiacenza0">
+                 <property name="toolTip">
+                  <string>Quantità uguale a 0</string>
+                 </property>
+                 <property name="text">
+                  <string>Uguale a 0</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioGiacenzaNeg">
+                 <property name="toolTip">
+                  <string>Quantità inferiore alla scorta minima</string>
+                 </property>
+                 <property name="text">
+                  <string>Negativa</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_4">
+              <property name="title">
+               <string>Data Arrivo:</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout">
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+               </property>
+               <item row="1" column="0" colspan="2">
+                <widget class="QRadioButton" name="allDataEnabler">
+                 <property name="text">
+                  <string>Qualsiasi</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="2">
+                <widget class="QRadioButton" name="currentDateEnabler">
+                 <property name="text">
+                  <string>Data corrente</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QRadioButton" name="rangeDateEnabler">
+                 <property name="text">
+                  <string>Da:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QDateEdit" name="data1LineEdit">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QDateEdit" name="data2LineEdit">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QPushButton" name="searchDateButton">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>Filtra per data</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </item>
             <item>
              <spacer name="verticalSpacer">
@@ -529,7 +534,7 @@
      <x>0</x>
      <y>0</y>
      <width>845</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpzioni">
@@ -641,18 +646,6 @@
   <tabstop>articoloView</tabstop>
   <tabstop>storicoView</tabstop>
   <tabstop>scrollArea</tabstop>
-  <tabstop>fornitoreEnabler</tabstop>
-  <tabstop>fornitoreComboBox</tabstop>
-  <tabstop>categoriaEnabler</tabstop>
-  <tabstop>categoriaComboBox</tabstop>
-  <tabstop>marcaEnabler</tabstop>
-  <tabstop>marcaComboBox</tabstop>
-  <tabstop>sedeEnabler</tabstop>
-  <tabstop>sedeComboBox</tabstop>
-  <tabstop>fatturaEnabler</tabstop>
-  <tabstop>fatturaLineEdit</tabstop>
-  <tabstop>orderEnabler</tabstop>
-  <tabstop>orderbyComboBox</tabstop>
   <tabstop>radioGiacenzaAll</tabstop>
   <tabstop>radioGiacenzaPos</tabstop>
   <tabstop>radioGiacenza0</tabstop>

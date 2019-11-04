@@ -35,6 +35,7 @@ void AgentiViewDialog::updateViewAgenti(void)
     m_modelAgenti->setQuery(agenti::SELECT_AGENTI + agenti::ORDER_CLAUSE);
     ui->agentiView->resizeColumnsToContents();
     ui->agentiView->horizontalHeader()->setStretchLastSection(true);
+    ui->agentiView->hideColumn(0);
 }
 
 void AgentiViewDialog::addRecord(void)
@@ -42,9 +43,8 @@ void AgentiViewDialog::addRecord(void)
     qDebug() << "AgentiViewDialog::addRecord()";
     AgentiAddDialog dlg(this);
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
 
     updateViewAgenti();
 }
@@ -64,9 +64,8 @@ void AgentiViewDialog::updateRecord(void)
     dlg.setValue(id);
     dlg.setWindowTitle("Modifica Agente");
     bool ok = dlg.exec();
-    if (!ok) {
+    if (!ok)
         return;
-    }
 
     updateViewAgenti();
 }

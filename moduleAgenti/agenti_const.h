@@ -1,6 +1,8 @@
 #ifndef AGENTI_CONST_H
 #define AGENTI_CONST_H
 
+#include <QString>
+
 namespace agenti {
     //Query usata da AgentiAddDialog per aggiungere un nuovo record
     const QString INSERT_QUERY = "INSERT INTO agenti(nome,"

@@ -100,6 +100,7 @@ const QString MSG032 = QString::fromUtf8("Bisogna selezionare un valore dal camp
 const QString MSG033 = QString::fromUtf8("I campi Nome e cognome sono obbligatori");
 const QString MSG034 = QString::fromUtf8("L'untente non è autorizzato, contattare l'amministratore del database.");
 const QString MSG035 = QString::fromUtf8("Password o nome utente errato, se l'errore persiste contattare l'amministratore del database.");
+const QString MSG036 = QString::fromUtf8("Si è verificato un errore nella creazione del file di backup. Per effettuare il backup l'utente del database deve essere uguale all'utente del sistema");
 
 void showDialogError(QWidget *parent, QString title, QString informative="", QString details="");
 bool showDialogWarning(QWidget *parent, QString title, QString informative="", QString details="");

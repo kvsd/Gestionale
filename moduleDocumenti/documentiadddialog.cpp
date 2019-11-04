@@ -82,6 +82,7 @@ void DocumentiAddDialog::save()
     qDebug() << "DocumentiAddDialog::save()";
     //Documenti
     QSqlDatabase db = QSqlDatabase::database();
+    db.transaction();
     prepareMap(m_docMap, int(modelCols::id));
     m_docMap[":years"] = ui->dateLE->date().toString("yyyy");
 
