@@ -1,9 +1,9 @@
-DROP TABLE documenti_iva;
-DROP TABLE documenti_det;
-DROP TABLE documenti;
+DROP TABLE IF EXISTS documenti_iva;
+DROP TABLE IF EXISTS documenti_det;
+DROP TABLE IF EXISTS documenti;
 
-DROP SEQUENCE fatt_seq;
-DROP SEQUENCE ddt_seq;
+DROP SEQUENCE IF EXISTS fatt_seq;
+DROP SEQUENCE IF EXISTS ddt_seq;
 
 CREATE SEQUENCE fatt_seq;
 CREATE SEQUENCE ddt_seq;
