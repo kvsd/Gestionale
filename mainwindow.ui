@@ -162,7 +162,7 @@
      <x>0</x>
      <y>0</y>
      <width>501</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatabase">
@@ -170,6 +170,7 @@
      <string>&amp;Database</string>
     </property>
     <addaction name="actionLogin"/>
+    <addaction name="actionBackup"/>
     <addaction name="actionSetup_Connection"/>
     <addaction name="actionSetup_Table"/>
     <addaction name="actionConfigura_Azienda"/>
@@ -200,6 +201,11 @@
   <action name="actionConfigura_Utenti">
    <property name="text">
     <string>Configura &amp;Utenti</string>
+   </property>
+  </action>
+  <action name="actionBackup">
+   <property name="text">
+    <string>&amp;Backup</string>
    </property>
   </action>
  </widget>

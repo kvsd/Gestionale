@@ -11,10 +11,10 @@ MainWindow::MainWindow(QWidget *parent) :
     diplayInfo();
 
     this->setGeometry(settings.value("MainWindow.size", QRect(0, 0, 500, 350)).toRect());
-    anagraficaMW = 0;
-    magazzinoMW = 0;
-    primaNotaMW = 0;
-    documentiMW = 0;
+    anagraficaMW = nullptr;
+    magazzinoMW = nullptr;
+    primaNotaMW = nullptr;
+    documentiMW = nullptr;
 }
 
 MainWindow::~MainWindow()
@@ -105,7 +105,7 @@ void MainWindow::launchAgentiViewDlg(void)
 void MainWindow::launchAnagraficaDlg(void)
 {
     qDebug() << "MainWindow::launchAnagraficaDlg()";
-    if (anagraficaMW == 0)
+    if (anagraficaMW == nullptr)
         anagraficaMW = new AnagraficaWindow(this);
 
     this->hide();
@@ -123,7 +123,7 @@ void MainWindow::launchAziendaDlg(void)
 void MainWindow::launchMagazzinoDlg(void)
 {
     qDebug() << "MainWindow::launchMagazzinoDlg()";
-    if (magazzinoMW == 0)
+    if (magazzinoMW == nullptr)
         magazzinoMW = new MagazzinoWindow(this);
 
     this->hide();
@@ -135,7 +135,7 @@ void MainWindow::launchPrimaNotaDlg(void)
 {
     qDebug() << "MainWindow::launchPrimaNotaDlg()";
 
-    if (primaNotaMW == 0)
+    if (primaNotaMW == nullptr)
         primaNotaMW = new PrimaNotaWindow(this);
 
     this->hide();
@@ -164,10 +164,56 @@ void MainWindow::launchUserDlg(void)
 void MainWindow::launchDocumentiDlg(void)
 {
     qDebug() << "MainWindow::launchDocumentiDlg()";
-    if (documentiMW == 0)
+    if (documentiMW == nullptr)
         documentiMW = new DocumentiWindow(this);
 
     this->hide();
     documentiMW->move(this->pos());
     documentiMW->show();
+}
+
+void MainWindow::on_actionBackup_triggered()
+{
+    qDebug() << "on_actionBackup_triggered()";    
+    QString password = QInputDialog::getText(this, "Password utente", "Password utente:", QLineEdit::Password);
+
+    QString backupFile = QFileDialog::getSaveFileName(this, "Backup Database", QString("Backup_")+QDate::currentDate().toString("yyyyddMM"), "");
+    if (backupFile.isEmpty())
+        return;
+
+    QString dbname = db.databaseName();
+    QString hostname = db.hostName();
+    QString dbport = QString::number(db.port());
+    QString username = db.userName();
+
+    //Creo il file pgpass per accedere temporaneamente senza password
+    QString pgpassFilename = QDir::homePath() + "/.pgpass";
+    QFile file(pgpassFilename);
+    file.open(QFile::WriteOnly);
+    QTextStream stream(&file);
+    stream << hostname << ":" << dbport << ":" << dbname << ":"
+           << username << ":" << password;
+    file.close();
+    file.setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner);
+
+    QProcess pg_dump;
+    pg_dump.setProgram("pg_dump");
+    pg_dump.setArguments({"--dbname", dbname, "--host", hostname,
+                        "--port", dbport, "--username", username,
+                        "--file", backupFile});
+    pg_dump.start();
+    pg_dump.waitForFinished(100);
+
+    QString error = pg_dump.readAllStandardError();
+    if (!error.isEmpty()) {
+        showDialogError(this, ERR015, MSG036, error);
+        pg_dump.close();
+        return;
+    }
+
+    if (QDir().exists(backupFile))
+        showDialogInfo(this, "info", "File di backup creato");
+
+    pg_dump.close();
+    QDir().remove(pgpassFilename);
 }
