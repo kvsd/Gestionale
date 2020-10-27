@@ -20,7 +20,6 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QDebug>
-#include <QProcess>
 #include <QDir>
 
 namespace Ui {
@@ -43,7 +42,7 @@ private:
     MagazzinoWindow *magazzinoMW;
     PrimaNotaWindow *primaNotaMW;
     DocumentiWindow *documentiMW;
-    //QProcess *pg_dump;
+
     void diplayInfo(void);
     void setEnabledControl(bool value);
 
@@ -61,7 +60,6 @@ private slots:
     void launchPrimaNotaDlg(void);
     void launchUserDlg(void);
     void launchDocumentiDlg(void);
-    void on_actionBackup_triggered();
 };
 
 #endif // MAINWINDOW_H

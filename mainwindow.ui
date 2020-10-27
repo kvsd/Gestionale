@@ -170,7 +170,6 @@
      <string>&amp;Database</string>
     </property>
     <addaction name="actionLogin"/>
-    <addaction name="actionBackup"/>
     <addaction name="actionSetup_Connection"/>
     <addaction name="actionSetup_Table"/>
     <addaction name="actionConfigura_Azienda"/>
@@ -190,7 +189,7 @@
   </action>
   <action name="actionSetup_Table">
    <property name="text">
-    <string>C&amp;onfigura Tabelle</string>
+    <string>Configura &amp;Tabelle</string>
    </property>
   </action>
   <action name="actionConfigura_Azienda">
