@@ -62,7 +62,6 @@ public slots:
     void calculatePrezzoAcquisto(void);
     void updatePrezzoAcquisto(void);
     void updateIva(void);
-    void updatePrezzi(void);
     void save(void);
     void openAddMarca();
     void openAddCategoria();

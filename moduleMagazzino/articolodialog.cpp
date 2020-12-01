@@ -85,35 +85,48 @@ void ArticoloDialog::setValue(QString id)
     query.first();
 
     for (auto *le : findChildren<QLineEdit *>()) {
+        le->blockSignals(true);
         QString colName = le->property(m_property).toString();
         if (colName.isEmpty())
             continue;
         QString value = query.value(colName).toString();
         le->setText(value);
+        le->blockSignals(false);
     }
 
     for (auto *cb : findChildren<QComboBox *>()) {
+        cb->blockSignals(true);
         QString colName = cb->property(m_property).toString();
         if (colName.isEmpty())
             continue;
         QString value = query.value(colName).toString();
         setValueCB(cb, value, int(modelCols::id));
+        cb->blockSignals(false);
     }
 
     ui->noteTE->setText(query.value(coldb::NOTE).toString());
 
     m_articoloMap[ph::ID] = id;
 
-    setMoney(ui->prezzoAcquistoLE);
-    setMoney(ui->prezzoVendita1LE);
-    setMoney(ui->prezzoVendita2LE);
+    for (auto *le : {ui->prezzoFatturaLE,
+                     ui->prezzoAcquistoLE,
+                     ui->prezzoVendita1LE,
+                     ui->prezzoVendita2LE,
+                     ui->imponibileLE,
+                     ui->ivaLE,
+                     ui->prezzoFinitoLE}) {
+        setMoney(le);
+    }
 
-    if (ui->prezzoFatturaLE->text() == "0") {
+    if (QString::number(stringToDouble(ui->prezzoFatturaLE->text()))
+            == QString::number(0.0)) {
         ui->prezzoFatturaLE->clear();
         ui->scontoLE->clear();
     }
-    else
-        setMoney(ui->prezzoFatturaLE);
+
+    //Carica la data
+    QDate data = query.value(coldb::DATA_ARRIVO).toDate();
+    ui->dataLE->setDate(data);
 }
 
 void ArticoloDialog::setFornitore(QString str)
@@ -314,7 +327,7 @@ void ArticoloDialog::updatePrezzoAcquisto(void)
 
 void ArticoloDialog::updateIva(void)
 {
-    qDebug() << "ArticoloDialog::updateIva()";
+    qDebug() << sender()->objectName() << "ArticoloDialog::updateIva()";
     if (ui->prezzoAcquistoLE->text().isEmpty() || ui->ricaricoLE->text().isEmpty())
         return;
 
@@ -334,15 +347,6 @@ void ArticoloDialog::updateIva(void)
         ui->prezzoVendita1LE->setText(locale().toCurrencyString(prezzo_finito));
     if (ui->prezzoVendita2LE->text().isEmpty())
         ui->prezzoVendita2LE->setText(locale().toCurrencyString(prezzo_finito));
-}
-
-void ArticoloDialog::updatePrezzi(void)
-{
-    qDebug() << "ArticoloDialog::updatePrezzi()";
-    QLineEdit *le = qobject_cast<QLineEdit *>(sender());
-    if (le->text().isEmpty())
-        return;
-    setMoney(le);
 }
 
 void ArticoloDialog::openAddMarca()

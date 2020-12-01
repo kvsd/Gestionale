@@ -41,7 +41,7 @@
             <x>0</x>
             <y>0</y>
             <width>736</width>
-            <height>342</height>
+            <height>334</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -229,7 +229,7 @@
             <x>0</x>
             <y>0</y>
             <width>722</width>
-            <height>369</height>
+            <height>417</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
@@ -539,7 +539,7 @@
             <x>0</x>
             <y>0</y>
             <width>736</width>
-            <height>342</height>
+            <height>334</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -890,38 +890,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>prezzoFinitoLE</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzi()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>246</x>
-     <y>369</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>388</x>
-     <y>207</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prezzoVendita1LE</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzi()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>246</x>
-     <y>398</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>388</x>
-     <y>207</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>ricaricoLE</sender>
    <signal>editingFinished()</signal>
    <receiver>ArticoloDialog</receiver>
@@ -946,22 +914,6 @@
     <hint type="sourcelabel">
      <x>732</x>
      <y>298</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>388</x>
-     <y>219</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prezzoVendita2LE</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ArticoloDialog</receiver>
-   <slot>updatePrezzi()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>583</x>
-     <y>398</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
