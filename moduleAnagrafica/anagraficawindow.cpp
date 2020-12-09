@@ -270,6 +270,10 @@ void AnagraficaWindow::updateViewAnagrafica(void)
 
     QString query = test.join(" AND ");
     query.append(anagrafica::ORDER_CLAUSE);
+    if (filter2.isEmpty())
+        //Se il selettore per tipo anagrafica non e' selezionato
+        //non mostro risultati
+        query.append(" LIMIT 0");
     m_anagraficaModel->setQuery(query);
     ui->anagraficaView->resizeColumnsToContents();
     ui->anagraficaView->horizontalHeader()->setStretchLastSection(true);
