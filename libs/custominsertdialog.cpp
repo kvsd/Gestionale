@@ -8,6 +8,44 @@ CustomInsertDialog::CustomInsertDialog(QWidget *parent)
 
 }
 
+void CustomInsertDialog::setValueLineEdit(const QSqlQuery &query, bool blockSignals)
+{
+    /*Compila tutte le QLineEdit che hanno la proprieta' m_property che
+    **corrisponde a una colonna della query passata come argomento.
+    **E' possibile bloccare la generazione delle QLineEdit specificando
+    **l'argomento blockSignals(default true)*/
+    qDebug() << objectName() + "::setValueLineEdit() *";
+
+    for (auto *le : findChildren<QLineEdit *>()) {
+        if (blockSignals) le->blockSignals(true);
+        QString colName = le->property(m_property).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = query.value(colName).toString();
+        le->setText(value);
+        if (blockSignals) le->blockSignals(false);
+    }
+}
+
+void CustomInsertDialog::setValueComboBox(const QSqlQuery &query, bool blockSignals)
+{
+    /*Imposta tutti i QComboBox che hanno la proprieta' m_property che
+    **corrisponde a una colonna della query passata come argomento.
+    **E' possibile bloccare la generazione delle QLineEdit specificando
+    **l'argomento blockSignals(default true)*/
+    qDebug() << objectName() + "::setValueComboBox() *";
+
+    for (auto *cb : findChildren<QComboBox *>()) {
+        if (blockSignals) cb->blockSignals(true);
+        QString colName = cb->property(m_property).toString();
+        if (colName.isEmpty())
+            continue;
+        QString value = query.value(colName).toString();
+        setValueCB(cb, value, int(modelCols::id));
+        if (blockSignals) cb->blockSignals(false);
+    }
+}
+
 void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
 {
     qDebug() << objectName() + "::prepareMap() *";

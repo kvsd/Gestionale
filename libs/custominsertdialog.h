@@ -11,15 +11,18 @@
 #include <QTextEdit>
 #include <QDateEdit>
 #include <QRadioButton>
+#include <QSqlQuery>
 
 #include "libs/error.h"
 #include "gestionale_const.h"
+#include "libs/simpledialogs.h"
+#include "libs/utils.h"
 
 class CustomInsertDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit CustomInsertDialog(QWidget *parent = 0);
+    explicit CustomInsertDialog(QWidget *parent = nullptr);
     QString getId(void){return m_id;}
 
 protected:
@@ -28,6 +31,8 @@ protected:
     virtual void initForm(void) = 0;
     virtual void initComboBox(void) = 0;
     virtual void setValue(QString id="0") = 0;
+    void setValueLineEdit(const QSqlQuery &query, bool blockSignals=true);
+    void setValueComboBox(const QSqlQuery &query, bool blockSignals=true);
     void setId(QString id){m_id=id;}
     void prepareMap(QMap<QString, QString> &map, int colId=0);
     //QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol=0);
