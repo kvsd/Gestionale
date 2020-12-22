@@ -84,27 +84,9 @@ void ArticoloDialog::setValue(QString id)
 
     query.first();
 
-    for (auto *le : findChildren<QLineEdit *>()) {
-        le->blockSignals(true);
-        QString colName = le->property(m_property).toString();
-        if (colName.isEmpty())
-            continue;
-        QString value = query.value(colName).toString();
-        le->setText(value);
-        le->blockSignals(false);
-    }
-
-    for (auto *cb : findChildren<QComboBox *>()) {
-        cb->blockSignals(true);
-        QString colName = cb->property(m_property).toString();
-        if (colName.isEmpty())
-            continue;
-        QString value = query.value(colName).toString();
-        setValueCB(cb, value, int(modelCols::id));
-        cb->blockSignals(false);
-    }
-
-    ui->noteTE->setText(query.value(coldb::NOTE).toString());
+    setValueLineEdit(query);
+    setValueComboBox(query);
+    setValueTextEdit(query);
 
     m_articoloMap[ph::ID] = id;
 
@@ -118,15 +100,11 @@ void ArticoloDialog::setValue(QString id)
         setMoney(le);
     }
 
-    if (QString::number(stringToDouble(ui->prezzoFatturaLE->text()))
-            == QString::number(0.0)) {
+    QString prezzoFattura = QString::number(stringToDouble(ui->prezzoFatturaLE->text()));
+    if (prezzoFattura == QString::number(0.0)) {
         ui->prezzoFatturaLE->clear();
         ui->scontoLE->clear();
     }
-
-    //Carica la data
-    QDate data = query.value(coldb::DATA_ARRIVO).toDate();
-    ui->dataLE->setDate(data);
 }
 
 void ArticoloDialog::setFornitore(QString str)

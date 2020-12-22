@@ -27,9 +27,8 @@ class ArticoloDialog : public CustomInsertDialog
     Q_OBJECT
 
 public:
-    explicit ArticoloDialog(QWidget *parent = 0);
+    explicit ArticoloDialog(QWidget *parent = nullptr);
     ~ArticoloDialog();
-    //void setValue(QString id, bool update=true);
     void setValue(QString id);
     void setFornitore(QString str);
     void setCategoria(QString str);
