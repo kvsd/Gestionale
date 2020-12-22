@@ -33,6 +33,8 @@ protected:
     virtual void setValue(QString id="0") = 0;
     void setValueLineEdit(const QSqlQuery &query, bool blockSignals=true);
     void setValueComboBox(const QSqlQuery &query, bool blockSignals=true);
+    void setValueRadioBtn(const QSqlQuery &query, bool blockSignals=true);
+    void setValueTextEdit(const QSqlQuery &query, bool blockSignals=true);
     void setId(QString id){m_id=id;}
     void prepareMap(QMap<QString, QString> &map, int colId=0);
     //QSqlTableModel * setupComboBox(QString tablename, QComboBox *cb, int viewCol=0);
