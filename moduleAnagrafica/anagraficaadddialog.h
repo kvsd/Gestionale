@@ -25,7 +25,7 @@ class AnagraficaAddDialog : public CustomInsertDialog
     Q_OBJECT
     
 public:
-    explicit AnagraficaAddDialog(QWidget *parent = 0);
+    explicit AnagraficaAddDialog(QWidget *parent = nullptr);
     ~AnagraficaAddDialog();
     void setValue(QString id);
 
@@ -41,8 +41,8 @@ private:
     QSqlTableModel *m_modelAgente;
     QSqlTableModel *m_modelTrasmissione;
 
-    void initForm(void);     //new
-    void initComboBox(void); //new
+    void initForm(void);
+    void initComboBox(void);
     QSqlQuery prepareQuery(void);
     bool checkValues(void);
 

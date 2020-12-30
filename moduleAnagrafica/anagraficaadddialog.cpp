@@ -70,31 +70,11 @@ void AnagraficaAddDialog::setValue(QString id)
     query.exec();
     query.first();
 
-    for (auto *le : findChildren<QLineEdit *>()) {
-        QString colName = le->property(m_property).toString();
-        QString value = query.value(colName).toString(); 
-        le->setText(value);
-    }
+    setValueLineEdit(query);
+    setValueComboBox(query);
+    setValueRadioBtn(query, false);
+    setValueTextEdit(query);
 
-    for (auto *cb : findChildren<QComboBox *>()) {
-        QString colName = cb->property(m_property).toString();
-        QString value = query.value(colName).toString();
-        cb->blockSignals(true);
-        setValueCB(cb, value, int(modelCols::id));
-        cb->blockSignals(false);
-    }
-
-    for (auto *rb : findChildren<QRadioButton *>()) {
-        QString colName = rb->property(m_property).toString();
-        bool value = query.value(colName).toBool();
-        if (value) {
-            rb->setChecked(value);
-            rb->click();
-        }
-    }
-
-    ui->destMerceTE->setText(query.value(coldb::DESTINAZIONE_MERCE).toString());
-    ui->noteTE->setText(query.value(coldb::NOTE).toString());
     if (ui->trasmissioneCB->currentText() == "PEC") {
         ui->codSdiLE->setVisible(false);
         ui->codSdiLb->setVisible(false);
