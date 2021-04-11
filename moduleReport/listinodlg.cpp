@@ -8,7 +8,7 @@ ListinoDlg::ListinoDlg(QWidget *parent) :
     qDebug() << "ListinoDlg::ListinoDlg()";
     ui->setupUi(this);
     m_printer = new QPrinter(QPrinter::HighResolution);
-    QMargins margin(3.53, 3.53, 3.53, 3.53);
+    QMarginsF margin(3.53, 3.53, 3.53, 3.53);
     m_printer->setPageMargins(margin, QPageLayout::Millimeter);
     m_printer->setOutputFileName("./listino.pdf");
     initFornitoreCb();
@@ -79,7 +79,7 @@ void ListinoDlg::draw()
     qDebug() << "ListinoDlg::draw()";
     m_painter = new QPainter(m_printer);
     QString fornitore = ui->fornitoreCb->currentText();
-    QString data = QDate::currentDate().toString("dd/MM/yyyy");
+    QString data = QDate::currentDate().toString(DATA_FORMAT);
     QString title = QString("Listino di %1 del %2").arg(fornitore, data);
     QString query = configQuery(fornitore);
 

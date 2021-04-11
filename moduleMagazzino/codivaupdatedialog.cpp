@@ -66,7 +66,7 @@ void codIvaUpdateDialog::updateIva(void)
     query.exec();
     while (query.next()) {
         QString id = query.value(coldb::ID).toString();
-        QString data = QDate::currentDate().toString("dd/MM/yyyy");
+        QString data = QDate::currentDate().toString(DATA_FORMAT);
         QString quantita = query.value(coldb::QUANTITA).toString();
         QString prezzo_fattura = query.value(coldb::PREZZO_FATTURA).toString();
         QString sconto = query.value(coldb::SCONTO_FORNITORE).toString();

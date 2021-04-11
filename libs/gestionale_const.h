@@ -203,4 +203,6 @@ namespace css {
     const QString warning_rb = "QRadioButton {background-color:yellow}";
 }
 
+const QString DATA_FORMAT = "dd/MM/yyyy";
+
 #endif // GESTIONALE_CONST_H

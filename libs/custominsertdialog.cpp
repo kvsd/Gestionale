@@ -129,7 +129,7 @@ void CustomInsertDialog::prepareMap(QMap<QString, QString> &map, int colId)
         QString colName = dtle->property(m_property).toString();
         if (colName.isEmpty())
             continue;
-        QString value = dtle->date().toString("dd/MM/yyyy");
+        QString value = dtle->date().toString(DATA_FORMAT);
         map[':'+colName] = value;
     }
 
