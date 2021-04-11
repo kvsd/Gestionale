@@ -97,16 +97,16 @@ void OptionsDialog::setColumnColor(QModelIndex index)
     auto buttons = qApp->mouseButtons();
     QListWidgetItem *col;
     QListWidget *list = qobject_cast<QListWidget *>(sender());
-    if (list!=NULL) {
+    if (list!=nullptr) {
         col = list->item(index.row());
         if (buttons == Qt::RightButton)
-            col->setBackgroundColor(Qt::transparent);
+            col->setBackground(Qt::transparent);
         else {
             QColorDialog dlg(this);
             bool ok = dlg.exec();
             if (ok) {
                 QColor color = dlg.selectedColor();
-                col->setBackgroundColor(color);
+                col->setBackground(color);
             }
         }
         list->clearSelection();
